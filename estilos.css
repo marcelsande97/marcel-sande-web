@@ -18,7 +18,7 @@
   --acento-texto: #ffffff;    /* texto encima del acento */
   --hero-inicio: #e6e8ff;     /* degradado del hero: ultramar muy claro... */
   --hero-fin: #f7f7fa;        /* ...que se funde con un gris casi blanco */
-  --hueco-foto: #ececf0;      /* fondo gris mientras no haya foto */
+  --hueco-foto: #ececf0;      /* fondo gris mientras carga la foto */
 
   --fuente: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
   --ancho-max: 1280px;        /* ancho máximo del contenido */
@@ -189,8 +189,6 @@ img { max-width: 100%; }
 .hero-imagen {
   margin: 0;
   background: var(--hueco-foto);
-  display: grid;
-  place-items: center;                   /* centra el aviso provisional */
 }
 .hero-imagen img {
   width: 100%;
@@ -198,7 +196,6 @@ img { max-width: 100%; }
   object-fit: cover;                     /* recorta en vez de estirar */
   display: block;
 }
-.hero-imagen-aviso { color: var(--tinta-suave); font-size: 15px; margin: 0; padding: 24px; }
 
 /* En móvil: una columna, primero el texto y debajo la foto */
 @media (max-width: 760px) {
