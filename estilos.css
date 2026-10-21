@@ -369,6 +369,30 @@ img { max-width: 100%; }
 .precio .duracion { color: var(--tinta-suave); margin: 0 0 32px; }
 .precio p { margin: 0 0 16px; }
 .precio .boton { margin-top: 24px; }
+
+/* Solo en móvil: las tres opciones en fila, una al lado de la otra.
+   Se deslizan con el dedo y cada tarjeta "encaja" al soltar (scroll-snap).
+   Cada una mide el 78 % del ancho para que asome la siguiente */
+@media (max-width: 760px) {
+  .precios {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;                    /* scroll horizontal */
+    scroll-snap-type: x mandatory;       /* encaje al soltar */
+    /* La fila llega hasta el borde de la pantalla, pero la primera
+       tarjeta sigue alineada con el resto del texto */
+    margin-left: calc(var(--margen) * -1);
+    margin-right: calc(var(--margen) * -1);
+    padding: 0 var(--margen) 16px;
+    scroll-padding-left: var(--margen);
+  }
+  .precio {
+    flex: 0 0 78%;
+    scroll-snap-align: start;
+  }
+  .precio .cifra { font-size: 40px; margin-top: 16px; }
+  .precio .duracion { margin-bottom: 20px; }
+}
 .seccion > p.aviso-reserva {
   margin: 56px 0 0;
   color: var(--tinta-suave);
