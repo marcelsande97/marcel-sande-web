@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<!--
+  PÁGINA DE TRATAMIENTO: HIGIENE FACIAL
+  ---------------------------------------
+  Un archivo HTML tiene dos partes:
+  1. <head>: información para el navegador (título, tipografías, estilos). No se ve.
+  2. <body>: el contenido visible, ordenado de arriba abajo.
+  Los estilos (CSS) van dentro de <style>. Cambia cosas y recarga para ver qué pasa.
+-->
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <!-- Hace que la web se adapte al ancho del móvil -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Higiene facial · Marcel Sandé, facialista en Barcelona</title>
+  <!-- Lo que aparece en Google bajo el título -->
+  <meta name="description" content="Higiene facial sin pasos de relleno: cada paso tiene una función justificada. Facialista en Barcelona.">
+
+  <!-- Tipografía desde Google Fonts. Instrument Sans es una grotesca limpia -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wdth,wght@0,75..100,400..700;1,75..100,400..700&display=swap" rel="stylesheet">
+
+  <style>
+    /* =========================================================
+       1. VARIABLES (TOKENS)
+       Aquí defines los colores y medidas UNA vez y los reutilizas.
+       Si cambias --acento, cambia en toda la web.
+       ========================================================= */
+    :root {
+      --fondo: #ffffff;
+      --tinta: #000000;           /* texto principal */
+      --tinta-suave: #5c5c66;     /* texto secundario */
+      --linea: #d9d9de;           /* separadores */
+      --acento: #2a35ff;          /* ultramar: SOLO para lo que se puede pulsar */
+      --acento-texto: #ffffff;    /* texto encima del acento */
+
+      --fuente: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+      --ancho-max: 1280px;        /* ancho máximo del contenido */
+      --margen: clamp(20px, 5vw, 64px); /* margen lateral que crece con la pantalla */
+
+      color-scheme: light;
+      box-sizing: border-box;
+      /* Deja sitio a la barra de estado del móvil (iPhone con notch) */
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    /* Modo oscuro: mismos nombres, otros valores */
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --fondo: #0a0a12;
+        --tinta: #f2f2f5;
+        --tinta-suave: #a3a3b0;
+        --linea: #2c2c38;
+        --acento: #7c84ff;
+        --acento-texto: #0a0a12;
+        color-scheme: dark;
+      }
+    }
+    :root[data-theme="dark"] {
+      --fondo: #0a0a12;
+      --tinta: #f2f2f5;
+      --tinta-suave: #a3a3b0;
+      --linea: #2c2c38;
+      --acento: #7c84ff;
+      --acento-texto: #0a0a12;
+      color-scheme: dark;
+    }
+
+    /* =========================================================
+       2. BASE
+       ========================================================= */
+    *, *::before, *::after { box-sizing: inherit; }
+
+    html { scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 90px); }
+
+    body {
+      margin: 0;
+      background: var(--fondo);
+      color: var(--tinta);
+      font-family: var(--fuente);
+      font-size: 18px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Tapa la zona de la barra de estado con el color del header */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0 0 auto;
+      height: env(safe-area-inset-top, 0px);
+      background: var(--fondo);
+      z-index: 10;
+    }
+
+    a { color: inherit; }
+    img { max-width: 100%; }
+
+    /* Contenedor: centra el contenido y le pone márgenes laterales */
+    .contenedor {
+      max-width: var(--ancho-max);
+      margin: 0 auto;
+      padding-left: var(--margen);
+      padding-right: var(--margen);
+    }
+
+    /* Foco visible para quien navega con teclado (accesibilidad) */
+    :focus-visible {
+      outline: 2px solid var(--acento);
+      outline-offset: 3px;
+    }
+
+    /* =========================================================
+       3. BOTÓN
+       Una sola clase para todos los botones de reserva.
+       ========================================================= */
+    .boton {
+      display: inline-block;
+      background: var(--acento);
+      color: var(--acento-texto);
+      text-decoration: none;
+      font-size: 17px;
+      font-weight: 500;
+      padding: 16px 30px;
+      border-radius: 999px;      /* 999px = pastilla redonda */
+      transition: transform 0.15s ease;
+    }
+    .boton:hover { transform: translateY(-2px); }
+
+    /* =========================================================
+       4. CABECERA (se queda fija arriba al hacer scroll)
+       ========================================================= */
+    .cabecera {
+      position: sticky;
+      top: env(safe-area-inset-top, 0px);
+      background: var(--fondo);
+      z-index: 5;
+    }
+    .cabecera .contenedor {
+      display: flex;                 /* pone los elementos en fila */
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      height: 84px;
+    }
+    .logo {
+      font-size: 24px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      text-decoration: none;
+    }
+    .menu {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .menu a { text-decoration: none; font-size: 16px; }
+    .menu a:hover { text-decoration: underline; text-underline-offset: 4px; }
+    .cabecera .boton { padding: 11px 22px; font-size: 16px; }
+
+    /* En móvil escondemos el menú y dejamos logo + reservar */
+    @media (max-width: 760px) {
+      .menu li:not(:last-child) { display: none; }
+    }
+
+    /* =========================================================
+       5. CABECERA DEL TRATAMIENTO (hero)
+       ========================================================= */
+    .hero { padding-top: clamp(48px, 9vw, 120px); padding-bottom: 72px; }
+
+    .hero h1 {
+      font-size: 18px;
+      font-weight: 500;
+      margin: 0 0 28px;
+      color: var(--tinta-suave);
+    }
+
+    /* La frase grande */
+    .declaracion {
+      font-size: clamp(30px, 4.4vw, 58px);   /* clamp(mínimo, ideal, máximo) */
+      line-height: 1.12;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      max-width: 22ch;                       /* ch = ancho de un carácter */
+      margin: 0 0 44px;
+      text-wrap: balance;
+    }
+
+    /* Datos rápidos: precio y duración */
+    .datos {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px 56px;
+      margin: 56px 0 0;
+      padding-top: 24px;
+      border-top: 1px solid var(--linea);
+    }
+    .datos div { margin: 0; }
+    .datos dt { color: var(--tinta-suave); font-size: 15px; }
+    .datos dd { margin: 2px 0 0; font-size: 20px; }
+
+    /* =========================================================
+       6. SECCIONES GENERALES
+       ========================================================= */
+    .seccion { padding-top: 72px; padding-bottom: 72px; }
+    .seccion h2 {
+      font-size: clamp(26px, 2.6vw, 34px);
+      font-weight: 400;
+      letter-spacing: -0.015em;
+      margin: 0 0 40px;
+    }
+    .seccion > p { max-width: 60ch; margin: 0; }
+
+    /* Pasos: usan los mismos desplegables de más abajo,
+       con el número dentro de un círculo para marcar el orden */
+    .paso-titulo { display: flex; align-items: center; gap: 16px; }
+    .num {
+      flex: none;
+      display: inline-grid;
+      place-items: center;     /* centra el número dentro del círculo */
+      width: 34px;
+      height: 34px;
+      border: 1px solid currentColor;
+      border-radius: 50%;      /* 50% = círculo */
+      font-size: 15px;
+      font-variant-numeric: tabular-nums;
+    }
+    .pasos .respuesta { padding-left: 54px; }  /* alinea el texto con el título, no con el círculo */
+
+    .seccion > p.nota {
+      margin: 48px 0 0;
+      color: var(--tinta-suave);
+    }
+
+    /* La palabra "no" del título en color de acento */
+    .acento { color: var(--acento); }
+
+    /* =========================================================
+       7. DESPLEGABLES (acordeón)
+       <details> y <summary> son HTML nativo: se abren sin JavaScript.
+       ========================================================= */
+    .acordeon {
+      display: grid;
+      grid-template-columns: 1fr;
+      column-gap: 48px;
+      align-items: start;
+    }
+    @media (min-width: 860px) {
+      .acordeon { grid-template-columns: 1fr 1fr; }   /* dos columnas en ordenador */
+    }
+    .acordeon details { border-top: 1px solid var(--linea); }
+    .acordeon details:last-child,
+    .acordeon details:nth-last-child(2) { border-bottom: 1px solid var(--linea); }
+    @media (max-width: 859px) {
+      .acordeon details:nth-last-child(2) { border-bottom: 0; }
+    }
+
+    .acordeon summary {
+      list-style: none;          /* quita el triangulito por defecto */
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 26px 4px;
+      font-size: 20px;
+    }
+    .acordeon summary::-webkit-details-marker { display: none; }
+
+    /* El símbolo +, hecho con dos líneas de CSS */
+    .acordeon summary::after {
+      content: "";
+      flex: none;
+      width: 14px;
+      height: 14px;
+      background:
+        linear-gradient(currentColor, currentColor) center / 100% 1.5px no-repeat,
+        linear-gradient(currentColor, currentColor) center / 1.5px 100% no-repeat;
+      transition: transform 0.2s ease;
+    }
+    .acordeon details[open] summary::after { transform: rotate(45deg); }  /* + se convierte en × */
+
+    .respuesta { padding: 0 4px 32px; max-width: 58ch; }
+    .respuesta p { margin: 0 0 14px; }
+    .respuesta ul { margin: 0; padding-left: 1.1em; }
+    .respuesta li { margin-bottom: 8px; }
+
+    /* =========================================================
+       8. PRECIOS
+       ========================================================= */
+    .precios {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 48px;
+    }
+    .precio { border-top: 1px solid var(--linea); padding-top: 20px; }
+    .precio.destacado { border-top: 3px solid var(--acento); }
+    .precio h3 { font-size: 21px; font-weight: 500; margin: 0; }
+    .precio .cifra {
+      font-size: 48px;
+      letter-spacing: -0.03em;
+      margin: 24px 0 12px;
+      line-height: 1;
+    }
+    .precio .duracion { color: var(--tinta-suave); margin: 0 0 32px; }
+    .precio p { margin: 0 0 16px; }
+    .precio .boton { margin-top: 24px; }
+    .seccion > p.aviso-reserva {
+      margin: 56px 0 0;
+      color: var(--tinta-suave);
+    }
+
+    /* =========================================================
+       9. PIE
+       ========================================================= */
+    .pie { padding-top: 120px; padding-bottom: 48px; }
+    .pie .cierre { margin: 0 0 96px; }
+    .pie-columnas {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 32px;
+      font-size: 15px;
+      color: var(--tinta-suave);
+    }
+    .pie-columnas p { margin: 0 0 4px; }
+    .pie-columnas a { text-decoration: none; }
+    .pie-columnas a:hover { text-decoration: underline; }
+
+    /* Si la persona tiene desactivadas las animaciones en su sistema, las respetamos */
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ===================== CABECERA ===================== -->
+  <header class="cabecera">
+    <div class="contenedor">
+      <!-- Cuando tengas logo, cambia este texto por <img src="logo.svg" alt="Marcel Sandé"> -->
+      <a class="logo" href="#">Marcel Sandé</a>
+      <nav aria-label="Principal">
+        <ul class="menu">
+          <li><a href="#">Tratamientos</a></li>
+          <li><a href="#">Facialismo</a></li>
+          <li><a href="#">Sobre mí</a></li>
+          <li><a href="#">Contacto</a></li>
+          <!-- Aquí irá el enlace real a tu motor de reservas -->
+          <li><a class="boton" href="#reservar">Reservar</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ===================== HERO ===================== -->
+    <section class="hero contenedor">
+      <h1>Higiene facial</h1>
+      <p class="declaracion">Cada paso tiene una función justificada. Lo que no suma resultados, no entra.</p>
+      <a class="boton" href="#reservar">Reservar primera visita</a>
+
+      <!-- <dl> es una lista de definiciones: término (dt) + valor (dd) -->
+      <dl class="datos">
+        <div><dt>Primera visita</dt><dd>135 € · 90 min</dd></div>
+        <div><dt>Siguientes visitas</dt><dd>90 € · 60 min</dd></div>
+        <div><dt>Recomendada</dt><dd>De 2 a 4 veces al año</dd></div>
+      </dl>
+    </section>
+
+    <!-- ===================== PASOS ===================== -->
+    <section class="seccion contenedor" aria-labelledby="titulo-pasos">
+      <h2 id="titulo-pasos">Qué hacemos y por qué</h2>
+      <div class="acordeon pasos">
+        <details>
+          <summary><span class="paso-titulo"><span class="num">1</span>Limpieza adaptada</span></summary>
+          <div class="respuesta"><p>¿Doble limpieza? ¿Limpiador con exfoliantes químicos? Cada piel necesita la suya para que el resto del tratamiento funcione mejor.</p></div>
+        </details>
+        <details>
+          <summary><span class="paso-titulo"><span class="num">2</span>Desincrustación</span></summary>
+          <div class="respuesta"><p>En lugar de vapor, un ablandador de sebo líquido en las zonas congestionadas, para que las extracciones sean más fáciles y más cómodas.</p></div>
+        </details>
+        <details>
+          <summary><span class="paso-titulo"><span class="num">3</span>Espátula ultrasónica</span></summary>
+          <div class="respuesta"><p>Con la piel mojada, ayuda a retirar restos de sebo y células superficiales de manera suave.</p></div>
+        </details>
+        <details>
+          <summary><span class="paso-titulo"><span class="num">4</span>Extracciones manuales</span></summary>
+          <div class="respuesta"><p>Solo donde hacen falta, con el Preston RxTractor®, que permite extraer con menos presión y menos marcas. Instrumental esterilizado y antiséptico antes, durante y después.</p></div>
+        </details>
+        <details>
+          <summary><span class="paso-titulo"><span class="num">5</span>Mascarilla calmante</span></summary>
+          <div class="respuesta"><p>Fría, con activos calmantes y masaje con cryo balls por encima, para reducir la rojez y devolver hidratación.</p></div>
+        </details>
+        <details>
+          <summary><span class="paso-titulo"><span class="num">6</span>Sellado y protección</span></summary>
+          <div class="respuesta"><p>Una crema elegida para tu tipo de piel, bálsamo labial y protector solar si la cita es de día.</p></div>
+        </details>
+      </div>
+      <p class="nota">A lo largo del tratamiento hay momentos dedicados a la relajación y al masaje, para completar tu experiencia en cabina.</p>
+    </section>
+
+    <!-- ===================== LO QUE NO HACEMOS ===================== -->
+    <section class="seccion contenedor" aria-labelledby="titulo-no">
+      <h2 id="titulo-no">Lo que <span class="acento">no</span> hacemos</h2>
+      <p>No acumulamos pasos que comprometan la integridad de tu piel, como el vapor, la microdermabrasión, las toallas muy calientes o las extracciones forzadas. No usamos aparatos ni productos sin una función clara y no te prometemos otra cara en una hora. Una limpieza bien hecha se nota al momento, pero se sostiene con una rutina personalizada.</p>
+    </section>
+
+    <!-- ===================== DESPLEGABLES ===================== -->
+    <section class="seccion contenedor" aria-labelledby="titulo-detalles">
+      <h2 id="titulo-detalles">Antes de venir</h2>
+      <div class="acordeon">
+
+        <details>
+          <summary>Para quién es</summary>
+          <div class="respuesta">
+            <p>Para cualquier tipo de piel, especialmente si tienes puntos negros, comedones, filamentos sebáceos o textura irregular.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Qué esperar</summary>
+          <div class="respuesta">
+            <p>Piel visiblemente más limpia, lisa y luminosa al terminar. Los poros no se pueden cerrar ni hacer desaparecer, pero vaciarlos ayuda a que se vean más pequeños.</p>
+            <p>Las zonas de extracción pueden quedar enrojecidas entre 12 y 48 horas, según la intensidad.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Cada cuánto</summary>
+          <div class="respuesta">
+            <p>Si tu piel no tiende a congestionarse y mantienes una buena rutina en casa, con 2 a 4 limpiezas al año suele ser suficiente. Si acumulas puntos negros o comedones con facilidad, en tu plan te propondremos una frecuencia mayor.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Cuándo no podemos hacerla</summary>
+          <div class="respuesta">
+            <ul>
+              <li>Tomas isotretinoína oral o la has dejado hace menos de 6 meses.</li>
+              <li>Tienes una infección activa en la cara: herpes labial, impétigo, verrugas, molusco contagioso, hongos o cualquier lesión que supure.</li>
+              <li>Tienes heridas abiertas, quemaduras (también solares recientes) o la piel muy irritada o pelada.</li>
+              <li>Tienes un brote de dermatitis, eccema, psoriasis o rosácea en la cara.</li>
+              <li>En las últimas 4 semanas te has hecho un peeling químico, láser, IPL, microneedling, radiofrecuencia, hilos tensores o cirugía en la cara.</li>
+              <li>Te han infiltrado neuromoduladores o rellenos hace menos de 2 semanas.</li>
+              <li>Tienes fiebre o te encuentras mal.</li>
+              <li>Tienes alergia a algún ingrediente del protocolo (si la necesitas, te pasamos la lista completa).</li>
+              <li>Estás en tratamiento oncológico y no tienes el visto bueno de tu médico.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>Cuándo la adaptamos</summary>
+          <div class="respuesta">
+            <ul>
+              <li>Embarazo, marcapasos u otro dispositivo implantado, implantes metálicos en la cara o epilepsia: sin espátula ultrasónica.</li>
+              <li>Anticoagulantes: extracciones mínimas.</li>
+              <li>Diabetes o tendencia a cicatrices queloides: extracciones mínimas y sin lanceta.</li>
+              <li>Rosácea o piel muy reactiva, sin brote: sin ablandador y sin espátula.</li>
+              <li>Retinoides o exfoliantes ácidos en casa: te pediremos que los dejes unos días antes.</li>
+              <li>Urticaria por frío o síndrome de Raynaud: sin frío.</li>
+              <li>Herpes labial recurrente: evitamos la zona de los labios.</li>
+              <li>Alergia a la aspirina: sin ácido salicílico.</li>
+              <li>Reacción a los perfumes: sin productos con fragancia.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details>
+          <summary>Lo que usamos</summary>
+          <div class="respuesta">
+            <p>Priorizamos fórmulas con ingredientes y porcentajes declarados, de marcas como Geek &amp; Gorgeous o Transparent Lab. Si quieres saber qué usamos en cada paso, te lo contamos.</p>
+            <p>Algunos productos llevan fragancia: si tu piel reacciona a los perfumes, avísanos y adaptamos el protocolo.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Cuándo te derivamos</summary>
+          <div class="respuesta">
+            <p>Si vemos algo que necesita la valoración de un dermatólogo (una mancha nueva o que cambia, un acné muy inflamado que pueda necesitar tratamiento médico), te lo decimos y lo dejamos por escrito.</p>
+            <p>No diagnosticamos: cuidamos la piel desde la estética.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Reserva y cancelación</summary>
+          <div class="respuesta">
+            <p>Reservas con un pago de 20 € que se descuenta del precio final. Si cancelas con menos de 24 horas de antelación o no vienes, se pierde.</p>
+          </div>
+        </details>
+
+      </div>
+    </section>
+
+    <!-- ===================== PRECIOS ===================== -->
+    <section class="seccion contenedor" id="reservar" aria-labelledby="titulo-precios">
+      <h2 id="titulo-precios">Cómo empezar</h2>
+      <div class="precios">
+
+        <article class="precio destacado">
+          <h3>Starter Pack</h3>
+          <p class="cifra">135 €</p>
+          <p class="duracion">Primera visita · 90 min</p>
+          <p>La única forma de empezar. Una conversación a fondo sobre tu piel y tu rutina (trae tus productos o fotos de ellos), ficha, fotos de seguimiento, la higiene facial y un documento con tu nueva rutina y tu plan en cabina.</p>
+          <p>En esta primera sesión las extracciones duran como máximo 10 minutos. Si tu piel necesita más, lo planificamos en otra cita.</p>
+          <a class="boton" href="#">Reservar Starter Pack</a>
+        </article>
+
+        <article class="precio">
+          <h3>Higiene facial</h3>
+          <p class="cifra">90 €</p>
+          <p class="duracion">Siguientes visitas · 60 min</p>
+          <p>Con un repaso de cómo ha evolucionado tu piel desde la última visita y ajustes en tu rutina si hacen falta.</p>
+        </article>
+
+        <article class="precio">
+          <h3>Consulta online</h3>
+          <p class="cifra">65 €</p>
+          <p class="duracion">Videollamada</p>
+          <p>Revisamos tu rutina y montamos un plan. Si en las 8 semanas siguientes reservas tu primera higiene facial, te cuesta 70 €: el total queda igual que el Starter Pack.</p>
+        </article>
+
+      </div>
+      <p class="aviso-reserva">Todas las citas se confirman con un pago de 20 € que se descuenta del precio final.</p>
+    </section>
+
+  </main>
+
+  <!-- ===================== PIE ===================== -->
+  <footer class="pie contenedor">
+    <p class="cierre"><a class="boton" href="#">Reservar primera visita</a></p>
+    <div class="pie-columnas">
+      <div>
+        <p>Eixample, Barcelona</p>
+        <p>Solo con cita previa</p>
+      </div>
+      <div>
+        <p><a href="#">Instagram</a></p>
+        <p><a href="#">Contacto</a></p>
+      </div>
+      <div>
+        <p><a href="#">Aviso legal</a></p>
+        <p><a href="#">Privacidad</a></p>
+        <p><a href="#">Cookies</a></p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
