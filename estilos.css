@@ -16,8 +16,8 @@
   --linea: #d9d9de;           /* separadores */
   --acento: #2a35ff;          /* ultramar: SOLO para lo que se puede pulsar */
   --acento-texto: #ffffff;    /* texto encima del acento */
-  --hero-inicio: #e6e8ff;     /* degradado del hero: ultramar muy claro... */
-  --hero-fin: #f7f7fa;        /* ...que se funde con un gris casi blanco */
+  --hero-fondo: #dfe3ff;      /* bloque de color del hero: azul suave */
+  --hero-tinta: #161c8c;      /* texto del hero: ultramar oscuro (no es el de los botones) */
   --burbuja: #e3e6ff;         /* azul suave, de la familia del ultramar */
 
   --fuente: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
@@ -40,8 +40,8 @@
     --linea: #2c2c38;
     --acento: #7c84ff;
     --acento-texto: #0a0a12;
-    --hero-inicio: #191c4a;
-    --hero-fin: #0f0f1a;
+    --hero-fondo: #1b1e4d;
+    --hero-tinta: #c9ccff;
     --burbuja: #1b1e4d;
     color-scheme: dark;
   }
@@ -53,8 +53,8 @@
   --linea: #2c2c38;
   --acento: #7c84ff;
   --acento-texto: #0a0a12;
-  --hero-inicio: #191c4a;
-  --hero-fin: #0f0f1a;
+  --hero-fondo: #1b1e4d;
+  --hero-tinta: #c9ccff;
   --burbuja: #1b1e4d;
   color-scheme: dark;
 }
@@ -164,23 +164,24 @@ img { max-width: 100%; }
    ========================================================= */
 .hero { padding-bottom: 72px; }
 
-/* Banda a todo el ancho con dos columnas: texto | foto.
-   El degradado va en toda la banda para que la foto se funda con él */
+/* Díptico a todo el ancho con dos columnas iguales: bloque de color | foto */
 .hero-banda {
-  background: linear-gradient(135deg, var(--hero-inicio), var(--hero-fin));
   display: grid;
-  grid-template-columns: 1fr 1fr;        /* dos columnas iguales */
-  min-height: clamp(460px, 62vh, 640px);
+  grid-template-columns: 1fr 1fr;
+  min-height: clamp(520px, 78vh, 760px);
 }
 
-/* Columna de texto */
+/* Bloque de color sólido con el texto.
+   space-between reparte: fila de arriba, frase en medio, fila de abajo */
 .hero-texto {
+  background: var(--hero-fondo);
+  color: var(--hero-tinta);
   display: flex;
   flex-direction: column;
-  justify-content: center;               /* centra el texto en vertical */
-  align-items: flex-start;
-  padding-top: clamp(48px, 7vw, 96px);
-  padding-bottom: clamp(48px, 7vw, 96px);
+  justify-content: space-between;
+  gap: 48px;
+  padding-top: 28px;
+  padding-bottom: 28px;
   padding-right: var(--margen);
   /* En pantallas muy anchas, alinea el texto con el resto de la página */
   padding-left: max(var(--margen), calc((100vw - var(--ancho-max)) / 2 + var(--margen)));
@@ -196,37 +197,31 @@ img { max-width: 100%; }
   width: 100%;
   height: 100%;
   object-fit: cover;                     /* recorta en vez de estirar */
-  object-position: center 30%;           /* qué parte de la foto se prioriza al recortar */
+  object-position: center 40%;           /* qué parte de la foto se prioriza al recortar */
   display: block;
-  /* Máscara: el borde izquierdo de la foto se vuelve transparente poco a poco
-     y se funde con el degradado, sin corte recto. Varios pasos intermedios
-     para que la transición sea suave y no se note dónde empieza */
-  -webkit-mask-image: linear-gradient(to right,
-    transparent 0%, rgba(0,0,0,.08) 12%, rgba(0,0,0,.3) 26%,
-    rgba(0,0,0,.62) 40%, rgba(0,0,0,.88) 54%, #000 66%);
-          mask-image: linear-gradient(to right,
-    transparent 0%, rgba(0,0,0,.08) 12%, rgba(0,0,0,.3) 26%,
-    rgba(0,0,0,.62) 40%, rgba(0,0,0,.88) 54%, #000 66%);
 }
 
-/* En móvil: una columna, primero el texto y debajo la foto */
+/* Filas pequeñas de arriba y abajo del bloque: un texto a cada lado */
+.hero-margen {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 4px 24px;
+  font-size: 15px;
+}
+.hero-margen > * { margin: 0; }
+
+/* En móvil: una columna, primero el bloque de color y debajo la foto */
 @media (max-width: 760px) {
   .hero-banda { grid-template-columns: 1fr; min-height: 0; }
-  .hero-imagen { aspect-ratio: 4 / 3; }  /* foto apaisada */
-  /* En móvil la foto está debajo: se funde por arriba */
-  .hero-imagen img {
-    -webkit-mask-image: linear-gradient(to bottom,
-      transparent 0%, rgba(0,0,0,.3) 15%, rgba(0,0,0,.75) 30%, #000 45%);
-            mask-image: linear-gradient(to bottom,
-      transparent 0%, rgba(0,0,0,.3) 15%, rgba(0,0,0,.75) 30%, #000 45%);
-  }
+  .hero-texto { padding-top: 20px; padding-bottom: 20px; }
+  .hero-imagen { aspect-ratio: 1 / 1; }  /* foto cuadrada */
 }
 
+/* El título de la página va pequeño, en la fila de arriba del bloque */
 .hero h1 {
-  font-size: 18px;
+  font-size: inherit;
   font-weight: 500;
-  margin: 0 0 28px;
-  color: var(--tinta-suave);
 }
 
 /* La frase grande */
