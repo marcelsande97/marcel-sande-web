@@ -48,17 +48,29 @@
   <main>
 
     <!-- ===================== HERO ===================== -->
-    <section class="hero contenedor">
-      <h1>Higiene facial</h1>
-      <p class="declaracion">Cada paso tiene una función justificada. Lo que no suma resultados, no entra.</p>
-      <a class="boton" href="#reservar">Reservar primera visita</a>
+    <section class="hero">
+      <!-- Banda a todo el ancho: texto sobre degradado a la izquierda, foto a la derecha -->
+      <div class="hero-banda">
+        <div class="hero-texto">
+          <h1>Higiene facial</h1>
+          <p class="declaracion">Cada paso tiene una función justificada. Lo que no suma resultados, no entra.</p>
+          <a class="boton" href="#reservar">Reservar primera visita</a>
+        </div>
+        <div class="hero-imagen">
+          <!-- Cuando tengas la foto, borra el <p> de abajo y pon en su lugar:
+               <img src="img/higiene-facial.jpg" alt="Describe aquí lo que se ve en la foto"> -->
+          <p class="hero-imagen-aviso">Aquí irá la foto de higiene facial</p>
+        </div>
+      </div>
 
       <!-- <dl> es una lista de definiciones: término (dt) + valor (dd) -->
-      <dl class="datos">
-        <div><dt>Primera visita</dt><dd>135 € · 90 min</dd></div>
-        <div><dt>Siguientes visitas</dt><dd>90 € · 60 min</dd></div>
-        <div><dt>Recomendada</dt><dd>De 2 a 4 veces al año</dd></div>
-      </dl>
+      <div class="contenedor">
+        <dl class="datos">
+          <div><dt>Primera visita</dt><dd>135 € · 90 min</dd></div>
+          <div><dt>Siguientes visitas</dt><dd>90 € · 60 min</dd></div>
+          <div><dt>Recomendada</dt><dd>De 2 a 4 veces al año</dd></div>
+        </dl>
+      </div>
     </section>
 
     <!-- ===================== PASOS ===================== -->
