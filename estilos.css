@@ -292,6 +292,11 @@ img { max-width: 100%; }
   padding: clamp(36px, 6vw, 80px);       /* aire entre el texto y el borde */
 }
 .burbuja h2 { margin-bottom: 24px; color: var(--acento); }
+
+/* En ordenador la burbuja ocupa solo la mitad izquierda; la otra mitad queda en blanco */
+@media (min-width: 761px) {
+  .burbuja { width: 50%; }
+}
 .burbuja p { max-width: 60ch; margin: 0; }
 
 /* =========================================================
@@ -372,9 +377,11 @@ img { max-width: 100%; }
 /* =========================================================
    9. PIE
    ========================================================= */
-.pie { padding-top: 120px; padding-bottom: 48px; }
-.pie .cierre { margin: 0 0 96px; }
+/* Pie discreto: una línea fina y los datos básicos, sin más espacio en blanco */
 .pie-columnas {
+  border-top: 1px solid var(--linea);
+  padding-top: 24px;
+  padding-bottom: 48px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 32px;
