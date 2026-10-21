@@ -165,10 +165,10 @@ img { max-width: 100%; }
 .hero { padding-bottom: 72px; }
 
 /* Díptico a todo el ancho: bloque de color | foto.
-   7fr 5fr = el bloque se lleva 7 partes de 12 y la foto 5: la línea queda algo a la derecha */
+   13fr 11fr = el bloque se lleva 13 partes de 24 y la foto 11: la línea queda un poco a la derecha */
 .hero-banda {
   display: grid;
-  grid-template-columns: 7fr 5fr;
+  grid-template-columns: 13fr 11fr;
   min-height: clamp(520px, 78vh, 760px);
 }
 
@@ -289,9 +289,9 @@ img { max-width: 100%; }
 .burbuja {
   background: var(--burbuja);
   border-radius: 24px;
-  padding: clamp(28px, 4vw, 48px);
+  padding: clamp(36px, 6vw, 80px);       /* aire entre el texto y el borde */
 }
-.burbuja h2 { margin-bottom: 16px; }
+.burbuja h2 { margin-bottom: 24px; color: var(--acento); }
 .burbuja p { max-width: 60ch; margin: 0; }
 
 /* =========================================================
