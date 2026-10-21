@@ -18,7 +18,7 @@
   --acento-texto: #ffffff;    /* texto encima del acento */
   --hero-inicio: #e6e8ff;     /* degradado del hero: ultramar muy claro... */
   --hero-fin: #f7f7fa;        /* ...que se funde con un gris casi blanco */
-  --burbuja: rgba(0, 0, 0, 0.06); /* negro muy transparente para las burbujas */
+  --burbuja: #e3e6ff;         /* azul suave, de la familia del ultramar */
 
   --fuente: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
   --ancho-max: 1280px;        /* ancho máximo del contenido */
@@ -42,7 +42,7 @@
     --acento-texto: #0a0a12;
     --hero-inicio: #191c4a;
     --hero-fin: #0f0f1a;
-    --burbuja: rgba(255, 255, 255, 0.07);
+    --burbuja: #1b1e4d;
     color-scheme: dark;
   }
 }
@@ -55,7 +55,7 @@
   --acento-texto: #0a0a12;
   --hero-inicio: #191c4a;
   --hero-fin: #0f0f1a;
-  --burbuja: rgba(255, 255, 255, 0.07);
+  --burbuja: #1b1e4d;
   color-scheme: dark;
 }
 
@@ -286,13 +286,42 @@ img { max-width: 100%; }
   color: var(--tinta-suave);
 }
 
-/* Burbuja: rectángulo de esquinas redondeadas con fondo gris transparente.
-   La sección no lleva relleno propio: el aire lo ponen las secciones vecinas */
-.seccion-burbuja { padding-top: 0; padding-bottom: 0; }
+/* Foto + burbuja superpuestas.
+   La sección no lleva relleno propio: el aire lo ponen las secciones vecinas.
+   Usamos una rejilla de 12 columnas y ponemos foto y burbuja en la MISMA fila
+   para que se monten una encima de la otra */
+.seccion-burbuja {
+  padding-top: 0;
+  padding-bottom: 0;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  align-items: center;                   /* la burbuja queda centrada en vertical */
+}
+.burbuja-foto {
+  grid-column: 2 / 10;                   /* de la columna 2 a la 10: centrada y algo más pequeña */
+  grid-row: 1;
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+}
 .burbuja {
+  grid-column: 8 / 13;                   /* pegada al margen derecho, pisando la foto */
+  grid-row: 1;
+  position: relative;                    /* para que quede por encima de la foto */
   background: var(--burbuja);
   border-radius: 24px;
   padding: clamp(28px, 4vw, 48px);
+}
+
+/* En móvil: foto a todo el ancho y la burbuja debajo, montándose un poco */
+@media (max-width: 760px) {
+  .burbuja-foto { grid-column: 1 / -1; }
+  .burbuja {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    margin: -48px 12px 0;                /* sube 48px para pisar la foto */
+  }
 }
 .burbuja h2 { margin-bottom: 16px; }
 .burbuja p { max-width: 60ch; margin: 0; }
