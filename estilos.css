@@ -18,7 +18,6 @@
   --acento-texto: #ffffff;    /* texto encima del acento */
   --hero-inicio: #e6e8ff;     /* degradado del hero: ultramar muy claro... */
   --hero-fin: #f7f7fa;        /* ...que se funde con un gris casi blanco */
-  --hueco-foto: #ececf0;      /* fondo gris mientras carga la foto */
 
   --fuente: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
   --ancho-max: 1280px;        /* ancho máximo del contenido */
@@ -42,7 +41,6 @@
     --acento-texto: #0a0a12;
     --hero-inicio: #191c4a;
     --hero-fin: #0f0f1a;
-    --hueco-foto: #1c1c26;
     color-scheme: dark;
   }
 }
@@ -55,7 +53,6 @@
   --acento-texto: #0a0a12;
   --hero-inicio: #191c4a;
   --hero-fin: #0f0f1a;
-  --hueco-foto: #1c1c26;
   color-scheme: dark;
 }
 
@@ -164,16 +161,17 @@ img { max-width: 100%; }
    ========================================================= */
 .hero { padding-bottom: 72px; }
 
-/* Banda a todo el ancho con dos columnas: texto | foto */
+/* Banda a todo el ancho con dos columnas: texto | foto.
+   El degradado va en toda la banda para que la foto se funda con él */
 .hero-banda {
+  background: linear-gradient(135deg, var(--hero-inicio), var(--hero-fin));
   display: grid;
   grid-template-columns: 1fr 1fr;        /* dos columnas iguales */
   min-height: clamp(460px, 62vh, 640px);
 }
 
-/* Columna de texto con el degradado de fondo */
+/* Columna de texto */
 .hero-texto {
-  background: linear-gradient(135deg, var(--hero-inicio), var(--hero-fin));
   display: flex;
   flex-direction: column;
   justify-content: center;               /* centra el texto en vertical */
@@ -186,21 +184,32 @@ img { max-width: 100%; }
 }
 
 /* Columna de la foto. La foto rellena todo el hueco sin deformarse */
-.hero-imagen {
-  margin: 0;
-  background: var(--hueco-foto);
-}
+/* position: relative + absolute en la foto = la foto ocupa el hueco
+   pero no decide la altura de la banda (la decide el texto) */
+.hero-imagen { margin: 0; position: relative; }
 .hero-imagen img {
+  position: absolute;
+  inset: 0;                              /* pegada a los cuatro lados */
   width: 100%;
   height: 100%;
   object-fit: cover;                     /* recorta en vez de estirar */
+  object-position: center 45%;           /* qué parte de la foto se prioriza al recortar */
   display: block;
+  /* Máscara: el borde izquierdo de la foto se vuelve transparente poco a poco
+     y se funde con el degradado, sin corte recto */
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 40%);
+          mask-image: linear-gradient(to right, transparent, #000 40%);
 }
 
 /* En móvil: una columna, primero el texto y debajo la foto */
 @media (max-width: 760px) {
   .hero-banda { grid-template-columns: 1fr; min-height: 0; }
   .hero-imagen { aspect-ratio: 4 / 3; }  /* foto apaisada */
+  /* En móvil la foto está debajo: se funde por arriba */
+  .hero-imagen img {
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 35%);
+            mask-image: linear-gradient(to bottom, transparent, #000 35%);
+  }
 }
 
 .hero h1 {
