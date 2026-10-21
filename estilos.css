@@ -164,10 +164,11 @@ img { max-width: 100%; }
    ========================================================= */
 .hero { padding-bottom: 72px; }
 
-/* Díptico a todo el ancho con dos columnas iguales: bloque de color | foto */
+/* Díptico a todo el ancho: bloque de color | foto.
+   7fr 5fr = el bloque se lleva 7 partes de 12 y la foto 5: la línea queda algo a la derecha */
 .hero-banda {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 7fr 5fr;
   min-height: clamp(520px, 78vh, 760px);
 }
 
@@ -226,7 +227,7 @@ img { max-width: 100%; }
 
 /* La frase grande */
 .declaracion {
-  font-size: clamp(30px, 4.4vw, 58px);   /* clamp(mínimo, ideal, máximo) */
+  font-size: clamp(26px, 2.8vw, 38px);   /* clamp(mínimo, ideal, máximo) */
   line-height: 1.12;
   font-weight: 400;
   letter-spacing: -0.02em;
@@ -281,42 +282,14 @@ img { max-width: 100%; }
   color: var(--tinta-suave);
 }
 
-/* Foto + burbuja superpuestas.
-   La sección no lleva relleno propio: el aire lo ponen las secciones vecinas.
-   Usamos una rejilla de 12 columnas y ponemos foto y burbuja en la MISMA fila
-   para que se monten una encima de la otra */
-.seccion-burbuja {
-  padding-top: 0;
-  padding-bottom: 0;
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  align-items: center;                   /* la burbuja queda centrada en vertical */
-}
-.burbuja-foto {
-  grid-column: 2 / 10;                   /* de la columna 2 a la 10: centrada y algo más pequeña */
-  grid-row: 1;
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 12px;
-}
+/* Burbuja: rectángulo de esquinas redondeadas con fondo azul suave,
+   alineado con el resto del texto.
+   La sección no lleva relleno propio: el aire lo ponen las secciones vecinas */
+.seccion-burbuja { padding-top: 0; padding-bottom: 0; }
 .burbuja {
-  grid-column: 8 / 13;                   /* pegada al margen derecho, pisando la foto */
-  grid-row: 1;
-  position: relative;                    /* para que quede por encima de la foto */
   background: var(--burbuja);
   border-radius: 24px;
   padding: clamp(28px, 4vw, 48px);
-}
-
-/* En móvil: foto a todo el ancho y la burbuja debajo, montándose un poco */
-@media (max-width: 760px) {
-  .burbuja-foto { grid-column: 1 / -1; }
-  .burbuja {
-    grid-column: 1 / -1;
-    grid-row: 2;
-    margin: -48px 12px 0;                /* sube 48px para pisar la foto */
-  }
 }
 .burbuja h2 { margin-bottom: 16px; }
 .burbuja p { max-width: 60ch; margin: 0; }
