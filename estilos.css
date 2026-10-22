@@ -642,6 +642,7 @@ img { max-width: 100%; }
 }
 .precio .duracion { color: var(--tinta-suave); margin: 4px 0 20px; }   /* justo debajo del nombre; algo más de aire hasta el precio */
 .precio p { margin: 0 0 16px; }
+.precio .nota-tarifa { color: var(--tinta-suave); }   /* nota aparte de la tarifa: en gris, con asterisco */
 .precio .boton { margin-top: auto; }
 /* Botón con contorno: interior transparente, borde y texto negros.
    Para las opciones secundarias; el Starter Pack lleva el botón negro */
