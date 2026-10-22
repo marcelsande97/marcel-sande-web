@@ -10,17 +10,18 @@
    Si cambias --acento, cambia en toda la web.
    ========================================================= */
 :root {
-  --fondo: #ffffff;
-  --tinta: #000000;           /* texto principal */
-  --tinta-suave: #5c5c66;     /* texto secundario */
-  --linea: #d9d9de;           /* separadores */
-  --acento: #2a35ff;          /* ultramar: SOLO para lo que se puede pulsar */
-  --acento-texto: #ffffff;    /* texto encima del acento */
-  --hero-fondo: #dfe3ff;      /* bloque de color del hero: azul suave */
-  --hero-tinta: #161c8c;      /* texto del hero: ultramar oscuro (no es el de los botones) */
-  --burbuja: #e3e6ff;         /* azul suave, de la familia del ultramar */
+  --fondo: #f2eee6;           /* crema cálido: menos clínico que el blanco */
+  --tinta: #1c1f1a;           /* casi negro, con un punto verde */
+  --tinta-suave: #5f6158;     /* texto secundario */
+  --linea: #d6cfc2;           /* separadores */
+  --acento: #2e6b3c;          /* verde de marca: lo que se puede pulsar y algún detalle */
+  --acento-texto: #f6f3ec;    /* texto encima del acento */
+  --hero-fondo: #cfe3b6;      /* bloque de color del hero: verde suave */
+  --hero-tinta: #1d4a2a;      /* texto del hero: verde oscuro */
+  --burbuja: #dbe8c8;         /* verde muy suave para las burbujas */
 
-  --fuente: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+  --fuente: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --fuente-mono: "DM Mono", ui-monospace, "Courier New", monospace; /* etiquetas, menú y botones */
   --ancho-max: 1280px;        /* ancho máximo del contenido */
   --margen: clamp(20px, 5vw, 64px); /* margen lateral que crece con la pantalla */
 
@@ -34,28 +35,28 @@
 /* Modo oscuro: mismos nombres, otros valores */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --fondo: #0a0a12;
-    --tinta: #f2f2f5;
-    --tinta-suave: #a3a3b0;
-    --linea: #2c2c38;
-    --acento: #7c84ff;
-    --acento-texto: #0a0a12;
-    --hero-fondo: #1b1e4d;
-    --hero-tinta: #c9ccff;
-    --burbuja: #1b1e4d;
+    --fondo: #141a15;
+    --tinta: #ece7dc;
+    --tinta-suave: #a9ab9f;
+    --linea: #2f3a31;
+    --acento: #a5d68c;
+    --acento-texto: #141a15;
+    --hero-fondo: #22382a;
+    --hero-tinta: #d6ecc4;
+    --burbuja: #1f3326;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --fondo: #0a0a12;
-  --tinta: #f2f2f5;
-  --tinta-suave: #a3a3b0;
-  --linea: #2c2c38;
-  --acento: #7c84ff;
-  --acento-texto: #0a0a12;
-  --hero-fondo: #1b1e4d;
-  --hero-tinta: #c9ccff;
-  --burbuja: #1b1e4d;
+  --fondo: #141a15;
+  --tinta: #ece7dc;
+  --tinta-suave: #a9ab9f;
+  --linea: #2f3a31;
+  --acento: #a5d68c;
+  --acento-texto: #141a15;
+  --hero-fondo: #22382a;
+  --hero-tinta: #d6ecc4;
+  --burbuja: #1f3326;
   color-scheme: dark;
 }
 
@@ -103,6 +104,14 @@ img { max-width: 100%; }
   outline-offset: 3px;
 }
 
+/* Estilo "etiqueta": mono, mayúsculas y letras separadas.
+   Lo comparten menú, botones y textos pequeños */
+.boton, .menu a, .hero-margen, .datos dt, .pie-columnas {
+  font-family: var(--fuente-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
 /* =========================================================
    3. BOTÓN
    Una sola clase para todos los botones de reserva.
@@ -112,9 +121,9 @@ img { max-width: 100%; }
   background: var(--acento);
   color: var(--acento-texto);
   text-decoration: none;
-  font-size: 17px;
+  font-size: 15px;
   font-weight: 500;
-  padding: 16px 30px;
+  padding: 17px 30px;
   border-radius: 999px;      /* 999px = pastilla redonda */
   transition: transform 0.15s ease;
 }
@@ -137,9 +146,10 @@ img { max-width: 100%; }
   height: 84px;
 }
 .logo {
-  font-size: 24px;
-  font-weight: 500;
-  letter-spacing: -0.02em;
+  font-size: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;        /* letras separadas: más marca */
   text-decoration: none;
 }
 .menu {
@@ -150,9 +160,9 @@ img { max-width: 100%; }
   margin: 0;
   padding: 0;
 }
-.menu a { text-decoration: none; font-size: 16px; }
+.menu a { text-decoration: none; font-size: 14px; }
 .menu a:hover { text-decoration: underline; text-underline-offset: 4px; }
-.cabecera .boton { padding: 11px 22px; font-size: 16px; }
+.cabecera .boton { padding: 11px 22px; font-size: 14px; }
 
 /* En móvil escondemos el menú y dejamos logo + reservar */
 @media (max-width: 760px) {
@@ -208,7 +218,7 @@ img { max-width: 100%; }
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 4px 24px;
-  font-size: 15px;
+  font-size: 13px;
 }
 .hero-margen > * { margin: 0; }
 
@@ -246,7 +256,7 @@ img { max-width: 100%; }
   border-top: 1px solid var(--linea);
 }
 .datos div { margin: 0; }
-.datos dt { color: var(--tinta-suave); font-size: 15px; }
+.datos dt { color: var(--tinta-suave); font-size: 13px; }
 .datos dd { margin: 2px 0 0; font-size: 20px; }
 
 /* =========================================================
@@ -254,8 +264,8 @@ img { max-width: 100%; }
    ========================================================= */
 .seccion { padding-top: 72px; padding-bottom: 72px; }
 .seccion h2 {
-  font-size: clamp(26px, 2.6vw, 34px);
-  font-weight: 400;
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: 500;
   letter-spacing: -0.015em;
   margin: 0 0 40px;
 }
@@ -409,7 +419,7 @@ img { max-width: 100%; }
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 32px;
-  font-size: 15px;
+  font-size: 13px;
   color: var(--tinta-suave);
 }
 .pie-columnas p { margin: 0 0 4px; }
