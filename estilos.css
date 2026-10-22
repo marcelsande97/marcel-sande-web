@@ -173,7 +173,14 @@ img { max-width: 100%; }
 }
 .menu a { text-decoration: none; font-size: 14px; }
 .menu a:hover { text-decoration: underline; text-underline-offset: 4px; }
-.cabecera .boton { padding: 11px 22px; font-size: 14px; }
+/* Botón del menú: negro (el color del texto) con letra crema (el color del fondo).
+   En modo oscuro se invierte solo: crema con letra oscura */
+.cabecera .boton {
+  padding: 11px 22px;
+  font-size: 14px;
+  background: var(--tinta);
+  color: var(--fondo);
+}
 
 /* En móvil escondemos el menú y dejamos logo + reservar */
 @media (max-width: 760px) {
