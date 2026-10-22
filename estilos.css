@@ -255,6 +255,25 @@ img { max-width: 100%; }
 }
 .hero-margen > * { margin: 0; }
 
+/* Solo en ordenador: foto a la izquierda y texto a la derecha, alineado a la derecha.
+   "order: -1" pone la foto en la primera columna sin tocar el HTML */
+@media (min-width: 761px) {
+  .hero-banda { grid-template-columns: 11fr 13fr; }
+  .hero-imagen { order: -1; }
+  .hero-imagen img {
+    right: auto;
+    /* A la izquierda, el mismo margen que el resto de la página */
+    left: max(var(--margen), calc((100vw - var(--ancho-max)) / 2 + var(--margen)));
+  }
+  .hero-texto {
+    text-align: right;
+    align-items: flex-end;               /* empuja los bloques hacia la derecha */
+    padding-left: var(--margen);
+    padding-right: max(var(--margen), calc((100vw - var(--ancho-max)) / 2 + var(--margen)));
+  }
+  .hero-margen { justify-content: flex-end; }
+}
+
 /* En móvil: una columna, primero el bloque de color y debajo la foto */
 @media (max-width: 760px) {
   .hero-banda { grid-template-columns: 1fr; min-height: 0; }
