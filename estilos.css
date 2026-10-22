@@ -28,8 +28,8 @@
   --acento: #111315;          /* negro: lo que se puede pulsar y algún detalle */
   --acento-texto: #ffffff;    /* texto encima del acento */
   --cabecera: var(--fondo);   /* barra superior: el mismo color de fondo */
-  --pastilla: #cfe6fb;        /* color de contraste: azul cielo (botones destacados) */
-  --pastilla-texto: #0f2a44;  /* texto sobre el azul cielo */
+  --pastilla: #111315;        /* botones destacados: negros */
+  --pastilla-texto: #ffffff;  /* texto sobre el negro */
   --hero-tinta: #111315;      /* texto del hero: el mismo casi negro del resto */
 
   --fuente: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif; /* texto corrido: la misma que las etiquetas */
@@ -56,8 +56,8 @@
     --acento: #eef0f2;
     --acento-texto: #111315;
     --cabecera: var(--fondo);
-    --pastilla: #2a4b6b;
-    --pastilla-texto: #e8f3ff;
+    --pastilla: #eef0f2;
+    --pastilla-texto: #111315;
     --hero-tinta: #eef0f2;
     color-scheme: dark;
   }
@@ -71,8 +71,8 @@
   --acento: #eef0f2;
   --acento-texto: #111315;
   --cabecera: var(--fondo);
-  --pastilla: #2a4b6b;
-  --pastilla-texto: #e8f3ff;
+  --pastilla: #eef0f2;
+  --pastilla-texto: #111315;
   --hero-tinta: #eef0f2;
   color-scheme: dark;
 }
@@ -126,7 +126,7 @@ img { max-width: 100%; }
    letras separadas. Lo comparten menú, botones, títulos de desplegables y
    textos pequeños. Cada uno fija su tamaño (12-13 px) */
 .boton, .pastilla, .menu a, .hero-margen, .datos dt, .pie-columnas,
-.acordeon summary, .manifiesto-pie h2, .precio h3 {
+.acordeon summary, .precio h3 {
   font-family: var(--fuente-titulos);
   font-weight: 500;
   text-transform: uppercase;
@@ -334,13 +334,13 @@ img { max-width: 100%; }
 }
 /* Frases protagonistas (banner y manifiesto) y títulos de sección:
    Ridley en mayúsculas con las letras espaciadas */
-.declaracion, .manifiesto .frase, .seccion h2, .datos dd {
+.declaracion, .seccion h2, .datos dd {
   font-family: var(--fuente-display);
   font-weight: 500;
   text-transform: uppercase;
 }
 /* Ridley no tiene cursiva: las palabras marcadas con <em> se quedan rectas */
-.manifiesto .frase em, .declaracion em { font-style: normal; }
+.declaracion em { font-style: normal; }
 
 .declaracion {
   font-size: clamp(30px, 4vw, 52px);     /* el nombre del tratamiento */
@@ -416,42 +416,13 @@ img { max-width: 100%; }
     var(--fondo) 100%);                  /* llega a blanco justo al final de la sección */
 }
 
-/* Manifiesto: una frase muy grande a todo el ancho y, debajo, una fila con
-   el rótulo «Lo que no hacemos», el párrafo y el botón */
+/* Manifiesto: el cartel (más abajo, en CARTEL DEL MANIFIESTO) y el botón */
 .manifiesto {
   padding-top: clamp(72px, 9vw, 128px);
   padding-bottom: 24px;                  /* justo debajo del botón empieza el fundido */
 }
-.manifiesto .frase {
-  font-size: clamp(24px, 3.4vw, 48px);
-  line-height: 1.18;
-  letter-spacing: 0.06em;
-  margin: 0 0 48px;
-  text-wrap: balance;
-}
-.manifiesto-pie {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px 48px;
-  align-items: start;
-}
-@media (min-width: 860px) {
-  .manifiesto-pie { grid-template-columns: 1fr 2fr auto; }  /* rótulo | párrafo | botón */
-}
-/* En pantallas estrechas: rótulo y botón en la misma fila, a los extremos,
-   y el párrafo debajo a todo el ancho */
-@media (max-width: 859px) {
-  .manifiesto-pie { grid-template-columns: minmax(0, 1fr) auto; align-items: center; column-gap: 16px; }
-  .manifiesto-pie h2 { grid-column: 1; grid-row: 1; padding-top: 0; }
-  .manifiesto-pie p { grid-column: 1 / -1; grid-row: 2; }
-  .manifiesto-pie .pastilla { grid-column: 2; grid-row: 1; justify-self: end; padding: 12px 16px; font-size: 10px; letter-spacing: 0.06em; }
-  .manifiesto-pie h2 { white-space: nowrap; font-size: 11px; }
-}
-.manifiesto-pie h2 { font-size: 12px; margin: 0; padding-top: 4px; }
-.manifiesto-pie p { margin: 0; max-width: 60ch; color: var(--tinta-suave); }
-.manifiesto-pie .pastilla { justify-self: start; }  /* que no se estire a todo el ancho */
 
-/* Botón secundario: pastilla color arena, sin borde */
+/* Botón en pastilla: negro con texto blanco, sin borde */
 .pastilla {
   display: inline-block;
   background: var(--pastilla);
@@ -536,15 +507,15 @@ img { max-width: 100%; }
 .precio p { margin: 0 0 16px; }
 .precio .boton { margin-top: 24px; }
 
-/* Botón de contraste: azul cielo con texto oscuro (menú y Starter Pack) */
+/* Botón destacado: negro con texto blanco (menú y Starter Pack) */
 .boton.contraste, .cabecera .boton.contraste { background: var(--pastilla); color: var(--pastilla-texto); }
 
 /* =========================================================
-   CARTEL «ANTES DE VENIR»: foto con texto blanco encima
+   CARTEL DEL MANIFIESTO: foto pequeña con texto blanco encima
    ========================================================= */
 .cartel {
   position: relative;
-  max-width: 640px;
+  width: min(100%, 380px);               /* pequeña y centrada */
   margin: 0 auto;
   aspect-ratio: 2 / 3;
   color: #ffffff;                        /* siempre blanco: va sobre la foto oscurecida */
@@ -552,42 +523,22 @@ img { max-width: 100%; }
 }
 .cartel img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 /* Velo oscuro para que el texto blanco se lea sobre la foto clara */
-.cartel::after { content: ""; position: absolute; inset: 0; background: rgba(15, 18, 22, 0.42); }
-.cartel-esquinas, .cartel-centro, .cartel-marca { position: absolute; z-index: 1; }
+.cartel::after { content: ""; position: absolute; inset: 0; background: rgba(15, 18, 22, 0.45); }
+.cartel-esquinas, .cartel-centro { position: absolute; z-index: 1; margin: 0; }
+/* «Lo que no» a la izquierda y «hacemos» a la derecha */
 .cartel-esquinas {
-  top: 28px; left: 28px; right: 28px;
+  top: 20px; left: 20px; right: 20px;
   display: flex; justify-content: space-between;
-  font-family: var(--fuente-display); text-transform: uppercase; letter-spacing: 0.14em; font-size: 13px;
+  font-family: var(--fuente-display); font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.14em; font-size: 12px;
 }
 .cartel-centro {
-  inset: 0; margin: auto; height: fit-content; padding: 0 12%;
-  text-align: center; display: grid; gap: 22px;
+  inset: 0; margin: auto; height: fit-content; padding: 0 14%;
+  text-align: center; font-size: 13px; line-height: 1.45;
 }
-.seccion .cartel-centro h2 { margin: 0; font-size: clamp(16px, 1.6vw, 20px); letter-spacing: 0.14em; }
-.cartel-centro p { margin: 0; font-size: 15px; line-height: 1.5; letter-spacing: 0.02em; }
-.cartel-marca {
-  bottom: 28px; left: 0; right: 0; margin: 0; text-align: center;
-  font-family: var(--fuente-display); text-transform: uppercase; letter-spacing: 0.14em; font-size: 12px;
-}
-.seccion > p.cartel-boton { text-align: center; max-width: none; margin: 32px 0 56px; }
-@media (max-width: 760px) {
-  .cartel-esquinas { top: 20px; left: 20px; right: 20px; font-size: 11px; }
-  .cartel-centro { padding: 0 9%; }
-  .cartel-centro p { font-size: 14px; }
-}
+.manifiesto .cartel-boton { text-align: center; margin: 28px 0 0; }
 
-/* =========================================================
-   APARICIÓN AL HACER SCROLL
-   Solo se activa si el JavaScript añade .con-animacion al <html>
-   ========================================================= */
-.con-animacion .aparece, .con-animacion .seccion > h2, .con-animacion .acordeon details,
-.con-animacion .manifiesto .frase, .con-animacion .manifiesto-pie, .con-animacion .precio,
-.con-animacion .datos > div {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
-}
-.con-animacion .visible { opacity: 1; transform: none; }
+
 
 /* Solo en móvil: las tres opciones en fila, una al lado de la otra.
    Se deslizan con el dedo y cada tarjeta "encaja" al soltar (scroll-snap).
