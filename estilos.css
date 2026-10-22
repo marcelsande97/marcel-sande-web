@@ -55,6 +55,7 @@
   --sobre-foto-tinta: #111315;/* letra del botón cuando se rellena de blanco */
   --velo-reposo: 0;           /* oscurecido de la foto del manifiesto sin pasar el ratón (0 = nada) */
   --velo-hover: 0.55;         /* oscurecido al pasar el ratón */
+  --velo-hero-movil: 0.25;    /* oscurecido de la foto del hero en móvil, para leer el título blanco */
   --velo-movil: 0.1;          /* en móvil no hay hover: velo fijo para poder leer el texto blanco */
   --fuente-display: "Ridley Grotesk", "Hanken Grotesk", Arial, sans-serif; /* titulares: mayúsculas espaciadas */
   --ancho-max: 1600px;        /* ancho máximo del contenido (más ancho: todo más cerca de los bordes) */
@@ -397,19 +398,25 @@ img { max-width: 100%; }
 /* En móvil: una columna. La foto arriba, grande y centrada, con el mismo
    margen a cada lado; el texto debajo, con su tamaño cómodo */
 @media (max-width: 760px) {
+  /* display: contents deja sueltas las piezas del texto (título, lema, botón y datos)
+     para colocarlas en la rejilla del hero: el título ENCIMA de la foto (misma celda),
+     y debajo, el lema y el botón centrados y los datos a la izquierda */
   .hero-banda { grid-template-columns: 1fr; min-height: 0; }
-  .hero-imagen { padding: 0; justify-content: center; }   /* foto de borde a borde, como en ordenador */
+  .hero-texto, .hero-arriba, .hero-titulo { display: contents; }
+  .hero-imagen { grid-row: 1; grid-column: 1; padding: 0; justify-content: center; position: relative; }   /* foto de borde a borde */
   .hero-imagen img { width: 100%; }
-  /* Orden en móvil: título, frase, botón y datos, cerca de la foto.
-     display: contents deja sueltos los hijos de cada bloque para poder ordenarlos */
-  .hero-texto { padding: 32px var(--margen) 40px; gap: 20px; }
-  .hero-arriba, .hero-titulo { display: contents; }
-  /* En una sola línea y de margen a margen (como la firma del pie): el título
+  /* Velo suave para que el título blanco se lea sobre el fondo claro de la foto */
+  .hero-imagen::after { content: ""; position: absolute; inset: 0; background: #000; opacity: var(--velo-hero-movil); }
+  /* Título en blanco, centrado en la foto y de margen a margen (como la firma del pie):
      mide 9,75 veces su tamaño de letra, así que el tamaño sale del ancho de pantalla */
-  .hero .declaracion { order: 1; margin: 0; max-width: none; white-space: nowrap; font-size: calc((100vw - 2 * var(--margen)) / 9.8); }
-  .hero-lema { order: 2; margin: 0; }
-  .hero-titulo .boton { order: 3; align-self: flex-start; margin-top: 8px; }
-  .hero-abajo { order: 4; margin-top: 32px; padding-bottom: 32px; border-bottom: 1px solid var(--linea); }   /* línea que separa el hero de lo siguiente */
+  .hero .declaracion {
+    grid-row: 1; grid-column: 1; align-self: center; justify-self: center; z-index: 1;
+    margin: 0; max-width: none; white-space: nowrap; color: var(--sobre-foto);
+    font-size: calc((100vw - 2 * var(--margen)) / 9.8);
+  }
+  .hero-lema { grid-row: 2; justify-self: center; text-align: center; margin: 32px var(--margen) 0; }
+  .hero-titulo .boton { grid-row: 3; justify-self: center; margin: 24px 0 0; }
+  .hero-abajo { grid-row: 4; margin: 56px var(--margen) 0; }   /* datos a la izquierda, con aire tras el botón */
 }
 
 /* De 761 px para arriba se cambian de lugar: el texto (título y botón) a la
@@ -490,7 +497,7 @@ img { max-width: 100%; }
    Mismo tamaño de letra (sin jerarquía nueva); sale alguna línea más.
    text-wrap: pretty evita que la última línea quede con una sola palabra */
 @media (max-width: 760px) {
-  .frase-banda { padding-left: calc(var(--margen) * 2); padding-right: calc(var(--margen) * 2); padding-bottom: 86px; }   /* abajo el mismo aire que arriba (144 px hasta el título siguiente) */
+  .frase-banda { padding-left: calc(var(--margen) * 2); padding-right: calc(var(--margen) * 2); padding-top: 98px; padding-bottom: 86px; }   /* 144 px de aire arriba (desde los precios) y abajo (hasta el título siguiente) */
   .frase-banda .declaracion { text-wrap: pretty; }
 }
 .frase-banda .declaracion {
@@ -589,10 +596,9 @@ img { max-width: 100%; }
   padding-bottom: clamp(24px, 3vw, 40px);
 }
 @media (max-width: 899px) {
-  /* móvil: la frase queda centrada entre la foto y «Antes de venir», con el mismo
-     aire que la cita (144 px): 56 px de la rejilla + 88 px arriba; 86 px + 56 px de la sección siguiente abajo */
+  /* móvil: 144 px de aire hasta «Antes de venir» (86 px + 56 px de la sección siguiente) */
   .manifiesto { padding-bottom: 86px; }
-  .manifiesto-fila .manifiesto-frase { margin-top: 88px; }
+
 }
 
 /* Botón en pastilla: negro con texto blanco, sin borde */
@@ -802,22 +808,43 @@ img { max-width: 100%; }
 }
 .manifiesto-bloque .boton:focus-visible { outline-color: var(--sobre-foto); }
 
-/* Móvil: TODO encima de la foto (título arriba, párrafo en medio, botón abajo)
-   y la frase fuera, debajo. Sin ratón no hay hover: el velo está siempre puesto */
+/* Móvil: el tríptico del ordenador como tres «páginas» que se deslizan en horizontal
+   (como las tarifas): 1) «LO QUE NO HACEMOS», 2) la foto con el párrafo y el botón
+   encima, 3) la frase. Cada página mide el 86 % de la pantalla: asoma la siguiente */
 @media (max-width: 899px) {
+  .manifiesto-fila {
+    grid-template-columns: repeat(3, min(86vw, 380px));
+    gap: 12px;
+    align-items: stretch;
+    overflow-x: auto;                    /* scroll horizontal */
+    scroll-snap-type: x mandatory;       /* cada página encaja al soltar */
+    margin: 0 calc(var(--margen) * -1);  /* la fila llega a los bordes de la pantalla */
+    padding: 0 var(--margen);
+    scroll-padding: 0 var(--margen);
+    scrollbar-width: none;               /* sin barra de scroll visible */
+  }
+  .manifiesto-fila::-webkit-scrollbar { display: none; }
+  /* Páginas 1 y 3: el texto centrado dentro de un marco fino, a la altura de la foto */
   .manifiesto-bloque .manifiesto-titulo,
-  .manifiesto-texto,
-  .manifiesto-bloque .boton,
-  .cartel { grid-column: 1; grid-row: 1; }
-  .manifiesto-frase { grid-column: 1; grid-row: 2; }
-  .manifiesto-bloque .manifiesto-titulo { align-self: start; margin-top: 32px; z-index: 1; color: var(--sobre-foto); }
-  .manifiesto-texto { align-self: center; max-width: 340px; padding: 0 20px; text-wrap: balance; }   /* 340 + 2×20 = ancho de la foto; balance: líneas de largo parecido, bloque más cuadrado */
+  .manifiesto-frase {
+    grid-row: 1;
+    align-self: stretch;
+    justify-self: stretch;               /* la página ocupa toda su columna */
+    display: grid;
+    place-content: center;
+    padding: 24px;
+    border: 1px solid var(--linea);
+    max-width: none;
+  }
+  .manifiesto-bloque .manifiesto-titulo { grid-column: 1; }
+  .manifiesto-frase { grid-column: 3; }
+  /* Página 2: la foto con el párrafo y el botón encima (misma celda) */
+  .cartel, .manifiesto-texto, .manifiesto-bloque .boton { grid-column: 2; grid-row: 1; }
+  .cartel { width: 100%; }
+  .manifiesto-texto { align-self: center; justify-self: center; max-width: none; padding: 0 14px; text-wrap: balance; }
+  .manifiesto-bloque .manifiesto-titulo, .cartel { scroll-snap-align: start; }   /* cada página encaja alineada con el margen */
+  .manifiesto-frase { scroll-snap-align: end; }
   .cartel::after { opacity: var(--velo-movil); }
-}
-/* Móvil estrecho: la foto del manifiesto de borde a borde (los márgenes
-   negativos la sacan del margen lateral); el texto encima no cambia */
-@media (max-width: 600px) {
-  .manifiesto-fila .cartel { width: auto; justify-self: stretch; margin: 0 calc(var(--margen) * -1); }
 }
 
 /* Ordenador: el título a la izquierda, a media altura de la foto;
