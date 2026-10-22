@@ -17,7 +17,7 @@
   --acento: #2e6b3c;          /* verde de marca: lo que se puede pulsar y algún detalle */
   --acento-texto: #f6f3ec;    /* texto encima del acento */
   --hero-fondo: #cfe3b6;      /* bloque de color del hero: verde suave */
-  --hero-tinta: #1d4a2a;      /* texto del hero: verde oscuro */
+  --hero-tinta: #1c1f1a;      /* texto del hero: el mismo casi negro del resto */
   --franja-fondo: #4a3a2c;    /* marrón oscuro, de la familia del crema */
   --franja-tinta: #f6f1e8;    /* texto claro sobre la franja */
 
@@ -43,7 +43,7 @@
     --acento: #a5d68c;
     --acento-texto: #141a15;
     --hero-fondo: #22382a;
-    --hero-tinta: #d6ecc4;
+    --hero-tinta: #ece7dc;
     --franja-fondo: #2e2419;
     --franja-tinta: #f6f1e8;
     color-scheme: dark;
@@ -57,7 +57,7 @@
   --acento: #a5d68c;
   --acento-texto: #141a15;
   --hero-fondo: #22382a;
-  --hero-tinta: #d6ecc4;
+  --hero-tinta: #ece7dc;
   --franja-fondo: #2e2419;
   --franja-tinta: #f6f1e8;
   color-scheme: dark;
@@ -131,6 +131,14 @@ img { max-width: 100%; }
   transition: transform 0.15s ease;
 }
 .boton:hover { transform: translateY(-2px); }
+
+/* Variante con borde: interior transparente, letra y borde del color del texto.
+   El borde se dibuja con box-shadow para que el botón no cambie de tamaño */
+.hero .boton {
+  background: transparent;
+  color: var(--hero-tinta);
+  box-shadow: inset 0 0 0 1.5px currentColor;
+}
 
 /* =========================================================
    4. CABECERA (se queda fija arriba al hacer scroll)
