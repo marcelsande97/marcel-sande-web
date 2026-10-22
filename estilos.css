@@ -163,6 +163,17 @@ img { max-width: 100%; }
   font-size: 16px;
   letter-spacing: 0.18em;        /* letras muy separadas: más marca */
   text-decoration: none;
+  white-space: nowrap;
+}
+/* Segunda parte del logo: «Facials» en Cardo cursiva, sin mayúsculas forzadas */
+.logo-facials {
+  font-family: var(--fuente-display);
+  font-style: italic;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 1.35em;             /* la cursiva es más pequeña a ojo: la subimos un poco */
+  margin-left: 0.15em;
 }
 .menu {
   display: flex;
@@ -186,6 +197,8 @@ img { max-width: 100%; }
 /* En móvil escondemos el menú y dejamos logo + reservar */
 @media (max-width: 760px) {
   .menu li:not(:last-child) { display: none; }
+  .logo { font-size: 13px; letter-spacing: 0.12em; }  /* logo + botón caben en ~380 px */
+  .cabecera .boton { padding: 10px 16px; }
 }
 
 /* =========================================================
@@ -197,8 +210,10 @@ img { max-width: 100%; }
 .hero-banda {
   background: var(--crema);
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  min-height: clamp(520px, 78vh, 760px);
+  /* La foto es vertical (2:3): una columna algo más estrecha y una banda
+     más alta hacen que se recorte mucho menos */
+  grid-template-columns: 5fr 7fr;
+  min-height: clamp(560px, 90vh, 900px);
   --aire: 28px;                          /* margen interior arriba y abajo del texto */
 }
 
@@ -249,7 +264,7 @@ img { max-width: 100%; }
 /* En móvil: una columna, la foto arriba a todo el ancho y el texto debajo */
 @media (max-width: 760px) {
   .hero-banda { grid-template-columns: 1fr; min-height: 0; }
-  .hero-imagen { aspect-ratio: 4 / 5; }
+  .hero-imagen { aspect-ratio: 2 / 3; }  /* la proporción de la foto: sin recorte */
   .hero-texto { padding: 24px var(--margen); gap: 32px; }
 }
 
@@ -272,8 +287,8 @@ img { max-width: 100%; }
 .manifiesto .frase em { font-style: italic; }  /* cursiva de verdad: el gesto con chispa */
 
 .declaracion {
-  font-size: clamp(28px, 2.8vw, 38px);
-  line-height: 1.12;
+  font-size: clamp(34px, 3.8vw, 56px);
+  line-height: 1.08;
   font-weight: 400;
   letter-spacing: -0.01em;
   max-width: 19ch;                       /* ch = ancho de un carácter: caja estrecha */
