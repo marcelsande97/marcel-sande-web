@@ -219,7 +219,7 @@ img { max-width: 100%; }
   gap: 48px;
   padding-top: var(--aire);
   padding-bottom: var(--aire);
-  padding-left: clamp(40px, 6vw, 112px);  /* aire generoso entre la foto y el texto */
+  padding-left: 0;                       /* el texto empieza justo en la mitad de la página */
   /* En pantallas muy anchas, alinea el borde derecho con el resto de la página */
   padding-right: max(var(--margen), calc((100vw - var(--ancho-max)) / 2 + var(--margen)));
 }
@@ -236,11 +236,11 @@ img { max-width: 100%; }
   order: -1;
   display: flex;
   align-items: center;
-  justify-content: flex-end;             /* pegada al lado del texto... */
+  justify-content: flex-start;           /* alineada a la izquierda, con el logo */
   padding: 48px 0 48px max(var(--margen), calc((100vw - var(--ancho-max)) / 2 + var(--margen)));
 }
 .hero-imagen img {
-  width: clamp(220px, 24vw, 360px);      /* pequeña: como mucho 360 px de ancho */
+  width: clamp(260px, 30vw, 460px);      /* como mucho 460 px de ancho */
   height: auto;                          /* con su proporción: sin recortes */
   display: block;
 }
@@ -283,7 +283,7 @@ img { max-width: 100%; }
 .manifiesto .frase em { font-style: italic; }  /* cursiva de verdad: el gesto con chispa */
 
 .declaracion {
-  font-size: clamp(26px, 2.6vw, 38px);   /* más pequeña, en proporción con la foto */
+  font-size: clamp(30px, 3.4vw, 50px);
   line-height: 1.12;
   font-weight: 400;
   letter-spacing: -0.01em;
