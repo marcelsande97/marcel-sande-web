@@ -77,7 +77,8 @@ body {
   color: var(--tinta);
   font-family: var(--fuente);
   font-size: 16px;
-  line-height: 1.6;
+  line-height: 1.45;                     /* interlineado algo más apretado */
+  letter-spacing: -0.01em;               /* letras un pelín más juntas */
   -webkit-font-smoothing: antialiased;
 }
 
@@ -277,7 +278,7 @@ img { max-width: 100%; }
 /* El título de la página va pequeño, en la fila de arriba del bloque */
 /* La frase pequeña de arriba: en mayúsculas como las etiquetas,
    en una caja estrecha para que no se estire en una sola línea */
-.hero-lema { max-width: 34ch; line-height: 1.5; }
+.hero-lema { max-width: 34ch; line-height: 1.4; }
 /* Solo en ordenador grande: dos columnas dentro del texto.
    Columna cercana a la foto: la frase pequeña arriba y «Facialismo Funcional» abajo.
    Columna lejana: «Higiene / Facial» arriba y el botón abajo.
@@ -310,7 +311,7 @@ img { max-width: 100%; }
 }
 
 /* Los textos pequeños del banner van tal cual se escriben (sin mayúsculas forzadas) */
-.hero-margen { text-transform: none; letter-spacing: 0.02em; font-size: 14px; }
+.hero-margen { text-transform: none; letter-spacing: -0.01em; font-size: 14px; }
 
 /* La frase grande */
 /* Precios con la letra de titulares */
