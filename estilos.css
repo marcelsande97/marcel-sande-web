@@ -61,6 +61,8 @@
   --aire-bloques: 160px;      /* móvil: aire al final de los grandes bloques (+56 px de la sección siguiente = 216 px) */
   --velo-hero-movil: 0;       /* oscurecido de la foto del hero en móvil (0 = la foto tal cual) */
   --aire-foto-movil: 48px;    /* móvil: espacio en blanco entre la cabecera y el título del hero */
+  --aire-seccion: clamp(56px, 8vw, 136px);        /* aire arriba y abajo de cada bloque (en móvil se queda en 56 px) */
+  --aire-tras-manifiesto: clamp(56px, 10vw, 176px);/* ordenador: aire extra al final del manifiesto */
   --aire-junto-foto: 24px;    /* móvil: espacio encima y debajo de la foto del hero (igual en los dos lados) */
   --velo-movil: 0.1;          /* en móvil no hay hover: velo fijo para poder leer el texto blanco */
   --fuente-display: "Ridley Grotesk", "Hanken Grotesk", Arial, sans-serif; /* titulares: mayúsculas espaciadas */
@@ -554,7 +556,7 @@ img { max-width: 100%; }
 /* =========================================================
    6. SECCIONES GENERALES
    ========================================================= */
-.seccion { padding-top: clamp(56px, 6vw, 88px); padding-bottom: clamp(56px, 6vw, 88px); }  /* aire entre bloques */
+.seccion { padding-top: var(--aire-seccion); padding-bottom: var(--aire-seccion); }  /* aire entre bloques */
 .seccion h2 {
   font-size: var(--titulo-seccion);
   letter-spacing: 0.1em;
@@ -603,8 +605,8 @@ img { max-width: 100%; }
 
 /* Manifiesto: la fila de tres columnas (más abajo) */
 .manifiesto {
-  padding-top: clamp(56px, 6vw, 88px);
-  padding-bottom: clamp(24px, 3vw, 40px);
+  padding-top: var(--aire-seccion);
+  padding-bottom: var(--aire-tras-manifiesto);   /* más aire que el resto antes de «Antes de venir» */
 }
 @media (max-width: 899px) {
   /* móvil: 144 px de aire hasta «Antes de venir» (86 px + 56 px de la sección siguiente) */
@@ -718,7 +720,7 @@ img { max-width: 100%; }
 .cierra { margin-left: 0.08em; }
 
 /* Resultados: dos fotos a todo el ancho de la pantalla, pegadas (sin hueco) */
-.resultados { padding-bottom: clamp(56px, 6vw, 88px); }   /* aire bajo las fotos (+ el de arriba de «Cómo empezar») */
+.resultados { padding-bottom: var(--aire-seccion); }   /* aire bajo las fotos (+ el de arriba de «Cómo empezar») */
 .resultados-par { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
 .resultados-par figure { position: relative; margin: 0; aspect-ratio: 4 / 5; overflow: hidden; }
 @media (min-width: 761px) { .resultados-par figure { aspect-ratio: 1 / 1; } }   /* ordenador: más bajas, tipo banner */
