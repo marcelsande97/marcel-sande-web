@@ -33,21 +33,7 @@
   <header class="cabecera">
     <div class="contenedor">
       <!-- Cuando tengas logo, cambia este texto por <img src="logo.svg" alt="Marcel Sandé"> -->
-      <a class="logo" href="#"><span class="logo-nombre">Marcel Sandé</span> <svg class="logo-cara" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <!-- Carátula inspirada en la Boca de la Verdad: disco con grieta, cejas, ojos huecos, nariz ancha,
-               boca en ranura, bigote que cae a los lados y barba en trazos de grabado -->
-          <g fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 1.3 C18.1 1.2 22.8 5.9 22.7 12 C22.8 18.2 18.1 22.8 12 22.7 C5.9 22.8 1.2 18.1 1.3 12 C1.2 5.9 5.9 1.2 12 1.3 Z" stroke-width="1.4"/>
-            <path d="M19.4 4.6 L17.6 6.4 L18.4 7.6"/>
-            <path d="M6.4 8.2 Q8.4 6.8 10.6 7.8 M17.6 8.2 Q15.6 6.8 13.4 7.8"/>
-            <path d="M12 9.2 V12.6 M10.6 13.4 H13.4"/>
-            <path d="M9.4 14.6 Q7.6 15.4 7.1 17.6 M14.6 14.6 Q16.4 15.4 16.9 17.6"/>
-            <path d="M9.8 18.6 Q9.4 19.8 10 21 M12 18.8 V21.6 M14.2 18.6 Q14.6 19.8 14 21"/>
-          </g>
-          <circle cx="8.6" cy="10.2" r="1.3" fill="currentColor"/>
-          <circle cx="15.4" cy="10.2" r="1.3" fill="currentColor"/>
-          <ellipse cx="12" cy="16.2" rx="2.4" ry="1.05" fill="currentColor"/>
-        </svg> Facials</a>
+      <a class="logo" href="#"><span class="logo-nombre">Marcel Sandé</span> <span aria-hidden="true">·</span> Facials</a>
       <nav aria-label="Principal">
         <ul class="menu" id="menu-principal">
           <!-- «Tratamientos» abre un desplegable al pasar el ratón (o al llegar con el teclado) -->
@@ -287,7 +273,12 @@
   </main>
 
   <!-- Firma grande: el nombre de la marca ocupa todo el ancho de la página -->
-  <p class="firma contenedor" aria-hidden="true">Marcel Sandé — Facials</p>
+  <!-- Foto apaisada antes de la firma, con grano encima (ver .banda-foto en estilos.css) -->
+  <div class="banda-foto contenedor">
+    <img src="img/manos.webp" alt="Manos haciendo un masaje en la cabeza" width="736" height="736" loading="lazy">
+  </div>
+
+  <p class="firma contenedor" aria-hidden="true">Marcel Sandé · Facials</p>
 
   <!-- ===================== PIE ===================== -->
   <footer class="pie contenedor">

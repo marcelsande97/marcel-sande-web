@@ -55,6 +55,7 @@
   --sobre-foto-tinta: #111315;/* letra del botón cuando se rellena de blanco */
   --velo-reposo: 0;           /* oscurecido de la foto del manifiesto sin pasar el ratón (0 = nada) */
   --velo-hover: 0.55;         /* oscurecido al pasar el ratón */
+  --grano: 0.55;              /* intensidad del grano de la foto apaisada (0 = sin grano) */
   --velo-movil: 0.1;          /* en móvil no hay hover: velo fijo para poder leer el texto blanco */
   --fuente-display: "Ridley Grotesk", "Hanken Grotesk", Arial, sans-serif; /* titulares: mayúsculas espaciadas */
   --ancho-max: 1600px;        /* ancho máximo del contenido (más ancho: todo más cerca de los bordes) */
@@ -213,8 +214,6 @@ img { max-width: 100%; }
 /* Ridley solo tiene un grosor: un contorno finísimo del color del texto
    hace «Marcel Sandé» un poco más negrita que «Facials» */
 .logo-nombre { -webkit-text-stroke: 0.4px currentColor; }
-/* Micro logo entre las dos partes: del alto de las mayúsculas, alineado con ellas */
-.logo-cara { width: 1.15em; height: 1.15em; vertical-align: -0.2em; margin: 0 0.1em; }
 .menu {
   display: flex;
   align-items: center;
@@ -331,7 +330,6 @@ img { max-width: 100%; }
   .cabecera nav { gap: 6px; }
   .menu-boton { width: 30px; padding: 0 6px; margin-right: -6px; }
   .logo { font-size: 13px; }       /* 1 px menos: logo, «Reserva» y las rayas caben en 360 px */
-  .logo-cara { margin: 0; }
 }
 
 /* =========================================================
@@ -703,8 +701,31 @@ img { max-width: 100%; }
 .abre { margin-right: 0.14em; }
 .cierra { margin-left: 0.08em; }
 
+/* Foto apaisada antes de la firma: baja y muy ancha. object-fit: cover recorta
+   la foto para llenar la caja sin deformarla (se queda con la franja central) */
+.banda-foto {
+  position: relative;
+  margin-top: clamp(48px, 6vw, 88px);
+  aspect-ratio: 2 / 1;                   /* móvil */
+  overflow: hidden;
+}
+@media (min-width: 761px) { .banda-foto { aspect-ratio: 3 / 1; } }   /* ordenador: más apaisada */
+.banda-foto img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; display: block; }
+/* Grano: ruido generado con un filtro SVG (feTurbulence) encima de la foto.
+   mix-blend-mode: overlay lo mezcla con la foto como el grano de película */
+.banda-foto::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: var(--grano);
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
+
 /* Firma grande antes del pie: el tamaño se calcula para que el texto
-   llene justo el ancho entre márgenes (15,55 = ancho del texto medido en «em») */
+   llene justo el ancho entre márgenes (15,04 = ancho del texto medido en «em») */
 .firma {
   margin: clamp(48px, 6vw, 88px) auto 0;
   font-family: var(--fuente-display);
@@ -715,7 +736,7 @@ img { max-width: 100%; }
   overflow: hidden;
   line-height: 1;
   padding-top: 0.25em;                   /* deja sitio al acento de la É (si no, se corta) */
-  font-size: calc((min(100vw, var(--ancho-max)) - 2 * var(--margen)) / 15.55);
+  font-size: calc((min(100vw, var(--ancho-max)) - 2 * var(--margen)) / 15.04);
   padding-bottom: 24px;
 }
 
