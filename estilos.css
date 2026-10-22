@@ -533,7 +533,10 @@ img { max-width: 100%; }
   line-height: 1.5;
   font-size: clamp(14px, 1.3vw, 18px);
 }
+/* Bloque de la izquierda: título y párrafo, con aire entre ellos */
+.manifiesto-bloque { display: grid; gap: 28px; justify-items: center; }
 .manifiesto-texto { margin: 0; max-width: 34ch; font-size: 15px; line-height: 1.5; }
+.manifiesto-frase { max-width: 24ch; }
 .cartel {
   width: min(100%, 380px);               /* foto pequeña */
   aspect-ratio: 2 / 3;

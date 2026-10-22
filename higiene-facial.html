@@ -116,16 +116,21 @@
     </section>
 
     <!-- ===================== LO QUE NO HACEMOS ===================== -->
-    <!-- Manifiesto: tres columnas. A la izquierda «Lo que no / hacemos»,
-         en el centro la foto pequeña y a la derecha el párrafo.
+    <!-- Manifiesto: tres columnas. A la izquierda «Lo que no hacemos» con el párrafo,
+         en el centro la foto pequeña y a la derecha la frase en mayúsculas.
          Debajo de la foto, el botón al manifiesto -->
     <section class="manifiesto contenedor" aria-labelledby="titulo-no">
       <div class="manifiesto-fila">
-        <h2 id="titulo-no" class="manifiesto-titulo">Lo que no<br>hacemos</h2>
+        <!-- Izquierda: título en una línea y, debajo, el párrafo -->
+        <div class="manifiesto-bloque">
+          <h2 id="titulo-no" class="manifiesto-titulo">Lo que no hacemos</h2>
+          <p class="manifiesto-texto">No acumulamos pasos que comprometan la integridad de tu piel, como el vapor, la microdermabrasión, las toallas muy calientes o las extracciones forzadas. No usamos aparatos ni productos sin una función clara y no te prometemos otra cara en una hora.</p>
+        </div>
         <div class="cartel">
           <img src="img/manifiesto.webp" alt="Chorro de agua cayendo sobre una cara con los ojos cerrados" width="750" height="1125" loading="lazy">
         </div>
-        <p class="manifiesto-texto">No acumulamos pasos que comprometan la integridad de tu piel, como el vapor, la microdermabrasión, las toallas muy calientes o las extracciones forzadas. No usamos aparatos ni productos sin una función clara y no te prometemos otra cara en una hora.</p>
+        <!-- Derecha: la frase en mayúsculas, del mismo tamaño que el título -->
+        <p class="manifiesto-titulo manifiesto-frase">Una limpieza bien hecha se nota al momento, pero se sostiene con una rutina personalizada.</p>
       </div>
       <!-- Enlace a # hasta que exista la página del manifiesto -->
       <p class="cartel-boton"><a class="pastilla" href="#">Lee nuestro manifiesto</a></p>
