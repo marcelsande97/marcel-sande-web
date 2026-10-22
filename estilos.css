@@ -383,7 +383,7 @@ img { max-width: 100%; }
   .hero-titulo .boton { grid-column: 1; grid-row: 3; justify-self: start; align-self: end; }
   .hero .declaracion {
     max-width: min-content;              /* una palabra por línea: Higiene / Facial */
-    font-size: clamp(30px, 3vw, 48px);
+    font-size: clamp(40px, 5vw, 76px);   /* prueba: título bastante más grande */
     line-height: 1.1;
     margin: -0.12em 0 0;                 /* sube el texto para que la letra toque el borde de la foto */
   }
