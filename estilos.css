@@ -10,7 +10,8 @@
    Si cambias --acento, cambia en toda la web.
    ========================================================= */
 :root {
-  --fondo: #f2eee6;           /* crema cálido: menos clínico que el blanco */
+  --fondo: #ffffff;           /* fondo general de la página: blanco */
+  --crema: #f2eee6;           /* crema cálido para las bandas (hero, manifiesto) */
   --tinta: #1c1f1a;           /* casi negro, con un punto verde */
   --tinta-suave: #5f6158;     /* texto secundario */
   --linea: #d6cfc2;           /* separadores */
@@ -35,7 +36,8 @@
 /* Modo oscuro: mismos nombres, otros valores */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --fondo: #141a15;
+    --fondo: #121613;
+    --crema: #1b211c;
     --tinta: #ece7dc;
     --tinta-suave: #a9ab9f;
     --linea: #2f3a31;
@@ -48,7 +50,8 @@
   }
 }
 :root[data-theme="dark"] {
-  --fondo: #141a15;
+  --fondo: #121613;
+  --crema: #1b211c;
   --tinta: #ece7dc;
   --tinta-suave: #a9ab9f;
   --linea: #2f3a31;
@@ -192,6 +195,7 @@ img { max-width: 100%; }
 
 /* Díptico a todo el ancho: foto a sangre en la mitad izquierda | texto a la derecha */
 .hero-banda {
+  background: var(--crema);
   display: grid;
   grid-template-columns: 1fr 1fr;
   min-height: clamp(520px, 78vh, 760px);
@@ -257,8 +261,8 @@ img { max-width: 100%; }
 
 /* La frase grande */
 .declaracion {
-  font-size: clamp(22px, 2.1vw, 30px);   /* clamp(mínimo, ideal, máximo) */
-  line-height: 1.15;
+  font-size: clamp(28px, 3vw, 40px);     /* el mismo tamaño que los títulos de sección */
+  line-height: 1.12;
   font-weight: 400;
   letter-spacing: -0.015em;
   max-width: 19ch;                       /* ch = ancho de un carácter: caja estrecha */
@@ -272,8 +276,6 @@ img { max-width: 100%; }
   flex-wrap: wrap;
   gap: 16px 56px;
   margin: 56px 0 0;
-  padding-top: 24px;
-  border-top: 1px solid var(--linea);
 }
 .datos div { margin: 0; }
 .datos dt { color: var(--tinta-suave); font-size: 13px; }
@@ -312,11 +314,27 @@ img { max-width: 100%; }
   color: var(--tinta-suave);
 }
 
+/* Banda crema a todo el ancho (el contenido va dentro, en .contenedor) */
+.banda-crema { background: var(--crema); }
+
+/* Fundido de crema a blanco detrás de la sección siguiente.
+   Muchos pasos intermedios (color-mix mezcla los dos colores en %)
+   para que el cambio sea muy suave y no se note dónde termina */
+.fundido {
+  background: linear-gradient(to bottom,
+    var(--crema) 0%,
+    color-mix(in srgb, var(--crema) 85%, var(--fondo)) 18%,
+    color-mix(in srgb, var(--crema) 60%, var(--fondo)) 38%,
+    color-mix(in srgb, var(--crema) 35%, var(--fondo)) 58%,
+    color-mix(in srgb, var(--crema) 15%, var(--fondo)) 78%,
+    var(--fondo) 100%);                  /* llega a blanco justo al final de la sección */
+}
+
 /* Manifiesto: una frase muy grande a todo el ancho y, debajo, una fila con
    el rótulo «Lo que no hacemos», el párrafo y el botón */
 .manifiesto {
   padding-top: clamp(72px, 9vw, 128px);
-  padding-bottom: clamp(56px, 7vw, 96px);
+  padding-bottom: 24px;                  /* justo debajo del botón empieza el fundido */
 }
 .manifiesto .frase {
   font-size: clamp(34px, 5.6vw, 88px);
@@ -336,6 +354,7 @@ img { max-width: 100%; }
 }
 .manifiesto-pie h2 { font-size: 18px; font-weight: 600; margin: 0; }
 .manifiesto-pie p { margin: 0; max-width: 60ch; color: var(--tinta-suave); }
+.manifiesto-pie .pastilla { justify-self: start; }  /* que no se estire a todo el ancho */
 
 /* Botón secundario: pastilla color arena, sin borde, en minúsculas */
 .pastilla {
