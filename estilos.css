@@ -700,6 +700,28 @@ img { max-width: 100%; }
 .abre { margin-right: 0.14em; }
 .cierra { margin-left: 0.08em; }
 
+/* Resultados: dos fotos a todo el ancho de la pantalla, pegadas (sin hueco) */
+.resultados { padding-bottom: 0; }
+.resultados-par { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+.resultados-par figure { position: relative; margin: 0; aspect-ratio: 4 / 5; overflow: hidden; }
+@media (min-width: 761px) { .resultados-par figure { aspect-ratio: 1 / 1; } }   /* ordenador: más bajas, tipo banner */
+.resultados-par img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* «Antes» / «Después»: etiqueta en blanco abajo a la izquierda de cada foto */
+.resultados-par figcaption {
+  position: absolute;
+  left: var(--margen);
+  bottom: 16px;
+  color: var(--sobre-foto);
+  font-family: var(--fuente-titulos);
+  font-size: var(--etiqueta);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+/* Hueco del «antes» mientras no haya foto real (temporal) */
+.resultados-pendiente { height: 100%; display: grid; place-content: center; text-align: center; background: var(--linea); color: var(--tinta-suave); }
+.resultados-par figure:has(.resultados-pendiente) figcaption { color: var(--tinta); }
+
 /* Firma grande antes del pie: el tamaño se calcula para que el texto
    llene justo el ancho entre márgenes (15,04 = ancho del texto medido en «em») */
 .firma {
