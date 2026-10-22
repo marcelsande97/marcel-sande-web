@@ -1011,16 +1011,16 @@ img { max-width: 100%; }
    Van al final para poder cambiar las reglas generales de más arriba
    ========================================================= */
 @media (max-width: 760px) {
-  /* Título del hero en negro, arriba, y la foto justo debajo */
-  .hero .declaracion { grid-row: 1; justify-self: start; margin: 0 var(--margen) 16px; color: var(--tinta); }
-  .hero-imagen { grid-row: 2; }
-  .hero-lema { grid-row: 3; margin-top: 16px; }   /* lema bajo la foto, con el mismo aire que hay entre título y foto */
-  .hero-titulo .boton { grid-row: 4; }
+  /* Orden del hero: título, lema y botón arriba; luego la foto y los precios */
+  .hero .declaracion { grid-row: 1; justify-self: start; margin: 0 var(--margen); color: var(--tinta); }
+  .hero-lema { grid-row: 2; margin-top: 6px; }   /* lema pegado al título */
+  .hero-titulo .boton { grid-row: 3; }
+  .hero-imagen { grid-row: 4; margin-top: 32px; }   /* aire entre el botón y la foto */
   .hero-abajo { grid-row: 5; }
   /* Lema y botón del hero alineados a la izquierda */
   .hero-lema { justify-self: start; text-align: left; max-width: calc(68vw - var(--margen)); }   /* la caja llega hasta el 68 % del ancho */
   .hero-titulo .boton { justify-self: start; margin-left: var(--margen); margin-top: 16px; }   /* más cerca del lema */
-  .hero-abajo { margin-top: 112px; }   /* mucho aire tras el botón */
+  .hero-abajo { margin-top: 56px; }   /* aire entre la foto y los precios */
   .hero { padding-bottom: 32px; }       /* algo menos de aire entre los precios y la cita (unos 40 px) */
   /* Precio y duración del hero, más grandes (el tamaño máximo de --cifra) */
   .datos dd { font-size: 32px; }
