@@ -55,7 +55,7 @@
   --sobre-foto-tinta: #111315;/* letra del botón cuando se rellena de blanco */
   --velo-reposo: 0;           /* oscurecido de la foto del manifiesto sin pasar el ratón (0 = nada) */
   --velo-hover: 0.55;         /* oscurecido al pasar el ratón */
-  --velo-movil: 0.4;          /* en móvil no hay hover: velo fijo para poder leer el texto blanco */
+  --velo-movil: 0.1;          /* en móvil no hay hover: velo fijo para poder leer el texto blanco */
   --fuente-display: "Ridley Grotesk", "Hanken Grotesk", Arial, sans-serif; /* titulares: mayúsculas espaciadas */
   --ancho-max: 1600px;        /* ancho máximo del contenido (más ancho: todo más cerca de los bordes) */
   --alto-cabecera: 64px;      /* alto de la franja superior fija */
@@ -719,7 +719,7 @@ img { max-width: 100%; }
   .cartel { grid-column: 1; grid-row: 1; }
   .manifiesto-frase { grid-column: 1; grid-row: 2; }
   .manifiesto-bloque .manifiesto-titulo { align-self: start; margin-top: 32px; z-index: 1; color: var(--sobre-foto); }
-  .manifiesto-texto { align-self: center; padding: 0 24px; }
+  .manifiesto-texto { align-self: center; max-width: 340px; padding: 0 20px; text-wrap: balance; }   /* 340 + 2×20 = ancho de la foto; balance: líneas de largo parecido, bloque más cuadrado */
   .cartel::after { opacity: var(--velo-movil); }
 }
 
