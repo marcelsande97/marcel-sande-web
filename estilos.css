@@ -718,7 +718,7 @@ img { max-width: 100%; }
 .cierra { margin-left: 0.08em; }
 
 /* Resultados: dos fotos a todo el ancho de la pantalla, pegadas (sin hueco) */
-.resultados { padding-bottom: 0; }
+.resultados { padding-bottom: clamp(56px, 6vw, 88px); }   /* aire bajo las fotos (+ el de arriba de «Cómo empezar») */
 .resultados-par { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
 .resultados-par figure { position: relative; margin: 0; aspect-ratio: 4 / 5; overflow: hidden; }
 @media (min-width: 761px) { .resultados-par figure { aspect-ratio: 1 / 1; } }   /* ordenador: más bajas, tipo banner */
