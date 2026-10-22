@@ -284,10 +284,14 @@ img { max-width: 100%; }
   .hero-banda { grid-template-columns: 1fr; min-height: 0; }
   .hero-imagen { padding: 32px var(--margen) 0; justify-content: center; }
   .hero-imagen img { width: 100%; }
-  .hero-texto { padding: 48px var(--margen) 40px; gap: 96px; }  /* más aire con la foto y entre bloques */
-  /* Línea fina (como las de los pasos) que separa el banner de los datos */
-  /* Línea fina sobre los datos de la visita */
-  .datos { padding-top: 32px; border-top: 1px solid var(--linea); }
+  /* Orden en móvil: título, frase, botón y datos, cerca de la foto.
+     display: contents deja sueltos los hijos de cada bloque para poder ordenarlos */
+  .hero-texto { padding: 32px var(--margen) 40px; gap: 20px; }
+  .hero-arriba, .hero-titulo { display: contents; }
+  .hero .declaracion { order: 1; margin: 0; }
+  .hero-lema { order: 2; margin: 0; }
+  .hero-titulo .boton { order: 3; align-self: flex-start; margin-top: 8px; }
+  .hero-abajo { order: 4; margin-top: 32px; }
 }
 
 
@@ -533,6 +537,7 @@ img { max-width: 100%; }
   white-space: nowrap;
   overflow: hidden;
   line-height: 1;
+  padding-top: 0.25em;                   /* deja sitio al acento de la É (si no, se corta) */
   font-size: calc((min(100vw, var(--ancho-max)) - 2 * var(--margen)) / 15.55);
   padding-bottom: 24px;
 }
