@@ -1012,17 +1012,17 @@ img { max-width: 100%; }
    Van al final para poder cambiar las reglas generales de más arriba
    ========================================================= */
 @media (max-width: 760px) {
-  /* Hero en dos columnas (60 % | 40 %): el título, la foto y los precios ocupan las dos (1 / -1);
+  /* Hero en dos mitades iguales: el título, la foto y los precios ocupan las dos (1 / -1);
      entre el título y la foto, el lema a la izquierda y el botón a la derecha */
   /* minmax(0, …): las columnas nunca se ensanchan más que la pantalla, aunque el título sea largo */
-  .hero-banda { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); }
+  .hero-banda { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
   .hero .declaracion { grid-row: 1; grid-column: 1 / -1; justify-self: start; margin: 0 var(--margen); color: var(--tinta); }
   .hero-imagen { grid-row: 3; grid-column: 1 / -1; }
   .hero-abajo { grid-row: 4; grid-column: 1 / -1; margin-top: var(--aire-junto-foto); }   /* poco aire entre la foto y los precios */
-  /* Lema: separado del título; su caja llena la columna izquierda (60 %) */
+  /* Lema: separado del título; alineado a la derecha y pegado a la línea central de la pantalla */
   .hero-lema {
-    grid-row: 2; grid-column: 1; justify-self: start; text-align: left;
-    max-width: none; margin: 40px 28px var(--aire-junto-foto) var(--margen);
+    grid-row: 2; grid-column: 1; justify-self: end; text-align: right;
+    max-width: none; margin: 40px 0 var(--aire-junto-foto) var(--margen);
   }
   /* Botón: pegado al margen derecho, con su borde de abajo a la misma altura que el del lema */
   .hero-titulo .boton { grid-row: 2; grid-column: 2; justify-self: end; align-self: end; margin: 0 var(--margen) var(--aire-junto-foto) 0; }
