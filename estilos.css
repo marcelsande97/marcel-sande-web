@@ -277,6 +277,11 @@ img { max-width: 100%; }
   .menu li:not(:last-child) { display: none; }
   .cabecera .boton { padding: 10px 16px; }
 }
+/* Móviles estrechos: menos aire entre logo y botón para que quepan sin salirse */
+@media (max-width: 400px) {
+  .cabecera .contenedor { gap: 10px; }
+  .cabecera .boton { padding: 10px 12px; }
+}
 
 /* =========================================================
    5. CABECERA DEL TRATAMIENTO (hero)
@@ -351,7 +356,9 @@ img { max-width: 100%; }
      display: contents deja sueltos los hijos de cada bloque para poder ordenarlos */
   .hero-texto { padding: 32px var(--margen) 40px; gap: 20px; }
   .hero-arriba, .hero-titulo { display: contents; }
-  .hero .declaracion { order: 1; margin: 0; max-width: min-content; }   /* una palabra por línea: Higiene / Facial */
+  /* En una sola línea: el título mide 9,75 veces su tamaño de letra,
+     así que el tamaño se calcula para que quepa entre los márgenes */
+  .hero .declaracion { order: 1; margin: 0; max-width: none; white-space: nowrap; font-size: min(30px, calc((100vw - 2 * var(--margen)) / 10.2)); }
   .hero-lema { order: 2; margin: 0; }
   .hero-titulo .boton { order: 3; align-self: flex-start; margin-top: 8px; }
   .hero-abajo { order: 4; margin-top: 32px; }
@@ -402,8 +409,9 @@ img { max-width: 100%; }
   .hero .declaracion { grid-column: 1; grid-row: 1; }
   .hero-titulo .boton { grid-column: 1; grid-row: 3; justify-self: start; align-self: end; }
   .hero .declaracion {
-    max-width: min-content;              /* una palabra por línea: Higiene / Facial */
-    font-size: clamp(40px, 5vw, 76px);   /* prueba: título bastante más grande */
+    max-width: none;
+    white-space: nowrap;                 /* en una sola línea */
+    font-size: clamp(30px, 3.2vw, 60px); /* pequeño lo justo para caber en una línea junto al lema */
     line-height: 0.95;                   /* líneas más juntas (solo ordenador) */
     margin: -0.12em 0 0;                 /* sube el texto para que la letra toque el borde de la foto */
   }
