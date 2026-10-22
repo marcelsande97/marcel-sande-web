@@ -60,7 +60,7 @@
   --velo-hover: 0.55;         /* oscurecido al pasar el ratón */
   --aire-bloques: 160px;      /* móvil: aire al final de los grandes bloques (+56 px de la sección siguiente = 216 px) */
   --velo-hero-movil: 0;       /* oscurecido de la foto del hero en móvil (0 = la foto tal cual) */
-  --aire-foto-movil: 48px;    /* móvil: espacio en blanco entre la cabecera y la foto del hero */
+  --aire-foto-movil: 48px;    /* móvil: espacio en blanco entre la cabecera y el título del hero */
   --velo-movil: 0.1;          /* en móvil no hay hover: velo fijo para poder leer el texto blanco */
   --fuente-display: "Ridley Grotesk", "Hanken Grotesk", Arial, sans-serif; /* titulares: mayúsculas espaciadas */
   --ancho-max: 1600px;        /* ancho máximo del contenido (más ancho: todo más cerca de los bordes) */
@@ -408,8 +408,7 @@ img { max-width: 100%; }
   /* display: contents deja sueltas las piezas del texto (título, lema, botón y datos)
      para colocarlas en la rejilla del hero: el título ENCIMA de la foto (misma celda),
      y debajo, el lema y el botón centrados y los datos a la izquierda */
-  /* padding-top: aire en blanco antes de la foto (en la banda, no en la foto,
-     para que el título siga centrado sobre ella) */
+  /* padding-top: aire en blanco bajo la cabecera, antes del hero */
   .hero-banda { grid-template-columns: 1fr; min-height: 0; padding-top: var(--aire-foto-movil); }
   .hero-texto, .hero-arriba, .hero-titulo { display: contents; }
   .hero-imagen { grid-row: 1; grid-column: 1; padding: 0; justify-content: center; position: relative; }   /* foto de borde a borde */
@@ -1012,9 +1011,10 @@ img { max-width: 100%; }
    Van al final para poder cambiar las reglas generales de más arriba
    ========================================================= */
 @media (max-width: 760px) {
-  /* Título del hero en negro, justo debajo de la foto (no encima) */
-  .hero .declaracion { grid-row: 2; justify-self: start; margin: 16px var(--margen) 0; color: var(--tinta); }
-  .hero-lema { grid-row: 3; margin-top: 6px; }   /* lema pegado al título */
+  /* Título del hero en negro, arriba, y la foto justo debajo */
+  .hero .declaracion { grid-row: 1; justify-self: start; margin: 0 var(--margen) 16px; color: var(--tinta); }
+  .hero-imagen { grid-row: 2; }
+  .hero-lema { grid-row: 3; margin-top: 16px; }   /* lema bajo la foto, con el mismo aire que hay entre título y foto */
   .hero-titulo .boton { grid-row: 4; }
   .hero-abajo { grid-row: 5; }
   /* Lema y botón del hero alineados a la izquierda */
