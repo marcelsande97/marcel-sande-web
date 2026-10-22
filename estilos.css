@@ -892,7 +892,9 @@ img { max-width: 100%; }
     margin-right: calc(var(--margen) * -1);
     padding: 0 var(--margen) 16px;
     scroll-padding-left: var(--margen);
+    scrollbar-width: none;             /* sin la barra de scroll de abajo */
   }
+  .precios::-webkit-scrollbar { display: none; }
   .precio {
     flex: 0 0 78%;
     scroll-snap-align: start;
@@ -1033,6 +1035,8 @@ img { max-width: 100%; }
      --aire-bloques al final de la sección anterior + 56 px al principio de la siguiente */
   .fundido > .seccion { padding-bottom: var(--aire-bloques); }
   .resultados { padding-bottom: var(--aire-bloques); }
+  /* Menos aire entre las tarifas y «Todas las citas…» */
+  .seccion > p.aviso-reserva { margin-top: 24px; }
 }
 
 /* Si la persona tiene desactivadas las animaciones en su sistema, las respetamos */
