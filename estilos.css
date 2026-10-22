@@ -53,7 +53,7 @@
   --display-pequena: clamp(14px, 1.15vw, 16px);   /* letras 0,1em, interlineado 1,3 */
   --sobre-foto: #ffffff;      /* texto y botón encima de la foto del manifiesto (igual en modo oscuro) */
   --sobre-foto-tinta: #111315;/* letra del botón cuando se rellena de blanco */
-  --velo-reposo: 0.2;         /* oscurecido de la foto del manifiesto sin pasar el ratón (0 = nada) */
+  --velo-reposo: 0;           /* oscurecido de la foto del manifiesto sin pasar el ratón (0 = nada) */
   --velo-hover: 0.55;         /* oscurecido al pasar el ratón */
   --fuente-display: "Ridley Grotesk", "Hanken Grotesk", Arial, sans-serif; /* titulares: mayúsculas espaciadas */
   --ancho-max: 1280px;        /* ancho máximo del contenido */
@@ -400,7 +400,7 @@ img { max-width: 100%; }
   .hero .declaracion {
     max-width: min-content;              /* una palabra por línea: Higiene / Facial */
     font-size: clamp(40px, 5vw, 76px);   /* prueba: título bastante más grande */
-    line-height: 1.1;
+    line-height: 0.95;                   /* líneas más juntas (solo ordenador) */
     margin: -0.12em 0 0;                 /* sube el texto para que la letra toque el borde de la foto */
   }
   .hero-lema { max-width: 26ch; }
