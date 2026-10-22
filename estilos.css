@@ -1012,20 +1012,19 @@ img { max-width: 100%; }
    Van al final para poder cambiar las reglas generales de más arriba
    ========================================================= */
 @media (max-width: 760px) {
-  /* Hero en dos mitades iguales: el título, la foto y los precios ocupan las dos (1 / -1);
-     entre el título y la foto, el lema a la izquierda y el botón a la derecha */
-  /* minmax(0, …): las columnas nunca se ensanchan más que la pantalla, aunque el título sea largo */
-  .hero-banda { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
-  .hero .declaracion { grid-row: 1; grid-column: 1 / -1; justify-self: start; margin: 0 var(--margen); color: var(--tinta); }
-  .hero-imagen { grid-row: 3; grid-column: 1 / -1; }
-  .hero-abajo { grid-row: 4; grid-column: 1 / -1; margin-top: var(--aire-junto-foto); }   /* poco aire entre la foto y los precios */
-  /* Lema: separado del título; alineado a la derecha y pegado a la línea central de la pantalla */
+  /* Hero en una columna, en este orden: título, botón centrado, foto, lema y precios */
+  /* minmax(0, …): la columna nunca se ensancha más que la pantalla, aunque el título sea largo */
+  .hero-banda { grid-template-columns: minmax(0, 1fr); }
+  .hero .declaracion { grid-row: 1; grid-column: 1; justify-self: start; margin: 0 var(--margen); color: var(--tinta); }
+  /* Botón: centrado, con aire por encima (tras el título) y por debajo (antes de la foto) */
+  .hero-titulo .boton { grid-row: 2; grid-column: 1; justify-self: center; align-self: auto; margin: 40px 0 var(--aire-junto-foto); }
+  .hero-imagen { grid-row: 3; grid-column: 1; }
+  /* Lema: bajo la foto, alineado a la izquierda; la caja llega hasta el 68 % del ancho */
   .hero-lema {
-    grid-row: 2; grid-column: 1; justify-self: end; text-align: right;
-    max-width: none; margin: 40px 0 var(--aire-junto-foto) var(--margen);
+    grid-row: 4; grid-column: 1; justify-self: start; text-align: left;
+    max-width: calc(68vw - var(--margen)); margin: var(--aire-junto-foto) 0 0 var(--margen);
   }
-  /* Botón: pegado al margen derecho, con su borde de abajo a la misma altura que el del lema */
-  .hero-titulo .boton { grid-row: 2; grid-column: 2; justify-self: end; align-self: end; margin: 0 var(--margen) var(--aire-junto-foto) 0; }
+  .hero-abajo { grid-row: 5; grid-column: 1; margin-top: 40px; }   /* aire entre el lema y los precios */
   .hero { padding-bottom: 56px; }       /* aire entre los precios y la cita (unos 64 px) */
   /* Precio y duración del hero, más grandes (el tamaño máximo de --cifra) */
   .datos dd { font-size: 32px; }
