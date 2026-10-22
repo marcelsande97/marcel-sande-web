@@ -580,7 +580,13 @@ img { max-width: 100%; }
 }
 /* Bloque de la izquierda: título y párrafo, con aire entre ellos */
 .manifiesto-bloque { display: grid; gap: 28px; justify-items: center; }
-.manifiesto-bloque .pastilla { margin-top: 4px; }
+.manifiesto-bloque .pastilla {
+  margin-top: 4px;
+  /* versión con contorno: interior transparente (se ve el fondo blanco) y línea del color del texto */
+  background: transparent;
+  color: var(--tinta);
+  box-shadow: inset 0 0 0 1.5px currentColor;
+}
 .manifiesto-texto { margin: 0; max-width: 34ch; }
 .manifiesto-frase { max-width: 30ch; line-height: 1.5; }  /* algo más de aire entre líneas */
 .cartel {
