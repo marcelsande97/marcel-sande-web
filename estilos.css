@@ -10,16 +10,16 @@
    Si cambias --acento, cambia en toda la web.
    ========================================================= */
 :root {
-  --fondo: #f2eee6;           /* beige sólido en toda la web */
-  --crema: var(--fondo);      /* las bandas usan el mismo beige */
-  --tinta: #1c1f1a;           /* casi negro, con un punto verde */
-  --tinta-suave: #5f6158;     /* texto secundario */
-  --linea: #d6cfc2;           /* separadores */
-  --acento: #1c1f1a;          /* negro: lo que se puede pulsar y algún detalle */
-  --acento-texto: #f6f3ec;    /* texto encima del acento */
-  --cabecera: var(--fondo);   /* barra superior: el mismo beige */
-  --pastilla: #e3ddd0;        /* botón secundario en pastilla arena */
-  --hero-tinta: #1c1f1a;      /* texto del hero: el mismo casi negro del resto */
+  --fondo: #c6d2d7;           /* azul grisáceo suave en toda la web */
+  --crema: var(--fondo);      /* las bandas usan el mismo color */
+  --tinta: #1a1e20;           /* casi negro, con un punto azul */
+  --tinta-suave: #434c51;     /* texto secundario (más oscuro para que se lea sobre el azul) */
+  --linea: #a9b7bd;           /* separadores */
+  --acento: #1a1e20;          /* negro: lo que se puede pulsar y algún detalle */
+  --acento-texto: #eef2f4;    /* texto encima del acento */
+  --cabecera: var(--fondo);   /* barra superior: el mismo color de fondo */
+  --pastilla: #dbe3e7;        /* botón secundario en pastilla azul claro */
+  --hero-tinta: #1a1e20;      /* texto del hero: el mismo casi negro del resto */
 
   --fuente: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif; /* texto corrido: la misma que las etiquetas */
   --fuente-titulos: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif; /* titulares, menú, botones y etiquetas */
@@ -37,30 +37,30 @@
 /* Modo oscuro: mismos nombres, otros valores */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --fondo: #1b211c;
+    --fondo: #172024;
     --crema: var(--fondo);
-    --tinta: #ece7dc;
-    --tinta-suave: #a9ab9f;
-    --linea: #2f3a31;
-    --acento: #ece7dc;
-    --acento-texto: #141a15;
+    --tinta: #e6edf0;
+    --tinta-suave: #a3b0b6;
+    --linea: #2f3d43;
+    --acento: #e6edf0;
+    --acento-texto: #121a1d;
     --cabecera: var(--fondo);
-    --pastilla: #2a302b;
-    --hero-tinta: #ece7dc;
+    --pastilla: #24323a;
+    --hero-tinta: #e6edf0;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --fondo: #1b211c;
+  --fondo: #172024;
   --crema: var(--fondo);
-  --tinta: #ece7dc;
-  --tinta-suave: #a9ab9f;
-  --linea: #2f3a31;
-  --acento: #ece7dc;
-  --acento-texto: #141a15;
+  --tinta: #e6edf0;
+  --tinta-suave: #a3b0b6;
+  --linea: #2f3d43;
+  --acento: #e6edf0;
+  --acento-texto: #121a1d;
   --cabecera: var(--fondo);
-  --pastilla: #2a302b;
-  --hero-tinta: #ece7dc;
+  --pastilla: #24323a;
+  --hero-tinta: #e6edf0;
   color-scheme: dark;
 }
 
