@@ -1,8 +1,9 @@
 /*
   APARICIÓN AL HACER SCROLL
   -------------------------
-  Cada bloque empieza un poco más abajo y transparente, y cuando asoma en pantalla
-  sube y aparece (los movimientos están en estilos.css, en .aparece y .visible).
+  La página se divide en bloques (cada sección, el manifiesto, la firma y el pie).
+  Cuando la parte de arriba de un bloque asoma en pantalla, todo lo que hay dentro
+  aparece a la vez y con el mismo movimiento (está en estilos.css: .aparece y .visible).
   Red de seguridad: si algo falla o la persona prefiere menos movimiento,
   no se esconde nada y la página se ve normal.
 */
@@ -11,39 +12,42 @@
   if (!('IntersectionObserver' in window)) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  // Qué bloques se animan
-  var selector = '.seccion h2, .acordeon details, .nota, .manifiesto-fila > *, .precio, .aviso-reserva, .firma, .pie-columnas > div';
-  var bloques = document.querySelectorAll(selector);
+  // Los bloques que se vigilan y, dentro de ellos, los elementos que se animan
+  var grupos = '.seccion, .manifiesto, .firma, .pie';
+  var elementos = '.seccion h2, .acordeon details, .nota, .manifiesto-fila > *, .precio, .aviso-reserva, .firma, .pie-columnas > div';
   var altoPantalla = window.innerHeight;
 
   // Solo escondemos lo que está por debajo de la pantalla al cargar
-  var aEsconder = [];
-  bloques.forEach(function (el) {
-    if (el.getBoundingClientRect().top > altoPantalla * 0.9) aEsconder.push(el);
+  var escondidos = [];
+  document.querySelectorAll(elementos).forEach(function (el) {
+    if (el.getBoundingClientRect().top > altoPantalla * 0.9) {
+      el.classList.add('aparece');
+      escondidos.push(el);
+    }
   });
 
-  // Los hermanos de un mismo grupo (pasos, tarifas…) entran uno detrás de otro
-  aEsconder.forEach(function (el) {
-    var hermanos = aEsconder.filter(function (o) { return o.parentNode === el.parentNode; });
-    var orden = Math.min(hermanos.indexOf(el), 5);
-    el.style.setProperty('--retraso', (orden * 0.08) + 's');
-    el.classList.add('aparece');
-  });
+  function mostrar(grupo) {
+    grupo.querySelectorAll('.aparece').forEach(function (el) { el.classList.add('visible'); });
+    if (grupo.classList.contains('aparece')) grupo.classList.add('visible');   // la firma es grupo y elemento
+  }
 
   var respuesta = false;
   var observador = new IntersectionObserver(function (entradas) {
     respuesta = true;
     entradas.forEach(function (e) {
       if (e.isIntersecting) {
-        e.target.classList.add('visible');
+        mostrar(e.target);
         observador.unobserve(e.target);   // solo una vez: al subir no se deshace
       }
     });
-  }, { threshold: 0.15 });               // aparece cuando asoma un 15 % del bloque
-  aEsconder.forEach(function (el) { observador.observe(el); });
+  }, { rootMargin: '0px 0px -10% 0px' });   // arranca cuando el bloque ha entrado un poco
+  document.querySelectorAll(grupos).forEach(function (g) { observador.observe(g); });
 
-  // Red de seguridad: si el observador no responde, lo mostramos todo
-  function mostrarTodo() { aEsconder.forEach(function (el) { el.classList.add('visible'); }); }
+  // Red de seguridad: si el observador no responde, o llegamos al final de la página, lo mostramos todo
+  function mostrarTodo() { escondidos.forEach(function (el) { el.classList.add('visible'); }); }
   setTimeout(function () { if (!respuesta) mostrarTodo(); }, 1500);
+  window.addEventListener('scroll', function () {
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) mostrarTodo();
+  }, { passive: true });
   window.addEventListener('beforeprint', mostrarTodo);
 })();

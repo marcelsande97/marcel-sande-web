@@ -20,6 +20,7 @@
    Si cambias --acento, cambia en toda la web.
    ========================================================= */
 :root {
+  --curva-aparecer: cubic-bezier(0.22, 1, 0.36, 1);   /* curva de las apariciones: rápida y frena */
   --fondo: #ffffff;           /* blanco en toda la web */
   --crema: var(--fondo);      /* las bandas usan el mismo color */
   --tinta: #111315;           /* casi negro */
@@ -671,9 +672,8 @@ img { max-width: 100%; }
 .aparece.visible {
   opacity: 1;
   transform: none;
-  /* curva rápida al principio que frena al final; --retraso escalona los grupos */
-  transition: opacity 0.7s ease-out var(--retraso, 0s),
-              transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) var(--retraso, 0s);
+  /* opacidad y movimiento con la misma duración y la misma curva (rápida al principio, frena al final) */
+  transition: opacity 0.8s var(--curva-aparecer), transform 0.8s var(--curva-aparecer);
 }
 
 @keyframes aparecer {
@@ -684,17 +684,14 @@ img { max-width: 100%; }
 /* =========================================================
    ENTRADA AL ABRIR LA PÁGINA
    Esta va con reloj (no con scroll): la cabecera se funde y el hero
-   sube y aparece por partes, una detrás de otra (animation-delay)
+   sube y aparece entero a la vez
    ========================================================= */
 @media (prefers-reduced-motion: no-preference) {
-  .cabecera { animation: fundir 1s ease both; }
+  .cabecera { animation: fundir 0.8s ease-out 0.1s both; }
+  /* todo el hero entra a la vez y con el mismo movimiento que el resto de la página */
   .hero-imagen, .hero-titulo, .hero-arriba, .hero-abajo {
-    animation: aparecer 1.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: aparecer 0.8s var(--curva-aparecer) 0.2s both;
   }
-  .hero-imagen  { animation: fundir 0.8s ease-out 0.2s both; }  /* la foto solo se funde, sin moverse */
-  .hero-titulo  { animation-delay: 0.3s; }
-  .hero-arriba  { animation-delay: 0.45s; }
-  .hero-abajo   { animation-delay: 0.6s; }
 }
 @keyframes fundir { from { opacity: 0; } to { opacity: 1; } }
 

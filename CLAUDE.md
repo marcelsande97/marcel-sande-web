@@ -32,7 +32,7 @@
 5. **Antes de venir**: desplegables en dos columnas.
 6. **Cómo empezar**: tres tarifas (Starter Pack destacado con línea negra gruesa; «Cliente nuevo» / «Ya eres cliente»). Botones a la misma altura. En móvil se deslizan en horizontal.
 7. **Firma grande** «MARCEL SANDÉ — FACIALS» de margen a margen (tamaño calculado en `.firma`) y **pie** con datos y enlaces legales.
-- Aparición al hacer scroll: `animaciones.js` (IntersectionObserver) añade `.aparece` / `.visible`; los bloques suben 40 px y se funden en ~0,8 s con curva que frena (referencia: web de Yurbban Passage), escalonados por grupo, una sola vez. Red de seguridad: sin JS, sin respuesta del observador o con «reducir movimiento», todo visible. Al abrir la página, el hero entra con animación CSS.
+- Aparición al hacer scroll: `animaciones.js` (IntersectionObserver) vigila bloques enteros (cada sección, manifiesto, firma, pie); cuando un bloque asoma, todo su contenido (`.aparece` → `.visible`) sube 40 px y se funde a la vez, 0,8 s con `--curva-aparecer`, una sola vez (referencia: Yurbban Passage). Red de seguridad: sin JS, sin respuesta del observador, al llegar al final o con «reducir movimiento», todo visible. Al abrir la página, cabecera y hero entran juntos con la misma curva.
 - Botones con contorno: al hacer hover se rellenan de negro con texto blanco.
 - Fotos en `img/`; las actuales son de referencia: para la web pública harán falta fotos propias o con licencia.
 
