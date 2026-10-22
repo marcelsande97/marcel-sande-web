@@ -564,6 +564,10 @@ img { max-width: 100%; }
 @media (min-width: 900px) {
   /* ordenador: dos columnas iguales a los lados y la foto en medio */
   .manifiesto-fila { grid-template-columns: minmax(0, 1fr) min(380px, 34vw) minmax(0, 1fr); align-items: center; gap: clamp(32px, 4vw, 64px); }
+  /* el bloque de la izquierda ocupa toda la altura de la foto:
+     título arriba (a ras de la foto), párrafo centrado y botón abajo (a ras de la foto) */
+  .manifiesto-bloque { align-self: stretch; grid-template-rows: auto 1fr auto; }
+  .manifiesto-texto { align-self: center; }
 }
 .manifiesto-titulo {
   margin: 0;
@@ -577,7 +581,7 @@ img { max-width: 100%; }
 /* Bloque de la izquierda: título y párrafo, con aire entre ellos */
 .manifiesto-bloque { display: grid; gap: 28px; justify-items: center; }
 .manifiesto-bloque .pastilla { margin-top: 4px; }
-.manifiesto-texto { margin: 0; max-width: 34ch; line-height: 1.35; }  /* interlineado algo más apretado */
+.manifiesto-texto { margin: 0; max-width: 34ch; }
 .manifiesto-frase { max-width: 30ch; line-height: 1.5; }  /* algo más de aire entre líneas */
 .cartel {
   width: min(100%, 380px);               /* foto pequeña */
