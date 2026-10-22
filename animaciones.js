@@ -14,7 +14,7 @@
 
   // Los bloques que se vigilan y, dentro de ellos, los elementos que se animan
   var grupos = '.frase-banda, .seccion, .manifiesto, .firma, .pie';
-  var elementos = '.frase-banda .declaracion, .frase-flecha, .seccion h2, .acordeon details, .nota, .manifiesto-bloque > *, .cartel, .manifiesto-frase, .precio, .aviso-reserva, .firma, .pie-columnas';   // el pie entero: la línea de arriba y el texto aparecen a la vez
+  var elementos = '.frase-banda .declaracion, .seccion h2, .acordeon details, .nota, .manifiesto-bloque > *, .cartel, .manifiesto-frase, .precio, .aviso-reserva, .firma, .pie-columnas';   // el pie entero: la línea de arriba y el texto aparecen a la vez
   var altoPantalla = window.innerHeight;
 
   // Solo escondemos los bloques que empiezan por debajo de la pantalla al cargar.

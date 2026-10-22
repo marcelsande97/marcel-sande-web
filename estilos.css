@@ -436,8 +436,6 @@ img { max-width: 100%; }
   .frase-banda { padding-left: calc(var(--margen) * 2); padding-right: calc(var(--margen) * 2); }
   .frase-banda .declaracion { text-wrap: pretty; }
 }
-/* Flecha bajo la cita: dos trazos de distinto largo que indican hacia dónde seguir */
-.frase-flecha { display: block; width: 18px; height: 26px; margin: clamp(48px, 5vw, 72px) auto 0; color: var(--tinta); }
 .frase-banda .declaracion {
   max-width: 54ch;                       /* caja algo más estrecha */
   margin: 0 auto;                        /* auto a los lados = centrada en la página */
