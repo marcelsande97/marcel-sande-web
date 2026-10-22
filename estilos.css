@@ -552,7 +552,7 @@ img { max-width: 100%; }
   display: grid;
   grid-template-columns: 1fr;            /* móvil: uno debajo de otro */
   justify-items: center;
-  gap: 32px;
+  gap: 56px;                             /* móvil: aire alrededor de la foto */
   text-align: center;                    /* cada texto centrado en su propio eje */
 }
 @media (min-width: 900px) {
