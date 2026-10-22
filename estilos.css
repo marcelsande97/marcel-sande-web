@@ -23,6 +23,7 @@
 
   --fuente: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
   --fuente-titulos: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif; /* titulares, menú, botones y etiquetas */
+  --fuente-display: "Instrument Serif", Georgia, serif; /* solo las frases más grandes */
   --ancho-max: 1280px;        /* ancho máximo del contenido */
   --margen: clamp(24px, 6vw, 96px); /* margen lateral que crece con la pantalla */
 
@@ -260,15 +261,22 @@ img { max-width: 100%; }
 
 /* La frase grande */
 /* Textos grandes: todos con la letra de titulares */
-.declaracion, .seccion h2, .manifiesto .frase, .precio .cifra {
+.seccion h2, .precio .cifra {
   font-family: var(--fuente-titulos);
 }
+/* Las dos frases protagonistas (banner y manifiesto) van en la serif editorial.
+   Es estrecha, así que va algo más grande que el resto de titulares */
+.declaracion, .manifiesto .frase {
+  font-family: var(--fuente-display);
+  font-weight: 400;
+}
+.manifiesto .frase em { font-style: italic; }  /* cursiva de verdad: el gesto con chispa */
 
 .declaracion {
-  font-size: clamp(24px, 2.4vw, 32px);   /* el mismo tamaño que los títulos de sección */
-  line-height: 1.12;
+  font-size: clamp(30px, 3.2vw, 44px);
+  line-height: 1.08;
   font-weight: 400;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.01em;
   max-width: 19ch;                       /* ch = ancho de un carácter: caja estrecha */
   margin: 0 0 44px;
   text-wrap: balance;
@@ -341,9 +349,9 @@ img { max-width: 100%; }
   padding-bottom: 24px;                  /* justo debajo del botón empieza el fundido */
 }
 .manifiesto .frase {
-  font-size: clamp(30px, 4.4vw, 64px);
+  font-size: clamp(38px, 6vw, 88px);
   line-height: 1.04;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.005em;
   margin: 0 0 48px;
   text-wrap: balance;
 }
