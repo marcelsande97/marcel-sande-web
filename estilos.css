@@ -442,7 +442,7 @@ img { max-width: 100%; }
    Mismo tamaño de letra (sin jerarquía nueva); sale alguna línea más.
    text-wrap: pretty evita que la última línea quede con una sola palabra */
 @media (max-width: 760px) {
-  .frase-banda { padding-left: calc(var(--margen) * 2); padding-right: calc(var(--margen) * 2); }
+  .frase-banda { padding-left: calc(var(--margen) * 2); padding-right: calc(var(--margen) * 2); padding-bottom: 86px; }   /* abajo el mismo aire que arriba (144 px hasta el título siguiente) */
   .frase-banda .declaracion { text-wrap: pretty; }
 }
 .frase-banda .declaracion {
@@ -541,10 +541,10 @@ img { max-width: 100%; }
   padding-bottom: clamp(24px, 3vw, 40px);
 }
 @media (max-width: 899px) {
-  /* móvil: la frase queda centrada entre la foto y «Antes de venir»
-     (56 px de hueco de la rejilla + 38 px arriba; 36 px + 56 px de la sección siguiente abajo) */
-  .manifiesto { padding-bottom: 36px; }
-  .manifiesto-fila .manifiesto-frase { margin-top: 38px; }
+  /* móvil: la frase queda centrada entre la foto y «Antes de venir», con el mismo
+     aire que la cita (144 px): 56 px de la rejilla + 88 px arriba; 86 px + 56 px de la sección siguiente abajo */
+  .manifiesto { padding-bottom: 86px; }
+  .manifiesto-fila .manifiesto-frase { margin-top: 88px; }
 }
 
 /* Botón en pastilla: negro con texto blanco, sin borde */
@@ -637,10 +637,10 @@ img { max-width: 100%; }
   font-size: var(--cifra);               /* el mismo tamaño que los precios del hero */
   font-weight: 500;
   letter-spacing: -0.02em;
-  margin: 24px 0 12px;
+  margin: 0 0 28px;                      /* va después de la duración: aire antes del texto */
   line-height: 1.1;
 }
-.precio .duracion { color: var(--tinta-suave); margin: 0 0 32px; }
+.precio .duracion { color: var(--tinta-suave); margin: 4px 0 20px; }   /* justo debajo del nombre; algo más de aire hasta el precio */
 .precio p { margin: 0 0 16px; }
 .precio .boton { margin-top: auto; }
 /* Botón con contorno: interior transparente, borde y texto negros.
@@ -781,8 +781,6 @@ img { max-width: 100%; }
     flex: 0 0 78%;
     scroll-snap-align: start;
   }
-  .precio .cifra { margin-top: 16px; }
-  .precio .duracion { margin-bottom: 20px; }
 }
 .seccion > p.aviso-reserva {
   margin: 56px 0 0;
