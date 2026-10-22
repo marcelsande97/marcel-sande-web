@@ -433,6 +433,9 @@ img { max-width: 100%; }
   padding-top: clamp(56px, 6vw, 88px);
   padding-bottom: clamp(24px, 3vw, 40px);
 }
+@media (max-width: 899px) {
+  .manifiesto { padding-bottom: 72px; }  /* móvil: más aire tras la frase */
+}
 
 /* Botón en pastilla: negro con texto blanco, sin borde */
 .pastilla {
