@@ -222,6 +222,10 @@ img { max-width: 100%; }
   padding: 0;
 }
 .menu a { text-decoration: none; }
+/* El menú y el botón «Reserva» van en fila dentro del <nav> */
+.cabecera nav { display: flex; align-items: center; gap: 40px; }
+/* Botón de las tres rayas: escondido en ordenador */
+.menu-boton { display: none; }
 .menu a:hover { text-decoration: underline; text-underline-offset: 4px; }
 
 /* Desplegable de «Tratamientos»: está oculto y aparece al pasar el ratón
@@ -269,20 +273,62 @@ img { max-width: 100%; }
   color: var(--fondo);
 }
 
-/* En pantallas medianas el menú completo no cabe: dejamos logo + reservar */
+/* Por debajo de 980 px el menú completo no cabe: logo, «Reserva» y las tres rayas.
+   El menú se abre como un panel debajo de la barra */
 @media (max-width: 980px) {
-  .menu li:not(:last-child) { display: none; }
+  .cabecera nav { gap: 8px; }
+  .menu-boton {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 36px;
+    height: 36px;
+    padding: 0 7px;
+    margin-right: -7px;            /* las rayas quedan alineadas con el margen */
+    background: none;
+    border: 0;
+    color: var(--tinta);
+    cursor: pointer;
+  }
+  .menu-boton span { display: block; height: 1.5px; background: currentColor; transition: transform 0.2s ease, opacity 0.2s ease; }
+  /* Abierto: las tres rayas se convierten en una × */
+  .menu-boton[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .menu-boton[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .menu-boton[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+  /* El panel: escondido hasta que se pulsa el botón */
+  .menu {
+    display: none;
+    position: fixed;
+    top: var(--alto-cabecera);
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 8px var(--margen) 32px;
+    background: var(--fondo);
+    border-bottom: 1px solid var(--linea);
+  }
+  .menu.abierto { display: flex; }
+  .menu > li > a { display: block; padding: 16px 0; }
+  /* Las opciones de Tratamientos, siempre visibles y un poco metidas hacia dentro */
+  .submenu { position: static; opacity: 1; visibility: visible; transform: none; min-width: 0; padding: 0 0 8px 16px; background: none; }
+  .submenu a { padding: 10px 0; }
+  .submenu a:hover, .submenu a:focus-visible { background: none; color: inherit; text-decoration: underline; }
 }
 
-/* En móvil escondemos el menú y dejamos logo + reservar */
 @media (max-width: 760px) {
-  .menu li:not(:last-child) { display: none; }
   .cabecera .boton { padding: 10px 16px; }
 }
 /* Móviles estrechos: menos aire entre logo y botón para que quepan sin salirse */
 @media (max-width: 400px) {
-  .cabecera .contenedor { gap: 10px; }
+  .cabecera .contenedor { gap: 8px; }
   .cabecera .boton { padding: 10px 12px; }
+  .cabecera nav { gap: 6px; }
+  .menu-boton { width: 30px; padding: 0 6px; margin-right: -6px; }
+  .logo { font-size: 13px; }       /* 1 px menos: logo, «Reserva» y las rayas caben en 360 px */
 }
 
 /* =========================================================

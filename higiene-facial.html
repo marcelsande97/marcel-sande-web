@@ -33,9 +33,9 @@
   <header class="cabecera">
     <div class="contenedor">
       <!-- Cuando tengas logo, cambia este texto por <img src="logo.svg" alt="Marcel Sandé"> -->
-      <a class="logo" href="#"><span class="logo-nombre">Marcel Sandé</span> Facials</a>
+      <a class="logo" href="#"><span class="logo-nombre">Marcel Sandé</span> <span aria-hidden="true">·</span> Facials</a>
       <nav aria-label="Principal">
-        <ul class="menu">
+        <ul class="menu" id="menu-principal">
           <!-- «Tratamientos» abre un desplegable al pasar el ratón (o al llegar con el teclado) -->
           <li class="con-submenu">
             <a href="#" aria-haspopup="true">Tratamientos</a>
@@ -49,9 +49,13 @@
           <li><a href="#">Manifiesto</a></li>
           <li><a href="#">Equipo</a></li>
           <li><a href="#">Contacto</a></li>
-          <!-- Aquí irá el enlace real a tu motor de reservas -->
-          <li><a class="boton contraste" href="#reservar">Reserva</a></li>
         </ul>
+        <!-- Aquí irá el enlace real a tu motor de reservas -->
+        <a class="boton contraste" href="#reservar">Reserva</a>
+        <!-- Botón de las tres rayas: solo se ve por debajo de 980 px y abre el menú -->
+        <button class="menu-boton" type="button" aria-expanded="false" aria-controls="menu-principal" aria-label="Menú">
+          <span></span><span></span><span></span>
+        </button>
       </nav>
     </div>
   </header>
@@ -293,5 +297,20 @@
   <!-- Animaciones de aparición al hacer scroll (ver animaciones.js) -->
   <script src="animaciones.js" defer></script>
 
+  <script>
+    // Menú del móvil: el botón de las tres rayas abre y cierra la lista.
+    // aria-expanded le dice al lector de pantalla si está abierto
+    (function () {
+      var boton = document.querySelector('.menu-boton');
+      var menu = document.getElementById('menu-principal');
+      function poner(abierto) {
+        boton.setAttribute('aria-expanded', abierto);
+        menu.classList.toggle('abierto', abierto);
+      }
+      boton.addEventListener('click', function () { poner(boton.getAttribute('aria-expanded') !== 'true'); });
+      menu.addEventListener('click', function (e) { if (e.target.closest('a')) poner(false); });   // al elegir una opción se cierra
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') poner(false); });
+    })();
+  </script>
 </body>
 </html>
