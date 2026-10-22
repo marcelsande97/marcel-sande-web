@@ -204,9 +204,9 @@ img { max-width: 100%; }
 .hero-banda {
   background: var(--crema);
   display: grid;
-  /* Dos mitades iguales: la foto llega justo a la mitad de la página */
+  /* Dos mitades iguales: foto pequeña a la izquierda, texto a la derecha */
   grid-template-columns: 1fr 1fr;
-  min-height: clamp(560px, 90vh, 900px);
+  min-height: clamp(520px, 80vh, 780px);
   --aire: 28px;                          /* margen interior arriba y abajo del texto */
 }
 
@@ -219,7 +219,7 @@ img { max-width: 100%; }
   gap: 48px;
   padding-top: var(--aire);
   padding-bottom: var(--aire);
-  padding-left: clamp(24px, 4vw, 56px);
+  padding-left: clamp(40px, 6vw, 112px);  /* aire generoso entre la foto y el texto */
   /* En pantallas muy anchas, alinea el borde derecho con el resto de la página */
   padding-right: max(var(--margen), calc((100vw - var(--ancho-max)) / 2 + var(--margen)));
 }
@@ -228,20 +228,20 @@ img { max-width: 100%; }
    position: relative + absolute en la foto = la foto ocupa el hueco
    pero no decide la altura de la banda (la decide el texto).
    "order: -1" la pone a la izquierda (y arriba en móvil) sin tocar el HTML */
+/* Columna de la foto: la foto es pequeña y "flota" sobre el beige,
+   alineada con el margen izquierdo de la página y centrada en vertical.
+   "order: -1" la pone a la izquierda (y arriba en móvil) sin tocar el HTML */
 .hero-imagen {
   margin: 0;
-  position: relative;
   order: -1;
-  --despegue: clamp(16px, 2.5vw, 40px);  /* separación del borde izquierdo */
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;             /* pegada al lado del texto... */
+  padding: 48px 0 48px max(var(--margen), calc((100vw - var(--ancho-max)) / 2 + var(--margen)));
 }
 .hero-imagen img {
-  position: absolute;
-  inset: 0;                              /* pegada arriba, abajo y a la derecha... */
-  left: var(--despegue, 0px);            /* ...y separada un poco del borde izquierdo */
-  width: calc(100% - var(--despegue, 0px));  /* termina justo en la mitad */
-  height: 100%;
-  object-fit: cover;                     /* recorta en vez de estirar */
-  object-position: center 40%;           /* qué parte de la foto se prioriza al recortar */
+  width: clamp(220px, 24vw, 360px);      /* pequeña: como mucho 360 px de ancho */
+  height: auto;                          /* con su proporción: sin recortes */
   display: block;
 }
 
@@ -259,7 +259,8 @@ img { max-width: 100%; }
 /* En móvil: una columna, la foto arriba a todo el ancho y el texto debajo */
 @media (max-width: 760px) {
   .hero-banda { grid-template-columns: 1fr; min-height: 0; }
-  .hero-imagen { aspect-ratio: 4 / 5; --despegue: 0px; }  /* en móvil, a todo el ancho */
+  .hero-imagen { padding: 32px var(--margen) 0; justify-content: flex-start; }
+  .hero-imagen img { width: min(72%, 300px); }  /* en móvil, también pequeña */
   .hero-texto { padding: 24px var(--margen); gap: 32px; }
 }
 
@@ -282,12 +283,12 @@ img { max-width: 100%; }
 .manifiesto .frase em { font-style: italic; }  /* cursiva de verdad: el gesto con chispa */
 
 .declaracion {
-  font-size: clamp(34px, 3.8vw, 56px);
-  line-height: 1.08;
+  font-size: clamp(26px, 2.6vw, 38px);   /* más pequeña, en proporción con la foto */
+  line-height: 1.12;
   font-weight: 400;
   letter-spacing: -0.01em;
   max-width: 19ch;                       /* ch = ancho de un carácter: caja estrecha */
-  margin: 0 0 44px;
+  margin: 0 0 32px;
   text-wrap: balance;
 }
 
