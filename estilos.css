@@ -1016,8 +1016,10 @@ img { max-width: 100%; }
   /* minmax(0, …): la columna nunca se ensancha más que la pantalla, aunque el título sea largo */
   .hero-banda { grid-template-columns: minmax(0, 1fr); }
   .hero .declaracion { grid-row: 1; grid-column: 1; justify-self: start; margin: 0 var(--margen); color: var(--tinta); }
-  /* Botón: centrado, muy cerca del título y con aire por debajo (antes de la foto) */
-  .hero-titulo .boton { grid-row: 2; grid-column: 1; justify-self: center; align-self: auto; margin: 12px 0 var(--aire-junto-foto); }
+  /* Botón: centrado, muy cerca del título y con más aire por debajo (antes de la foto) */
+  .hero-titulo .boton { grid-row: 2; grid-column: 1; justify-self: center; align-self: auto; margin: 12px 0 48px; }
+  /* Sin el botón negro «Reserva» de la cabecera: ya está el del hero */
+  .cabecera .boton.contraste { display: none; }
   .hero-imagen { grid-row: 3; grid-column: 1; }
   /* Lema: bajo la foto, alineado a la izquierda; la caja llega hasta el 68 % del ancho */
   .hero-lema {
