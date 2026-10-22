@@ -556,6 +556,8 @@ img { max-width: 100%; }
   margin: 0 0 40px;
 }
 .seccion > p { max-width: 60ch; margin: 0; }
+/* Micro título encima de un título de sección: como «Siguientes Visitas» (gris, tamaño del texto) */
+.seccion > .antetitulo { margin: 0 0 8px; color: var(--tinta-suave); }
 
 /* Pasos: usan los mismos desplegables de más abajo,
    con el número dentro de un círculo para marcar el orden */
@@ -1003,13 +1005,20 @@ img { max-width: 100%; }
    Van al final para poder cambiar las reglas generales de más arriba
    ========================================================= */
 @media (max-width: 760px) {
+  /* Título del hero en negro, justo debajo de la foto (no encima) */
+  .hero .declaracion { grid-row: 2; justify-self: start; margin: 16px var(--margen) 0; color: var(--tinta); }
+  .hero-lema { grid-row: 3; }
+  .hero-titulo .boton { grid-row: 4; }
+  .hero-abajo { grid-row: 5; }
   /* Lema y botón del hero alineados a la izquierda */
   .hero-lema { justify-self: start; text-align: left; }
   .hero-titulo .boton { justify-self: start; margin-left: var(--margen); }
   /* Precio y duración del hero, más grandes (el tamaño máximo de --cifra) */
   .datos dd { font-size: 32px; }
   /* La cita a sangre (de margen a margen), alineada a la izquierda y al tamaño de los títulos de sección */
-  .frase-banda { padding-left: var(--margen); padding-right: var(--margen); }
+  /* Arriba, el mismo aire que entre el botón «Reserva» y «Primera Visita» (56 px = 48 del hero + 11, medido);
+     abajo, mucho aire hasta «Qué hacemos y por qué» (el doble que antes: 288 px = 232 + 56 de la sección) */
+  .frase-banda { padding: 11px var(--margen) 232px; }
   .frase-banda .declaracion { max-width: none; margin: 0; text-align: left; font-size: var(--titulo-seccion); }
   /* Tras Resultados, el mismo aire que antes de Resultados */
   .resultados { padding-bottom: clamp(56px, 6vw, 88px); }
