@@ -23,6 +23,7 @@
   --curva-aparecer: cubic-bezier(0.25, 0.6, 0.3, 1);  /* curva de las apariciones: arranque suave y frenada larga */
   --tiempo-aparecer: 1.6s;                             /* duración de las apariciones */
   --recorrido-aparecer: 60px;                          /* cuánto suben los bloques al aparecer */
+  --tiempo-imagen: 3.2s;                               /* las fotos se funden mucho más despacio */
   --fondo: #ffffff;           /* blanco en toda la web */
   --crema: var(--fondo);      /* las bandas usan el mismo color */
   --tinta: #111315;           /* casi negro */
@@ -678,6 +679,11 @@ img { max-width: 100%; }
   transition: opacity var(--tiempo-aparecer) var(--curva-aparecer), transform var(--tiempo-aparecer) var(--curva-aparecer);
 }
 
+/* Las fotos: suben igual que el resto, pero la opacidad cambia mucho más despacio */
+.cartel.aparece.visible {
+  transition: opacity var(--tiempo-imagen) ease-in-out, transform var(--tiempo-aparecer) var(--curva-aparecer);
+}
+
 @keyframes aparecer {
   from { opacity: 0; transform: translateY(var(--recorrido-aparecer)); }
   to   { opacity: 1; transform: none; }
@@ -697,8 +703,26 @@ img { max-width: 100%; }
   .hero-imagen, .hero-arriba > *, .hero-abajo, .hero-titulo > * {
     animation: aparecer var(--tiempo-aparecer) var(--curva-aparecer) 0.15s backwards;
   }
+  /* la foto del hero: dos animaciones a la vez, fundido lento + subida normal */
+  .hero-imagen {
+    animation: fundir var(--tiempo-imagen) ease-in-out 0.15s backwards,
+               subir var(--tiempo-aparecer) var(--curva-aparecer) 0.15s backwards;
+  }
 }
 @keyframes fundir { from { opacity: 0; } to { opacity: 1; } }
+@keyframes subir { from { transform: translateY(var(--recorrido-aparecer)); } to { transform: none; } }
+
+/* =========================================================
+   SCROLL POR BLOQUES (solo ordenador)
+   El navegador para el scroll al principio de cada bloque: acelera,
+   frena y se detiene en el siguiente. scroll-padding-top (en html)
+   deja el hueco de la cabecera fija. En móvil el scroll es libre.
+   ========================================================= */
+@media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
+  html { scroll-snap-type: y mandatory; }
+  .hero, .seccion, .manifiesto { scroll-snap-align: start; }
+  .pie { scroll-snap-align: end; }          /* el último tope: el final de la página */
+}
 
 /* Si la persona tiene desactivadas las animaciones en su sistema, las respetamos */
 @media (prefers-reduced-motion: reduce) {
