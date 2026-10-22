@@ -572,14 +572,13 @@ img { max-width: 100%; }
   text-transform: uppercase;
   letter-spacing: 0.1em;
   line-height: 1.3;
-  font-size: clamp(20px, 2vw, 28px);     /* el mismo tamaño que «Qué hacemos y por qué» */
+  font-size: clamp(14px, 1.15vw, 16px);  /* título y frase, pequeños y del mismo tamaño */
 }
 /* Bloque de la izquierda: título y párrafo, con aire entre ellos */
 .manifiesto-bloque { display: grid; gap: 28px; justify-items: center; }
 .manifiesto-bloque .pastilla { margin-top: 4px; }
 .manifiesto-texto { margin: 0; max-width: 34ch; }
-/* La frase de la derecha: misma tipografía que el título, pero bastante más pequeña */
-.manifiesto-frase { max-width: 30ch; font-size: clamp(14px, 1.15vw, 16px); }
+.manifiesto-frase { max-width: 30ch; }
 .cartel {
   width: min(100%, 380px);               /* foto pequeña */
   aspect-ratio: 2 / 3;
