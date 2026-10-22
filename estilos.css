@@ -20,7 +20,9 @@
    Si cambias --acento, cambia en toda la web.
    ========================================================= */
 :root {
-  --curva-aparecer: cubic-bezier(0.22, 1, 0.36, 1);   /* curva de las apariciones: rápida y frena */
+  --curva-aparecer: cubic-bezier(0.25, 0.6, 0.3, 1);  /* curva de las apariciones: arranque suave y frenada larga */
+  --tiempo-aparecer: 1.6s;                             /* duración de las apariciones */
+  --recorrido-aparecer: 60px;                          /* cuánto suben los bloques al aparecer */
   --fondo: #ffffff;           /* blanco en toda la web */
   --crema: var(--fondo);      /* las bandas usan el mismo color */
   --tinta: #111315;           /* casi negro */
@@ -667,17 +669,17 @@ img { max-width: 100%; }
    ========================================================= */
 .aparece {
   opacity: 0;
-  transform: translateY(40px);
+  transform: translateY(var(--recorrido-aparecer));
 }
 .aparece.visible {
   opacity: 1;
   transform: none;
   /* opacidad y movimiento con la misma duración y la misma curva (rápida al principio, frena al final) */
-  transition: opacity 0.8s var(--curva-aparecer), transform 0.8s var(--curva-aparecer);
+  transition: opacity var(--tiempo-aparecer) var(--curva-aparecer), transform var(--tiempo-aparecer) var(--curva-aparecer);
 }
 
 @keyframes aparecer {
-  from { opacity: 0; transform: translateY(40px); }
+  from { opacity: 0; transform: translateY(var(--recorrido-aparecer)); }
   to   { opacity: 1; transform: none; }
 }
 
@@ -687,10 +689,13 @@ img { max-width: 100%; }
    sube y aparece entero a la vez
    ========================================================= */
 @media (prefers-reduced-motion: no-preference) {
-  .cabecera { animation: fundir 0.8s ease-out 0.1s both; }
+  .cabecera { animation: fundir var(--tiempo-aparecer) ease-out backwards; }
   /* todo el hero entra a la vez y con el mismo movimiento que el resto de la página */
-  .hero-imagen, .hero-titulo, .hero-arriba, .hero-abajo {
-    animation: aparecer 0.8s var(--curva-aparecer) 0.2s both;
+  /* Ojo: .hero-titulo no se puede animar en ordenador (es display: contents),
+     y en móvil tampoco .hero-arriba: animamos lo que llevan dentro.
+     «backwards» = solo aplica el estado inicial; al terminar, el hover del botón sigue funcionando */
+  .hero-imagen, .hero-arriba > *, .hero-abajo, .hero-titulo > * {
+    animation: aparecer var(--tiempo-aparecer) var(--curva-aparecer) 0.15s backwards;
   }
 }
 @keyframes fundir { from { opacity: 0; } to { opacity: 1; } }
