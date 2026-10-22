@@ -30,6 +30,8 @@
   --tinta: #111315;           /* casi negro */
   --tinta-suave: #5b6168;     /* texto secundario */
   --linea: #dfe2e5;           /* separadores */
+  --papel: #f4f2ee;           /* beige grisáceo muy sutil (páginas del manifiesto en móvil) */
+  --titulo-seccion: clamp(20px, 2vw, 28px);   /* títulos de sección (y la cita en móvil) */
   --acento: #111315;          /* negro: lo que se puede pulsar y algún detalle */
   --acento-texto: #ffffff;    /* texto encima del acento */
   --cabecera: var(--fondo);   /* barra superior: el mismo color de fondo */
@@ -55,7 +57,7 @@
   --sobre-foto-tinta: #111315;/* letra del botón cuando se rellena de blanco */
   --velo-reposo: 0;           /* oscurecido de la foto del manifiesto sin pasar el ratón (0 = nada) */
   --velo-hover: 0.55;         /* oscurecido al pasar el ratón */
-  --velo-hero-movil: 0.25;    /* oscurecido de la foto del hero en móvil, para leer el título blanco */
+  --velo-hero-movil: 0;       /* oscurecido de la foto del hero en móvil (0 = la foto tal cual) */
   --velo-movil: 0.1;          /* en móvil no hay hover: velo fijo para poder leer el texto blanco */
   --fuente-display: "Ridley Grotesk", "Hanken Grotesk", Arial, sans-serif; /* titulares: mayúsculas espaciadas */
   --ancho-max: 1600px;        /* ancho máximo del contenido (más ancho: todo más cerca de los bordes) */
@@ -77,6 +79,7 @@
     --tinta: #eef0f2;
     --tinta-suave: #a2a8ae;
     --linea: #2b2f33;
+    --papel: #1b1d1f;
     --acento: #eef0f2;
     --acento-texto: #111315;
     --cabecera: var(--fondo);
@@ -92,6 +95,7 @@
   --tinta: #eef0f2;
   --tinta-suave: #a2a8ae;
   --linea: #2b2f33;
+  --papel: #1b1d1f;
   --acento: #eef0f2;
   --acento-texto: #111315;
   --cabecera: var(--fondo);
@@ -547,7 +551,7 @@ img { max-width: 100%; }
    ========================================================= */
 .seccion { padding-top: clamp(56px, 6vw, 88px); padding-bottom: clamp(56px, 6vw, 88px); }  /* aire entre bloques */
 .seccion h2 {
-  font-size: clamp(20px, 2vw, 28px);
+  font-size: var(--titulo-seccion);
   letter-spacing: 0.1em;
   margin: 0 0 40px;
 }
@@ -814,17 +818,16 @@ img { max-width: 100%; }
 @media (max-width: 899px) {
   .manifiesto-fila {
     grid-template-columns: repeat(3, min(86vw, 380px));
-    gap: 12px;
+    gap: 0;                              /* las tres páginas pegadas */
     align-items: stretch;
     overflow-x: auto;                    /* scroll horizontal */
     scroll-snap-type: x mandatory;       /* cada página encaja al soltar */
-    margin: 0 calc(var(--margen) * -1);  /* la fila llega a los bordes de la pantalla */
-    padding: 0 var(--margen);
-    scroll-padding: 0 var(--margen);
+    margin: 0 calc(var(--margen) * -1);  /* a sangre: de borde a borde de la pantalla */
+    padding: 0;
     scrollbar-width: none;               /* sin barra de scroll visible */
   }
   .manifiesto-fila::-webkit-scrollbar { display: none; }
-  /* Páginas 1 y 3: el texto centrado dentro de un marco fino, a la altura de la foto */
+  /* Páginas 1 y 3: el texto centrado sobre un fondo beige muy sutil, a la altura de la foto */
   .manifiesto-bloque .manifiesto-titulo,
   .manifiesto-frase {
     grid-row: 1;
@@ -833,13 +836,19 @@ img { max-width: 100%; }
     display: grid;
     place-content: center;
     padding: 24px;
-    border: 1px solid var(--linea);
+    background: var(--papel);
     max-width: none;
   }
   .manifiesto-bloque .manifiesto-titulo { grid-column: 1; }
   .manifiesto-frase { grid-column: 3; }
-  /* Página 2: la foto con el párrafo y el botón encima (misma celda) */
-  .cartel, .manifiesto-texto, .manifiesto-bloque .boton { grid-column: 2; grid-row: 1; }
+  /* Página 1: el botón «Manifiesto» abajo, con el contorno negro normal (está sobre el beige) */
+  .manifiesto-bloque .boton { grid-column: 1; grid-row: 1; justify-self: center; z-index: 1; }
+  .manifiesto-bloque .boton.contorno { color: var(--tinta); box-shadow: inset 0 0 0 1.5px var(--tinta); }
+  .manifiesto-bloque .boton.contorno:hover,
+  .manifiesto-bloque .boton.contorno:focus-visible { background: var(--pastilla); color: var(--pastilla-texto); box-shadow: inset 0 0 0 1.5px var(--pastilla); }
+  .manifiesto-bloque .boton:focus-visible { outline-color: var(--acento); }
+  /* Página 2: la foto con el párrafo encima (misma celda) */
+  .cartel, .manifiesto-texto { grid-column: 2; grid-row: 1; }
   .cartel { width: 100%; }
   .manifiesto-texto { align-self: center; justify-self: center; max-width: none; padding: 0 14px; text-wrap: balance; }
   .manifiesto-bloque .manifiesto-titulo, .cartel { scroll-snap-align: start; }   /* cada página encaja alineada con el margen */
@@ -987,6 +996,23 @@ img { max-width: 100%; }
     align-content: center;
   }
   .pie { scroll-snap-align: end; }          /* el último tope: el final de la página */
+}
+
+/* =========================================================
+   MÓVIL: AJUSTES EDITORIALES
+   Van al final para poder cambiar las reglas generales de más arriba
+   ========================================================= */
+@media (max-width: 760px) {
+  /* Lema y botón del hero alineados a la izquierda */
+  .hero-lema { justify-self: start; text-align: left; }
+  .hero-titulo .boton { justify-self: start; margin-left: var(--margen); }
+  /* Precio y duración del hero, más grandes (el tamaño máximo de --cifra) */
+  .datos dd { font-size: 32px; }
+  /* La cita a sangre (de margen a margen), alineada a la izquierda y al tamaño de los títulos de sección */
+  .frase-banda { padding-left: var(--margen); padding-right: var(--margen); }
+  .frase-banda .declaracion { max-width: none; margin: 0; text-align: left; font-size: var(--titulo-seccion); }
+  /* Tras Resultados, el mismo aire que antes de Resultados */
+  .resultados { padding-bottom: clamp(56px, 6vw, 88px); }
 }
 
 /* Si la persona tiene desactivadas las animaciones en su sistema, las respetamos */
