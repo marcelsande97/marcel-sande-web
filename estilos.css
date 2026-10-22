@@ -335,7 +335,7 @@ img { max-width: 100%; }
      display: contents deja sueltos los hijos de cada bloque para poder ordenarlos */
   .hero-texto { padding: 32px var(--margen) 40px; gap: 20px; }
   .hero-arriba, .hero-titulo { display: contents; }
-  .hero .declaracion { order: 1; margin: 0; }
+  .hero .declaracion { order: 1; margin: 0; max-width: min-content; }   /* una palabra por línea: Higiene / Facial */
   .hero-lema { order: 2; margin: 0; }
   .hero-titulo .boton { order: 3; align-self: flex-start; margin-top: 8px; }
   .hero-abajo { order: 4; margin-top: 32px; }
@@ -415,10 +415,10 @@ img { max-width: 100%; }
    centrado. Más pequeña que el título del hero, pero protagonista */
 .frase-banda { padding: clamp(56px, 7vw, 112px) var(--margen); }
 .frase-banda .declaracion {
-  max-width: 62ch;                       /* caja más ancha: menos líneas */
+  max-width: 54ch;                       /* caja algo más estrecha */
   margin: 0 auto;                        /* auto a los lados = centrada en la página */
   text-align: center;
-  font-size: clamp(17px, 1.6vw, 22px);
+  font-size: clamp(15px, 1.3vw, 18px);   /* más pequeña */
   line-height: 1.3;
 }
 

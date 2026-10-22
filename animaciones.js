@@ -14,7 +14,7 @@
 
   // Los bloques que se vigilan y, dentro de ellos, los elementos que se animan
   var grupos = '.frase-banda, .seccion, .manifiesto, .firma, .pie';
-  var elementos = '.frase-banda .declaracion, .seccion h2, .acordeon details, .nota, .manifiesto-fila > *, .precio, .aviso-reserva, .firma, .pie-columnas > div';
+  var elementos = '.frase-banda .declaracion, .seccion h2, .acordeon details, .nota, .manifiesto-fila > *, .precio, .aviso-reserva, .firma, .pie-columnas';   // el pie entero: la línea de arriba y el texto aparecen a la vez
   var altoPantalla = window.innerHeight;
 
   // Solo escondemos los bloques que empiezan por debajo de la pantalla al cargar.
@@ -37,17 +37,25 @@
     if (grupo.classList.contains('aparece')) grupo.classList.add('visible');   // la firma es grupo y elemento
   }
 
+  // Qué se vigila de cada bloque: normalmente el bloque entero. En la cita se vigila
+  // el propio texto: el bloque empieza justo en el borde de la pantalla y el texto
+  // va mucho más abajo (por el padding), así que con un toque de scroll el fundido
+  // terminaba antes de que el texto llegara a verse
+  function disparador(g) {
+    return g.matches('.frase-banda') ? g.querySelector('.declaracion') : g;
+  }
+
   var respuesta = false;
   var observador = new IntersectionObserver(function (entradas) {
     respuesta = true;
     entradas.forEach(function (e) {
       if (e.isIntersecting) {
-        mostrar(e.target);
+        mostrar(e.target.closest(grupos));
         observador.unobserve(e.target);   // solo una vez: al subir no se deshace
       }
     });
   }, { rootMargin: '0px 0px -10% 0px' });   // arranca cuando el bloque ha entrado un poco
-  document.querySelectorAll(grupos).forEach(function (g) { observador.observe(g); });
+  document.querySelectorAll(grupos).forEach(function (g) { observador.observe(disparador(g)); });
 
   // Red de seguridad: si el observador no responde, o llegamos al final de la página, lo mostramos todo
   function mostrarTodo() { escondidos.forEach(function (el) { el.classList.add('visible'); }); }
