@@ -16,7 +16,6 @@
   --linea: #d6cfc2;           /* separadores */
   --acento: #2e6b3c;          /* verde de marca: lo que se puede pulsar y algún detalle */
   --acento-texto: #f6f3ec;    /* texto encima del acento */
-  --hero-fondo: #cfe3b6;      /* bloque de color del hero: verde suave */
   --hero-tinta: #1c1f1a;      /* texto del hero: el mismo casi negro del resto */
   --franja-fondo: #4a3a2c;    /* marrón oscuro, de la familia del crema */
   --franja-tinta: #f6f1e8;    /* texto claro sobre la franja */
@@ -42,7 +41,6 @@
     --linea: #2f3a31;
     --acento: #a5d68c;
     --acento-texto: #141a15;
-    --hero-fondo: #22382a;
     --hero-tinta: #ece7dc;
     --franja-fondo: #2e2419;
     --franja-tinta: #f6f1e8;
@@ -56,7 +54,6 @@
   --linea: #2f3a31;
   --acento: #a5d68c;
   --acento-texto: #141a15;
-  --hero-fondo: #22382a;
   --hero-tinta: #ece7dc;
   --franja-fondo: #2e2419;
   --franja-tinta: #f6f1e8;
@@ -193,7 +190,7 @@ img { max-width: 100%; }
 .hero { padding-bottom: 72px; }
 
 /* Díptico a todo el ancho: bloque de color | foto.
-   El color va en toda la banda y la foto "flota" dentro, con margen alrededor.
+   Va sobre el fondo crema; la foto deja un margen alrededor.
    13fr 11fr = el bloque se lleva 13 partes de 24 y la foto 11: la línea queda un poco a la derecha */
 .hero-banda {
   display: grid;
@@ -204,7 +201,6 @@ img { max-width: 100%; }
 /* Bloque de color sólido con el texto.
    space-between reparte: fila de arriba, frase en medio, fila de abajo */
 .hero-banda {
-  background: var(--hero-fondo);
   --aire: 28px;                          /* margen interior del bloque, arriba y abajo */
 }
 .hero-texto {
@@ -255,7 +251,7 @@ img { max-width: 100%; }
 }
 .hero-margen > * { margin: 0; }
 
-/* Solo en ordenador: foto a la izquierda y texto a la derecha, alineado a la derecha.
+/* Solo en ordenador: foto a la izquierda y texto en la columna derecha.
    "order: -1" pone la foto en la primera columna sin tocar el HTML */
 @media (min-width: 761px) {
   .hero-banda { grid-template-columns: 11fr 13fr; }
@@ -266,12 +262,9 @@ img { max-width: 100%; }
     left: max(var(--margen), calc((100vw - var(--ancho-max)) / 2 + var(--margen)));
   }
   .hero-texto {
-    text-align: right;
-    align-items: flex-end;               /* empuja los bloques hacia la derecha */
     padding-left: var(--margen);
     padding-right: max(var(--margen), calc((100vw - var(--ancho-max)) / 2 + var(--margen)));
   }
-  .hero-margen { justify-content: flex-end; }
 }
 
 /* En móvil: una columna, primero el bloque de color y debajo la foto */
