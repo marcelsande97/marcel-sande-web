@@ -22,10 +22,9 @@
   --hero-tinta: #1c1f1a;      /* texto del hero: el mismo casi negro del resto */
 
   --fuente: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
-  --fuente-mono: "DM Mono", ui-monospace, "Courier New", monospace; /* etiquetas, menú y botones */
-  --fuente-titulos: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif; /* textos grandes */
+  --fuente-titulos: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif; /* titulares, menú, botones y etiquetas */
   --ancho-max: 1280px;        /* ancho máximo del contenido */
-  --margen: clamp(20px, 5vw, 64px); /* margen lateral que crece con la pantalla */
+  --margen: clamp(24px, 6vw, 96px); /* margen lateral que crece con la pantalla */
 
   color-scheme: light;
   box-sizing: border-box;
@@ -76,8 +75,8 @@ body {
   background: var(--fondo);
   color: var(--tinta);
   font-family: var(--fuente);
-  font-size: 18px;
-  line-height: 1.55;
+  font-size: 16px;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -108,12 +107,15 @@ img { max-width: 100%; }
   outline-offset: 3px;
 }
 
-/* Estilo "etiqueta": mono, mayúsculas y letras separadas.
-   Lo comparten menú, botones y textos pequeños */
-.boton, .menu a, .hero-margen, .datos dt, .pie-columnas {
-  font-family: var(--fuente-mono);
+/* Estilo "etiqueta": letra de titulares, pequeña, en mayúsculas y con las
+   letras separadas. Lo comparten menú, botones, títulos de desplegables y
+   textos pequeños. Cada uno fija su tamaño (12-13 px) */
+.boton, .pastilla, .logo, .menu a, .hero-margen, .datos dt, .pie-columnas,
+.acordeon summary, .manifiesto-pie h2, .precio h3 {
+  font-family: var(--fuente-titulos);
+  font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.1em;
 }
 
 /* =========================================================
@@ -125,9 +127,8 @@ img { max-width: 100%; }
   background: var(--acento);
   color: var(--acento-texto);
   text-decoration: none;
-  font-size: 15px;
-  font-weight: 500;
-  padding: 17px 30px;
+  font-size: 12px;
+  padding: 16px 30px;
   border-radius: 999px;      /* 999px = pastilla redonda */
   transition: transform 0.15s ease;
 }
@@ -156,30 +157,28 @@ img { max-width: 100%; }
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  height: 84px;
+  height: 88px;
 }
 .logo {
-  font-size: 20px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;        /* letras separadas: más marca */
+  font-size: 16px;
+  letter-spacing: 0.18em;        /* letras muy separadas: más marca */
   text-decoration: none;
 }
 .menu {
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 40px;
   list-style: none;
   margin: 0;
   padding: 0;
 }
-.menu a { text-decoration: none; font-size: 14px; }
+.menu a { text-decoration: none; font-size: 12px; }
 .menu a:hover { text-decoration: underline; text-underline-offset: 4px; }
 /* Botón del menú: negro (el color del texto) con letra crema (el color del fondo).
    En modo oscuro se invierte solo: crema con letra oscura */
 .cabecera .boton {
   padding: 11px 22px;
-  font-size: 14px;
+  font-size: 12px;
   background: var(--tinta);
   color: var(--fondo);
 }
@@ -242,7 +241,7 @@ img { max-width: 100%; }
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 4px 24px;
-  font-size: 13px;
+  font-size: 12px;
   line-height: 1;
 }
 .hero-margen > * { margin: 0; }
@@ -267,7 +266,7 @@ img { max-width: 100%; }
 }
 
 .declaracion {
-  font-size: clamp(28px, 3vw, 40px);     /* el mismo tamaño que los títulos de sección */
+  font-size: clamp(24px, 2.4vw, 32px);   /* el mismo tamaño que los títulos de sección */
   line-height: 1.12;
   font-weight: 400;
   letter-spacing: -0.015em;
@@ -284,16 +283,16 @@ img { max-width: 100%; }
   margin: 56px 0 0;
 }
 .datos div { margin: 0; }
-.datos dt { color: var(--tinta-suave); font-size: 13px; }
-.datos dd { margin: 2px 0 0; font-size: 20px; }
+.datos dt { color: var(--tinta-suave); font-size: 11px; }
+.datos dd { margin: 6px 0 0; font-size: 16px; }
 
 /* =========================================================
    6. SECCIONES GENERALES
    ========================================================= */
-.seccion { padding-top: 72px; padding-bottom: 72px; }
+.seccion { padding-top: clamp(80px, 10vw, 136px); padding-bottom: clamp(80px, 10vw, 136px); }
 .seccion h2 {
-  font-size: clamp(28px, 3vw, 40px);
-  font-weight: 500;
+  font-size: clamp(24px, 2.4vw, 32px);
+  font-weight: 400;
   letter-spacing: -0.015em;
   margin: 0 0 40px;
 }
@@ -306,14 +305,14 @@ img { max-width: 100%; }
   flex: none;
   display: inline-grid;
   place-items: center;     /* centra el número dentro del círculo */
-  width: 34px;
-  height: 34px;
+  width: 28px;
+  height: 28px;
   border: 1px solid currentColor;
   border-radius: 50%;      /* 50% = círculo */
-  font-size: 15px;
+  font-size: 11px;
   font-variant-numeric: tabular-nums;
 }
-.pasos .respuesta { padding-left: 54px; }  /* alinea el texto con el título, no con el círculo */
+.pasos .respuesta { padding-left: 48px; }  /* alinea el texto con el título, no con el círculo */
 
 .seccion > p.nota {
   margin: 48px 0 0;
@@ -343,7 +342,7 @@ img { max-width: 100%; }
   padding-bottom: 24px;                  /* justo debajo del botón empieza el fundido */
 }
 .manifiesto .frase {
-  font-size: clamp(34px, 5.6vw, 88px);
+  font-size: clamp(30px, 4.4vw, 64px);
   line-height: 1.04;
   letter-spacing: -0.03em;
   margin: 0 0 48px;
@@ -358,18 +357,18 @@ img { max-width: 100%; }
 @media (min-width: 860px) {
   .manifiesto-pie { grid-template-columns: 1fr 2fr auto; }  /* rótulo | párrafo | botón */
 }
-.manifiesto-pie h2 { font-size: 18px; font-weight: 600; margin: 0; }
+.manifiesto-pie h2 { font-size: 12px; margin: 0; padding-top: 4px; }
 .manifiesto-pie p { margin: 0; max-width: 60ch; color: var(--tinta-suave); }
 .manifiesto-pie .pastilla { justify-self: start; }  /* que no se estire a todo el ancho */
 
-/* Botón secundario: pastilla color arena, sin borde, en minúsculas */
+/* Botón secundario: pastilla color arena, sin borde */
 .pastilla {
   display: inline-block;
   background: var(--pastilla);
   color: var(--tinta);
   text-decoration: none;
-  font-size: 17px;
-  padding: 13px 26px;
+  font-size: 12px;
+  padding: 16px 28px;
   border-radius: 999px;
   white-space: nowrap;
   transition: transform 0.15s ease;
@@ -403,8 +402,8 @@ img { max-width: 100%; }
   justify-content: space-between;
   align-items: center;
   gap: 16px;
-  padding: 26px 4px;
-  font-size: 20px;
+  padding: 24px 4px;
+  font-size: 13px;
 }
 .acordeon summary::-webkit-details-marker { display: none; }
 
@@ -436,9 +435,9 @@ img { max-width: 100%; }
 }
 .precio { border-top: 1px solid var(--linea); padding-top: 20px; }
 .precio.destacado { border-top: 3px solid var(--acento); }
-.precio h3 { font-size: 21px; font-weight: 500; margin: 0; }
+.precio h3 { font-size: 13px; margin: 0; }
 .precio .cifra {
-  font-size: 48px;
+  font-size: 36px;
   letter-spacing: -0.03em;
   margin: 24px 0 12px;
   line-height: 1;
@@ -467,7 +466,7 @@ img { max-width: 100%; }
     flex: 0 0 78%;
     scroll-snap-align: start;
   }
-  .precio .cifra { font-size: 40px; margin-top: 16px; }
+  .precio .cifra { font-size: 32px; margin-top: 16px; }
   .precio .duracion { margin-bottom: 20px; }
 }
 .seccion > p.aviso-reserva {
@@ -486,7 +485,7 @@ img { max-width: 100%; }
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 32px;
-  font-size: 13px;
+  font-size: 11px;
   color: var(--tinta-suave);
 }
 .pie-columnas p { margin: 0 0 4px; }
