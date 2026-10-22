@@ -1023,10 +1023,10 @@ img { max-width: 100%; }
   /* Sin el botón negro «Reserva» de la cabecera: ya está el del hero */
   .cabecera .boton.contraste { display: none; }
   /* Lema: bajo el botón, alineado a la izquierda; la caja llega hasta el 68 % del ancho.
-     Por debajo, mucho aire antes de la foto */
+     Por debajo, el mismo aire estrecho que hay bajo la foto */
   .hero-lema {
     grid-row: 3; grid-column: 1; justify-self: start; text-align: left;
-    max-width: calc(68vw - var(--margen)); margin: 32px 0 80px var(--margen);
+    max-width: calc(68vw - var(--margen)); margin: 32px 0 var(--aire-junto-foto) var(--margen);
   }
   .hero-imagen { grid-row: 4; grid-column: 1; }
   .hero-abajo { grid-row: 5; grid-column: 1; margin-top: var(--aire-junto-foto); }   /* poco aire entre la foto y los precios */
