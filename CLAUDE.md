@@ -32,7 +32,8 @@
 5. **Antes de venir**: desplegables en dos columnas.
 6. **Cómo empezar**: tres tarifas (Starter Pack destacado con línea negra gruesa; «Cliente nuevo» / «Ya eres cliente»). Botones a la misma altura. En móvil se deslizan en horizontal.
 7. **Firma grande** «MARCEL SANDÉ — FACIALS» de margen a margen (tamaño calculado en `.firma`) y **pie** con datos y enlaces legales.
-- Efectos de aparición al hacer scroll: probados y retirados (en la vista previa ocultaban bloques). Retomar solo con la web publicada.
+- Aparición al hacer scroll: solo CSS (`animation-timeline: view()` dentro de `@supports`), sin JavaScript, para que nunca quede nada oculto. Un intento anterior con JavaScript ocultaba bloques en la vista previa.
+- Botones con contorno: al hacer hover se rellenan de negro con texto blanco.
 - Fotos en `img/`; las actuales son de referencia: para la web pública harán falta fotos propias o con licencia.
 
 ## Vista previa

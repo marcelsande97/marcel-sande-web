@@ -644,6 +644,43 @@ img { max-width: 100%; }
 .pie-columnas a { text-decoration: none; }
 .pie-columnas a:hover { text-decoration: underline; }
 
+/* =========================================================
+   HOVER DE LOS BOTONES CON CONTORNO
+   Al pasar el ratón (o al llegar con el teclado) se rellenan de negro con letra blanca
+   ========================================================= */
+.hero .boton, .boton.contorno, .manifiesto-bloque .pastilla {
+  transition: transform 0.15s ease, background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+.hero .boton:hover, .hero .boton:focus-visible,
+.boton.contorno:hover, .boton.contorno:focus-visible,
+.manifiesto-bloque .pastilla:hover, .manifiesto-bloque .pastilla:focus-visible {
+  background: var(--pastilla);
+  color: var(--pastilla-texto);
+  box-shadow: inset 0 0 0 1.5px var(--pastilla);
+}
+
+/* =========================================================
+   APARICIÓN AL HACER SCROLL
+   Solo CSS, sin JavaScript: cada bloque se desvanece y sube un poco
+   a medida que entra en pantalla. Si el navegador no lo entiende (@supports)
+   o la persona ha pedido menos movimiento, todo se ve normal desde el principio,
+   así que nunca queda nada escondido.
+   ========================================================= */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .seccion h2, .acordeon details, .nota, .manifiesto-fila > *,
+    .precio, .aviso-reserva, .firma, .pie {
+      animation: aparecer linear both;
+      animation-timeline: view();               /* el avance lo marca el scroll, no el reloj */
+      animation-range: entry 0% entry 90%;      /* empieza al asomar y termina casi entrado */
+    }
+  }
+}
+@keyframes aparecer {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: none; }
+}
+
 /* Si la persona tiene desactivadas las animaciones en su sistema, las respetamos */
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; }
