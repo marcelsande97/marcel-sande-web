@@ -21,7 +21,7 @@
   --pastilla: #e3ddd0;        /* botón secundario en pastilla arena */
   --hero-tinta: #1c1f1a;      /* texto del hero: el mismo casi negro del resto */
 
-  --fuente: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --fuente: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif; /* texto corrido: la misma que las etiquetas */
   --fuente-titulos: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif; /* titulares, menú, botones y etiquetas */
   --fuente-display: Cardo, Georgia, serif; /* frases grandes y títulos de sección */
   --ancho-max: 1280px;        /* ancho máximo del contenido */
