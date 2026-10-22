@@ -23,6 +23,7 @@
 
   --fuente: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
   --fuente-mono: "DM Mono", ui-monospace, "Courier New", monospace; /* etiquetas, menú y botones */
+  --fuente-titulos: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif; /* textos grandes */
   --ancho-max: 1280px;        /* ancho máximo del contenido */
   --margen: clamp(20px, 5vw, 64px); /* margen lateral que crece con la pantalla */
 
@@ -260,6 +261,11 @@ img { max-width: 100%; }
 }
 
 /* La frase grande */
+/* Textos grandes: todos con la letra de titulares */
+.declaracion, .seccion h2, .manifiesto .frase, .precio .cifra {
+  font-family: var(--fuente-titulos);
+}
+
 .declaracion {
   font-size: clamp(28px, 3vw, 40px);     /* el mismo tamaño que los títulos de sección */
   line-height: 1.12;
