@@ -1007,7 +1007,7 @@ img { max-width: 100%; }
 @media (max-width: 760px) {
   /* Título del hero en negro, justo debajo de la foto (no encima) */
   .hero .declaracion { grid-row: 2; justify-self: start; margin: 16px var(--margen) 0; color: var(--tinta); }
-  .hero-lema { grid-row: 3; margin-top: 15px; }   /* el título queda a la misma distancia de la foto (arriba) que del lema (abajo) */
+  .hero-lema { grid-row: 3; margin-top: 6px; }   /* lema pegado al título */
   .hero-titulo .boton { grid-row: 4; }
   .hero-abajo { grid-row: 5; }
   /* Lema y botón del hero alineados a la izquierda */
