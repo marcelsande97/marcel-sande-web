@@ -198,33 +198,21 @@ img { max-width: 100%; }
   justify-content: space-between;
   gap: 24px;
   height: var(--alto-cabecera);
-  position: relative;            /* referencia para centrar el logo */
 }
-/* Logo: «Marcel Sandé» arriba y «Facials» abajo, en Ridley, mayúsculas espaciadas.
-   Va clavado en el centro de la pantalla (position: absolute + translate),
-   sin importar lo que midan el menú de la izquierda y el de la derecha */
+/* Logo: «Marcel Sandé — Facials» en Ridley, mayúsculas espaciadas */
 .logo {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
   font-family: var(--fuente-display);
   font-size: var(--display-pequena);
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  line-height: 1.1;              /* las dos líneas, juntas */
+  line-height: 1.3;
   text-decoration: none;
   white-space: nowrap;
 }
-.logo-nombre, .logo-linea { display: block; }
-/* Ridley solo tiene un grosor: un contorno finísimo del color del texto
-   hace «Marcel Sandé» un poco más negrita que «Facials» */
-.logo-nombre { -webkit-text-stroke: 0.4px currentColor; }
+.logo-separador { margin: 0 0.15em; }
 .menu {
   display: flex;
-
   align-items: center;
   gap: 40px;
   list-style: none;
@@ -280,13 +268,8 @@ img { max-width: 100%; }
 }
 
 /* En pantallas medianas el menú completo no cabe: dejamos logo + reservar */
-/* Tratamientos, Manifiesto y Equipo a la izquierda; este margen automático
-   empuja Contacto y Reserva hacia la derecha */
-.menu li:nth-child(3) { margin-right: auto; }
-.cabecera nav, .menu { flex: 1; }   /* el menú ocupa todo el ancho de la barra */
 @media (max-width: 980px) {
   .menu li:not(:last-child) { display: none; }
-  .menu { justify-content: flex-end; }   /* solo queda Reserva: a la derecha */
 }
 
 /* En móvil escondemos el menú y dejamos logo + reservar */
