@@ -31,6 +31,7 @@
   --tinta-suave: #5b6168;     /* texto secundario */
   --linea: #dfe2e5;           /* separadores */
   --papel: #f4f2ee;           /* beige grisáceo muy sutil (páginas del manifiesto en móvil) */
+  --papel-sobre-foto: #f4f2ee;/* el mismo beige para el texto encima de la foto (igual en modo oscuro) */
   --titulo-seccion: clamp(20px, 2vw, 28px);   /* títulos de sección (y la cita en móvil) */
   --acento: #111315;          /* negro: lo que se puede pulsar y algún detalle */
   --acento-texto: #ffffff;    /* texto encima del acento */
@@ -853,7 +854,7 @@ img { max-width: 100%; }
   /* Página 2: la foto con el párrafo encima (misma celda) */
   .cartel, .manifiesto-texto { grid-column: 2; grid-row: 1; }
   .cartel { width: 100%; }
-  .manifiesto-texto { align-self: end; justify-self: center; max-width: calc(68% - 24px); margin: 0 0 24px; padding: 0; text-align: center; }   /* abajo y centrado en la foto, con el mismo ancho de caja */
+  .manifiesto-texto { align-self: end; justify-self: center; max-width: calc(68% - 24px); margin: 0 0 24px; padding: 0; text-align: center; color: var(--papel-sobre-foto); }   /* abajo y centrado en la foto, con el mismo ancho de caja */
   .manifiesto-bloque .manifiesto-titulo, .cartel { scroll-snap-align: start; }   /* cada página encaja alineada con el margen */
   .manifiesto-frase { scroll-snap-align: end; }
   .cartel::after { opacity: var(--velo-movil); }
