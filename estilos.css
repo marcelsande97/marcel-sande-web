@@ -275,10 +275,9 @@ img { max-width: 100%; }
 
 
 /* El título de la página va pequeño, en la fila de arriba del bloque */
-.hero h1 {
-  font-size: inherit;
-  font-weight: 500;
-}
+/* La frase pequeña de arriba: en mayúsculas como las etiquetas,
+   en una caja estrecha para que no se estire en una sola línea */
+.hero-lema { max-width: 34ch; line-height: 1.5; }
 
 /* La frase grande */
 /* Precios con la letra de titulares */
@@ -293,7 +292,7 @@ img { max-width: 100%; }
 .manifiesto .frase em, .declaracion em { font-style: italic; }  /* cursiva de verdad: el gesto con chispa */
 
 .declaracion {
-  font-size: clamp(30px, 3.4vw, 50px);
+  font-size: clamp(48px, 6.4vw, 104px);  /* el nombre del tratamiento, muy grande */
   line-height: 1.12;
   font-weight: 400;
   letter-spacing: -0.01em;
