@@ -28,7 +28,8 @@
   --acento: #111315;          /* negro: lo que se puede pulsar y algún detalle */
   --acento-texto: #ffffff;    /* texto encima del acento */
   --cabecera: var(--fondo);   /* barra superior: el mismo color de fondo */
-  --pastilla: #eff1f3;        /* botón secundario en pastilla gris muy claro */
+  --pastilla: #cfe6fb;        /* color de contraste: azul cielo (botones destacados) */
+  --pastilla-texto: #0f2a44;  /* texto sobre el azul cielo */
   --hero-tinta: #111315;      /* texto del hero: el mismo casi negro del resto */
 
   --fuente: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif; /* texto corrido: la misma que las etiquetas */
@@ -55,7 +56,8 @@
     --acento: #eef0f2;
     --acento-texto: #111315;
     --cabecera: var(--fondo);
-    --pastilla: #24282c;
+    --pastilla: #2a4b6b;
+    --pastilla-texto: #e8f3ff;
     --hero-tinta: #eef0f2;
     color-scheme: dark;
   }
@@ -69,7 +71,8 @@
   --acento: #eef0f2;
   --acento-texto: #111315;
   --cabecera: var(--fondo);
-  --pastilla: #24282c;
+  --pastilla: #2a4b6b;
+  --pastilla-texto: #e8f3ff;
   --hero-tinta: #eef0f2;
   color-scheme: dark;
 }
@@ -452,7 +455,7 @@ img { max-width: 100%; }
 .pastilla {
   display: inline-block;
   background: var(--pastilla);
-  color: var(--tinta);
+  color: var(--pastilla-texto);
   text-decoration: none;
   font-size: 12px;
   padding: 16px 28px;
@@ -532,6 +535,59 @@ img { max-width: 100%; }
 .precio .duracion { color: var(--tinta-suave); margin: 0 0 32px; }
 .precio p { margin: 0 0 16px; }
 .precio .boton { margin-top: 24px; }
+
+/* Botón de contraste: azul cielo con texto oscuro (menú y Starter Pack) */
+.boton.contraste, .cabecera .boton.contraste { background: var(--pastilla); color: var(--pastilla-texto); }
+
+/* =========================================================
+   CARTEL «ANTES DE VENIR»: foto con texto blanco encima
+   ========================================================= */
+.cartel {
+  position: relative;
+  max-width: 640px;
+  margin: 0 auto;
+  aspect-ratio: 2 / 3;
+  color: #ffffff;                        /* siempre blanco: va sobre la foto oscurecida */
+  overflow: hidden;
+}
+.cartel img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+/* Velo oscuro para que el texto blanco se lea sobre la foto clara */
+.cartel::after { content: ""; position: absolute; inset: 0; background: rgba(15, 18, 22, 0.42); }
+.cartel-esquinas, .cartel-centro, .cartel-marca { position: absolute; z-index: 1; }
+.cartel-esquinas {
+  top: 28px; left: 28px; right: 28px;
+  display: flex; justify-content: space-between;
+  font-family: var(--fuente-display); text-transform: uppercase; letter-spacing: 0.14em; font-size: 13px;
+}
+.cartel-centro {
+  inset: 0; margin: auto; height: fit-content; padding: 0 12%;
+  text-align: center; display: grid; gap: 22px;
+}
+.seccion .cartel-centro h2 { margin: 0; font-size: clamp(16px, 1.6vw, 20px); letter-spacing: 0.14em; }
+.cartel-centro p { margin: 0; font-size: 15px; line-height: 1.5; letter-spacing: 0.02em; }
+.cartel-marca {
+  bottom: 28px; left: 0; right: 0; margin: 0; text-align: center;
+  font-family: var(--fuente-display); text-transform: uppercase; letter-spacing: 0.14em; font-size: 12px;
+}
+.seccion > p.cartel-boton { text-align: center; max-width: none; margin: 32px 0 56px; }
+@media (max-width: 760px) {
+  .cartel-esquinas { top: 20px; left: 20px; right: 20px; font-size: 11px; }
+  .cartel-centro { padding: 0 9%; }
+  .cartel-centro p { font-size: 14px; }
+}
+
+/* =========================================================
+   APARICIÓN AL HACER SCROLL
+   Solo se activa si el JavaScript añade .con-animacion al <html>
+   ========================================================= */
+.con-animacion .aparece, .con-animacion .seccion > h2, .con-animacion .acordeon details,
+.con-animacion .manifiesto .frase, .con-animacion .manifiesto-pie, .con-animacion .precio,
+.con-animacion .datos > div {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.con-animacion .visible { opacity: 1; transform: none; }
 
 /* Solo en móvil: las tres opciones en fila, una al lado de la otra.
    Se deslizan con el dedo y cada tarjeta "encaja" al soltar (scroll-snap).
