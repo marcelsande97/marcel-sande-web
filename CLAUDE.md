@@ -19,7 +19,7 @@
 - Color: fondo blanco `#ffffff`, texto casi negro `#111315`, gris `--tinta-suave` para etiquetas, líneas `#dfe2e5`. Modo oscuro incluido en `:root`.
 - Botones en pastilla: negros con texto blanco (menú «Reserva», «Reservar Starter Pack»); con contorno negro e interior transparente para opciones secundarias (botón del hero, «Manifiesto», Higiene facial y Consulta online en tarifas); los de contorno se rellenan de negro al pasar el ratón.
 - Tipografías (solo dos):
-  - **Ridley Grotesk Medium** (`--fuente-display`), en MAYÚSCULAS con letras espaciadas: logo «MARCEL SANDÉ — FACIALS», título del hero, títulos de sección, título y frase del manifiesto, firma grande del pie. Sin cursiva.
+  - **Ridley Grotesk Medium** (`--fuente-display`), en MAYÚSCULAS con letras espaciadas: logo «MARCEL SANDÉ FACIALS» (sin guion; «MARCEL SANDÉ» un poco más negrita con `-webkit-text-stroke`; letras 0,08em), título del hero, títulos de sección, título y frase del manifiesto, firma grande del pie. Sin cursiva.
   - **Hanken Grotesk** (Google Fonts, `--fuente` y `--fuente-titulos`): todo lo demás. Menú, botones, títulos de desplegables y nombres de tarifa en mayúsculas espaciadas pequeñas; texto corrido en minúsculas.
 - Jerarquía mínima (variables en `:root`; no inventar tamaños nuevos):
   - Ridley: título del hero, en una sola línea (`white-space: nowrap`; mide 9,75em: en móvil el tamaño se calcula con el ancho de pantalla, en ordenador `clamp(30px, 3.2vw, 60px)` para caber junto al lema) · títulos de sección (`clamp(20px, 2vw, 28px)`) · `--display-pequena` (14–16 px, letras 0,1em, interlineado 1,3) para logo, cita tras el hero, «Lo que no hacemos» y su frase, y nombres de tarifa · firma (calculada para ir de margen a margen).
