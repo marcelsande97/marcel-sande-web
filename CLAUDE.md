@@ -16,7 +16,7 @@
 ## Diseño (estado actual de `higiene-facial.html`, la página modelo)
 - Dirección: limpia, editorial y algo de lujo; mucho aire pero sin bloques demasiado separados. Nada de verdes, azules ni serifs (probados y descartados).
 - Color: fondo blanco `#ffffff`, texto casi negro `#111315`, gris `--tinta-suave` para etiquetas, líneas `#dfe2e5`. Modo oscuro incluido en `:root`.
-- Botones en pastilla: negros con texto blanco (menú «Reservar», «Reservar Starter Pack»); con contorno negro e interior transparente para opciones secundarias (botón del hero, «Lee nuestro manifiesto», Higiene facial y Consulta online en tarifas).
+- Botones en pastilla: negros con texto blanco (menú «Reserva», «Reservar Starter Pack»); con contorno negro e interior transparente para opciones secundarias (botón del hero, «Manifiesto», Higiene facial y Consulta online en tarifas); los de contorno se rellenan de negro al pasar el ratón.
 - Tipografías (solo dos):
   - **Ridley Grotesk Medium** (`--fuente-display`), en MAYÚSCULAS con letras espaciadas: logo «MARCEL SANDÉ — FACIALS», título del hero, títulos de sección, título y frase del manifiesto, firma grande del pie. Sin cursiva.
   - **Hanken Grotesk** (Google Fonts, `--fuente` y `--fuente-titulos`): todo lo demás. Menú, botones, títulos de desplegables y nombres de tarifa en mayúsculas espaciadas pequeñas; texto corrido en minúsculas.
@@ -25,7 +25,7 @@
 - Signos ¿? se pegan a la palabra con Hanken: envolverlos en `<span class="abre">` / `<span class="cierra">`.
 
 ## Estructura de la página de tratamiento
-1. **Cabecera** fija, mismo fondo, sin línea. Por debajo de 980 px solo logo + «Reservar».
+1. **Cabecera** fija, mismo fondo, sin línea. Menú: Tratamientos (desplegable al pasar el ratón con Higiene facial, Microneedling, Peeling y Evento; cada opción se pone negra al señalarla), Manifiesto, Equipo, Contacto y botón «Reserva». Por debajo de 980 px solo logo + «Reserva».
 2. **Hero** (díptico): foto a la izquierda alineada con el logo. A partir de 1100 px el texto va en dos columnas: junto a la foto, el lema arriba (texto normal negro) y abajo los datos «Primera Visita» / «Siguientes Visitas» (etiqueta gris, cifra en Hanken) alineados con el borde inferior de la foto; en la columna exterior, el título grande arriba y el botón «Reserva» abajo. En móvil: foto, título, lema, botón y datos, en ese orden y cerca de la foto.
 3. **Qué hacemos y por qué**: 6 pasos en desplegables numerados, dos columnas en ordenador.
 4. **Manifiesto**: tres columnas centradas en vertical con la foto (pequeña, máx. 380 px): a la izquierda «LO QUE NO HACEMOS» + párrafo + botón; a la derecha la frase en mayúsculas. Título y frase pequeños (14–16 px, Ridley en mayúsculas); el párrafo con el interlineado normal. En ordenador, el título se alinea con el borde superior de la foto, el botón con el inferior y el párrafo queda centrado. En móvil, apilado con aire generoso alrededor de la foto.

@@ -41,7 +41,7 @@
   --texto: 14px;              /* tamaño único del texto corrido y las etiquetas en gris */
   --fuente-display: "Ridley Grotesk", "Hanken Grotesk", Arial, sans-serif; /* titulares: mayúsculas espaciadas */
   --ancho-max: 1280px;        /* ancho máximo del contenido */
-  --margen: clamp(24px, 6vw, 96px); /* margen lateral que crece con la pantalla */
+  --margen: clamp(18px, 3.5vw, 56px); /* margen lateral que crece con la pantalla (más estrecho: contenido más abierto) */
 
   color-scheme: light;
   box-sizing: border-box;
@@ -199,6 +199,44 @@ img { max-width: 100%; }
 }
 .menu a { text-decoration: none; font-size: 12px; }
 .menu a:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+/* Desplegable de «Tratamientos»: está oculto y aparece al pasar el ratón
+   por encima (:hover) o al llegar con el teclado (:focus-within) */
+.con-submenu { position: relative; }
+.submenu {
+  position: absolute;
+  top: 100%;                       /* justo debajo de «Tratamientos» */
+  left: -20px;                     /* alinea el texto de las opciones con el del menú */
+  min-width: 220px;
+  margin: 0;
+  padding: 18px 0 8px;             /* el aire de arriba hace de «puente» para no perder el hover */
+  list-style: none;
+  background: var(--fondo);
+  /* Oculto: transparente y un poco más arriba; así puede bajar con animación */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+}
+.con-submenu:hover .submenu,
+.con-submenu:focus-within .submenu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+/* Cada opción: fondo blanco que se vuelve negro (con letra blanca) al señalarla */
+.submenu a {
+  display: block;
+  padding: 12px 20px;
+  white-space: nowrap;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+.submenu a:hover,
+.submenu a:focus-visible {
+  background: var(--tinta);
+  color: var(--fondo);
+  text-decoration: none;
+}
 /* Botón del menú: negro (el color del texto) con letra crema (el color del fondo).
    En modo oscuro se invierte solo: crema con letra oscura */
 .cabecera .boton {
@@ -584,13 +622,7 @@ img { max-width: 100%; }
 }
 /* Bloque de la izquierda: título y párrafo, con aire entre ellos */
 .manifiesto-bloque { display: grid; gap: 28px; justify-items: center; }
-.manifiesto-bloque .pastilla {
-  margin-top: 4px;
-  /* versión con contorno: interior transparente (se ve el fondo blanco) y línea del color del texto */
-  background: transparent;
-  color: var(--tinta);
-  box-shadow: inset 0 0 0 1.5px currentColor;
-}
+.manifiesto-bloque .boton { margin-top: 4px; }  /* botón «Manifiesto»: con contorno (ver .boton.contorno) */
 .manifiesto-texto { margin: 0; max-width: 34ch; }
 .manifiesto-frase { max-width: 30ch; line-height: 1.5; }  /* algo más de aire entre líneas */
 .cartel {
@@ -652,12 +684,11 @@ img { max-width: 100%; }
    HOVER DE LOS BOTONES CON CONTORNO
    Al pasar el ratón (o al llegar con el teclado) se rellenan de negro con letra blanca
    ========================================================= */
-.hero .boton, .boton.contorno, .manifiesto-bloque .pastilla {
+.hero .boton, .boton.contorno {
   transition: transform 0.15s ease, background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
 .hero .boton:hover, .hero .boton:focus-visible,
-.boton.contorno:hover, .boton.contorno:focus-visible,
-.manifiesto-bloque .pastilla:hover, .manifiesto-bloque .pastilla:focus-visible {
+.boton.contorno:hover, .boton.contorno:focus-visible {
   background: var(--pastilla);
   color: var(--pastilla-texto);
   box-shadow: inset 0 0 0 1.5px var(--pastilla);
