@@ -10,14 +10,14 @@
    Si cambias --acento, cambia en toda la web.
    ========================================================= */
 :root {
-  --fondo: #ffffff;           /* fondo general de la página: blanco */
-  --crema: #f2eee6;           /* crema cálido para las bandas (hero, manifiesto) */
+  --fondo: #f2eee6;           /* beige sólido en toda la web */
+  --crema: var(--fondo);      /* las bandas usan el mismo beige */
   --tinta: #1c1f1a;           /* casi negro, con un punto verde */
   --tinta-suave: #5f6158;     /* texto secundario */
   --linea: #d6cfc2;           /* separadores */
   --acento: #1c1f1a;          /* negro: lo que se puede pulsar y algún detalle */
   --acento-texto: #f6f3ec;    /* texto encima del acento */
-  --cabecera: #ffffff;        /* fondo de la barra superior */
+  --cabecera: var(--fondo);   /* barra superior: el mismo beige */
   --pastilla: #e3ddd0;        /* botón secundario en pastilla arena */
   --hero-tinta: #1c1f1a;      /* texto del hero: el mismo casi negro del resto */
 
@@ -36,28 +36,28 @@
 /* Modo oscuro: mismos nombres, otros valores */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --fondo: #121613;
-    --crema: #1b211c;
+    --fondo: #1b211c;
+    --crema: var(--fondo);
     --tinta: #ece7dc;
     --tinta-suave: #a9ab9f;
     --linea: #2f3a31;
     --acento: #ece7dc;
     --acento-texto: #141a15;
-    --cabecera: #0e120f;
+    --cabecera: var(--fondo);
     --pastilla: #2a302b;
     --hero-tinta: #ece7dc;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --fondo: #121613;
-  --crema: #1b211c;
+  --fondo: #1b211c;
+  --crema: var(--fondo);
   --tinta: #ece7dc;
   --tinta-suave: #a9ab9f;
   --linea: #2f3a31;
   --acento: #ece7dc;
   --acento-texto: #141a15;
-  --cabecera: #0e120f;
+  --cabecera: var(--fondo);
   --pastilla: #2a302b;
   --hero-tinta: #ece7dc;
   color-scheme: dark;
@@ -149,7 +149,6 @@ img { max-width: 100%; }
   position: sticky;                      /* se queda fija arriba al hacer scroll */
   top: env(safe-area-inset-top, 0px);
   background: var(--cabecera);
-  border-bottom: 1px solid var(--tinta); /* línea negra que la separa del resto */
   z-index: 5;
 }
 .cabecera .contenedor {
