@@ -17,13 +17,19 @@
   var elementos = '.frase-banda .declaracion, .seccion h2, .acordeon details, .nota, .manifiesto-fila > *, .precio, .aviso-reserva, .firma, .pie-columnas > div';
   var altoPantalla = window.innerHeight;
 
-  // Solo escondemos lo que está por debajo de la pantalla al cargar
+  // Solo escondemos los bloques que empiezan por debajo de la pantalla al cargar.
+  // Se mira el borde de arriba del BLOQUE (con su margen interior), no el de cada
+  // elemento: si el bloque ya asoma, el observador lo daría por visto al momento
+  // y su contenido aparecería sin que lo vieras
   var escondidos = [];
-  document.querySelectorAll(elementos).forEach(function (el) {
-    if (el.getBoundingClientRect().top > altoPantalla * 0.9) {
+  document.querySelectorAll(grupos).forEach(function (g) {
+    if (g.getBoundingClientRect().top <= altoPantalla * 0.9) return;
+    var dentro = Array.prototype.slice.call(g.querySelectorAll(elementos));
+    if (g.matches(elementos)) dentro.push(g);   // la firma es bloque y elemento a la vez
+    dentro.forEach(function (el) {
       el.classList.add('aparece');
       escondidos.push(el);
-    }
+    });
   });
 
   function mostrar(grupo) {
