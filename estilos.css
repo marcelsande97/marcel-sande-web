@@ -34,6 +34,7 @@
 
   --fuente: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif; /* texto corrido: la misma que las etiquetas */
   --fuente-titulos: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif; /* titulares, menú, botones y etiquetas */
+  --texto: 14px;              /* tamaño único del texto corrido y las etiquetas en gris */
   --fuente-display: "Ridley Grotesk", "Hanken Grotesk", Arial, sans-serif; /* titulares: mayúsculas espaciadas */
   --ancho-max: 1280px;        /* ancho máximo del contenido */
   --margen: clamp(24px, 6vw, 96px); /* margen lateral que crece con la pantalla */
@@ -89,8 +90,8 @@ body {
   background: var(--fondo);
   color: var(--tinta);
   font-family: var(--fuente);
-  font-size: 16px;
-  line-height: 1.45;                     /* interlineado algo más apretado */
+  font-size: var(--texto);              /* un solo tamaño para todo el texto pequeño */
+  line-height: 1.5;
   letter-spacing: -0.01em;               /* letras un pelín más juntas */
   -webkit-font-smoothing: antialiased;
 }
@@ -324,8 +325,8 @@ img { max-width: 100%; }
   .hero-lema { max-width: 26ch; }
 }
 
-/* Los textos pequeños del banner van tal cual se escriben (sin mayúsculas forzadas) */
-.hero-margen { text-transform: none; letter-spacing: -0.01em; font-size: 14px; }
+/* Los textos pequeños del banner: mayúsculas en gris, como «Primera visita» */
+.hero-margen { color: var(--tinta-suave); font-size: var(--texto); letter-spacing: 0.08em; }
 
 /* La frase grande */
 /* Precios con la letra de titulares */
@@ -359,7 +360,7 @@ img { max-width: 100%; }
   margin: 40px 0 0;
 }
 .datos div { margin: 0; }
-.datos dt { color: var(--tinta-suave); font-size: 11px; }
+.datos dt { color: var(--tinta-suave); font-size: var(--texto); letter-spacing: 0.08em; }
 /* El dato en sí, más grande y en Ridley; la etiqueta de encima sigue pequeña */
 .datos dd {
   margin: 10px 0 0;
@@ -506,6 +507,28 @@ img { max-width: 100%; }
 .precio .duracion { color: var(--tinta-suave); margin: 0 0 32px; }
 .precio p { margin: 0 0 16px; }
 .precio .boton { margin-top: 24px; }
+/* Botón con contorno: interior transparente, borde y texto negros.
+   Para las opciones secundarias; el Starter Pack lleva el botón negro */
+.boton.contorno { background: transparent; color: var(--tinta); box-shadow: inset 0 0 0 1.5px currentColor; }
+
+/* Signos de interrogación: un poco de aire con la palabra (la letra los pega mucho) */
+.abre { margin-right: 0.14em; }
+.cierra { margin-left: 0.08em; }
+
+/* Firma grande antes del pie: el tamaño se calcula para que el texto
+   llene justo el ancho entre márgenes (15,55 = ancho del texto medido en «em») */
+.firma {
+  margin: clamp(48px, 6vw, 88px) auto 0;
+  font-family: var(--fuente-display);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  overflow: hidden;
+  line-height: 1;
+  font-size: calc((min(100vw, var(--ancho-max)) - 2 * var(--margen)) / 15.55);
+  padding-bottom: 24px;
+}
 
 /* Botón destacado: negro con texto blanco (menú y Starter Pack) */
 .boton.contraste, .cabecera .boton.contraste { background: var(--pastilla); color: var(--pastilla-texto); }
@@ -536,7 +559,7 @@ img { max-width: 100%; }
 /* Bloque de la izquierda: título y párrafo, con aire entre ellos */
 .manifiesto-bloque { display: grid; gap: 28px; justify-items: center; }
 .manifiesto-bloque .pastilla { margin-top: 4px; }
-.manifiesto-texto { margin: 0; max-width: 34ch; font-size: 15px; line-height: 1.5; }
+.manifiesto-texto { margin: 0; max-width: 34ch; }
 .manifiesto-frase { max-width: 24ch; }
 .cartel {
   width: min(100%, 380px);               /* foto pequeña */
