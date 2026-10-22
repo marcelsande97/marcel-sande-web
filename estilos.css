@@ -18,7 +18,8 @@
   --acento-texto: #f6f3ec;    /* texto encima del acento */
   --hero-fondo: #cfe3b6;      /* bloque de color del hero: verde suave */
   --hero-tinta: #1d4a2a;      /* texto del hero: verde oscuro */
-  --burbuja: #dbe8c8;         /* verde muy suave para las burbujas */
+  --franja-fondo: #4a3a2c;    /* marrón oscuro, de la familia del crema */
+  --franja-tinta: #f6f1e8;    /* texto claro sobre la franja */
 
   --fuente: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
   --fuente-mono: "DM Mono", ui-monospace, "Courier New", monospace; /* etiquetas, menú y botones */
@@ -43,7 +44,8 @@
     --acento-texto: #141a15;
     --hero-fondo: #22382a;
     --hero-tinta: #d6ecc4;
-    --burbuja: #1f3326;
+    --franja-fondo: #2e2419;
+    --franja-tinta: #f6f1e8;
     color-scheme: dark;
   }
 }
@@ -56,7 +58,8 @@
   --acento-texto: #141a15;
   --hero-fondo: #22382a;
   --hero-tinta: #d6ecc4;
-  --burbuja: #1f3326;
+  --franja-fondo: #2e2419;
+  --franja-tinta: #f6f1e8;
   color-scheme: dark;
 }
 
@@ -175,6 +178,7 @@ img { max-width: 100%; }
 .hero { padding-bottom: 72px; }
 
 /* Díptico a todo el ancho: bloque de color | foto.
+   El color va en toda la banda y la foto "flota" dentro, con margen alrededor.
    13fr 11fr = el bloque se lleva 13 partes de 24 y la foto 11: la línea queda un poco a la derecha */
 .hero-banda {
   display: grid;
@@ -184,8 +188,8 @@ img { max-width: 100%; }
 
 /* Bloque de color sólido con el texto.
    space-between reparte: fila de arriba, frase en medio, fila de abajo */
+.hero-banda { background: var(--hero-fondo); }
 .hero-texto {
-  background: var(--hero-fondo);
   color: var(--hero-tinta);
   display: flex;
   flex-direction: column;
@@ -201,12 +205,18 @@ img { max-width: 100%; }
 /* Columna de la foto. La foto rellena todo el hueco sin deformarse */
 /* position: relative + absolute en la foto = la foto ocupa el hueco
    pero no decide la altura de la banda (la decide el texto) */
-.hero-imagen { margin: 0; position: relative; }
+.hero-imagen {
+  margin: 0;
+  position: relative;
+  --flota: clamp(20px, 3.5vw, 48px);     /* margen de color alrededor de la foto */
+}
 .hero-imagen img {
   position: absolute;
-  inset: 0;                              /* pegada a los cuatro lados */
-  width: 100%;
-  height: 100%;
+  top: var(--flota);
+  left: var(--flota);
+  /* Ancho y alto = hueco menos el margen de los dos lados: la foto flota */
+  width: calc(100% - 2 * var(--flota));
+  height: calc(100% - 2 * var(--flota));
   object-fit: cover;                     /* recorta en vez de estirar */
   object-position: center 40%;           /* qué parte de la foto se prioriza al recortar */
   display: block;
@@ -226,7 +236,10 @@ img { max-width: 100%; }
 @media (max-width: 760px) {
   .hero-banda { grid-template-columns: 1fr; min-height: 0; }
   .hero-texto { padding-top: 20px; padding-bottom: 20px; }
-  .hero-imagen { aspect-ratio: 1 / 1; }  /* foto cuadrada */
+  .hero-imagen { aspect-ratio: 5 / 6; }
+  /* Mismo margen que el texto; arriba no hace falta, ya lo da el bloque de texto */
+  .hero-imagen { --flota: var(--margen); }
+  .hero-imagen img { top: 0; height: calc(100% - var(--flota)); }
 }
 
 /* El título de la página va pequeño, en la fila de arriba del bloque */
@@ -292,22 +305,27 @@ img { max-width: 100%; }
   color: var(--tinta-suave);
 }
 
-/* Burbuja: rectángulo de esquinas redondeadas con fondo azul suave,
-   alineado con el resto del texto.
-   La sección no lleva relleno propio: el aire lo ponen las secciones vecinas */
-.seccion-burbuja { padding-top: 0; padding-bottom: 0; }
-.burbuja {
-  background: var(--burbuja);
-  border-radius: 24px;
-  padding: clamp(36px, 6vw, 80px);       /* aire entre el texto y el borde */
+/* Franja: bloque de color a todo el ancho de la pantalla, con texto claro centrado */
+.franja {
+  background: var(--franja-fondo);
+  color: var(--franja-tinta);
+  text-align: center;
+  padding-top: clamp(64px, 9vw, 120px);
+  padding-bottom: clamp(64px, 9vw, 120px);
 }
-.burbuja h2 { margin-bottom: 24px; color: var(--acento); }
-
-/* En ordenador la burbuja ocupa solo la mitad izquierda; la otra mitad queda en blanco */
-@media (min-width: 761px) {
-  .burbuja { width: 50%; }
+.franja h2 {
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  margin: 0 0 28px;
 }
-.burbuja p { max-width: 60ch; margin: 0; }
+.franja p {
+  max-width: 60ch;
+  margin: 0 auto;                        /* auto a los lados = centrado */
+  font-size: clamp(18px, 1.6vw, 21px);
+}
+/* El foco del teclado, en claro para que se vea sobre el marrón */
+.franja :focus-visible { outline-color: var(--franja-tinta); }
 
 /* =========================================================
    7. DESPLEGABLES (acordeón)
