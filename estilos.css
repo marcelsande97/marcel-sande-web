@@ -327,6 +327,8 @@ img { max-width: 100%; }
 
 /* Los textos pequeños del banner: mayúsculas en gris, como «Primera visita» */
 .hero-margen { color: var(--tinta-suave); font-size: var(--texto); letter-spacing: 0.08em; }
+/* El lema va como texto normal: negro y en minúsculas, igual que el de los pasos */
+.hero-margen .hero-lema { color: var(--tinta); text-transform: none; letter-spacing: -0.01em; font-weight: 400; font-family: var(--fuente); }
 
 /* La frase grande */
 /* Precios con la letra de titulares */
@@ -360,7 +362,8 @@ img { max-width: 100%; }
   margin: 40px 0 0;
 }
 .datos div { margin: 0; }
-.datos dt { color: var(--tinta-suave); font-size: var(--texto); letter-spacing: 0.08em; }
+/* Etiquetas de los datos: gris, tal cual se escriben (mayúscula inicial en cada palabra) */
+.datos dt { color: var(--tinta-suave); font-size: var(--texto); text-transform: none; letter-spacing: 0; }
 /* El dato en sí, más grande y en Ridley; la etiqueta de encima sigue pequeña */
 .datos dd {
   margin: 10px 0 0;
