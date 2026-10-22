@@ -13,8 +13,8 @@
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   // Los bloques que se vigilan y, dentro de ellos, los elementos que se animan
-  var grupos = '.seccion, .manifiesto, .firma, .pie';
-  var elementos = '.seccion h2, .acordeon details, .nota, .manifiesto-fila > *, .precio, .aviso-reserva, .firma, .pie-columnas > div';
+  var grupos = '.frase-banda, .seccion, .manifiesto, .firma, .pie';
+  var elementos = '.frase-banda .declaracion, .seccion h2, .acordeon details, .nota, .manifiesto-fila > *, .precio, .aviso-reserva, .firma, .pie-columnas > div';
   var altoPantalla = window.innerHeight;
 
   // Solo escondemos lo que está por debajo de la pantalla al cargar

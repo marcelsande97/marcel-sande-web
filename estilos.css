@@ -41,6 +41,7 @@
   --texto: 14px;              /* tamaño único del texto corrido y las etiquetas en gris */
   --fuente-display: "Ridley Grotesk", "Hanken Grotesk", Arial, sans-serif; /* titulares: mayúsculas espaciadas */
   --ancho-max: 1280px;        /* ancho máximo del contenido */
+  --alto-cabecera: 64px;      /* alto de la franja superior fija */
   --margen: clamp(18px, 3.5vw, 56px); /* margen lateral que crece con la pantalla (más estrecho: contenido más abierto) */
 
   color-scheme: light;
@@ -87,7 +88,7 @@
    ========================================================= */
 *, *::before, *::after { box-sizing: inherit; }
 
-html { scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 90px); }
+html { scroll-padding-top: calc(env(safe-area-inset-top, 0px) + var(--alto-cabecera)); }
 
 body {
   margin: 0;
@@ -176,7 +177,7 @@ img { max-width: 100%; }
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  height: 88px;
+  height: var(--alto-cabecera);
 }
 /* Logo: «Marcel Sandé — Facials» en Ridley, mayúsculas espaciadas */
 .logo {
@@ -336,6 +337,21 @@ img { max-width: 100%; }
   .hero-abajo { order: 4; margin-top: 32px; }
 }
 
+/* De 761 px para arriba se cambian de lugar: el texto (título y botón) a la
+   izquierda, alineado con el logo, y la foto a la derecha, alineada con el
+   borde derecho de la página */
+@media (min-width: 761px) {
+  .hero-imagen {
+    order: 1;
+    justify-content: flex-end;
+    padding: var(--aire) max(var(--margen), calc((100vw - var(--ancho-max)) / 2 + var(--margen))) var(--aire) 0;
+  }
+  .hero-texto {
+    padding-left: max(var(--margen), calc((100vw - var(--ancho-max)) / 2 + var(--margen)));
+    padding-right: clamp(32px, 4vw, 64px);   /* aire entre el texto y la foto */
+  }
+}
+
 
 /* El título de la página va pequeño, en la fila de arriba del bloque */
 /* La frase pequeña de arriba: en mayúsculas como las etiquetas,
@@ -349,20 +365,19 @@ img { max-width: 100%; }
 @media (min-width: 1100px) {
   .hero-texto {
     display: grid;
-    grid-template-columns: auto 1fr;
     grid-template-rows: auto 1fr auto;
     column-gap: clamp(32px, 4vw, 64px);
   }
   /* Primera columna de ancho fijo: así el título y el botón no se mueven
      aunque la frase se desplace hacia la foto */
-  .hero-texto { grid-template-columns: 204px 1fr; }
+  /* Columna 1 (pegada al margen izquierdo): título arriba y botón abajo.
+     Columna 2 (junto a la foto): el lema arriba y los datos abajo */
+  .hero-texto { grid-template-columns: 1fr auto; }
   .hero-titulo { display: contents; }    /* sus hijos (título y botón) se colocan sueltos en la rejilla */
-  /* Margen negativo: la frase y «Facialismo Funcional» cruzan la mitad de la
-     página y se acercan a la foto, sin mover el título ni el botón */
-  .hero-arriba { grid-column: 1; grid-row: 1; margin-left: -5vw; }
-  .hero-abajo  { grid-column: 1; grid-row: 3; align-self: end; margin-left: -5vw; }
-  .hero .declaracion { grid-column: 2; grid-row: 1; }
-  .hero-titulo .boton { grid-column: 2; grid-row: 3; justify-self: start; align-self: end; }
+  .hero-arriba { grid-column: 2; grid-row: 1; }
+  .hero-abajo  { grid-column: 2; grid-row: 3; align-self: end; }
+  .hero .declaracion { grid-column: 1; grid-row: 1; }
+  .hero-titulo .boton { grid-column: 1; grid-row: 3; justify-self: start; align-self: end; }
   .hero .declaracion {
     max-width: min-content;              /* una palabra por línea: Higiene / Facial */
     font-size: clamp(30px, 3vw, 48px);
@@ -389,6 +404,16 @@ img { max-width: 100%; }
   font-weight: 500;
   text-transform: uppercase;
 }
+/* Frase a sangre tras el hero: ocupa de margen a margen de la pantalla
+   (sin el ancho máximo del resto) y usa el tamaño del título del hero */
+.frase-banda { padding: clamp(40px, 5vw, 72px) var(--margen); }
+.frase-banda .declaracion {
+  max-width: none;                       /* sin caja estrecha: llega de lado a lado */
+  margin: 0;
+  font-size: clamp(30px, 3vw, 48px);     /* igual que «Higiene facial» en ordenador */
+  line-height: 1.1;
+}
+
 /* Ridley no tiene cursiva: las palabras marcadas con <em> se quedan rectas */
 .declaracion em { font-style: normal; }
 
@@ -751,7 +776,7 @@ img { max-width: 100%; }
    ========================================================= */
 @media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
   html { scroll-snap-type: y mandatory; }
-  .hero, .seccion, .manifiesto { scroll-snap-align: start; }
+  .hero, .frase-banda, .seccion, .manifiesto { scroll-snap-align: start; }
   .pie { scroll-snap-align: end; }          /* el último tope: el final de la página */
 }
 
