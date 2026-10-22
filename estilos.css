@@ -625,7 +625,7 @@ img { max-width: 100%; }
    Para las opciones secundarias; el Starter Pack lleva el botón negro */
 .boton.contorno { background: transparent; color: var(--tinta); box-shadow: inset 0 0 0 1.5px currentColor; }
 
-/* Signos de interrogación: un poco de aire con la palabra (la letra los pega mucho) */
+/* Signos de interrogación y paréntesis: un poco de aire con la palabra (la letra los pega mucho) */
 .abre { margin-right: 0.14em; }
 .cierra { margin-left: 0.08em; }
 
