@@ -279,9 +279,9 @@ img { max-width: 100%; }
    en una caja estrecha para que no se estire en una sola línea */
 .hero-lema { max-width: 34ch; line-height: 1.5; }
 /* Solo en ordenador grande: dos columnas dentro del texto.
-   Izquierda: «Higiene / Facial» y el botón, arriba del todo.
-   Derecha: la frase pequeña arriba y «Facialismo Funcional» abajo,
-   alineadas con los bordes de arriba y de abajo de la foto.
+   Columna cercana a la foto: la frase pequeña arriba y «Facialismo Funcional» abajo.
+   Columna lejana: «Higiene / Facial» arriba y el botón abajo.
+   Lo de arriba se alinea con el borde superior de la foto y lo de abajo con el inferior.
    Por debajo de 1100 px no caben dos columnas: el texto va apilado */
 @media (min-width: 1100px) {
   .hero-texto {
@@ -290,14 +290,17 @@ img { max-width: 100%; }
     grid-template-rows: auto 1fr auto;
     column-gap: clamp(32px, 4vw, 64px);
   }
-  .hero-titulo { grid-column: 1; grid-row: 1 / 3; }
-  .hero-arriba { grid-column: 2; grid-row: 1; }
-  .hero-abajo  { grid-column: 2; grid-row: 3; }
+  .hero-texto { grid-template-columns: auto 1fr; }
+  .hero-titulo { display: contents; }    /* sus hijos (título y botón) se colocan sueltos en la rejilla */
+  .hero-arriba { grid-column: 1; grid-row: 1; }
+  .hero-abajo  { grid-column: 1; grid-row: 3; align-self: end; }
+  .hero .declaracion { grid-column: 2; grid-row: 1; }
+  .hero-titulo .boton { grid-column: 2; grid-row: 3; justify-self: start; align-self: end; }
   .hero .declaracion {
     max-width: min-content;              /* una palabra por línea: Higiene / Facial */
     font-size: clamp(56px, 6vw, 96px);
     line-height: 0.95;
-    margin-top: -0.14em;                 /* sube el texto para que la letra toque el borde de la foto */
+    margin: -0.14em 0 0;                 /* sube el texto para que la letra toque el borde de la foto */
   }
   .hero-lema { max-width: 26ch; }
 }
