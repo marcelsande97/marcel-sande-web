@@ -1012,7 +1012,8 @@ img { max-width: 100%; }
   .hero-abajo { grid-row: 5; }
   /* Lema y botón del hero alineados a la izquierda */
   .hero-lema { justify-self: start; text-align: left; }
-  .hero-titulo .boton { justify-self: start; margin-left: var(--margen); }
+  .hero-titulo .boton { justify-self: start; margin-left: var(--margen); margin-top: 16px; }   /* más cerca del lema */
+  .hero-abajo { margin-top: 80px; }   /* más aire tras el botón */
   /* Precio y duración del hero, más grandes (el tamaño máximo de --cifra) */
   .datos dd { font-size: 32px; }
   /* La cita a sangre (de margen a margen), alineada a la izquierda y al tamaño de los títulos de sección */
