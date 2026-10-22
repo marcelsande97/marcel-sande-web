@@ -377,12 +377,14 @@ img { max-width: 100%; }
      Columna 2 (junto a la foto): el lema arriba y los datos abajo */
   .hero-texto { grid-template-columns: 1fr auto; }
   .hero-titulo { display: contents; }    /* sus hijos (título y botón) se colocan sueltos en la rejilla */
-  .hero-arriba { grid-column: 2; grid-row: 1; }
+  /* Prueba: el título en una sola línea ocupa las dos columnas, y el lema va justo debajo */
+  .hero-arriba { grid-column: 1; grid-row: 2; align-self: start; margin-top: 24px; }
   .hero-abajo  { grid-column: 2; grid-row: 3; align-self: end; }
-  .hero .declaracion { grid-column: 1; grid-row: 1; }
+  .hero .declaracion { grid-column: 1 / -1; grid-row: 1; }
   .hero-titulo .boton { grid-column: 1; grid-row: 3; justify-self: start; align-self: end; }
   .hero .declaracion {
-    max-width: min-content;              /* una palabra por línea: Higiene / Facial */
+    max-width: none;
+    white-space: nowrap;                 /* «Higiene facial» en una sola línea */
     font-size: clamp(40px, 5vw, 76px);   /* prueba: título bastante más grande */
     line-height: 1.1;
     margin: -0.12em 0 0;                 /* sube el texto para que la letra toque el borde de la foto */
@@ -781,6 +783,8 @@ img { max-width: 100%; }
 @media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
   html { scroll-snap-type: y mandatory; }
   .hero, .frase-banda, .seccion, .manifiesto { scroll-snap-align: start; }
+  /* El hero ocupa toda la pantalla: la cita queda debajo y aparece al hacer scroll */
+  .hero { min-height: calc(100svh - var(--alto-cabecera)); }
   .pie { scroll-snap-align: end; }          /* el último tope: el final de la página */
 }
 
