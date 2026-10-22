@@ -262,7 +262,7 @@ img { max-width: 100%; }
   .hero-banda { grid-template-columns: 1fr; min-height: 0; }
   .hero-imagen { padding: 32px var(--margen) 0; justify-content: center; }
   .hero-imagen img { width: 100%; }
-  .hero-texto { padding: 32px var(--margen); gap: 28px; }
+  .hero-texto { padding: 48px var(--margen) 40px; gap: 48px; }  /* más aire con la foto y entre bloques */
 }
 
 
