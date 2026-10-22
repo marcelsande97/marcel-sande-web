@@ -213,6 +213,8 @@ img { max-width: 100%; }
 /* Ridley solo tiene un grosor: un contorno finísimo del color del texto
    hace «Marcel Sandé» un poco más negrita que «Facials» */
 .logo-nombre { -webkit-text-stroke: 0.4px currentColor; }
+/* Micro logo entre las dos partes: del alto de las mayúsculas, alineado con ellas */
+.logo-cara { width: 1.15em; height: 1.15em; vertical-align: -0.2em; margin: 0 0.1em; }
 .menu {
   display: flex;
   align-items: center;
@@ -329,6 +331,7 @@ img { max-width: 100%; }
   .cabecera nav { gap: 6px; }
   .menu-boton { width: 30px; padding: 0 6px; margin-right: -6px; }
   .logo { font-size: 13px; }       /* 1 px menos: logo, «Reserva» y las rayas caben en 360 px */
+  .logo-cara { margin: 0; }
 }
 
 /* =========================================================
