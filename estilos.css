@@ -4,26 +4,36 @@
    Si cambias algo aquí, cambia en toda la web.
    ========================================================= */
 
+/* Ridley Grotesk (fuente de pago, archivo propio en /fuentes).
+   La carpeta no se sube a GitHub: hay que copiarla al servidor con la web.
+   Si falta, se usa Hanken Grotesk */
+@font-face {
+  font-family: "Ridley Grotesk";
+  src: url("fuentes/ridley-grotesk-medium.ttf") format("truetype");
+  font-weight: 500;
+  font-display: swap;
+}
+
 /* =========================================================
    1. VARIABLES (TOKENS)
    Aquí defines los colores y medidas UNA vez y los reutilizas.
    Si cambias --acento, cambia en toda la web.
    ========================================================= */
 :root {
-  --fondo: #c6d2d7;           /* azul grisáceo suave en toda la web */
+  --fondo: #ffffff;           /* blanco en toda la web */
   --crema: var(--fondo);      /* las bandas usan el mismo color */
-  --tinta: #1a1e20;           /* casi negro, con un punto azul */
-  --tinta-suave: #434c51;     /* texto secundario (más oscuro para que se lea sobre el azul) */
-  --linea: #a9b7bd;           /* separadores */
-  --acento: #1a1e20;          /* negro: lo que se puede pulsar y algún detalle */
-  --acento-texto: #eef2f4;    /* texto encima del acento */
+  --tinta: #111315;           /* casi negro */
+  --tinta-suave: #5b6168;     /* texto secundario */
+  --linea: #dfe2e5;           /* separadores */
+  --acento: #111315;          /* negro: lo que se puede pulsar y algún detalle */
+  --acento-texto: #ffffff;    /* texto encima del acento */
   --cabecera: var(--fondo);   /* barra superior: el mismo color de fondo */
-  --pastilla: #dbe3e7;        /* botón secundario en pastilla azul claro */
-  --hero-tinta: #1a1e20;      /* texto del hero: el mismo casi negro del resto */
+  --pastilla: #eff1f3;        /* botón secundario en pastilla gris muy claro */
+  --hero-tinta: #111315;      /* texto del hero: el mismo casi negro del resto */
 
   --fuente: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif; /* texto corrido: la misma que las etiquetas */
   --fuente-titulos: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif; /* titulares, menú, botones y etiquetas */
-  --fuente-display: Cardo, Georgia, serif; /* frases grandes y títulos de sección */
+  --fuente-display: "Ridley Grotesk", "Hanken Grotesk", Arial, sans-serif; /* titulares: mayúsculas espaciadas */
   --ancho-max: 1280px;        /* ancho máximo del contenido */
   --margen: clamp(24px, 6vw, 96px); /* margen lateral que crece con la pantalla */
 
@@ -37,30 +47,30 @@
 /* Modo oscuro: mismos nombres, otros valores */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --fondo: #172024;
+    --fondo: #111315;
     --crema: var(--fondo);
-    --tinta: #e6edf0;
-    --tinta-suave: #a3b0b6;
-    --linea: #2f3d43;
-    --acento: #e6edf0;
-    --acento-texto: #121a1d;
+    --tinta: #eef0f2;
+    --tinta-suave: #a2a8ae;
+    --linea: #2b2f33;
+    --acento: #eef0f2;
+    --acento-texto: #111315;
     --cabecera: var(--fondo);
-    --pastilla: #24323a;
-    --hero-tinta: #e6edf0;
+    --pastilla: #24282c;
+    --hero-tinta: #eef0f2;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --fondo: #172024;
+  --fondo: #111315;
   --crema: var(--fondo);
-  --tinta: #e6edf0;
-  --tinta-suave: #a3b0b6;
-  --linea: #2f3d43;
-  --acento: #e6edf0;
-  --acento-texto: #121a1d;
+  --tinta: #eef0f2;
+  --tinta-suave: #a2a8ae;
+  --linea: #2b2f33;
+  --acento: #eef0f2;
+  --acento-texto: #111315;
   --cabecera: var(--fondo);
-  --pastilla: #24323a;
-  --hero-tinta: #e6edf0;
+  --pastilla: #24282c;
+  --hero-tinta: #eef0f2;
   color-scheme: dark;
 }
 
@@ -160,12 +170,13 @@ img { max-width: 100%; }
   gap: 24px;
   height: 88px;
 }
-/* Logo: «Marcel Sandé — Facials» en Cardo, redonda y con mayúsculas iniciales */
+/* Logo: «Marcel Sandé — Facials» en Ridley, mayúsculas espaciadas */
 .logo {
   font-family: var(--fuente-display);
-  font-size: 22px;
-  font-weight: 400;
-  letter-spacing: 0;
+  font-size: 15px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
   text-decoration: none;
   white-space: nowrap;
 }
@@ -197,7 +208,7 @@ img { max-width: 100%; }
 /* En móvil escondemos el menú y dejamos logo + reservar */
 @media (max-width: 760px) {
   .menu li:not(:last-child) { display: none; }
-  .logo { font-size: 18px; }  /* logo + botón caben en ~380 px */
+  .logo { font-size: 11px; letter-spacing: 0.1em; }  /* logo + botón caben en ~380 px */
   .cabecera .boton { padding: 10px 16px; }
 }
 
@@ -303,9 +314,9 @@ img { max-width: 100%; }
   .hero-titulo .boton { grid-column: 2; grid-row: 3; justify-self: start; align-self: end; }
   .hero .declaracion {
     max-width: min-content;              /* una palabra por línea: Higiene / Facial */
-    font-size: clamp(48px, 5vw, 80px);
-    line-height: 0.95;
-    margin: -0.14em 0 0;                 /* sube el texto para que la letra toque el borde de la foto */
+    font-size: clamp(30px, 3vw, 48px);
+    line-height: 1.1;
+    margin: -0.12em 0 0;                 /* sube el texto para que la letra toque el borde de la foto */
   }
   .hero-lema { max-width: 26ch; }
 }
@@ -318,18 +329,20 @@ img { max-width: 100%; }
 .precio .cifra {
   font-family: var(--fuente-titulos);
 }
-/* Frases protagonistas (banner y manifiesto) y títulos de sección en la serif */
-.declaracion, .manifiesto .frase, .seccion h2 {
+/* Frases protagonistas (banner y manifiesto) y títulos de sección:
+   Ridley en mayúsculas con las letras espaciadas */
+.declaracion, .manifiesto .frase, .seccion h2, .datos dd {
   font-family: var(--fuente-display);
-  font-weight: 400;
+  font-weight: 500;
+  text-transform: uppercase;
 }
-.manifiesto .frase em, .declaracion em { font-style: italic; }  /* cursiva de verdad: el gesto con chispa */
+/* Ridley no tiene cursiva: las palabras marcadas con <em> se quedan rectas */
+.manifiesto .frase em, .declaracion em { font-style: normal; }
 
 .declaracion {
-  font-size: clamp(48px, 6.4vw, 104px);  /* el nombre del tratamiento, muy grande */
-  line-height: 1.12;
-  font-weight: 400;
-  letter-spacing: -0.01em;
+  font-size: clamp(30px, 4vw, 52px);     /* el nombre del tratamiento */
+  line-height: 1.1;
+  letter-spacing: 0.08em;
   max-width: 19ch;                       /* ch = ancho de un carácter: caja estrecha */
   margin: 0 0 32px;
   text-wrap: balance;
@@ -344,12 +357,12 @@ img { max-width: 100%; }
 }
 .datos div { margin: 0; }
 .datos dt { color: var(--tinta-suave); font-size: 11px; }
-/* El dato en sí, grande y en Cardo; la etiqueta de encima sigue pequeña */
+/* El dato en sí, más grande y en Ridley; la etiqueta de encima sigue pequeña */
 .datos dd {
-  margin: 8px 0 0;
-  font-family: var(--fuente-display);
-  font-size: clamp(22px, 2.2vw, 30px);
-  line-height: 1.15;
+  margin: 10px 0 0;
+  font-size: clamp(16px, 1.5vw, 20px);
+  letter-spacing: 0.08em;
+  line-height: 1.2;
 }
 
 /* =========================================================
@@ -357,9 +370,8 @@ img { max-width: 100%; }
    ========================================================= */
 .seccion { padding-top: clamp(80px, 10vw, 136px); padding-bottom: clamp(80px, 10vw, 136px); }
 .seccion h2 {
-  font-size: clamp(28px, 2.8vw, 38px);
-  font-weight: 400;
-  letter-spacing: -0.015em;
+  font-size: clamp(20px, 2vw, 28px);
+  letter-spacing: 0.1em;
   margin: 0 0 40px;
 }
 .seccion > p { max-width: 60ch; margin: 0; }
@@ -408,9 +420,9 @@ img { max-width: 100%; }
   padding-bottom: 24px;                  /* justo debajo del botón empieza el fundido */
 }
 .manifiesto .frase {
-  font-size: clamp(34px, 5vw, 72px);
-  line-height: 1.04;
-  letter-spacing: -0.005em;
+  font-size: clamp(24px, 3.4vw, 48px);
+  line-height: 1.18;
+  letter-spacing: 0.06em;
   margin: 0 0 48px;
   text-wrap: balance;
 }
