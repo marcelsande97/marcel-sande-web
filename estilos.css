@@ -578,7 +578,8 @@ img { max-width: 100%; }
 .manifiesto-bloque { display: grid; gap: 28px; justify-items: center; }
 .manifiesto-bloque .pastilla { margin-top: 4px; }
 .manifiesto-texto { margin: 0; max-width: 34ch; }
-.manifiesto-frase { max-width: 20ch; }
+/* La frase de la derecha: misma tipografía que el título, pero bastante más pequeña */
+.manifiesto-frase { max-width: 30ch; font-size: clamp(14px, 1.15vw, 16px); }
 .cartel {
   width: min(100%, 380px);               /* foto pequeña */
   aspect-ratio: 2 / 3;
