@@ -39,7 +39,18 @@
 
   --fuente: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif; /* texto corrido: la misma que las etiquetas */
   --fuente-titulos: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif; /* titulares, menú, botones y etiquetas */
-  --texto: 14px;              /* tamaño único del texto corrido y las etiquetas en gris */
+  /* JERARQUÍA TIPOGRÁFICA: solo estos tamaños en toda la web
+     Hanken Grotesk:
+       --texto     todo el texto en minúsculas (párrafos, lema, desplegables, duraciones, notas)
+       --etiqueta  todo lo que va en mayúsculas pequeñas (menú, botones, desplegables, tarifas, pie)
+       --cifra     precios (hero y tarifas)
+     Ridley Grotesk (siempre en mayúsculas):
+       --display-pequena  logo, cita, «Lo que no hacemos» y su frase
+       títulos de sección, título del hero y firma: en sus reglas */
+  --texto: 14px;              /* interlineado 1,5 y letras -0,01em (en body) */
+  --etiqueta: 12px;           /* letras separadas 0,1em */
+  --cifra: clamp(24px, 2.4vw, 32px);
+  --display-pequena: clamp(14px, 1.15vw, 16px);   /* letras 0,1em, interlineado 1,3 */
   --fuente-display: "Ridley Grotesk", "Hanken Grotesk", Arial, sans-serif; /* titulares: mayúsculas espaciadas */
   --ancho-max: 1280px;        /* ancho máximo del contenido */
   --alto-cabecera: 64px;      /* alto de la franja superior fija */
@@ -131,9 +142,10 @@ img { max-width: 100%; }
 
 /* Estilo "etiqueta": letra de titulares, pequeña, en mayúsculas y con las
    letras separadas. Lo comparten menú, botones, títulos de desplegables y
-   textos pequeños. Cada uno fija su tamaño (12-13 px) */
+   textos pequeños. Todos al mismo tamaño: --etiqueta */
 .boton, .pastilla, .menu a, .hero-margen, .datos dt, .pie-columnas,
 .acordeon summary, .precio h3 {
+  font-size: var(--etiqueta);
   font-family: var(--fuente-titulos);
   font-weight: 500;
   text-transform: uppercase;
@@ -149,7 +161,6 @@ img { max-width: 100%; }
   background: var(--acento);
   color: var(--acento-texto);
   text-decoration: none;
-  font-size: 12px;
   padding: 16px 30px;
   border-radius: 999px;      /* 999px = pastilla redonda */
   transition: transform 0.15s ease;
@@ -183,10 +194,11 @@ img { max-width: 100%; }
 /* Logo: «Marcel Sandé — Facials» en Ridley, mayúsculas espaciadas */
 .logo {
   font-family: var(--fuente-display);
-  font-size: 15px;
+  font-size: var(--display-pequena);
   font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.1em;
+  line-height: 1.3;
   text-decoration: none;
   white-space: nowrap;
 }
@@ -199,7 +211,7 @@ img { max-width: 100%; }
   margin: 0;
   padding: 0;
 }
-.menu a { text-decoration: none; font-size: 12px; }
+.menu a { text-decoration: none; }
 .menu a:hover { text-decoration: underline; text-underline-offset: 4px; }
 
 /* Desplegable de «Tratamientos»: está oculto y aparece al pasar el ratón
@@ -243,7 +255,6 @@ img { max-width: 100%; }
    En modo oscuro se invierte solo: crema con letra oscura */
 .cabecera .boton {
   padding: 11px 22px;
-  font-size: 12px;
   background: var(--tinta);
   color: var(--fondo);
 }
@@ -256,7 +267,6 @@ img { max-width: 100%; }
 /* En móvil escondemos el menú y dejamos logo + reservar */
 @media (max-width: 760px) {
   .menu li:not(:last-child) { display: none; }
-  .logo { font-size: 11px; letter-spacing: 0.1em; }  /* logo + botón caben en ~380 px */
   .cabecera .boton { padding: 10px 16px; }
 }
 
@@ -320,8 +330,6 @@ img { max-width: 100%; }
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 4px 24px;
-  font-size: 12px;
-  line-height: 1;
 }
 .hero-margen > * { margin: 0; }
 
@@ -363,7 +371,7 @@ img { max-width: 100%; }
 /* El título de la página va pequeño, en la fila de arriba del bloque */
 /* La frase pequeña de arriba: en mayúsculas como las etiquetas,
    en una caja estrecha para que no se estire en una sola línea */
-.hero-lema { max-width: 34ch; line-height: 1.4; }
+.hero-lema { max-width: 34ch; }
 /* Solo en ordenador grande: dos columnas dentro del texto.
    Columna cercana a la foto: la frase pequeña arriba y «Facialismo Funcional» abajo.
    Columna lejana: «Higiene / Facial» arriba y el botón abajo.
@@ -418,7 +426,8 @@ img { max-width: 100%; }
   max-width: 54ch;                       /* caja algo más estrecha */
   margin: 0 auto;                        /* auto a los lados = centrada en la página */
   text-align: center;
-  font-size: clamp(15px, 1.3vw, 18px);   /* más pequeña */
+  font-size: var(--display-pequena);     /* igual que «Lo que no hacemos» */
+  letter-spacing: 0.1em;
   line-height: 1.3;
 }
 
@@ -443,16 +452,16 @@ img { max-width: 100%; }
 }
 .datos div { margin: 0; }
 /* Etiquetas de los datos: gris, tal cual se escriben (mayúscula inicial en cada palabra) */
-.datos dt { color: var(--tinta-suave); font-size: var(--texto); text-transform: none; letter-spacing: 0; }
+.datos dt { color: var(--tinta-suave); font-size: var(--texto); text-transform: none; letter-spacing: -0.01em; font-weight: 400; }
 /* El dato en sí, más grande y en Ridley; la etiqueta de encima sigue pequeña */
 /* Las cifras: en Hanken Grotesk (la letra del texto), sin mayúsculas forzadas */
 .datos dd {
   margin: 6px 0 0;
   font-family: var(--fuente);
   font-weight: 500;
-  font-size: clamp(20px, 1.8vw, 26px);
-  letter-spacing: -0.01em;
-  line-height: 1.2;
+  font-size: var(--cifra);               /* el mismo tamaño que los precios de las tarifas */
+  letter-spacing: -0.02em;
+  line-height: 1.1;
 }
 
 /* =========================================================
@@ -477,7 +486,7 @@ img { max-width: 100%; }
   height: 28px;
   border: 1px solid currentColor;
   border-radius: 50%;      /* 50% = círculo */
-  font-size: 11px;
+  font-size: var(--etiqueta);
   font-variant-numeric: tabular-nums;
 }
 .pasos .respuesta { padding-left: 48px; }  /* alinea el texto con el título, no con el círculo */
@@ -518,7 +527,6 @@ img { max-width: 100%; }
   background: var(--pastilla);
   color: var(--pastilla-texto);
   text-decoration: none;
-  font-size: 12px;
   padding: 16px 28px;
   border-radius: 999px;
   white-space: nowrap;
@@ -554,7 +562,6 @@ img { max-width: 100%; }
   align-items: center;
   gap: 16px;
   padding: 24px 4px;
-  font-size: 13px;
 }
 .acordeon summary::-webkit-details-marker { display: none; }
 
@@ -589,12 +596,13 @@ img { max-width: 100%; }
 .precio { border-top: 1px solid var(--linea); padding-top: 20px; display: flex; flex-direction: column; align-items: flex-start; }
 .precio p:last-of-type { margin-bottom: 24px; }
 .precio.destacado { border-top: 3px solid var(--acento); }
-.precio h3 { font-size: 13px; margin: 0; }
+.precio h3 { margin: 0; }
 .precio .cifra {
-  font-size: 36px;
-  letter-spacing: -0.03em;
+  font-size: var(--cifra);               /* el mismo tamaño que los precios del hero */
+  font-weight: 500;
+  letter-spacing: -0.02em;
   margin: 24px 0 12px;
-  line-height: 1;
+  line-height: 1.1;
 }
 .precio .duracion { color: var(--tinta-suave); margin: 0 0 32px; }
 .precio p { margin: 0 0 16px; }
@@ -651,13 +659,13 @@ img { max-width: 100%; }
   text-transform: uppercase;
   letter-spacing: 0.1em;
   line-height: 1.3;
-  font-size: clamp(14px, 1.15vw, 16px);  /* título y frase, pequeños y del mismo tamaño */
+  font-size: var(--display-pequena);     /* igual que el logo y la cita */
 }
 /* Bloque de la izquierda: título y párrafo, con aire entre ellos */
 .manifiesto-bloque { display: grid; gap: 28px; justify-items: center; }
 .manifiesto-bloque .boton { margin-top: 4px; }  /* botón «Manifiesto»: con contorno (ver .boton.contorno) */
 .manifiesto-texto { margin: 0; max-width: 34ch; }
-.manifiesto-frase { max-width: 30ch; line-height: 1.5; }  /* algo más de aire entre líneas */
+.manifiesto-frase { max-width: 30ch; }
 .cartel {
   width: min(100%, 380px);               /* foto pequeña */
   aspect-ratio: 3 / 4;                   /* algo más baja que antes (2/3): recorta un poco arriba y abajo */
@@ -687,7 +695,7 @@ img { max-width: 100%; }
     flex: 0 0 78%;
     scroll-snap-align: start;
   }
-  .precio .cifra { font-size: 32px; margin-top: 16px; }
+  .precio .cifra { margin-top: 16px; }
   .precio .duracion { margin-bottom: 20px; }
 }
 .seccion > p.aviso-reserva {
@@ -706,7 +714,6 @@ img { max-width: 100%; }
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 32px;
-  font-size: 11px;
   color: var(--tinta-suave);
 }
 .pie-columnas p { margin: 0 0 4px; }
