@@ -63,6 +63,7 @@
   --aire-foto-movil: 48px;    /* móvil: espacio en blanco entre la cabecera y el título del hero */
   --aire-seccion: clamp(56px, 8vw, 136px);        /* aire arriba y abajo de cada bloque (en móvil se queda en 56 px) */
   --aire-tras-manifiesto: clamp(56px, 10vw, 176px);/* ordenador: aire extra al final del manifiesto */
+  --aire-antes-firma: clamp(48px, 12vw, 216px);  /* ordenador: aire entre «Cómo empezar» y la firma grande */
   --aire-junto-foto: 24px;    /* móvil: espacio encima y debajo de la foto del hero (igual en los dos lados) */
   --velo-movil: 0.1;          /* en móvil no hay hover: velo fijo para poder leer el texto blanco */
   --fuente-display: "Ridley Grotesk", "Hanken Grotesk", Arial, sans-serif; /* titulares: mayúsculas espaciadas */
@@ -744,7 +745,7 @@ img { max-width: 100%; }
 /* Firma grande antes del pie: el tamaño se calcula para que el texto
    llene justo el ancho entre márgenes (15,04 = ancho del texto medido en «em») */
 .firma {
-  margin: clamp(48px, 6vw, 88px) auto 0;
+  margin: var(--aire-antes-firma) auto 0;
   font-family: var(--fuente-display);
   font-weight: 500;
   text-transform: uppercase;
