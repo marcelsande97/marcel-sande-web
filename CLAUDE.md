@@ -22,7 +22,7 @@
   - **Hanken Grotesk** (Google Fonts, `--fuente` y `--fuente-titulos`): todo lo demás. Menú, botones, títulos de desplegables y nombres de tarifa en mayúsculas espaciadas pequeñas; texto corrido en minúsculas.
 - Jerarquía mínima (variables en `:root`; no inventar tamaños nuevos):
   - Ridley: título del hero (grande) · títulos de sección (`clamp(20px, 2vw, 28px)`) · `--display-pequena` (14–16 px, letras 0,1em, interlineado 1,3) para logo, cita tras el hero, «Lo que no hacemos» y su frase · firma (calculada para ir de margen a margen).
-  - Hanken: `--texto` 14 px, interlineado 1,5, letras −0,01em, para todo lo que va en minúsculas (párrafos, lema, desplegables, «Primera Visita», duraciones, notas) · `--etiqueta` 12 px en mayúsculas, peso 500, letras 0,1em (menú, botones, títulos de desplegables, nombres de tarifa, números de los pasos, pie) · `--cifra` 24–32 px, peso 500, para todos los precios.
+  - Hanken: `--texto` 14 px, interlineado 1,4, letras −0,01em, para todo lo que va en minúsculas (párrafos, lema, desplegables, «Primera Visita», duraciones, notas) · `--etiqueta` 12 px en mayúsculas, peso 500, letras 0,1em (menú, botones, títulos de desplegables, nombres de tarifa, números de los pasos, pie) · `--cifra` 24–32 px, peso 500, para todos los precios.
 - Ridley es de pago: el archivo está en `fuentes/` (excluida en `.gitignore`, no subir nunca). En la vista previa se pasa aparte; al publicar la web hay que copiarla al servidor y tener licencia web. Sin ella se ve Hanken.
 - Signos ¿? se pegan a la palabra con Hanken: envolverlos en `<span class="abre">` / `<span class="cierra">`.
 

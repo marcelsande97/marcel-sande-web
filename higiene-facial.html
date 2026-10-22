@@ -21,7 +21,7 @@
        y Hanken Grotesk (Google Fonts) para todo lo demás -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500&family=Cardo:wght@400;700&family=Instrument+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500&display=swap" rel="stylesheet">
 
   <!-- Estilos compartidos por todas las páginas -->
   <link rel="stylesheet" href="estilos.css">
@@ -292,23 +292,5 @@
   <!-- Animaciones de aparición al hacer scroll (ver animaciones.js) -->
   <script src="animaciones.js" defer></script>
 
-  <!-- PRUEBA TEMPORAL: botones para cambiar la letra del texto (quitar al decidir) -->
-  <div class="prueba-fuentes" aria-label="Prueba de tipografías">
-    <button type="button" data-f='"Hanken Grotesk"' aria-pressed="true">Hanken</button>
-    <button type="button" data-f='"Wremena"'>Wremena</button>
-    <button type="button" data-f='"Cardo"'>Cardo</button>
-    <button type="button" data-f='"Instrument Sans"'>Instrument Sans</button>
-  </div>
-  <script>
-    // Cambia las dos variables de la letra del texto en :root
-    document.querySelectorAll('.prueba-fuentes button').forEach(function (b) {
-      b.addEventListener('click', function () {
-        var f = b.dataset.f + ', Arial, sans-serif';
-        document.documentElement.style.setProperty('--fuente', f);
-        document.documentElement.style.setProperty('--fuente-titulos', f);
-        document.querySelectorAll('.prueba-fuentes button').forEach(function (x) { x.setAttribute('aria-pressed', x === b); });
-      });
-    });
-  </script>
 </body>
 </html>
