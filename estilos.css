@@ -23,7 +23,7 @@
 
   --fuente: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
   --fuente-titulos: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif; /* titulares, menú, botones y etiquetas */
-  --fuente-display: "Instrument Serif", Georgia, serif; /* solo las frases más grandes */
+  --fuente-display: Cardo, Georgia, serif; /* frases grandes y títulos de sección */
   --ancho-max: 1280px;        /* ancho máximo del contenido */
   --margen: clamp(24px, 6vw, 96px); /* margen lateral que crece con la pantalla */
 
@@ -260,21 +260,20 @@ img { max-width: 100%; }
 }
 
 /* La frase grande */
-/* Textos grandes: todos con la letra de titulares */
-.seccion h2, .precio .cifra {
+/* Precios con la letra de titulares */
+.precio .cifra {
   font-family: var(--fuente-titulos);
 }
-/* Las dos frases protagonistas (banner y manifiesto) van en la serif editorial.
-   Es estrecha, así que va algo más grande que el resto de titulares */
-.declaracion, .manifiesto .frase {
+/* Frases protagonistas (banner y manifiesto) y títulos de sección en la serif */
+.declaracion, .manifiesto .frase, .seccion h2 {
   font-family: var(--fuente-display);
   font-weight: 400;
 }
 .manifiesto .frase em { font-style: italic; }  /* cursiva de verdad: el gesto con chispa */
 
 .declaracion {
-  font-size: clamp(30px, 3.2vw, 44px);
-  line-height: 1.08;
+  font-size: clamp(28px, 2.8vw, 38px);
+  line-height: 1.12;
   font-weight: 400;
   letter-spacing: -0.01em;
   max-width: 19ch;                       /* ch = ancho de un carácter: caja estrecha */
@@ -298,7 +297,7 @@ img { max-width: 100%; }
    ========================================================= */
 .seccion { padding-top: clamp(80px, 10vw, 136px); padding-bottom: clamp(80px, 10vw, 136px); }
 .seccion h2 {
-  font-size: clamp(24px, 2.4vw, 32px);
+  font-size: clamp(28px, 2.8vw, 38px);
   font-weight: 400;
   letter-spacing: -0.015em;
   margin: 0 0 40px;
@@ -349,7 +348,7 @@ img { max-width: 100%; }
   padding-bottom: 24px;                  /* justo debajo del botón empieza el fundido */
 }
 .manifiesto .frase {
-  font-size: clamp(38px, 6vw, 88px);
+  font-size: clamp(34px, 5vw, 72px);
   line-height: 1.04;
   letter-spacing: -0.005em;
   margin: 0 0 48px;
