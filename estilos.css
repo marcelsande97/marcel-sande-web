@@ -286,7 +286,8 @@ img { max-width: 100%; }
   .hero-imagen img { width: 100%; }
   .hero-texto { padding: 48px var(--margen) 40px; gap: 96px; }  /* más aire con la foto y entre bloques */
   /* Línea fina (como las de los pasos) que separa el banner de los datos */
-  .datos { margin-top: 24px; padding-top: 32px; border-top: 1px solid var(--linea); }
+  /* Línea fina sobre los datos de la visita */
+  .datos { padding-top: 32px; border-top: 1px solid var(--linea); }
 }
 
 
@@ -355,11 +356,11 @@ img { max-width: 100%; }
 }
 
 /* Datos rápidos: precio y duración */
+/* Datos de la visita: uno encima del otro, al pie de la columna del texto */
 .datos {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px 56px;
-  margin: 40px 0 0;
+  display: grid;
+  gap: 20px;
+  margin: 0;
 }
 .datos div { margin: 0; }
 /* Etiquetas de los datos: gris, tal cual se escriben (mayúscula inicial en cada palabra) */
@@ -498,7 +499,10 @@ img { max-width: 100%; }
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 48px;
 }
-.precio { border-top: 1px solid var(--linea); padding-top: 20px; }
+/* Cada tarjeta es una columna: el botón se va abajo del todo (margin-top: auto),
+   así los tres botones quedan a la misma altura */
+.precio { border-top: 1px solid var(--linea); padding-top: 20px; display: flex; flex-direction: column; align-items: flex-start; }
+.precio p:last-of-type { margin-bottom: 24px; }
 .precio.destacado { border-top: 3px solid var(--acento); }
 .precio h3 { font-size: 13px; margin: 0; }
 .precio .cifra {
@@ -509,7 +513,7 @@ img { max-width: 100%; }
 }
 .precio .duracion { color: var(--tinta-suave); margin: 0 0 32px; }
 .precio p { margin: 0 0 16px; }
-.precio .boton { margin-top: 24px; }
+.precio .boton { margin-top: auto; }
 /* Botón con contorno: interior transparente, borde y texto negros.
    Para las opciones secundarias; el Starter Pack lleva el botón negro */
 .boton.contorno { background: transparent; color: var(--tinta); box-shadow: inset 0 0 0 1.5px currentColor; }
