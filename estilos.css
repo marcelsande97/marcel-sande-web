@@ -839,6 +839,13 @@ img { max-width: 100%; }
 @media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
   html { scroll-snap-type: y mandatory; }
   .hero, .frase-banda, .seccion, .manifiesto { scroll-snap-align: start; }
+  /* La cita ocupa una pantalla entera, centrada en vertical: así llega sola,
+     con su propia transición, y la sección siguiente no entra a la vez */
+  .frase-banda {
+    min-height: calc(100svh - var(--alto-cabecera));
+    display: grid;
+    align-content: center;
+  }
   .pie { scroll-snap-align: end; }          /* el último tope: el final de la página */
 }
 
