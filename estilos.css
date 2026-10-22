@@ -1030,7 +1030,7 @@ img { max-width: 100%; }
   }
   .hero-imagen { grid-row: 4; grid-column: 1; }
   .hero-abajo { grid-row: 5; grid-column: 1; margin-top: var(--aire-junto-foto); }   /* poco aire entre la foto y los precios */
-  .hero { padding-bottom: 56px; }       /* aire entre los precios y la cita (unos 64 px) */
+  .hero { padding-bottom: 80px; }       /* aire entre los precios y la cita (unos 88 px) */
   /* Precio y duración del hero, más grandes (el tamaño máximo de --cifra) */
   .datos dd { font-size: 32px; }
   /* La cita a sangre (de margen a margen), alineada a la izquierda y al tamaño de los títulos de sección */
@@ -1047,8 +1047,8 @@ img { max-width: 100%; }
      --aire-bloques al final de la sección anterior + 56 px al principio de la siguiente */
   .fundido > .seccion { padding-bottom: var(--aire-bloques); }
   .resultados { padding-bottom: var(--aire-bloques); }
-  /* Menos aire entre las tarifas y «Todas las citas…» */
-  .seccion > p.aviso-reserva { margin-top: 24px; }
+  /* Aire entre los botones de las tarifas y «Todas las citas…» (más los 16 px de la fila) */
+  .seccion > p.aviso-reserva { margin-top: 40px; }
 }
 
 /* Si la persona tiene desactivadas las animaciones en su sistema, las respetamos */
