@@ -218,7 +218,7 @@ img { max-width: 100%; }
 /* =========================================================
    5. CABECERA DEL TRATAMIENTO (hero)
    ========================================================= */
-.hero { padding-bottom: 72px; }
+.hero { padding-bottom: 48px; }
 
 /* Díptico a todo el ancho: foto a sangre en la mitad izquierda | texto a la derecha */
 .hero-banda {
@@ -356,7 +356,7 @@ img { max-width: 100%; }
   display: flex;
   flex-wrap: wrap;
   gap: 16px 56px;
-  margin: 56px 0 0;
+  margin: 40px 0 0;
 }
 .datos div { margin: 0; }
 .datos dt { color: var(--tinta-suave); font-size: 11px; }
@@ -371,7 +371,7 @@ img { max-width: 100%; }
 /* =========================================================
    6. SECCIONES GENERALES
    ========================================================= */
-.seccion { padding-top: clamp(80px, 10vw, 136px); padding-bottom: clamp(80px, 10vw, 136px); }
+.seccion { padding-top: clamp(56px, 6vw, 88px); padding-bottom: clamp(56px, 6vw, 88px); }  /* aire entre bloques */
 .seccion h2 {
   font-size: clamp(20px, 2vw, 28px);
   letter-spacing: 0.1em;
@@ -416,10 +416,10 @@ img { max-width: 100%; }
     var(--fondo) 100%);                  /* llega a blanco justo al final de la sección */
 }
 
-/* Manifiesto: la fila de tres columnas (más abajo) y el botón */
+/* Manifiesto: la fila de tres columnas (más abajo) */
 .manifiesto {
-  padding-top: clamp(72px, 9vw, 128px);
-  padding-bottom: 24px;                  /* justo debajo del botón empieza el fundido */
+  padding-top: clamp(56px, 6vw, 88px);
+  padding-bottom: clamp(24px, 3vw, 40px);
 }
 
 /* Botón en pastilla: negro con texto blanco, sin borde */
@@ -535,6 +535,7 @@ img { max-width: 100%; }
 }
 /* Bloque de la izquierda: título y párrafo, con aire entre ellos */
 .manifiesto-bloque { display: grid; gap: 28px; justify-items: center; }
+.manifiesto-bloque .pastilla { margin-top: 4px; }
 .manifiesto-texto { margin: 0; max-width: 34ch; font-size: 15px; line-height: 1.5; }
 .manifiesto-frase { max-width: 24ch; }
 .cartel {
@@ -543,7 +544,6 @@ img { max-width: 100%; }
   overflow: hidden;
 }
 .cartel img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.manifiesto .cartel-boton { text-align: center; margin: 28px 0 0; }
 
 
 
