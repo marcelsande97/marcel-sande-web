@@ -111,7 +111,7 @@ img { max-width: 100%; }
 /* Estilo "etiqueta": letra de titulares, pequeña, en mayúsculas y con las
    letras separadas. Lo comparten menú, botones, títulos de desplegables y
    textos pequeños. Cada uno fija su tamaño (12-13 px) */
-.boton, .pastilla, .logo, .menu a, .hero-margen, .datos dt, .pie-columnas,
+.boton, .pastilla, .menu a, .hero-margen, .datos dt, .pie-columnas,
 .acordeon summary, .manifiesto-pie h2, .precio h3 {
   font-family: var(--fuente-titulos);
   font-weight: 500;
@@ -159,22 +159,16 @@ img { max-width: 100%; }
   gap: 24px;
   height: 88px;
 }
+/* Logo: «Marcel Sandé — Facials» en Cardo, redonda y con mayúsculas iniciales */
 .logo {
-  font-size: 16px;
-  letter-spacing: 0.18em;        /* letras muy separadas: más marca */
+  font-family: var(--fuente-display);
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: 0;
   text-decoration: none;
   white-space: nowrap;
 }
-/* Segunda parte del logo: «Facials» en Cardo cursiva, sin mayúsculas forzadas */
-.logo-facials {
-  font-family: var(--fuente-display);
-  font-style: italic;
-  font-weight: 400;
-  text-transform: none;
-  letter-spacing: 0;
-  font-size: 1.35em;             /* la cursiva es más pequeña a ojo: la subimos un poco */
-  margin-left: 0.15em;
-}
+.logo-separador { margin: 0 0.15em; }
 .menu {
   display: flex;
   align-items: center;
@@ -197,7 +191,7 @@ img { max-width: 100%; }
 /* En móvil escondemos el menú y dejamos logo + reservar */
 @media (max-width: 760px) {
   .menu li:not(:last-child) { display: none; }
-  .logo { font-size: 13px; letter-spacing: 0.12em; }  /* logo + botón caben en ~380 px */
+  .logo { font-size: 18px; }  /* logo + botón caben en ~380 px */
   .cabecera .boton { padding: 10px 16px; }
 }
 
@@ -305,7 +299,13 @@ img { max-width: 100%; }
 }
 .datos div { margin: 0; }
 .datos dt { color: var(--tinta-suave); font-size: 11px; }
-.datos dd { margin: 6px 0 0; font-size: 16px; }
+/* El dato en sí, grande y en Cardo; la etiqueta de encima sigue pequeña */
+.datos dd {
+  margin: 8px 0 0;
+  font-family: var(--fuente-display);
+  font-size: clamp(22px, 2.2vw, 30px);
+  line-height: 1.15;
+}
 
 /* =========================================================
    6. SECCIONES GENERALES
