@@ -57,6 +57,7 @@
   --sobre-foto-tinta: #111315;/* letra del botón cuando se rellena de blanco */
   --velo-reposo: 0;           /* oscurecido de la foto del manifiesto sin pasar el ratón (0 = nada) */
   --velo-hover: 0.55;         /* oscurecido al pasar el ratón */
+  --aire-bloques: 160px;      /* móvil: aire al final de los grandes bloques (+56 px de la sección siguiente = 216 px) */
   --velo-hero-movil: 0;       /* oscurecido de la foto del hero en móvil (0 = la foto tal cual) */
   --velo-movil: 0.1;          /* en móvil no hay hover: velo fijo para poder leer el texto blanco */
   --fuente-display: "Ridley Grotesk", "Hanken Grotesk", Arial, sans-serif; /* titulares: mayúsculas espaciadas */
@@ -1019,18 +1020,18 @@ img { max-width: 100%; }
   .datos dd { font-size: 32px; }
   /* La cita a sangre (de margen a margen), alineada a la izquierda y al tamaño de los títulos de sección */
   /* Arriba, el mismo aire que entre el botón «Reserva» y «Primera Visita» (56 px = 48 del hero + 11, medido);
-     abajo, mucho aire hasta «Qué hacemos y por qué» (el doble que antes: 288 px = 232 + 56 de la sección) */
-  .frase-banda { padding: 11px var(--margen) 232px; }
+     abajo, mucho aire hasta «Qué hacemos y por qué» (--aire-bloques + 56 de la sección) */
+  .frase-banda { padding: 11px var(--margen) var(--aire-bloques); }
   .frase-banda .declaracion { max-width: none; margin: 0; text-align: left; font-size: var(--titulo-seccion); }
-  /* «Antes de venir», más abajo: 288 px de aire tras el manifiesto (232 + 56 de la sección) */
-  .manifiesto { padding-bottom: 232px; }
+  /* «Antes de venir», más abajo: --aire-bloques + 56 px de la sección */
+  .manifiesto { padding-bottom: var(--aire-bloques); }
   /* Mucho aire tras «Cómo empezar» y antes de la firma (el doble que antes) */
-  #reservar { padding-bottom: 112px; }
-  .firma { margin-top: 112px; }
-  /* El mismo aire (288 px) antes de Antes de venir, de Resultados y de Cómo empezar:
-     232 px al final de la sección anterior + 56 px al principio de la siguiente */
-  .fundido > .seccion { padding-bottom: 232px; }
-  .resultados { padding-bottom: 232px; }
+  #reservar { padding-bottom: 84px; }
+  .firma { margin-top: 84px; }
+  /* El mismo aire antes de Antes de venir, de Resultados y de Cómo empezar:
+     --aire-bloques al final de la sección anterior + 56 px al principio de la siguiente */
+  .fundido > .seccion { padding-bottom: var(--aire-bloques); }
+  .resultados { padding-bottom: var(--aire-bloques); }
 }
 
 /* Si la persona tiene desactivadas las animaciones en su sistema, las respetamos */
