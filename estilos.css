@@ -661,23 +661,21 @@ img { max-width: 100%; }
 
 /* =========================================================
    APARICIÓN AL HACER SCROLL
-   Solo CSS, sin JavaScript: cada bloque se desvanece y sube un poco
-   a medida que entra en pantalla. Si el navegador no lo entiende (@supports)
-   o la persona ha pedido menos movimiento, todo se ve normal desde el principio,
-   así que nunca queda nada escondido.
+   animaciones.js pone la clase .aparece a los bloques que están por debajo
+   de la pantalla, y .visible cuando asoman. Sin JavaScript no se esconde nada.
    ========================================================= */
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .seccion h2, .acordeon details, .nota, .manifiesto-fila > *,
-    .precio, .aviso-reserva, .firma, .pie {
-      animation: aparecer both;
-      /* curva rápida al principio que frena al final */
-      animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
-      animation-timeline: view();               /* el avance lo marca el scroll, no el reloj */
-      animation-range: entry 0% entry 70%;      /* termina antes, para que se note más */
-    }
-  }
+.aparece {
+  opacity: 0;
+  transform: translateY(90px);
 }
+.aparece.visible {
+  opacity: 1;
+  transform: none;
+  /* curva rápida al principio que frena al final; --retraso escalona los grupos */
+  transition: opacity 1.1s cubic-bezier(0.16, 1, 0.3, 1) var(--retraso, 0s),
+              transform 1.2s cubic-bezier(0.16, 1, 0.3, 1) var(--retraso, 0s);
+}
+
 @keyframes aparecer {
   from { opacity: 0; transform: translateY(110px); }
   to   { opacity: 1; transform: none; }
