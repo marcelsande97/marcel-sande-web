@@ -305,7 +305,7 @@ img { max-width: 100%; }
   padding: var(--aire) 0 var(--aire) max(var(--margen), calc((100vw - var(--ancho-max)) / 2 + var(--margen)));
 }
 .hero-imagen img {
-  width: clamp(260px, 30vw, 460px);      /* como mucho 460 px de ancho */
+  width: clamp(280px, 34vw, 520px);      /* como mucho 520 px de ancho */
   height: auto;                          /* con su proporción: sin recortes */
   display: block;
 }
@@ -351,7 +351,7 @@ img { max-width: 100%; }
   }
   .hero-texto {
     padding-left: max(var(--margen), calc((100vw - var(--ancho-max)) / 2 + var(--margen)));
-    padding-right: clamp(32px, 4vw, 64px);   /* aire entre el texto y la foto */
+    padding-right: clamp(48px, 8vw, 128px);  /* aire entre el lema/precios y la foto */
   }
 }
 
@@ -411,10 +411,10 @@ img { max-width: 100%; }
    centrado. Más pequeña que el título del hero, pero protagonista */
 .frase-banda { padding: clamp(56px, 7vw, 112px) var(--margen); }
 .frase-banda .declaracion {
-  max-width: 44ch;                       /* caja estrecha: líneas cortas, bloque compacto */
+  max-width: 62ch;                       /* caja más ancha: menos líneas */
   margin: 0 auto;                        /* auto a los lados = centrada en la página */
   text-align: center;
-  font-size: clamp(20px, 2.2vw, 30px);
+  font-size: clamp(17px, 1.6vw, 22px);
   line-height: 1.3;
 }
 
