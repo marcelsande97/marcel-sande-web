@@ -1012,23 +1012,24 @@ img { max-width: 100%; }
    Van al final para poder cambiar las reglas generales de más arriba
    ========================================================= */
 @media (max-width: 760px) {
-  /* Hero en una columna, en este orden: título, botón centrado, foto, lema y precios */
+  /* Hero en una columna, en este orden: título, botón, lema, foto y precios */
   /* minmax(0, …): la columna nunca se ensancha más que la pantalla, aunque el título sea largo */
   .hero-banda { grid-template-columns: minmax(0, 1fr); }
   .hero .declaracion { grid-row: 1; grid-column: 1; justify-self: start; margin: 0 var(--margen); color: var(--tinta); }
   /* Título en dos líneas: «facial» (dentro de <em>) pasa a su propia línea */
   .hero .declaracion em { display: block; }
-  /* Botón: a la izquierda (con el título), muy cerca de él y con más aire por debajo (antes de la foto) */
-  .hero-titulo .boton { grid-row: 2; grid-column: 1; justify-self: start; align-self: auto; margin: 12px 0 80px var(--margen); }
+  /* Botón: a la izquierda (con el título) y muy cerca de él */
+  .hero-titulo .boton { grid-row: 2; grid-column: 1; justify-self: start; align-self: auto; margin: 12px 0 0 var(--margen); }
   /* Sin el botón negro «Reserva» de la cabecera: ya está el del hero */
   .cabecera .boton.contraste { display: none; }
-  .hero-imagen { grid-row: 3; grid-column: 1; }
-  /* Lema: bajo la foto, alineado a la izquierda; la caja llega hasta el 68 % del ancho */
+  /* Lema: bajo el botón, alineado a la izquierda; la caja llega hasta el 68 % del ancho.
+     Por debajo, mucho aire antes de la foto */
   .hero-lema {
-    grid-row: 4; grid-column: 1; justify-self: start; text-align: left;
-    max-width: calc(68vw - var(--margen)); margin: var(--aire-junto-foto) 0 0 var(--margen);
+    grid-row: 3; grid-column: 1; justify-self: start; text-align: left;
+    max-width: calc(68vw - var(--margen)); margin: 32px 0 80px var(--margen);
   }
-  .hero-abajo { grid-row: 5; grid-column: 1; margin-top: 40px; }   /* aire entre el lema y los precios */
+  .hero-imagen { grid-row: 4; grid-column: 1; }
+  .hero-abajo { grid-row: 5; grid-column: 1; margin-top: var(--aire-junto-foto); }   /* poco aire entre la foto y los precios */
   .hero { padding-bottom: 56px; }       /* aire entre los precios y la cita (unos 64 px) */
   /* Precio y duración del hero, más grandes (el tamaño máximo de --cifra) */
   .datos dd { font-size: 32px; }
