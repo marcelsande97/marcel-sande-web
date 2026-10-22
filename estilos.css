@@ -56,9 +56,9 @@
   --velo-reposo: 0;           /* oscurecido de la foto del manifiesto sin pasar el ratón (0 = nada) */
   --velo-hover: 0.55;         /* oscurecido al pasar el ratón */
   --fuente-display: "Ridley Grotesk", "Hanken Grotesk", Arial, sans-serif; /* titulares: mayúsculas espaciadas */
-  --ancho-max: 1280px;        /* ancho máximo del contenido */
+  --ancho-max: 1600px;        /* ancho máximo del contenido (más ancho: todo más cerca de los bordes) */
   --alto-cabecera: 64px;      /* alto de la franja superior fija */
-  --margen: clamp(18px, 3.5vw, 56px); /* margen lateral que crece con la pantalla (más estrecho: contenido más abierto) */
+  --margen: clamp(16px, 2.5vw, 40px); /* margen lateral que crece con la pantalla (estrecho: contenido cerca del borde) */
 
   color-scheme: light;
   box-sizing: border-box;
@@ -436,6 +436,8 @@ img { max-width: 100%; }
   .frase-banda { padding-left: calc(var(--margen) * 2); padding-right: calc(var(--margen) * 2); }
   .frase-banda .declaracion { text-wrap: pretty; }
 }
+/* Flecha bajo la cita: dos trazos de distinto largo que indican hacia dónde seguir */
+.frase-flecha { display: block; width: 18px; height: 26px; margin: clamp(48px, 5vw, 72px) auto 0; color: var(--tinta); }
 .frase-banda .declaracion {
   max-width: 54ch;                       /* caja algo más estrecha */
   margin: 0 auto;                        /* auto a los lados = centrada en la página */
@@ -681,7 +683,7 @@ img { max-width: 100%; }
 /* Ordenador (va después de las reglas generales del manifiesto para poder cambiarlas) */
 @media (min-width: 900px) {
   /* ordenador: dos columnas iguales a los lados y la foto en medio */
-  .manifiesto-fila { grid-template-columns: minmax(0, 1fr) min(380px, 34vw) minmax(0, 1fr); align-items: center; gap: clamp(32px, 4vw, 64px); }
+  .manifiesto-fila { grid-template-columns: minmax(0, 1fr) min(520px, 38vw) minmax(0, 1fr); align-items: center; gap: clamp(32px, 4vw, 64px); }
   /* El bloque de la izquierda «desaparece» como caja (display: contents) y sus
      piezas se colocan sueltas en la rejilla: el título a la izquierda, a media
      altura de la foto; el párrafo y el botón ENCIMA de la foto (misma celda) */
@@ -691,7 +693,8 @@ img { max-width: 100%; }
   .manifiesto-frase  { grid-column: 3; grid-row: 1; }
   .manifiesto-texto,
   .manifiesto-bloque .boton { grid-column: 2; grid-row: 1; z-index: 1; color: var(--sobre-foto); }
-  .manifiesto-texto { padding: 0 28px; max-width: none; }      /* en medio de la foto, casi a todo su ancho */
+  .cartel { width: 100%; }                                     /* la foto, más grande: llena su columna */
+  .manifiesto-texto { max-width: 324px; }                      /* el texto conserva el ancho de antes, centrado en la foto */
   .manifiesto-bloque .boton { align-self: end; margin: 0 0 32px; }   /* cerca del borde inferior */
 
   /* El velo: una capa negra encima de la foto (::after) que se oscurece al pasar
