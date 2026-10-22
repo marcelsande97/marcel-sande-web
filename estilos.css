@@ -398,15 +398,15 @@ img { max-width: 100%; }
    margen a cada lado; el texto debajo, con su tamaño cómodo */
 @media (max-width: 760px) {
   .hero-banda { grid-template-columns: 1fr; min-height: 0; }
-  .hero-imagen { padding: 32px var(--margen) 0; justify-content: center; }
+  .hero-imagen { padding: 0; justify-content: center; }   /* foto de borde a borde, como en ordenador */
   .hero-imagen img { width: 100%; }
   /* Orden en móvil: título, frase, botón y datos, cerca de la foto.
      display: contents deja sueltos los hijos de cada bloque para poder ordenarlos */
   .hero-texto { padding: 32px var(--margen) 40px; gap: 20px; }
   .hero-arriba, .hero-titulo { display: contents; }
-  /* En una sola línea: el título mide 9,75 veces su tamaño de letra,
-     así que el tamaño se calcula para que quepa entre los márgenes */
-  .hero .declaracion { order: 1; margin: 0; max-width: none; white-space: nowrap; font-size: min(30px, calc((100vw - 2 * var(--margen)) / 10.2)); }
+  /* En una sola línea y de margen a margen (como la firma del pie): el título
+     mide 9,75 veces su tamaño de letra, así que el tamaño sale del ancho de pantalla */
+  .hero .declaracion { order: 1; margin: 0; max-width: none; white-space: nowrap; font-size: calc((100vw - 2 * var(--margen)) / 9.8); }
   .hero-lema { order: 2; margin: 0; }
   .hero-titulo .boton { order: 3; align-self: flex-start; margin-top: 8px; }
   .hero-abajo { order: 4; margin-top: 32px; padding-bottom: 32px; border-bottom: 1px solid var(--linea); }   /* línea que separa el hero de lo siguiente */
@@ -814,6 +814,11 @@ img { max-width: 100%; }
   .manifiesto-texto { align-self: center; max-width: 340px; padding: 0 20px; text-wrap: balance; }   /* 340 + 2×20 = ancho de la foto; balance: líneas de largo parecido, bloque más cuadrado */
   .cartel::after { opacity: var(--velo-movil); }
 }
+/* Móvil estrecho: la foto del manifiesto de borde a borde (los márgenes
+   negativos la sacan del margen lateral); el texto encima no cambia */
+@media (max-width: 600px) {
+  .manifiesto-fila .cartel { width: auto; justify-self: stretch; margin: 0 calc(var(--margen) * -1); }
+}
 
 /* Ordenador: el título a la izquierda, a media altura de la foto;
    el párrafo y el botón encima de la foto; la frase a la derecha */
@@ -867,7 +872,7 @@ img { max-width: 100%; }
   padding-top: 24px;
   padding-bottom: 48px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));   /* en móvil caben dos columnas */
   gap: 32px;
   color: var(--tinta-suave);
 }
