@@ -116,6 +116,9 @@ body {
   letter-spacing: -0.01em;               /* letras un pelín más juntas */
   -webkit-font-smoothing: antialiased;
 }
+/* Sin palabras sueltas en la última línea de ningún texto (el navegador
+   reparte las palabras entre las líneas para evitarlo) */
+p, li, dd, h2, h3 { text-wrap: pretty; }
 
 /* Tapa la zona de la barra de estado con el color del header */
 body::before {
