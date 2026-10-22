@@ -51,6 +51,10 @@
   --etiqueta: 12px;           /* letras separadas 0,1em */
   --cifra: clamp(24px, 2.4vw, 32px);
   --display-pequena: clamp(14px, 1.15vw, 16px);   /* letras 0,1em, interlineado 1,3 */
+  --sobre-foto: #ffffff;      /* texto y botón encima de la foto del manifiesto (igual en modo oscuro) */
+  --sobre-foto-tinta: #111315;/* letra del botón cuando se rellena de blanco */
+  --velo-reposo: 0.2;         /* oscurecido de la foto del manifiesto sin pasar el ratón (0 = nada) */
+  --velo-hover: 0.55;         /* oscurecido al pasar el ratón */
   --fuente-display: "Ridley Grotesk", "Hanken Grotesk", Arial, sans-serif; /* titulares: mayúsculas espaciadas */
   --ancho-max: 1280px;        /* ancho máximo del contenido */
   --alto-cabecera: 64px;      /* alto de la franja superior fija */
@@ -422,6 +426,13 @@ img { max-width: 100%; }
 /* Frase entre comillas tras el hero: centrada en la página y con el texto
    centrado. Más pequeña que el título del hero, pero protagonista */
 .frase-banda { padding: clamp(56px, 7vw, 112px) var(--margen); }
+/* En móvil, el doble de margen a los lados: la cita no toca los bordes.
+   Mismo tamaño de letra (sin jerarquía nueva); sale alguna línea más.
+   text-wrap: pretty evita que la última línea quede con una sola palabra */
+@media (max-width: 760px) {
+  .frase-banda { padding-left: calc(var(--margen) * 2); padding-right: calc(var(--margen) * 2); }
+  .frase-banda .declaracion { text-wrap: pretty; }
+}
 .frase-banda .declaracion {
   max-width: 54ch;                       /* caja algo más estrecha */
   margin: 0 auto;                        /* auto a los lados = centrada en la página */
@@ -644,14 +655,6 @@ img { max-width: 100%; }
   gap: 56px;                             /* móvil: aire alrededor de la foto */
   text-align: center;                    /* cada texto centrado en su propio eje */
 }
-@media (min-width: 900px) {
-  /* ordenador: dos columnas iguales a los lados y la foto en medio */
-  .manifiesto-fila { grid-template-columns: minmax(0, 1fr) min(380px, 34vw) minmax(0, 1fr); align-items: center; gap: clamp(32px, 4vw, 64px); }
-  /* el bloque de la izquierda ocupa toda la altura de la foto:
-     título arriba (a ras de la foto), párrafo centrado y botón abajo (a ras de la foto) */
-  .manifiesto-bloque { align-self: stretch; grid-template-rows: auto 1fr auto; }
-  .manifiesto-texto { align-self: center; }
-}
 .manifiesto-titulo {
   margin: 0;
   font-family: var(--fuente-display);
@@ -672,6 +675,46 @@ img { max-width: 100%; }
   overflow: hidden;
 }
 .cartel img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* Ordenador (va después de las reglas generales del manifiesto para poder cambiarlas) */
+@media (min-width: 900px) {
+  /* ordenador: dos columnas iguales a los lados y la foto en medio */
+  .manifiesto-fila { grid-template-columns: minmax(0, 1fr) min(380px, 34vw) minmax(0, 1fr); align-items: center; gap: clamp(32px, 4vw, 64px); }
+  /* El bloque de la izquierda «desaparece» como caja (display: contents) y sus
+     piezas se colocan sueltas en la rejilla: el título a la izquierda, a media
+     altura de la foto; el párrafo y el botón ENCIMA de la foto (misma celda) */
+  .manifiesto-bloque { display: contents; }
+  .manifiesto-titulo { grid-column: 1; grid-row: 1; }
+  .cartel            { grid-column: 2; grid-row: 1; position: relative; }
+  .manifiesto-frase  { grid-column: 3; grid-row: 1; }
+  .manifiesto-texto,
+  .manifiesto-bloque .boton { grid-column: 2; grid-row: 1; z-index: 1; color: var(--sobre-foto); }
+  .manifiesto-texto { padding: 0 32px; }                       /* en medio de la foto */
+  .manifiesto-bloque .boton { align-self: end; margin: 0 0 32px; }   /* cerca del borde inferior */
+
+  /* El velo: una capa negra encima de la foto (::after) que se oscurece al pasar
+     el ratón por la foto, el texto o el botón, o al llegar con el teclado */
+  .cartel::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: #000;
+    opacity: var(--velo-reposo);
+    transition: opacity 0.5s ease;
+  }
+  .manifiesto-fila:has(.cartel:hover, .manifiesto-texto:hover, .boton:hover, .boton:focus-visible) .cartel::after {
+    opacity: var(--velo-hover);
+  }
+
+  /* Botón «Manifiesto» sobre la foto: hueco con contorno blanco; al pasar el ratón, blanco sólido */
+  .manifiesto-bloque .boton.contorno { box-shadow: inset 0 0 0 1.5px var(--sobre-foto); }
+  .manifiesto-bloque .boton.contorno:hover,
+  .manifiesto-bloque .boton.contorno:focus-visible {
+    background: var(--sobre-foto);
+    color: var(--sobre-foto-tinta);
+    box-shadow: inset 0 0 0 1.5px var(--sobre-foto);
+  }
+  .manifiesto-bloque .boton:focus-visible { outline-color: var(--sobre-foto); }
+}
 
 
 

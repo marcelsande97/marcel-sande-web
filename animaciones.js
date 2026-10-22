@@ -14,7 +14,7 @@
 
   // Los bloques que se vigilan y, dentro de ellos, los elementos que se animan
   var grupos = '.frase-banda, .seccion, .manifiesto, .firma, .pie';
-  var elementos = '.frase-banda .declaracion, .seccion h2, .acordeon details, .nota, .manifiesto-fila > *, .precio, .aviso-reserva, .firma, .pie-columnas';   // el pie entero: la línea de arriba y el texto aparecen a la vez
+  var elementos = '.frase-banda .declaracion, .seccion h2, .acordeon details, .nota, .manifiesto-bloque > *, .cartel, .manifiesto-frase, .precio, .aviso-reserva, .firma, .pie-columnas';   // el pie entero: la línea de arriba y el texto aparecen a la vez
   var altoPantalla = window.innerHeight;
 
   // Solo escondemos los bloques que empiezan por debajo de la pantalla al cargar.
@@ -29,6 +29,11 @@
     dentro.forEach(function (el) {
       el.classList.add('aparece');
       escondidos.push(el);
+      // Cuando termina el fundido, quitamos las clases: el elemento vuelve a sus
+      // estilos normales (por ejemplo, la transición del hover de los botones)
+      el.addEventListener('transitionend', function (e) {
+        if (e.target === el && e.propertyName === 'opacity') el.classList.remove('aparece', 'visible');
+      });
     });
   });
 
