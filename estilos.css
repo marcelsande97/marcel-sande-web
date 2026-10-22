@@ -204,9 +204,8 @@ img { max-width: 100%; }
 .hero-banda {
   background: var(--crema);
   display: grid;
-  /* La foto es vertical (2:3): una columna algo más estrecha y una banda
-     más alta hacen que se recorte mucho menos */
-  grid-template-columns: 5fr 7fr;
+  /* Dos mitades iguales: la foto llega justo a la mitad de la página */
+  grid-template-columns: 1fr 1fr;
   min-height: clamp(560px, 90vh, 900px);
   --aire: 28px;                          /* margen interior arriba y abajo del texto */
 }
@@ -233,11 +232,13 @@ img { max-width: 100%; }
   margin: 0;
   position: relative;
   order: -1;
+  --despegue: clamp(16px, 2.5vw, 40px);  /* separación del borde izquierdo */
 }
 .hero-imagen img {
   position: absolute;
-  inset: 0;                              /* pegada a los cuatro lados */
-  width: 100%;
+  inset: 0;                              /* pegada arriba, abajo y a la derecha... */
+  left: var(--despegue, 0px);            /* ...y separada un poco del borde izquierdo */
+  width: calc(100% - var(--despegue, 0px));  /* termina justo en la mitad */
   height: 100%;
   object-fit: cover;                     /* recorta en vez de estirar */
   object-position: center 40%;           /* qué parte de la foto se prioriza al recortar */
@@ -258,7 +259,7 @@ img { max-width: 100%; }
 /* En móvil: una columna, la foto arriba a todo el ancho y el texto debajo */
 @media (max-width: 760px) {
   .hero-banda { grid-template-columns: 1fr; min-height: 0; }
-  .hero-imagen { aspect-ratio: 2 / 3; }  /* la proporción de la foto: sin recorte */
+  .hero-imagen { aspect-ratio: 4 / 5; --despegue: 0px; }  /* en móvil, a todo el ancho */
   .hero-texto { padding: 24px var(--margen); gap: 32px; }
 }
 
