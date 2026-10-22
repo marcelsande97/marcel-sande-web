@@ -290,15 +290,19 @@ img { max-width: 100%; }
     grid-template-rows: auto 1fr auto;
     column-gap: clamp(32px, 4vw, 64px);
   }
-  .hero-texto { grid-template-columns: auto 1fr; }
+  /* Primera columna de ancho fijo: así el título y el botón no se mueven
+     aunque la frase se desplace hacia la foto */
+  .hero-texto { grid-template-columns: 204px 1fr; }
   .hero-titulo { display: contents; }    /* sus hijos (título y botón) se colocan sueltos en la rejilla */
-  .hero-arriba { grid-column: 1; grid-row: 1; }
-  .hero-abajo  { grid-column: 1; grid-row: 3; align-self: end; }
+  /* Margen negativo: la frase y «Facialismo Funcional» cruzan la mitad de la
+     página y se acercan a la foto, sin mover el título ni el botón */
+  .hero-arriba { grid-column: 1; grid-row: 1; margin-left: -5vw; }
+  .hero-abajo  { grid-column: 1; grid-row: 3; align-self: end; margin-left: -5vw; }
   .hero .declaracion { grid-column: 2; grid-row: 1; }
   .hero-titulo .boton { grid-column: 2; grid-row: 3; justify-self: start; align-self: end; }
   .hero .declaracion {
     max-width: min-content;              /* una palabra por línea: Higiene / Facial */
-    font-size: clamp(56px, 6vw, 96px);
+    font-size: clamp(48px, 5vw, 80px);
     line-height: 0.95;
     margin: -0.14em 0 0;                 /* sube el texto para que la letra toque el borde de la foto */
   }
