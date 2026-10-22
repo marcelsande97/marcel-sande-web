@@ -14,11 +14,11 @@
   --tinta: #1c1f1a;           /* casi negro, con un punto verde */
   --tinta-suave: #5f6158;     /* texto secundario */
   --linea: #d6cfc2;           /* separadores */
-  --acento: #2e6b3c;          /* verde de marca: lo que se puede pulsar y algún detalle */
+  --acento: #1c1f1a;          /* negro: lo que se puede pulsar y algún detalle */
   --acento-texto: #f6f3ec;    /* texto encima del acento */
+  --cabecera: #ffffff;        /* fondo de la barra superior */
+  --pastilla: #e3ddd0;        /* botón secundario en pastilla arena */
   --hero-tinta: #1c1f1a;      /* texto del hero: el mismo casi negro del resto */
-  --franja-fondo: #4a3a2c;    /* marrón oscuro, de la familia del crema */
-  --franja-tinta: #f6f1e8;    /* texto claro sobre la franja */
 
   --fuente: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
   --fuente-mono: "DM Mono", ui-monospace, "Courier New", monospace; /* etiquetas, menú y botones */
@@ -39,11 +39,11 @@
     --tinta: #ece7dc;
     --tinta-suave: #a9ab9f;
     --linea: #2f3a31;
-    --acento: #a5d68c;
+    --acento: #ece7dc;
     --acento-texto: #141a15;
+    --cabecera: #0e120f;
+    --pastilla: #2a302b;
     --hero-tinta: #ece7dc;
-    --franja-fondo: #2e2419;
-    --franja-tinta: #f6f1e8;
     color-scheme: dark;
   }
 }
@@ -52,11 +52,11 @@
   --tinta: #ece7dc;
   --tinta-suave: #a9ab9f;
   --linea: #2f3a31;
-  --acento: #a5d68c;
+  --acento: #ece7dc;
   --acento-texto: #141a15;
+  --cabecera: #0e120f;
+  --pastilla: #2a302b;
   --hero-tinta: #ece7dc;
-  --franja-fondo: #2e2419;
-  --franja-tinta: #f6f1e8;
   color-scheme: dark;
 }
 
@@ -83,7 +83,7 @@ body::before {
   position: fixed;
   inset: 0 0 auto;
   height: env(safe-area-inset-top, 0px);
-  background: var(--fondo);
+  background: var(--cabecera);
   z-index: 10;
 }
 
@@ -141,9 +141,10 @@ img { max-width: 100%; }
    4. CABECERA (se queda fija arriba al hacer scroll)
    ========================================================= */
 .cabecera {
-  position: sticky;
+  position: sticky;                      /* se queda fija arriba al hacer scroll */
   top: env(safe-area-inset-top, 0px);
-  background: var(--fondo);
+  background: var(--cabecera);
+  border-bottom: 1px solid var(--tinta); /* línea negra que la separa del resto */
   z-index: 5;
 }
 .cabecera .contenedor {
@@ -189,20 +190,15 @@ img { max-width: 100%; }
    ========================================================= */
 .hero { padding-bottom: 72px; }
 
-/* Díptico a todo el ancho: bloque de color | foto.
-   Va sobre el fondo crema; la foto deja un margen alrededor.
-   13fr 11fr = el bloque se lleva 13 partes de 24 y la foto 11: la línea queda un poco a la derecha */
+/* Díptico a todo el ancho: foto a sangre en la mitad izquierda | texto a la derecha */
 .hero-banda {
   display: grid;
-  grid-template-columns: 13fr 11fr;
+  grid-template-columns: 1fr 1fr;
   min-height: clamp(520px, 78vh, 760px);
+  --aire: 28px;                          /* margen interior arriba y abajo del texto */
 }
 
-/* Bloque de color sólido con el texto.
-   space-between reparte: fila de arriba, frase en medio, fila de abajo */
-.hero-banda {
-  --aire: 28px;                          /* margen interior del bloque, arriba y abajo */
-}
+/* Columna de texto. space-between reparte: fila de arriba, frase en medio, fila de abajo */
 .hero-texto {
   color: var(--hero-tinta);
   display: flex;
@@ -211,76 +207,46 @@ img { max-width: 100%; }
   gap: 48px;
   padding-top: var(--aire);
   padding-bottom: var(--aire);
-  padding-right: var(--margen);
-  /* En pantallas muy anchas, alinea el texto con el resto de la página */
-  padding-left: max(var(--margen), calc((100vw - var(--ancho-max)) / 2 + var(--margen)));
+  padding-left: clamp(24px, 4vw, 56px);
+  /* En pantallas muy anchas, alinea el borde derecho con el resto de la página */
+  padding-right: max(var(--margen), calc((100vw - var(--ancho-max)) / 2 + var(--margen)));
 }
 
-/* Columna de la foto. La foto rellena todo el hueco sin deformarse */
-/* position: relative + absolute en la foto = la foto ocupa el hueco
-   pero no decide la altura de la banda (la decide el texto) */
+/* Columna de la foto: la foto la llena entera, hasta el borde de la pantalla.
+   position: relative + absolute en la foto = la foto ocupa el hueco
+   pero no decide la altura de la banda (la decide el texto).
+   "order: -1" la pone a la izquierda (y arriba en móvil) sin tocar el HTML */
 .hero-imagen {
   margin: 0;
   position: relative;
-  --flota: var(--aire);                  /* mismo margen que el texto: bordes alineados */
+  order: -1;
 }
 .hero-imagen img {
   position: absolute;
-  top: var(--flota);
-  /* A la derecha, el mismo margen que el resto de la página (como el texto a la izquierda) */
-  right: max(var(--margen), calc((100vw - var(--ancho-max)) / 2 + var(--margen)));
-  /* Alto = hueco menos el margen de arriba y abajo; el ancho sale solo,
-     según la proporción de la foto, así no se recorta.
-     Si no cabe a lo ancho, se limita y entonces sí recorta un poco */
-  height: calc(100% - 2 * var(--flota));
-  width: auto;
-  max-width: calc(100% - var(--flota));
+  inset: 0;                              /* pegada a los cuatro lados */
+  width: 100%;
+  height: 100%;
   object-fit: cover;                     /* recorta en vez de estirar */
   object-position: center 40%;           /* qué parte de la foto se prioriza al recortar */
   display: block;
 }
 
-/* Filas pequeñas de arriba y abajo del bloque: un texto a cada lado */
+/* Filas pequeñas de arriba y abajo del bloque */
 .hero-margen {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 4px 24px;
   font-size: 13px;
-  line-height: 1;                        /* sin aire extra: alinea con el borde de la foto */
+  line-height: 1;
 }
 .hero-margen > * { margin: 0; }
 
-/* Solo en ordenador: foto a la izquierda y texto en la columna derecha.
-   "order: -1" pone la foto en la primera columna sin tocar el HTML */
-@media (min-width: 761px) {
-  .hero-banda { grid-template-columns: 11fr 13fr; }
-  .hero-imagen { order: -1; }
-  .hero-imagen img {
-    right: auto;
-    /* A la izquierda, el mismo margen que el resto de la página */
-    left: max(var(--margen), calc((100vw - var(--ancho-max)) / 2 + var(--margen)));
-  }
-  .hero-texto {
-    padding-left: var(--margen);
-    padding-right: max(var(--margen), calc((100vw - var(--ancho-max)) / 2 + var(--margen)));
-  }
-}
-
-/* En móvil: una columna, primero el bloque de color y debajo la foto */
+/* En móvil: una columna, la foto arriba a todo el ancho y el texto debajo */
 @media (max-width: 760px) {
   .hero-banda { grid-template-columns: 1fr; min-height: 0; }
-  .hero-texto { padding-top: 20px; padding-bottom: 20px; }
-  .hero-imagen { aspect-ratio: 5 / 6; }
-  /* Mismo margen que el texto; arriba no hace falta, ya lo da el bloque de texto */
-  .hero-imagen { --flota: var(--margen); }
-  .hero-imagen img {
-    top: 0;
-    left: var(--flota);
-    width: calc(100% - 2 * var(--flota));
-    max-width: none;
-    height: calc(100% - var(--flota));
-  }
+  .hero-imagen { aspect-ratio: 4 / 5; }
+  .hero-texto { padding: 24px var(--margen); gap: 32px; }
 }
 
 /* El título de la página va pequeño, en la fila de arriba del bloque */
@@ -291,11 +257,11 @@ img { max-width: 100%; }
 
 /* La frase grande */
 .declaracion {
-  font-size: clamp(26px, 2.8vw, 38px);   /* clamp(mínimo, ideal, máximo) */
-  line-height: 1.12;
+  font-size: clamp(22px, 2.1vw, 30px);   /* clamp(mínimo, ideal, máximo) */
+  line-height: 1.15;
   font-weight: 400;
-  letter-spacing: -0.02em;
-  max-width: 22ch;                       /* ch = ancho de un carácter */
+  letter-spacing: -0.015em;
+  max-width: 19ch;                       /* ch = ancho de un carácter: caja estrecha */
   margin: 0 0 44px;
   text-wrap: balance;
 }
@@ -346,27 +312,44 @@ img { max-width: 100%; }
   color: var(--tinta-suave);
 }
 
-/* Franja: bloque de color a todo el ancho de la pantalla, con texto claro centrado */
-.franja {
-  background: var(--franja-fondo);
-  color: var(--franja-tinta);
-  text-align: center;
-  padding-top: clamp(64px, 9vw, 120px);
-  padding-bottom: clamp(64px, 9vw, 120px);
+/* Manifiesto: una frase muy grande a todo el ancho y, debajo, una fila con
+   el rótulo «Lo que no hacemos», el párrafo y el botón */
+.manifiesto {
+  padding-top: clamp(72px, 9vw, 128px);
+  padding-bottom: clamp(56px, 7vw, 96px);
 }
-.franja h2 {
-  font-size: clamp(28px, 3vw, 40px);
-  font-weight: 500;
-  letter-spacing: -0.015em;
-  margin: 0 0 28px;
+.manifiesto .frase {
+  font-size: clamp(34px, 5.6vw, 88px);
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  margin: 0 0 48px;
+  text-wrap: balance;
 }
-.franja p {
-  max-width: 56ch;
-  margin: 0 auto 36px;                   /* auto a los lados = centrado */
-  font-size: 16px;
+.manifiesto-pie {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px 48px;
+  align-items: start;
 }
-/* El foco del teclado, en claro para que se vea sobre el marrón */
-.franja :focus-visible { outline-color: var(--franja-tinta); }
+@media (min-width: 860px) {
+  .manifiesto-pie { grid-template-columns: 1fr 2fr auto; }  /* rótulo | párrafo | botón */
+}
+.manifiesto-pie h2 { font-size: 18px; font-weight: 600; margin: 0; }
+.manifiesto-pie p { margin: 0; max-width: 60ch; color: var(--tinta-suave); }
+
+/* Botón secundario: pastilla color arena, sin borde, en minúsculas */
+.pastilla {
+  display: inline-block;
+  background: var(--pastilla);
+  color: var(--tinta);
+  text-decoration: none;
+  font-size: 17px;
+  padding: 13px 26px;
+  border-radius: 999px;
+  white-space: nowrap;
+  transition: transform 0.15s ease;
+}
+.pastilla:hover { transform: translateY(-2px); }
 
 /* =========================================================
    7. DESPLEGABLES (acordeón)
