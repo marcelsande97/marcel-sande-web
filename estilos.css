@@ -268,7 +268,7 @@ img { max-width: 100%; }
   .hero-banda { grid-template-columns: 1fr; min-height: 0; }
   .hero-imagen { padding: 32px var(--margen) 0; justify-content: center; }
   .hero-imagen img { width: 100%; }
-  .hero-texto { padding: 48px var(--margen) 40px; gap: 64px; }  /* más aire con la foto y entre bloques */
+  .hero-texto { padding: 48px var(--margen) 40px; gap: 96px; }  /* más aire con la foto y entre bloques */
   /* Línea fina (como las de los pasos) que separa el banner de los datos */
   .datos { margin-top: 24px; padding-top: 32px; border-top: 1px solid var(--linea); }
 }
@@ -278,6 +278,8 @@ img { max-width: 100%; }
 /* La frase pequeña de arriba: en mayúsculas como las etiquetas,
    en una caja estrecha para que no se estire en una sola línea */
 .hero-lema { max-width: 34ch; line-height: 1.5; }
+/* Los textos pequeños del banner van tal cual se escriben (sin mayúsculas forzadas) */
+.hero-margen { text-transform: none; letter-spacing: 0.02em; font-size: 14px; }
 
 /* La frase grande */
 /* Precios con la letra de titulares */
