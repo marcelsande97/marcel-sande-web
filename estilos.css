@@ -24,6 +24,7 @@
   --tiempo-aparecer: 1.6s;                             /* duración de las apariciones */
   --recorrido-aparecer: 60px;                          /* cuánto suben los bloques al aparecer */
   --tiempo-imagen: 3.2s;                               /* las fotos se funden mucho más despacio */
+  --tiempo-texto: 2.4s;                                /* fundido del texto: lento y uniforme, de 0 a 100 % */
   --fondo: #ffffff;           /* blanco en toda la web */
   --crema: var(--fondo);      /* las bandas usan el mismo color */
   --tinta: #111315;           /* casi negro */
@@ -738,18 +739,16 @@ img { max-width: 100%; }
 .aparece.visible {
   opacity: 1;
   transform: none;
-  /* opacidad y movimiento con la misma duración y la misma curva (rápida al principio, frena al final) */
-  transition: opacity var(--tiempo-aparecer) var(--curva-aparecer), transform var(--tiempo-aparecer) var(--curva-aparecer);
+  /* El movimiento va con su curva (rápido al principio, frena al final).
+     La opacidad va aparte, más lenta y con ease-in-out (arranca y acaba suave):
+     con la curva del movimiento el texto llegaba casi al 100 % en medio segundo
+     y no se notaba el fundido */
+  transition: opacity var(--tiempo-texto) ease-in-out, transform var(--tiempo-aparecer) var(--curva-aparecer);
 }
 
 /* Las fotos: suben igual que el resto, pero la opacidad cambia mucho más despacio */
 .cartel.aparece.visible {
   transition: opacity var(--tiempo-imagen) ease-in-out, transform var(--tiempo-aparecer) var(--curva-aparecer);
-}
-
-@keyframes aparecer {
-  from { opacity: 0; transform: translateY(var(--recorrido-aparecer)); }
-  to   { opacity: 1; transform: none; }
 }
 
 /* =========================================================
@@ -764,7 +763,9 @@ img { max-width: 100%; }
      y en móvil tampoco .hero-arriba: animamos lo que llevan dentro.
      «backwards» = solo aplica el estado inicial; al terminar, el hover del botón sigue funcionando */
   .hero-imagen, .hero-arriba > *, .hero-abajo, .hero-titulo > * {
-    animation: aparecer var(--tiempo-aparecer) var(--curva-aparecer) 0.15s backwards;
+    /* dos animaciones a la vez, como en el resto de la página: fundido lento + subida */
+    animation: fundir var(--tiempo-texto) ease-in-out 0.15s backwards,
+               subir var(--tiempo-aparecer) var(--curva-aparecer) 0.15s backwards;
   }
   /* la foto del hero: dos animaciones a la vez, fundido lento + subida normal */
   .hero-imagen {
