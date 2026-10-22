@@ -256,17 +256,15 @@ img { max-width: 100%; }
 }
 .hero-margen > * { margin: 0; }
 
-/* En pantallas estrechas: foto y texto siguen uno al lado del otro, como en
-   ordenador, pero todo a escala: foto que llena su mitad, frase y botón más pequeños */
+/* En móvil: una columna. La foto arriba, grande y centrada, con el mismo
+   margen a cada lado; el texto debajo, con su tamaño cómodo */
 @media (max-width: 760px) {
-  .hero-banda { min-height: 0; }
-  .hero-imagen { padding: 24px 0 24px var(--margen); }
+  .hero-banda { grid-template-columns: 1fr; min-height: 0; }
+  .hero-imagen { padding: 32px var(--margen) 0; justify-content: center; }
   .hero-imagen img { width: 100%; }
-  .hero-texto { padding: 24px var(--margen) 24px 16px; gap: 20px; }
-  .hero .declaracion { font-size: clamp(17px, 4.6vw, 30px); margin-bottom: 16px; }
-  .hero .boton { font-size: 10px; padding: 11px 13px; letter-spacing: 0.04em; white-space: nowrap; }
-  .hero-margen { font-size: 10px; }
+  .hero-texto { padding: 32px var(--margen); gap: 28px; }
 }
+
 
 /* El título de la página va pequeño, en la fila de arriba del bloque */
 .hero h1 {
