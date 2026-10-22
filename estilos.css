@@ -188,15 +188,18 @@ img { max-width: 100%; }
 
 /* Bloque de color sólido con el texto.
    space-between reparte: fila de arriba, frase en medio, fila de abajo */
-.hero-banda { background: var(--hero-fondo); }
+.hero-banda {
+  background: var(--hero-fondo);
+  --aire: 28px;                          /* margen interior del bloque, arriba y abajo */
+}
 .hero-texto {
   color: var(--hero-tinta);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap: 48px;
-  padding-top: 28px;
-  padding-bottom: 28px;
+  padding-top: var(--aire);
+  padding-bottom: var(--aire);
   padding-right: var(--margen);
   /* En pantallas muy anchas, alinea el texto con el resto de la página */
   padding-left: max(var(--margen), calc((100vw - var(--ancho-max)) / 2 + var(--margen)));
@@ -208,15 +211,19 @@ img { max-width: 100%; }
 .hero-imagen {
   margin: 0;
   position: relative;
-  --flota: clamp(20px, 3.5vw, 48px);     /* margen de color alrededor de la foto */
+  --flota: var(--aire);                  /* mismo margen que el texto: bordes alineados */
 }
 .hero-imagen img {
   position: absolute;
   top: var(--flota);
-  left: var(--flota);
-  /* Ancho y alto = hueco menos el margen de los dos lados: la foto flota */
-  width: calc(100% - 2 * var(--flota));
+  /* A la derecha, el mismo margen que el resto de la página (como el texto a la izquierda) */
+  right: max(var(--margen), calc((100vw - var(--ancho-max)) / 2 + var(--margen)));
+  /* Alto = hueco menos el margen de arriba y abajo; el ancho sale solo,
+     según la proporción de la foto, así no se recorta.
+     Si no cabe a lo ancho, se limita y entonces sí recorta un poco */
   height: calc(100% - 2 * var(--flota));
+  width: auto;
+  max-width: calc(100% - var(--flota));
   object-fit: cover;                     /* recorta en vez de estirar */
   object-position: center 40%;           /* qué parte de la foto se prioriza al recortar */
   display: block;
@@ -229,6 +236,7 @@ img { max-width: 100%; }
   flex-wrap: wrap;
   gap: 4px 24px;
   font-size: 13px;
+  line-height: 1;                        /* sin aire extra: alinea con el borde de la foto */
 }
 .hero-margen > * { margin: 0; }
 
@@ -239,7 +247,13 @@ img { max-width: 100%; }
   .hero-imagen { aspect-ratio: 5 / 6; }
   /* Mismo margen que el texto; arriba no hace falta, ya lo da el bloque de texto */
   .hero-imagen { --flota: var(--margen); }
-  .hero-imagen img { top: 0; height: calc(100% - var(--flota)); }
+  .hero-imagen img {
+    top: 0;
+    left: var(--flota);
+    width: calc(100% - 2 * var(--flota));
+    max-width: none;
+    height: calc(100% - var(--flota));
+  }
 }
 
 /* El título de la página va pequeño, en la fila de arriba del bloque */
@@ -320,9 +334,9 @@ img { max-width: 100%; }
   margin: 0 0 28px;
 }
 .franja p {
-  max-width: 60ch;
-  margin: 0 auto;                        /* auto a los lados = centrado */
-  font-size: clamp(18px, 1.6vw, 21px);
+  max-width: 56ch;
+  margin: 0 auto 36px;                   /* auto a los lados = centrado */
+  font-size: 16px;
 }
 /* El foco del teclado, en claro para que se vea sobre el marrón */
 .franja :focus-visible { outline-color: var(--franja-tinta); }
