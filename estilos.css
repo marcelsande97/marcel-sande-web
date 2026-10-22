@@ -1022,11 +1022,11 @@ img { max-width: 100%; }
   /* Lema: separado del título; su caja llena la columna izquierda (60 %) */
   .hero-lema {
     grid-row: 2; grid-column: 1; justify-self: start; text-align: left;
-    max-width: none; margin: 40px 12px var(--aire-junto-foto) var(--margen);
+    max-width: none; margin: 40px 28px var(--aire-junto-foto) var(--margen);
   }
   /* Botón: pegado al margen derecho, con su borde de abajo a la misma altura que el del lema */
   .hero-titulo .boton { grid-row: 2; grid-column: 2; justify-self: end; align-self: end; margin: 0 var(--margen) var(--aire-junto-foto) 0; }
-  .hero { padding-bottom: 32px; }       /* algo menos de aire entre los precios y la cita (unos 40 px) */
+  .hero { padding-bottom: 56px; }       /* aire entre los precios y la cita (unos 64 px) */
   /* Precio y duración del hero, más grandes (el tamaño máximo de --cifra) */
   .datos dd { font-size: 32px; }
   /* La cita a sangre (de margen a margen), alineada a la izquierda y al tamaño de los títulos de sección */
