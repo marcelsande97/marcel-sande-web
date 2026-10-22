@@ -670,16 +670,35 @@ img { max-width: 100%; }
   @media (prefers-reduced-motion: no-preference) {
     .seccion h2, .acordeon details, .nota, .manifiesto-fila > *,
     .precio, .aviso-reserva, .firma, .pie {
-      animation: aparecer linear both;
+      animation: aparecer both;
+      /* curva rápida al principio que frena al final */
+      animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
       animation-timeline: view();               /* el avance lo marca el scroll, no el reloj */
-      animation-range: entry 0% entry 90%;      /* empieza al asomar y termina casi entrado */
+      animation-range: entry 0% entry 70%;      /* termina antes, para que se note más */
     }
   }
 }
 @keyframes aparecer {
-  from { opacity: 0; transform: translateY(24px); }
+  from { opacity: 0; transform: translateY(110px); }
   to   { opacity: 1; transform: none; }
 }
+
+/* =========================================================
+   ENTRADA AL ABRIR LA PÁGINA
+   Esta va con reloj (no con scroll): la cabecera se funde y el hero
+   sube y aparece por partes, una detrás de otra (animation-delay)
+   ========================================================= */
+@media (prefers-reduced-motion: no-preference) {
+  .cabecera { animation: fundir 1s ease both; }
+  .hero-imagen, .hero-titulo, .hero-arriba, .hero-abajo {
+    animation: aparecer 1.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .hero-imagen  { animation-delay: 0.1s; }
+  .hero-titulo  { animation-delay: 0.3s; }
+  .hero-arriba  { animation-delay: 0.45s; }
+  .hero-abajo   { animation-delay: 0.6s; }
+}
+@keyframes fundir { from { opacity: 0; } to { opacity: 1; } }
 
 /* Si la persona tiene desactivadas las animaciones en su sistema, las respetamos */
 @media (prefers-reduced-motion: reduce) {
