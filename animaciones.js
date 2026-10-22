@@ -26,7 +26,7 @@
   aEsconder.forEach(function (el) {
     var hermanos = aEsconder.filter(function (o) { return o.parentNode === el.parentNode; });
     var orden = Math.min(hermanos.indexOf(el), 5);
-    el.style.setProperty('--retraso', (orden * 0.12) + 's');
+    el.style.setProperty('--retraso', (orden * 0.08) + 's');
     el.classList.add('aparece');
   });
 
