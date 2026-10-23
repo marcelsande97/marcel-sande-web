@@ -70,6 +70,7 @@
   --ancho-max: 1600px;        /* ancho máximo del contenido (más ancho: todo más cerca de los bordes) */
   --alto-cabecera: 64px;      /* alto de la franja superior fija */
   --alinear-reserva: 0.14;    /* móvil: baja el botón «Reserva» hasta el alto de las mayúsculas del título (en em) */
+  --reserva-opacidad-foto: 45%; /* móvil: cuánto negro conserva el botón anclado al pasar sobre una foto */
   --hueco-reserva-fija: 0px;  /* móvil: distancia entre la barra superior y el botón «Reserva» anclado (0 = pegado) */
   --margen: clamp(16px, 2.5vw, 40px); /* margen lateral que crece con la pantalla (estrecho: contenido cerca del borde) */
 
@@ -301,6 +302,14 @@ img { max-width: 100%; }
     visibility: hidden;                  /* escondido (y fuera del tabulador) hasta anclarse */
   }
   .reserva-fija.anclada { visibility: visible; }
+  /* Sobre una foto (lo detecta el script): negro translúcido y la foto de detrás
+     desenfocada, como un cristal esmerilado. Sobre blanco sigue negro sólido */
+  .reserva-fija { transition: background-color 0.3s ease; }
+  .reserva-fija.sobre-foto {
+    background: color-mix(in srgb, var(--pastilla) var(--reserva-opacidad-foto), transparent);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+  }
   /* Cuando sueltas con la cabecera a medias, termina de entrar o salir con suavidad */
   .cabecera.cabecera-ajuste { transition: transform 0.25s ease-out; }
 }
