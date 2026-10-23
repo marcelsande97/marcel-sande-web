@@ -50,6 +50,7 @@
 ## Vista previa
 - La vista previa se publica como artifact (https://claude.ai/artifact/TZQr5Tpm8njjEjCWEHKgb8, compartida con «cualquiera con el enlace») con `estilos.css`, `animaciones.js`, las fotos de `img/` y la fuente como archivos adjuntos. Si la fuente no está en `fuentes/`, se puede recuperar de la propia vista previa. Republicar tras cada cambio.
 - Para ahorrar tokens: en cambios pequeños, no hacer capturas de comprobación salvo que se pida.
+- Vista previa pública en Netlify: https://marcelsandefacial.netlify.app (subida a mano con Netlify Drop; `higiene-facial.html` se renombra a `index.html` al subir). Para actualizarla, el autor descarga el ZIP de la rama, añade `fuentes/` y arrastra la carpeta en la pestaña «Deploys» del proyecto.
 
 ## Reglas de trabajo
 - Cambia solo lo necesario; no reescribas archivos enteros para un ajuste pequeño.
