@@ -82,21 +82,25 @@
       <!-- Díptico a todo el ancho: foto a sangre a la izquierda, texto a la derecha -->
       <div class="hero-banda">
         <div class="hero-texto">
-          <!-- Fila de arriba del bloque: textos pequeños en los márgenes -->
-          <div class="hero-margen hero-arriba">
-            <p class="hero-lema">Tratamiento diseñado para eliminar de forma eficaz y respetuosa las impurezas acumuladas en la piel, mejorando su aspecto y su salud.</p>
-          </div>
           <div class="hero-titulo">
             <h1 class="declaracion">higiene <em>básica</em></h1>
             <a class="boton" href="#reservar">Reserva</a>
           </div>
-          <!-- Fila de abajo del bloque: los datos de la visita, uno encima del otro.
-               <dl> es una lista de definiciones: término (dt) + valor (dd) -->
-          <div class="hero-abajo">
-            <dl class="datos">
-              <div><dt>Primera Visita<br><span class="abre">(</span>incl. valoración y plan personalizado<span class="cierra">)</span></dt><dd>135 € · 90 min</dd></div>
-              <div><dt>Siguientes Visitas</dt><dd>90 € · 60 min</dd></div>
-            </dl>
+          <!-- Pie del bloque: el lema y los datos de la visita. En ordenador grande van
+               en fila y empiezan a la misma altura; en el resto, la caja no cuenta
+               (display: contents) y cada pieza se coloca por su cuenta -->
+          <div class="hero-pie">
+            <div class="hero-margen hero-arriba">
+              <p class="hero-lema">Tratamiento diseñado para eliminar de forma eficaz y respetuosa las impurezas acumuladas en la piel, mejorando su aspecto y su salud.</p>
+            </div>
+            <!-- Los datos de la visita, uno encima del otro.
+                 <dl> es una lista de definiciones: término (dt) + valor (dd) -->
+            <div class="hero-abajo">
+              <dl class="datos">
+                <div><dt>Primera Visita<br><span class="abre">(</span>incl. valoración y plan personalizado<span class="cierra">)</span></dt><dd>135 € · 90 min</dd></div>
+                <div><dt>Siguientes Visitas</dt><dd>90 € · 60 min</dd></div>
+              </dl>
+            </div>
           </div>
         </div>
         <div class="hero-imagen">
