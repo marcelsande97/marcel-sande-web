@@ -584,21 +584,33 @@ img { max-width: 100%; }
     object-fit: cover;
   }
   .hero-texto {
-    grid-template-rows: 1fr auto 1fr;
+    /* Dos mitades iguales: la raya entre ellas cae justo a media altura de la foto */
+    grid-template-rows: 1fr 1fr;
     grid-template-columns: 1fr auto;     /* lema a la izquierda, datos a la derecha */
-    row-gap: 0;                          /* sin hueco extra entre filas: el botón va pegado al título */
+    row-gap: 0;
     padding-right: clamp(40px, 4vw, 64px);
     /* lema y datos a 28 px del borde de la pantalla (la foto sigue un poco más abajo).
-       Lo que se añade abajo se compensa: el título no se mueve */
+       Arriba el mismo margen, para que la mitad del texto coincida con la de la foto */
+    padding-top: calc(28px + var(--foto-extra));
     padding-bottom: calc(28px + var(--foto-extra));
   }
-  .hero .declaracion { grid-column: 1 / -1; grid-row: 2; margin: 0; }
-  .hero-titulo .boton { grid-column: 1; grid-row: 3; align-self: start; margin-top: 20px; padding: 11px 22px; }   /* mismo tamaño que el «Reserva» de la barra */
+  /* Título y botón juntos en la mitad de arriba, apoyados en la mitad de la foto */
+  .hero-titulo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;                           /* botón pegado bajo el título */
+    grid-column: 1 / -1;
+    grid-row: 1;
+    align-self: end;
+  }
+  .hero .declaracion { margin: 0; }
+  .hero-titulo .boton { margin: 0; padding: 11px 22px; align-self: flex-start; }   /* a la izquierda; mismo tamaño que el «Reserva» de la barra */
   /* Lema y datos en fila, al fondo, alineados por abajo (con «90 € · 60 min») */
   .hero-pie {
     display: grid;
     grid-column: 1 / -1;
-    grid-row: 3;
+    grid-row: 2;
     align-self: end;
     grid-template-columns: 1fr auto;
     align-items: end;                    /* el lema termina a la altura del último precio */
