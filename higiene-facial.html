@@ -357,11 +357,15 @@
         <p>08008 Barcelona</p>
         <p>Solo con cita previa</p>
       </div>
+      <!-- Instagram y WhatsApp como pastillas con contorno (enlaces pendientes) -->
+      <div class="pie-pastillas">
+        <a class="boton contorno" href="#">Instagram</a>
+        <a class="boton contorno" href="#">WhatsApp</a>
+      </div>
       <div>
-        <p><a href="#">Instagram</a></p>
         <p><a href="#">TikTok</a></p>
+        <p><a href="#">YouTube</a></p>
         <p><a href="#">LinkedIn</a></p>
-        <p><a href="#">Contacto</a></p>
       </div>
       <div>
         <p><a href="#">Aviso legal</a></p>
@@ -391,16 +395,19 @@
       document.addEventListener('keydown', function (e) { if (e.key === 'Escape') poner(false); });
     })();
 
-    // Solo en móvil: la cabecera sigue al dedo. Al bajar se va escondiendo hacia arriba
-    // y al subir vuelve a entrar, píxel a píxel (efecto arrastre).
-    // Además, el botón «Reserva» del título sube con la página y, al llegar justo debajo
-    // de la barra, se queda anclado ahí (.reserva-fija), se esconda o no la barra.
-    // Solo vuelve a su sitio cuando subes hasta el título
+    // La cabecera sigue al scroll (móvil y ordenador): al bajar se va escondiendo hacia
+    // arriba y al subir vuelve a entrar, píxel a píxel (efecto arrastre).
+    // El botón «Reserva» anclado (.reserva-fija) nunca se esconde:
+    // - En móvil, el botón del título sube con la página y, al llegar justo debajo
+    //   de la barra, se cambia por el anclado. Vuelve a su sitio al subir hasta el título.
+    // - En ordenador, el anclado ocupa desde el principio el sitio del «Reserva» de la barra,
+    //   así que cuando la barra se va, el botón se queda quieto donde estaba
     (function () {
       var movil = window.matchMedia('(max-width: 760px)');
       var cabecera = document.querySelector('.cabecera');
       var menuBoton = document.querySelector('.menu-boton');
       var original = document.querySelector('.hero-titulo .boton');
+      var botonCabecera = document.querySelector('.cabecera .boton.contraste');
       var fija = document.querySelector('.reserva-fija');
       var anterior = window.scrollY;
       var escondido = 0;            // cuántos píxeles de cabecera hay escondidos
@@ -415,7 +422,6 @@
       function actualizar() {
         pendiente = false;
         var y = Math.max(0, window.scrollY);
-        if (!movil.matches) { mover(0); anclar(false); anterior = y; return; }
         var alto = cabecera.offsetHeight;
         cabecera.classList.remove('cabecera-ajuste');
         if (menuBoton.getAttribute('aria-expanded') === 'true') {
@@ -426,8 +432,19 @@
           mover(Math.min(Math.max(escondido + y - anterior, 0), alto, y));
         }
         anterior = y;
-        // ¿El botón del hero ya ha llegado a la altura del botón anclado?
-        anclar(original.getBoundingClientRect().top <= fija.getBoundingClientRect().top);
+        if (movil.matches) {
+          fija.style.top = fija.style.right = '';               // en móvil lo coloca el CSS
+          botonCabecera.style.visibility = '';
+          // ¿El botón del título ya ha llegado a la altura del botón anclado?
+          anclar(original.getBoundingClientRect().top <= fija.getBoundingClientRect().top, original);
+        } else {
+          original.style.visibility = '';
+          // Justo encima del «Reserva» de la barra (sumando lo que la barra está escondida)
+          var r = botonCabecera.getBoundingClientRect();
+          fija.style.top = (r.top + escondido) + 'px';
+          fija.style.right = (document.documentElement.clientWidth - r.right) + 'px';
+          anclar(true, botonCabecera);
+        }
         // Al soltar a medias, la cabecera termina de entrar o de salir
         clearTimeout(reloj);
         reloj = setTimeout(function () {
@@ -438,15 +455,17 @@
         }, 150);
       }
 
-      // Cambia entre el botón del hero y el anclado: nunca se ven los dos a la vez
-      function anclar(si) {
+      // Cambia entre el botón de origen y el anclado: nunca se ven los dos a la vez
+      function anclar(si, origen) {
         fija.classList.toggle('anclada', si);
-        original.style.visibility = si ? 'hidden' : '';
-        // ¿Está el botón sobre la foto del hero o sobre uno de los carruseles
-        // (manifiesto o Resultados), sea foto o color sólido? Entonces se vuelve translúcido
+        origen.style.visibility = si ? 'hidden' : '';
+        // ¿Está el botón sobre una foto o un carrusel (manifiesto o Resultados), sea foto
+        // o color sólido? Entonces se vuelve translúcido. En ordenador el carrusel del
+        // manifiesto tiene zonas blancas, así que ahí se miran solo las fotos y el hueco gris del «antes»
+        var zonas = movil.matches ? '.hero-imagen, .manifiesto-fila, .resultados-par' : 'img, .resultados-pendiente';
         var r = fija.getBoundingClientRect();
         var debajo = si && document.elementsFromPoint(r.left + r.width / 2, r.top + r.height / 2)
-          .some(function (el) { return el.closest('.hero-imagen, .manifiesto-fila, .resultados-par'); });
+          .some(function (el) { return el.closest(zonas); });
         fija.classList.toggle('sobre-foto', !!debajo);
       }
 
@@ -454,6 +473,7 @@
         if (!pendiente) { pendiente = true; requestAnimationFrame(actualizar); }
       }, { passive: true });
       movil.addEventListener('change', actualizar);
+      window.addEventListener('resize', actualizar);
       actualizar();
     })();
   </script>

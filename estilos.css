@@ -68,7 +68,7 @@
   --velo-movil: 0.1;          /* en móvil no hay hover: velo fijo para poder leer el texto blanco */
   --fuente-display: "Ridley Grotesk", "Hanken Grotesk", Arial, sans-serif; /* titulares: mayúsculas espaciadas */
   --ancho-max: 1600px;        /* ancho máximo del contenido (más ancho: todo más cerca de los bordes) */
-  --alto-cabecera: 64px;      /* alto de la franja superior fija */
+  --alto-cabecera: 52px;      /* alto de la franja superior fija (48 px en móvil) */
   --alinear-reserva: 0.14;    /* móvil: baja el botón «Reserva» hasta el alto de las mayúsculas del título (en em) */
   --reserva-opacidad-foto: 45%; /* móvil: cuánto negro conserva el botón anclado al pasar sobre una foto */
   --hueco-reserva-fija: 0px;  /* móvil: distancia entre la barra superior y el botón «Reserva» anclado (0 = pegado) */
@@ -283,35 +283,39 @@ img { max-width: 100%; }
 /* Botón del menú: negro (el color del texto) con letra crema (el color del fondo).
    En modo oscuro se invierte solo: crema con letra oscura */
 .cabecera .boton {
-  padding: 11px 22px;
   background: var(--tinta);
   color: var(--fondo);
 }
 
-/* Botón «Reserva» anclado (solo móvil, lo activa el script del final del HTML):
-   copia del botón pequeño negro que va junto al título. Se queda justo debajo
-   de la barra superior, a la derecha, y no desaparece aunque la barra se esconda */
-.reserva-fija { display: none; }
+/* Botón «Reserva» anclado (lo activa el script del final del HTML; sin JS no se ve).
+   - Ordenador: se pone justo encima del «Reserva» de la barra, que se esconde, y se queda
+     quieto aunque la barra se vaya. Por encima de la cabecera (z-index 6 > 5).
+   - Móvil: copia del botón pequeño negro del título, justo debajo de la barra, a la derecha */
+.cabecera .boton, .reserva-fija { padding: 11px 22px; }
+.reserva-fija {
+  position: fixed;
+  z-index: 6;
+  background: var(--pastilla);
+  color: var(--pastilla-texto);
+  visibility: hidden;                    /* escondido (y fuera del tabulador) hasta anclarse */
+  transition: background-color 0.3s ease;
+}
+.reserva-fija.anclada { visibility: visible; }
+/* Sobre una foto o un carrusel (lo detecta el script): negro translúcido y lo de detrás
+   desenfocado, como un cristal esmerilado. Sobre blanco sigue negro sólido */
+.reserva-fija.sobre-foto {
+  background: color-mix(in srgb, var(--pastilla) var(--reserva-opacidad-foto), transparent);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+/* Cuando sueltas con la cabecera a medias, termina de entrar o salir con suavidad */
+.cabecera.cabecera-ajuste { transition: transform 0.25s ease-out; }
 @media (max-width: 760px) {
   .reserva-fija {
-    display: inline-block;
-    position: fixed;
     top: calc(env(safe-area-inset-top, 0px) + var(--alto-cabecera) + var(--hueco-reserva-fija));
     right: var(--margen);
-    z-index: 4;
-    visibility: hidden;                  /* escondido (y fuera del tabulador) hasta anclarse */
+    z-index: 4;                          /* por debajo de la cabecera: el panel del menú lo tapa */
   }
-  .reserva-fija.anclada { visibility: visible; }
-  /* Sobre la foto del hero o los carruseles del manifiesto y Resultados (lo detecta el script):
-     negro translúcido y lo de detrás desenfocado, como un cristal esmerilado. Sobre blanco sigue negro sólido */
-  .reserva-fija { transition: background-color 0.3s ease; }
-  .reserva-fija.sobre-foto {
-    background: color-mix(in srgb, var(--pastilla) var(--reserva-opacidad-foto), transparent);
-    -webkit-backdrop-filter: blur(8px);
-    backdrop-filter: blur(8px);
-  }
-  /* Cuando sueltas con la cabecera a medias, termina de entrar o salir con suavidad */
-  .cabecera.cabecera-ajuste { transition: transform 0.25s ease-out; }
 }
 
 /* Por debajo de 980 px el menú completo no cabe: logo, «Reserva» y las tres rayas.
@@ -361,7 +365,7 @@ img { max-width: 100%; }
 }
 
 @media (max-width: 760px) {
-  .cabecera .boton { padding: 10px 16px; }
+  .cabecera .boton, .reserva-fija { padding: 10px 16px; }
 }
 /* Móviles estrechos: menos aire entre logo y botón para que quepan sin salirse */
 @media (max-width: 400px) {
@@ -1024,19 +1028,23 @@ button.boton { border: 0; cursor: pointer; }   /* un <button> con aspecto de bot
 /* =========================================================
    9. PIE
    ========================================================= */
-/* Pie discreto: una línea fina y los datos básicos, sin más espacio en blanco */
+/* Pie discreto: los datos básicos justo debajo de la firma, sin línea de separación.
+   Ordenador: cuatro columnas iguales (dirección · pastillas · redes · legales) */
 .pie-columnas {
-  border-top: 1px solid var(--linea);
-  padding-top: 24px;
   padding-bottom: 96px;                  /* bastante aire hasta el copyright */
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));   /* en móvil caben dos columnas */
+  grid-template-columns: repeat(4, 1fr);
   gap: 32px;
   color: var(--tinta-suave);
 }
 .pie-columnas p { margin: 0 0 4px; }
 .pie-columnas a { text-decoration: none; }
 .pie-columnas a:hover { text-decoration: underline; }
+/* Instagram y WhatsApp: dos pastillas pequeñas una al lado de la otra,
+   contorno negro y relleno blanco (al pasar el ratón se rellenan de negro) */
+.pie-pastillas { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 8px; }
+.pie-pastillas .boton { padding: 8px 14px; background: var(--fondo); }
+.pie-columnas .pie-pastillas a:hover { text-decoration: none; }
 /* Copyright: abajo del todo, a la izquierda, en gris */
 .pie-legal { margin: 0; padding-bottom: 16px; color: var(--tinta-suave); }
 /* Móvil: las tres columnas en fila, como en ordenador; cada dato en una sola línea */
@@ -1044,6 +1052,8 @@ button.boton { border: 0; cursor: pointer; }   /* un <button> con aspecto de bot
   /* letras algo menos separadas (0,05em) para que las tres columnas quepan en 360 px */
   .pie-columnas { grid-template-columns: repeat(3, auto); justify-content: space-between; column-gap: 12px; letter-spacing: 0.05em; }
   .pie-columnas p { white-space: nowrap; }
+  /* Las pastillas, en su propia fila encima de las tres columnas */
+  .pie-pastillas { grid-column: 1 / -1; order: -1; }
 }
 
 /* =========================================================
