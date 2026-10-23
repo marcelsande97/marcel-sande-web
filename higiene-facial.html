@@ -442,10 +442,11 @@
       function anclar(si) {
         fija.classList.toggle('anclada', si);
         original.style.visibility = si ? 'hidden' : '';
-        // ¿Hay una foto justo debajo del centro del botón? Entonces se vuelve translúcido
+        // ¿Está el botón sobre la foto del hero o sobre uno de los carruseles
+        // (manifiesto o Resultados), sea foto o color sólido? Entonces se vuelve translúcido
         var r = fija.getBoundingClientRect();
         var debajo = si && document.elementsFromPoint(r.left + r.width / 2, r.top + r.height / 2)
-          .some(function (el) { return el.tagName === 'IMG'; });
+          .some(function (el) { return el.closest('.hero-imagen, .manifiesto-fila, .resultados-par'); });
         fija.classList.toggle('sobre-foto', !!debajo);
       }
 
