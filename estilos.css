@@ -1026,6 +1026,8 @@ button.boton { border: 0; cursor: pointer; }   /* un <button> con aspecto de bot
 .manifiesto-bloque { display: contents; }
 .cartel { position: relative; }
 .manifiesto-bloque .boton { z-index: 1; color: var(--sobre-foto); }
+/* «Lee el manifiesto»: lo que hay detrás del botón se ve desenfocado (como el «Reserva» anclado), sin oscurecer */
+.manifiesto-bloque .boton { -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
 .manifiesto-bloque .boton { align-self: center; justify-self: center; margin: 0; }   /* en el centro de la foto */
 
 /* El velo: una capa negra encima de la foto (::after) */
