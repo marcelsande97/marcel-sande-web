@@ -323,17 +323,15 @@
   </main>
 
   <!-- ===================== NEWSLETTER ===================== -->
-  <!-- Bloque mínimo y centrado: el campo de correo sobre una línea gris corta
-       y, debajo, la palabra «Newsletter».
+  <!-- Una sola fila centrada: el campo de correo sobre una línea gris corta
+       y, a su derecha, la palabra «Newsletter», que es el botón de enviar.
        action="#" hasta que exista el servicio de newsletter -->
-  <section class="newsletter contenedor" aria-labelledby="titulo-newsletter">
-    <h2 id="titulo-newsletter">Newsletter</h2>
+  <section class="newsletter contenedor" aria-label="Newsletter">
     <form class="newsletter-form" action="#" method="post">
       <!-- La etiqueta no se ve, pero los lectores de pantalla la leen -->
       <label class="solo-lectores" for="email-newsletter">Tu correo electrónico</label>
       <input id="email-newsletter" type="email" name="email" placeholder="Tu correo" autocomplete="email" required>
-      <!-- Flecha pequeña para enviar (también se envía con Intro) -->
-      <button type="submit" aria-label="Suscribirme">→</button>
+      <button type="submit" aria-label="Suscribirme a la newsletter">Newsletter</button>
     </form>
   </section>
 
