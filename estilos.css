@@ -1010,6 +1010,8 @@ button.boton { border: 0; cursor: pointer; }   /* un <button> con aspecto de bot
 .manifiesto-bloque { display: grid; gap: 28px; justify-items: center; }
 .manifiesto-bloque .boton { margin-top: 4px; }  /* botón «Manifiesto»: con contorno (ver .boton.contorno) */
 .manifiesto-texto { margin: 0; max-width: 34ch; }
+/* El «NO» de «Lo que no hacemos», subrayado: línea fina y algo separada de las letras */
+.subrayado { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
 .manifiesto-frase { max-width: 30ch; }
 .cartel {
   width: min(100%, 380px);               /* foto pequeña */
