@@ -1099,9 +1099,10 @@ button.boton { border: 0; cursor: pointer; }   /* un <button> con aspecto de bot
    el párrafo y el botón encima de la foto; la frase a la derecha */
 @media (min-width: 900px) {
   .manifiesto-fila { grid-template-columns: minmax(0, 1fr) min(520px, 38vw) minmax(0, 1fr); align-items: center; gap: clamp(32px, 4vw, 64px); }
-  .manifiesto-titulo { grid-column: 1; grid-row: 1; }
+  /* Título pegado al margen izquierdo y frase pegada al derecho: mismo margen a cada lado */
+  .manifiesto-titulo { grid-column: 1; grid-row: 1; justify-self: start; }
   .cartel            { grid-column: 2; grid-row: 1; width: 100%; }   /* la foto, más grande: llena su columna */
-  .manifiesto-frase  { grid-column: 3; grid-row: 1; }
+  .manifiesto-frase  { grid-column: 3; grid-row: 1; justify-self: end; }
   .manifiesto-texto,
   .manifiesto-bloque .boton { grid-column: 2; grid-row: 1; }
   /* el velo se oscurece al pasar el ratón por la foto, el texto o el botón, o al llegar con el teclado */
