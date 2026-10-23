@@ -364,9 +364,24 @@ img { max-width: 100%; }
   .submenu { position: static; opacity: 1; visibility: visible; transform: none; min-width: 0; padding: 0 0 8px 16px; background: none; }
   .submenu a { padding: 10px 0; }
   .submenu a:hover, .submenu a:focus-visible { background: none; color: inherit; text-decoration: underline; }
+  /* «Tratamientos»: con un + a la derecha que se convierte en × al abrir (como los desplegables
+     de la página). Su lista empieza cerrada */
+  .menu .tratamientos > a { display: flex; justify-content: space-between; align-items: center; text-decoration: none; }   /* sin subrayado: es un interruptor, no un enlace */
+  .tratamientos > a::after {
+    content: "";
+    width: 12px;
+    height: 12px;
+    background:
+      linear-gradient(currentColor, currentColor) center / 100% 1.5px no-repeat,
+      linear-gradient(currentColor, currentColor) center / 1.5px 100% no-repeat;
+    transition: transform 0.2s ease;
+  }
+  .tratamientos.desplegado > a::after { transform: rotate(45deg); }
+  .tratamientos .submenu { display: none; }
+  .tratamientos.desplegado .submenu { display: block; }
   /* Idioma, abajo del todo: ESP · ENG · CAT en una fila, fácil de tocar con el dedo.
-     El idioma actual (ESP) en negro y subrayado; los otros dos en gris */
-  .idioma { display: flex; gap: 24px; margin-top: 8px; border-top: 1px solid var(--linea); }
+     Más aire encima que entre las demás opciones. El actual (ESP) en negro y subrayado; los otros en gris */
+  .idioma { display: flex; gap: 24px; margin-top: 24px; }
   .idioma > a { text-decoration: underline; text-underline-offset: 4px; }
   .idioma .submenu { display: flex; gap: 24px; padding: 0; }
   .idioma .submenu a { padding: 16px 0; color: var(--tinta-suave); }
@@ -837,9 +852,13 @@ img { max-width: 100%; }
 }
 .newsletter-form {
   display: flex;
-  justify-content: center;              /* la fila, centrada en la página */
+  width: fit-content;                   /* tan ancha como su contenido… */
+  max-width: 100%;                      /* …sin salirse en móvil: si no cabe, se encoge el campo */
+  margin: 0 auto;                       /* …y centrada en la página */
   align-items: baseline;                /* correo y «Newsletter» sobre la misma base */
   gap: 24px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--linea);   /* la línea gris, bajo el correo y bajo «· Newsletter» */
 }
 .newsletter-form input {
   width: 200px;                         /* línea corta */
@@ -850,9 +869,8 @@ img { max-width: 100%; }
   color: var(--tinta);
   background: transparent;
   border: 0;
-  border-bottom: 1px solid var(--linea);   /* la línea gris: la misma que hay bajo la firma */
   border-radius: 0;
-  padding: 0 0 6px;
+  padding: 0;
   text-align: left;                     /* «Tu correo» alineado a la izquierda */
 }
 .newsletter-form input::placeholder { color: var(--linea);   /* mismo gris que la línea */ text-transform: uppercase; opacity: 1; }
@@ -867,6 +885,8 @@ img { max-width: 100%; }
   border: 0;
   padding: 0;
   cursor: pointer;                      /* la mano */
+  white-space: nowrap;                  /* «· Newsletter» siempre en una línea; si falta sitio, se encoge el campo */
+  flex-shrink: 0;
   transition: opacity 0.2s ease;
 }
 .newsletter-form button:hover { opacity: 0.5; }
