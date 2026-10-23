@@ -749,6 +749,24 @@ img { max-width: 100%; }
   .resultados-par figure:first-child { scroll-snap-align: start; }
   .resultados-par figure:last-child { scroll-snap-align: end; }
 }
+/* Frase del seguimiento, justo bajo las fotos: mismo tamaño que el título
+   «Resultados», alineada a la izquierda y muy cerca de las fotos */
+.seguimiento {
+  max-width: 40ch;                       /* caja de lectura cómoda, pegada a la izquierda */
+  margin: 32px 0 0;
+  font-family: var(--fuente-display);
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: var(--titulo-seccion);
+  letter-spacing: 0.1em;
+  line-height: 1.3;
+  text-align: left;
+  text-wrap: pretty;                     /* evita una palabra sola en la última línea */
+}
+/* Móvil: la misma maquetación que la cita entre comillas (izquierda, ancho completo) */
+@media (max-width: 760px) {
+  .seguimiento { max-width: none; margin-top: 24px; }
+}
 .resultados-pendiente { height: 100%; display: grid; place-content: center; text-align: center; background: var(--linea); color: var(--tinta-suave); }
 .resultados-par figure:has(.resultados-pendiente) figcaption { color: var(--tinta); }
 
