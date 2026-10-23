@@ -1076,6 +1076,16 @@ button.boton { border: 0; cursor: pointer; }   /* un <button> con aspecto de bot
 .pie-columnas a:hover { text-decoration: underline; }
 /* Instagram y WhatsApp: dos pastillas pequeñas una al lado de la otra,
    contorno negro y relleno blanco (al pasar el ratón se rellenan de negro) */
+/* Newsletter del pie: solo en móvil (ver más abajo). Misma letra que la de arriba */
+.pie-newsletter {
+  display: none;
+  font-family: var(--fuente-display);
+  font-size: var(--display-pequena);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  line-height: 1.3;
+}
 .pie-pastillas { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 12px; }
 .pie-pastillas .boton { padding: 8px 14px; background: var(--fondo); color: var(--tinta-suave); }   /* gris, como el resto del pie */
 .pie-columnas .pie-pastillas a:hover { text-decoration: none; }
@@ -1088,6 +1098,10 @@ button.boton { border: 0; cursor: pointer; }   /* un <button> con aspecto de bot
   .pie-columnas p { white-space: nowrap; }
   /* Las pastillas, en su propia fila debajo de las tres columnas */
   .pie-pastillas { grid-column: 1 / -1; order: 1; }
+  /* La newsletter del pie, debajo de las pastillas y alineada a la izquierda.
+     La de arriba se esconde pero mantiene su espacio en blanco */
+  .pie-newsletter { display: flex; grid-column: 1 / -1; order: 2; margin: 0; }
+  .newsletter { visibility: hidden; }
   /* Copyright en dos líneas */
   .pie-legal-linea { display: block; }
 }
