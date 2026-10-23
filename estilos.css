@@ -71,7 +71,7 @@
   --alto-cabecera: 52px;      /* alto de la franja superior fija (48 px en móvil) */
   --alinear-reserva: 0.14;    /* móvil: baja el botón «Reserva» hasta el alto de las mayúsculas del título (en em) */
   --reserva-opacidad-foto: 45%; /* móvil: cuánto negro conserva el botón anclado al pasar sobre una foto */
-  --hueco-reserva-fija: 0px;  /* móvil: distancia entre la barra superior y el botón «Reserva» anclado (0 = pegado) */
+  --hueco-reserva-fija: 8px;  /* móvil: distancia entre la barra superior y el botón «Reserva» anclado */
   --margen: clamp(16px, 2.5vw, 40px); /* margen lateral que crece con la pantalla (estrecho: contenido cerca del borde) */
 
   color-scheme: light;
@@ -1029,21 +1029,26 @@ button.boton { border: 0; cursor: pointer; }   /* un <button> con aspecto de bot
    9. PIE
    ========================================================= */
 /* Pie discreto: los datos básicos justo debajo de la firma, sin línea de separación.
-   Ordenador: cuatro columnas iguales (dirección · pastillas · redes · legales) */
+   Ordenador: dirección · pastillas · redes · legales. La columna de redes empieza justo
+   bajo la «F» de FACIALS (--pie-f: dónde cae la F, medido en % del ancho de la firma;
+   la firma escala con el ancho, así que el % vale para cualquier pantalla).
+   Las dos primeras columnas se reparten lo de antes de la F; las otras dos, lo de después */
 .pie-columnas {
+  --pie-f: 68.42%;
   padding-bottom: 96px;                  /* bastante aire hasta el copyright */
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 32px;
+  grid-template-columns: calc(var(--pie-f) / 2) calc(var(--pie-f) / 2) 1fr 1fr;
+  gap: 32px 0;                           /* sin hueco entre columnas: así cada una empieza justo en su sitio */
   color: var(--tinta-suave);
 }
 .pie-columnas p { margin: 0 0 4px; }
+@media (min-width: 761px) { .pie-columnas > * { padding-right: 24px; } }   /* aire a la derecha de cada columna */
 .pie-columnas a { text-decoration: none; }
 .pie-columnas a:hover { text-decoration: underline; }
 /* Instagram y WhatsApp: dos pastillas pequeñas una al lado de la otra,
    contorno negro y relleno blanco (al pasar el ratón se rellenan de negro) */
-.pie-pastillas { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 8px; }
-.pie-pastillas .boton { padding: 8px 14px; background: var(--fondo); }
+.pie-pastillas { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 12px; }
+.pie-pastillas .boton { padding: 8px 14px; background: var(--fondo); color: var(--tinta-suave); }   /* gris, como el resto del pie */
 .pie-columnas .pie-pastillas a:hover { text-decoration: none; }
 /* Copyright: abajo del todo, a la izquierda, en gris */
 .pie-legal { margin: 0; padding-bottom: 16px; color: var(--tinta-suave); }
@@ -1052,8 +1057,10 @@ button.boton { border: 0; cursor: pointer; }   /* un <button> con aspecto de bot
   /* letras algo menos separadas (0,05em) para que las tres columnas quepan en 360 px */
   .pie-columnas { grid-template-columns: repeat(3, auto); justify-content: space-between; column-gap: 12px; letter-spacing: 0.05em; }
   .pie-columnas p { white-space: nowrap; }
-  /* Las pastillas, en su propia fila encima de las tres columnas */
-  .pie-pastillas { grid-column: 1 / -1; order: -1; }
+  /* Las pastillas, en su propia fila debajo de las tres columnas */
+  .pie-pastillas { grid-column: 1 / -1; order: 1; }
+  /* Copyright en dos líneas */
+  .pie-legal-linea { display: block; }
 }
 
 /* =========================================================

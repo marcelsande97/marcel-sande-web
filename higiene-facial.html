@@ -374,7 +374,7 @@
       </div>
     </div>
     <!-- Derechos de autor: abajo del todo, a la izquierda -->
-    <p class="pie-legal">© 2026 Marcel Sandé. Todos los derechos reservados.</p>
+    <p class="pie-legal">© 2026 Marcel Sandé. <span class="pie-legal-linea">Todos los derechos reservados.</span></p>
   </footer>
 
   <!-- Animaciones de aparición al hacer scroll (ver animaciones.js) -->
@@ -464,8 +464,10 @@
         // manifiesto tiene zonas blancas, así que ahí se miran solo las fotos y el hueco gris del «antes»
         var zonas = movil.matches ? '.hero-imagen, .manifiesto-fila, .resultados-par' : 'img, .resultados-pendiente';
         var r = fija.getBoundingClientRect();
-        var debajo = si && document.elementsFromPoint(r.left + r.width / 2, r.top + r.height / 2)
-          .some(function (el) { return el.closest(zonas); });
+        var puntos = si ? document.elementsFromPoint(r.left + r.width / 2, r.top + r.height / 2) : [];
+        // Si la barra está detrás del botón (ordenador, al subir), siempre sólido
+        var sobreBarra = puntos.some(function (el) { return el.closest('.cabecera'); });
+        var debajo = !sobreBarra && puntos.some(function (el) { return el.closest(zonas); });
         fija.classList.toggle('sobre-foto', !!debajo);
       }
 
