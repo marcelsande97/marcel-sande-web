@@ -302,8 +302,8 @@ img { max-width: 100%; }
     visibility: hidden;                  /* escondido (y fuera del tabulador) hasta anclarse */
   }
   .reserva-fija.anclada { visibility: visible; }
-  /* Sobre una foto (lo detecta el script): negro translúcido y la foto de detrás
-     desenfocada, como un cristal esmerilado. Sobre blanco sigue negro sólido */
+  /* Sobre la foto del hero o los carruseles del manifiesto y Resultados (lo detecta el script):
+     negro translúcido y lo de detrás desenfocado, como un cristal esmerilado. Sobre blanco sigue negro sólido */
   .reserva-fija { transition: background-color 0.3s ease; }
   .reserva-fija.sobre-foto {
     background: color-mix(in srgb, var(--pastilla) var(--reserva-opacidad-foto), transparent);
