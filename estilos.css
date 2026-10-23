@@ -1010,7 +1010,7 @@ button.boton { border: 0; cursor: pointer; }   /* un <button> con aspecto de bot
 .manifiesto-bloque { display: grid; gap: 28px; justify-items: center; }
 .manifiesto-bloque .boton { margin-top: 4px; }  /* botón «Manifiesto»: con contorno (ver .boton.contorno) */
 .manifiesto-texto { margin: 0; max-width: 34ch; }
-/* Palabras en negrita dentro de textos en Ridley («NO», «rigor científico», «seguimiento digital»). Ridley solo tiene un grosor:
+/* El «NO» de «Lo que no hacemos», en negrita. Ridley solo tiene un grosor:
    como en el logo, un contorno del color del texto engorda las letras (aquí más, para que destaque) */
 .resalte { font-weight: inherit; -webkit-text-stroke: 0.7px currentColor; }
 .manifiesto-frase { max-width: 30ch; }
