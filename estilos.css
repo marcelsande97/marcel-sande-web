@@ -1098,11 +1098,17 @@ button.boton { border: 0; cursor: pointer; }   /* un <button> con aspecto de bot
 /* Ordenador: el título a la izquierda, a media altura de la foto;
    el párrafo y el botón encima de la foto; la frase a la derecha */
 @media (min-width: 900px) {
-  .manifiesto-fila { grid-template-columns: minmax(0, 1fr) min(520px, 38vw) minmax(0, 1fr); align-items: center; gap: clamp(32px, 4vw, 64px); }
-  /* Título pegado al margen izquierdo y frase pegada al derecho: mismo margen a cada lado */
-  .manifiesto-titulo { grid-column: 1; grid-row: 1; justify-self: start; }
+  .manifiesto-fila {
+    --hueco: clamp(32px, 4vw, 64px);     /* separación entre columnas */
+    /* distancia del borde de la pantalla al contenido (el margen de .contenedor) */
+    --lado: max(var(--margen), calc((100vw - var(--ancho-max)) / 2 + var(--margen)));
+    grid-template-columns: minmax(0, 1fr) min(520px, 38vw) minmax(0, 1fr); align-items: center; gap: var(--hueco);
+  }
+  /* Título y frase centrados en el blanco que hay entre el borde de la pantalla y la foto.
+     Los márgenes negativos amplían su hueco hasta el borde y hasta la foto, y justify-self: center los centra ahí */
+  .manifiesto-titulo { grid-column: 1; grid-row: 1; justify-self: center; margin-left: calc(-1 * var(--lado)); margin-right: calc(-1 * var(--hueco)); }
   .cartel            { grid-column: 2; grid-row: 1; width: 100%; }   /* la foto, más grande: llena su columna */
-  .manifiesto-frase  { grid-column: 3; grid-row: 1; justify-self: end; }
+  .manifiesto-frase  { grid-column: 3; grid-row: 1; justify-self: center; margin-left: calc(-1 * var(--hueco)); margin-right: calc(-1 * var(--lado)); }
   .manifiesto-texto,
   .manifiesto-bloque .boton { grid-column: 2; grid-row: 1; }
   /* el velo se oscurece al pasar el ratón por la foto, el texto o el botón, o al llegar con el teclado */
