@@ -280,8 +280,10 @@ img { max-width: 100%; }
   color: var(--fondo);
   text-decoration: none;
 }
-/* Desplegable del idioma: estrecho, solo caben ENG y CAT */
+/* Desplegable del idioma: estrecho, solo caben ENG y CAT.
+   ESP siempre subrayado, para que se entienda que ahí se cambia el idioma */
 .idioma .submenu { min-width: 0; }
+.idioma > a { text-decoration: underline; text-underline-offset: 4px; }
 /* Botón del menú: negro (el color del texto) con letra crema (el color del fondo).
    En modo oscuro se invierte solo: crema con letra oscura */
 .cabecera .boton {
@@ -382,7 +384,6 @@ img { max-width: 100%; }
   /* Idioma, abajo del todo: ESP · ENG · CAT en una fila, fácil de tocar con el dedo.
      Más aire encima que entre las demás opciones. El actual (ESP) en negro y subrayado; los otros en gris */
   .idioma { display: flex; gap: 24px; margin-top: 24px; }
-  .idioma > a { text-decoration: underline; text-underline-offset: 4px; }
   .idioma .submenu { display: flex; gap: 24px; padding: 0; }
   .idioma .submenu a { padding: 16px 0; color: var(--tinta-suave); }
 }
@@ -1205,7 +1206,7 @@ button.boton { border: 0; cursor: pointer; }   /* un <button> con aspecto de bot
   .hero-abajo { grid-row: 2; grid-column: 1; margin: 16px var(--margen) 0; }
   .datos { gap: 8px; }
   .datos dt { font-size: var(--etiqueta); }
-  .datos dd { margin-top: 2px; font-size: 18px; letter-spacing: -0.01em; line-height: 1.3; }   /* precio y minutos, un poco más grandes que el texto */
+  .datos dd { margin-top: 2px; font-size: var(--cifra); letter-spacing: -0.02em; line-height: 1.1; }   /* precio y minutos: igual que las cifras de «Cómo empezar» */
   /* Lema: tras un espacio en blanco, alineado a la izquierda; la caja llega hasta el 80 % del ancho.
      Por debajo, el mismo aire estrecho que hay bajo la foto */
   .hero-lema {
