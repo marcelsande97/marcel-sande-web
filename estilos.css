@@ -541,6 +541,15 @@ img { max-width: 100%; }
   }
   .hero-lema { max-width: 26ch; }
 }
+/* Prueba (ordenador grande): el título baja hasta la mitad de la foto y el lema
+   empieza a su misma altura. Filas: hueco · título · hueco igual (con el botón y los datos al fondo).
+   El lema ocupa las filas 2 y 3 para no estirar la fila del título */
+@media (min-width: 1100px) {
+  .hero-texto { grid-template-rows: 1fr auto 1fr; }
+  .hero .declaracion { grid-row: 2; margin: 0; }
+  .hero-arriba { grid-row: 2 / 4; align-self: start; }
+  .hero-abajo, .hero-titulo .boton { grid-row: 3; }
+}
 
 /* Los textos pequeños del banner: mayúsculas en gris, como «Primera visita» */
 .hero-margen { color: var(--tinta-suave); font-size: var(--texto); letter-spacing: 0.08em; }
