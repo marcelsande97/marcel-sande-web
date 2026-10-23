@@ -69,7 +69,8 @@
   --fuente-display: "Ridley Grotesk", "Hanken Grotesk", Arial, sans-serif; /* titulares: mayúsculas espaciadas */
   --ancho-max: 1600px;        /* ancho máximo del contenido (más ancho: todo más cerca de los bordes) */
   --alto-cabecera: 64px;      /* alto de la franja superior fija */
-  --hueco-reserva-fija: 12px; /* móvil: distancia del botón «Reserva» anclado al borde de arriba */
+  --alinear-reserva: 0.14;    /* móvil: baja el botón «Reserva» hasta el alto de las mayúsculas del título (en em) */
+  --hueco-reserva-fija: 8px;  /* móvil: distancia entre la barra superior y el botón «Reserva» anclado */
   --margen: clamp(16px, 2.5vw, 40px); /* margen lateral que crece con la pantalla (estrecho: contenido cerca del borde) */
 
   color-scheme: light;
@@ -286,20 +287,17 @@ img { max-width: 100%; }
   color: var(--fondo);
 }
 
-/* Botón «Reserva» anclado arriba (solo móvil, lo activa el script del final del HTML):
-   pastilla blanca sólida con contorno negro. Va por debajo de la cabecera (z-index 4 < 5),
-   así que cuando la cabecera vuelve a entrar lo tapa */
+/* Botón «Reserva» anclado (solo móvil, lo activa el script del final del HTML):
+   copia del botón pequeño negro que va junto al título. Se queda justo debajo
+   de la barra superior, a la derecha, y no desaparece aunque la barra se esconda */
 .reserva-fija { display: none; }
 @media (max-width: 760px) {
   .reserva-fija {
     display: inline-block;
     position: fixed;
-    top: calc(env(safe-area-inset-top, 0px) + var(--hueco-reserva-fija));
-    left: var(--margen);
+    top: calc(env(safe-area-inset-top, 0px) + var(--alto-cabecera) + var(--hueco-reserva-fija));
+    right: var(--margen);
     z-index: 4;
-    background: var(--fondo);
-    color: var(--tinta);
-    box-shadow: inset 0 0 0 1.5px currentColor;   /* contorno, como el botón del hero */
     visibility: hidden;                  /* escondido (y fuera del tabulador) hasta anclarse */
   }
   .reserva-fija.anclada { visibility: visible; }
@@ -1126,31 +1124,43 @@ button.boton { border: 0; cursor: pointer; }   /* un <button> con aspecto de bot
    Van al final para poder cambiar las reglas generales de más arriba
    ========================================================= */
 @media (max-width: 760px) {
-  /* Hero en una columna, en este orden: título, botón, lema, foto y precios */
+  /* Hero en una columna, en este orden: título (con «Reserva» a su derecha),
+     datos de la visita, lema, foto y, pegada a la foto, la cita */
   /* minmax(0, …): la columna nunca se ensancha más que la pantalla, aunque el título sea largo */
   .hero-banda { grid-template-columns: minmax(0, 1fr); }
   .hero .declaracion { grid-row: 1; grid-column: 1; justify-self: start; margin: 0 var(--margen); color: var(--tinta); }
-  /* Título en dos líneas: «facial» (dentro de <em>) pasa a su propia línea */
+  /* Título en dos líneas: «básica» (dentro de <em>) pasa a su propia línea */
   .hero .declaracion em { display: block; }
-  /* Botón: a la izquierda (con el título) y muy cerca de él */
-  .hero-titulo .boton { grid-row: 2; grid-column: 1; justify-self: start; align-self: auto; margin: 12px 0 0 var(--margen); }
+  /* Botón «Reserva»: en la misma fila que el título, en el margen derecho y alineado con
+     el borde de arriba de las letras de «HIGIENE» (0,1em: lo que el interlineado y la
+     propia letra dejan encima de las mayúsculas). Pequeño y negro, como su copia anclada */
+  .hero-titulo .boton { grid-row: 1; grid-column: 1; justify-self: end; align-self: start; margin: 0 var(--margen) 0 0; }
+  .hero-titulo .boton { margin-top: calc((100vw - 2 * var(--margen)) / 9.8 * var(--alinear-reserva)); }
+  .hero-titulo .boton, .reserva-fija {
+    padding: 8px 14px;                   /* más pequeño que el resto de botones */
+    background: var(--pastilla);
+    color: var(--pastilla-texto);
+    box-shadow: none;
+  }
   /* Sin el botón negro «Reserva» de la cabecera: ya está el del hero */
   .cabecera .boton.contraste { display: none; }
-  /* Lema: bajo el botón, alineado a la izquierda; la caja llega hasta el 80 % del ancho.
+  /* Datos de la visita: justo debajo del título, pequeños y juntos */
+  .hero-abajo { grid-row: 2; grid-column: 1; margin: 16px var(--margen) 0; }
+  .datos { gap: 8px; }
+  .datos dt { font-size: var(--etiqueta); }
+  .datos dd { margin-top: 2px; font-size: var(--texto); letter-spacing: -0.01em; line-height: 1.4; }
+  /* Lema: tras un espacio en blanco, alineado a la izquierda; la caja llega hasta el 80 % del ancho.
      Por debajo, el mismo aire estrecho que hay bajo la foto */
   .hero-lema {
     grid-row: 3; grid-column: 1; justify-self: start; text-align: left;
     max-width: calc(80vw - var(--margen)); margin: 56px 0 var(--aire-junto-foto) var(--margen);
   }
   .hero-imagen { grid-row: 4; grid-column: 1; }
-  .hero-abajo { grid-row: 5; grid-column: 1; margin-top: var(--aire-junto-foto); }   /* poco aire entre la foto y los precios */
-  .hero { padding-bottom: 80px; }       /* aire entre los precios y la cita (unos 88 px) */
-  /* Precio y duración del hero, más grandes (el tamaño máximo de --cifra) */
-  .datos dd { font-size: 32px; }
-  /* La cita a sangre (de margen a margen), alineada a la izquierda y al tamaño de los títulos de sección */
-  /* El mismo aire arriba (desde los precios) que abajo (hasta «Qué hacemos y por qué»):
-     216 px, medido. Arriba: 80 px del hero + 76 de aquí + interlineado; abajo: --aire-bloques + 56 de la sección */
-  .frase-banda { padding: 76px var(--margen) var(--aire-bloques); }
+  /* El hero termina en la foto: sin aire debajo ni alto mínimo, para que la cita vaya pegada */
+  .hero { padding-bottom: 0; min-height: 0; }
+  /* La cita a sangre (de margen a margen), alineada a la izquierda y al tamaño de los títulos de sección.
+     Arriba, pegada a la foto (--aire-junto-foto); abajo, --aire-bloques + 56 de la sección siguiente */
+  .frase-banda { padding: var(--aire-junto-foto) var(--margen) var(--aire-bloques); }
   .frase-banda .declaracion { max-width: none; margin: 0; text-align: left; font-size: var(--titulo-seccion); }
   /* «Antes de venir», más abajo: --aire-bloques + 56 px de la sección */
   .manifiesto { padding-bottom: var(--aire-bloques); }
