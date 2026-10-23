@@ -267,9 +267,11 @@ img { max-width: 100%; }
   left: -20px;                     /* alinea el texto de las opciones con el del menú */
   min-width: 220px;
   margin: 0;
-  padding: 18px 0 8px;             /* el aire de arriba hace de «puente» para no perder el hover */
+  padding: 18px 0 0;               /* el aire de arriba hace de «puente» para no perder el hover;
+                                      abajo nada: termina justo donde acaba la última opción */
   list-style: none;
   background: var(--fondo);
+  z-index: 1;                      /* por encima de la línea de la barra */
   /* Oculto: transparente y un poco más arriba; así puede bajar con animación */
   opacity: 0;
   visibility: hidden;
