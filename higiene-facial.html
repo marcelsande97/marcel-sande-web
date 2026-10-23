@@ -49,6 +49,16 @@
           <li><a href="#">Manifiesto</a></li>
           <li><a href="#">Equipo</a></li>
           <li><a href="#">Contacto</a></li>
+          <!-- Idioma: ESP es el actual; al pasar el ratón se despliegan los otros dos.
+               En el menú del móvil se ven los tres en fila, abajo del todo.
+               Enlaces a # hasta que existan las versiones en inglés y catalán -->
+          <li class="con-submenu idioma">
+            <a href="#" aria-haspopup="true" aria-current="page"><span class="solo-lectores">Idioma: </span>ESP</a>
+            <ul class="submenu">
+              <li><a href="#" hreflang="en" lang="en">ENG</a></li>
+              <li><a href="#" hreflang="ca" lang="ca">CAT</a></li>
+            </ul>
+          </li>
         </ul>
         <!-- Aquí irá el enlace real a tu motor de reservas -->
         <a class="boton contraste" href="#reservar">Reserva</a>
