@@ -21,10 +21,10 @@
    ========================================================= */
 :root {
   --curva-aparecer: cubic-bezier(0.25, 0.6, 0.3, 1);  /* curva de las apariciones: arranque suave y frenada larga */
-  --tiempo-aparecer: 1.6s;                             /* duración de las apariciones */
+  --tiempo-aparecer: 1.1s;                             /* duración de las apariciones */
   --recorrido-aparecer: 60px;                          /* cuánto suben los bloques al aparecer */
-  --tiempo-imagen: 3.2s;                               /* las fotos se funden mucho más despacio */
-  --tiempo-texto: 2.4s;                                /* fundido del texto: lento y uniforme, de 0 a 100 % */
+  --tiempo-imagen: 2.1s;                               /* las fotos se funden algo más despacio que el texto */
+  --tiempo-texto: 1.4s;                                /* fundido del texto: uniforme, de 0 a 100 % */
   --fondo: #ffffff;           /* blanco en toda la web */
   --crema: var(--fondo);      /* las bandas usan el mismo color */
   --tinta: #111315;           /* casi negro */

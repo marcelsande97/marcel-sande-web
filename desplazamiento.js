@@ -12,8 +12,8 @@
 */
 (function () {
   // Ajustes: cámbialos para probar otros movimientos
-  var RIGIDEZ = 14;     // fuerza con la que tira hacia el destino (más baja: arranque más lento y frenado más largo)
-  var DISTANCIA = 1;    // cuánto recorre cada giro de rueda (1 = lo normal del navegador; 0.8 = menos)
+  var RIGIDEZ = 22;     // fuerza con la que tira hacia el destino (más baja: arranque más lento y frenado más largo)
+  var DISTANCIA = 1.4;  // cuánto recorre cada giro de rueda (1 = lo normal del navegador; más alto = más caña)
 
   var ordenador = window.matchMedia('(min-width: 900px) and (pointer: fine) and (prefers-reduced-motion: no-preference)');
   var raiz = document.documentElement;
