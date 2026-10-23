@@ -37,7 +37,8 @@
       <nav aria-label="Principal">
         <ul class="menu" id="menu-principal">
           <!-- «Tratamientos» abre un desplegable al pasar el ratón (o al llegar con el teclado) -->
-          <li class="con-submenu">
+          <!-- En el menú del móvil, «Tratamientos» abre y cierra su lista con un + (ver el script del final) -->
+          <li class="con-submenu tratamientos">
             <a href="#" aria-haspopup="true">Tratamientos</a>
             <ul class="submenu">
               <li><a href="higiene-facial.html">Higiene básica</a></li>
@@ -351,7 +352,7 @@
       <!-- La etiqueta no se ve, pero los lectores de pantalla la leen -->
       <label class="solo-lectores" for="email-newsletter">Tu correo electrónico</label>
       <input id="email-newsletter" type="email" name="email" placeholder="Tu correo" autocomplete="email" required>
-      <button type="submit" aria-label="Suscribirme a la newsletter">Newsletter</button>
+      <button type="submit" aria-label="Suscribirme a la newsletter"><span aria-hidden="true">·</span> Newsletter</button>   <!-- punto medio, como en el logo -->
     </form>
   </section>
 
@@ -399,9 +400,31 @@
       function poner(abierto) {
         boton.setAttribute('aria-expanded', abierto);
         menu.classList.toggle('abierto', abierto);
+        if (!abierto) desplegar(false);           // al cerrar, Tratamientos vuelve a cerrarse
       }
       boton.addEventListener('click', function () { poner(boton.getAttribute('aria-expanded') !== 'true'); });
-      menu.addEventListener('click', function (e) { if (e.target.closest('a')) poner(false); });   // al elegir una opción se cierra
+      // «Tratamientos» en el menú del móvil: abre y cierra su lista (empieza cerrada).
+      // En ordenador sigue siendo el desplegable que se abre al pasar el ratón
+      var panel = window.matchMedia('(max-width: 980px)');
+      var tratamientos = menu.querySelector('.tratamientos');
+      var tratamientosEnlace = tratamientos.querySelector('a');
+      function desplegar(si) {
+        tratamientos.classList.toggle('desplegado', si);
+        if (panel.matches) tratamientosEnlace.setAttribute('aria-expanded', si);
+        else tratamientosEnlace.removeAttribute('aria-expanded');
+      }
+      desplegar(false);
+      panel.addEventListener('change', function () { desplegar(false); });
+      menu.addEventListener('click', function (e) {
+        var enlace = e.target.closest('a');
+        if (!enlace) return;
+        if (enlace === tratamientosEnlace && panel.matches) {
+          e.preventDefault();                                   // no navega: solo abre o cierra la lista
+          desplegar(!tratamientos.classList.contains('desplegado'));
+          return;
+        }
+        poner(false);                                           // al elegir una opción se cierra
+      });
       document.addEventListener('keydown', function (e) { if (e.key === 'Escape') poner(false); });
     })();
 
