@@ -15,7 +15,7 @@
 - Responsive: probar mentalmente en móvil (~380 px) y ordenador.
 
 ## Diseño (estado actual de `higiene-facial.html`, la página modelo)
-- El tratamiento se llama **Higiene básica** (título, menú, tarifa, textos, micro título «H.B.»). El archivo sigue siendo `higiene-facial.html`. La cita tras el hero presenta la filosofía (rigor científico, evidencia, fuentes primarias) y sirve igual para todos los tratamientos; sin compararse con otros centros. «Primera visita» siempre acompañada de «Starter Pack» (con guion largo o entre paréntesis).
+- El tratamiento se llama **Higiene básica** (título, menú, tarifa, textos, micro título «H.B.»). El archivo sigue siendo `higiene-facial.html`. La cita tras el hero presenta la filosofía («Trabajamos desde el rigor científico…») y sirve igual para todos los tratamientos; sin compararse con otros centros. «Primera visita» siempre acompañada de «Starter Pack» (con guion largo o entre paréntesis).
 - Dirección: limpia, editorial y algo de lujo; mucho aire pero sin bloques demasiado separados. Nada de verdes, azules ni serifs (probados y descartados).
 - Color: fondo blanco `#ffffff`, texto casi negro `#111315`, gris `--tinta-suave` (#72777d, contraste 4,5:1; modo oscuro #858b91) para etiquetas, líneas `#dfe2e5`. Modo oscuro incluido en `:root`.
 - Botones en pastilla: negros con texto blanco (menú «Reserva», «Reservar Starter Pack»); con contorno negro e interior transparente para opciones secundarias (botón del hero, «Manifiesto», Higiene facial y Consulta online en tarifas); los de contorno se rellenan de negro al pasar el ratón.
