@@ -1109,7 +1109,9 @@ button.boton { border: 0; cursor: pointer; }   /* un <button> con aspecto de bot
   .manifiesto-titulo { grid-column: 1; grid-row: 1; justify-self: center; margin-left: calc(-1 * var(--lado)); margin-right: calc(-1 * var(--hueco)); }
   .cartel            { grid-column: 2; grid-row: 1; width: 100%; }   /* la foto, más grande: llena su columna */
   .manifiesto-frase  { grid-column: 3; grid-row: 1; justify-self: center; margin-left: calc(-1 * var(--hueco)); margin-right: calc(-1 * var(--lado)); }
-  .manifiesto-frase  { max-width: 17ch; }   /* caja estrecha, de un ancho parecido a «LO QUE NO HACEMOS» */
+  /* Caja estrecha, de un ancho parecido a «LO QUE NO HACEMOS»; balance reparte las líneas
+     a partes iguales (sin palabras sueltas). En el HTML, «una&nbsp;rutina» nunca se separa */
+  .manifiesto-frase  { max-width: 18ch; text-wrap: balance; }
   .manifiesto-texto,
   .manifiesto-bloque .boton { grid-column: 2; grid-row: 1; }
   /* el velo se oscurece al pasar el ratón por la foto, el texto o el botón, o al llegar con el teclado */
