@@ -1142,6 +1142,9 @@ button.boton { border: 0; cursor: pointer; }   /* un <button> con aspecto de bot
     color: var(--pastilla-texto);
     box-shadow: none;
   }
+  /* Barra superior más baja en móvil (en ordenador sigue a 64 px).
+     Todo lo que depende de su alto (botón anclado, scroll a anclas) se ajusta solo */
+  :root { --alto-cabecera: 48px; }
   /* Sin el botón negro «Reserva» de la cabecera: ya está el del hero */
   .cabecera .boton.contraste { display: none; }
   /* Datos de la visita: justo debajo del título, pequeños y juntos */
