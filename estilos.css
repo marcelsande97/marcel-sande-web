@@ -667,6 +667,8 @@ img { max-width: 100%; }
 .datos div { margin: 0; }
 /* Etiquetas de los datos: gris, tal cual se escriben (mayúscula inicial en cada palabra) */
 .datos dt { color: var(--tinta-suave); font-size: var(--texto); text-transform: none; letter-spacing: -0.01em; font-weight: 400; }
+/* En el hero, las etiquetas («Primera Visita»…) van en negro, no en gris */
+.hero .datos dt, .hero .hero-margen { color: var(--tinta); }
 /* El dato en sí, más grande y en Ridley; la etiqueta de encima sigue pequeña */
 /* Las cifras: en Hanken Grotesk (la letra del texto), sin mayúsculas forzadas */
 .datos dd {
