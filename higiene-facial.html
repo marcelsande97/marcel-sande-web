@@ -323,18 +323,18 @@
   </main>
 
   <!-- ===================== NEWSLETTER ===================== -->
-  <!-- Línea negra arriba, título a la izquierda y el formulario.
+  <!-- Bloque mínimo y centrado: el campo de correo sobre una línea gris corta
+       y, debajo, la palabra «Newsletter».
        action="#" hasta que exista el servicio de newsletter -->
   <section class="newsletter contenedor" aria-labelledby="titulo-newsletter">
     <h2 id="titulo-newsletter">Newsletter</h2>
-    <p>Novedades y consejos para tu piel. Pocos correos y sin relleno.</p>
     <form class="newsletter-form" action="#" method="post">
       <!-- La etiqueta no se ve, pero los lectores de pantalla la leen -->
       <label class="solo-lectores" for="email-newsletter">Tu correo electrónico</label>
-      <input id="email-newsletter" type="email" name="email" placeholder="Tu correo electrónico" autocomplete="email" required>
-      <button class="boton contraste" type="submit">Suscribirme</button>
+      <input id="email-newsletter" type="email" name="email" placeholder="Tu correo" autocomplete="email" required>
+      <!-- Flecha pequeña para enviar (también se envía con Intro) -->
+      <button type="submit" aria-label="Suscribirme">→</button>
     </form>
-    <p class="newsletter-nota">Puedes darte de baja cuando quieras. Más información en <a href="#">Privacidad</a>.</p>
   </section>
 
   <!-- Firma grande: el nombre de la marca ocupa todo el ancho de la página -->
