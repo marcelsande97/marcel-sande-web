@@ -28,7 +28,7 @@
   --fondo: #ffffff;           /* blanco en toda la web */
   --crema: var(--fondo);      /* las bandas usan el mismo color */
   --tinta: #111315;           /* casi negro */
-  --tinta-suave: #5b6168;     /* texto secundario */
+  --tinta-suave: #72777d;     /* texto secundario: gris claro, en el límite de contraste legible (4,5:1) */
   --linea: #dfe2e5;           /* separadores */
   --papel: #f4f2ee;           /* beige grisáceo muy sutil (páginas del manifiesto en móvil) */
   --papel-sobre-foto: #f4f2ee;/* el mismo beige para el texto encima de la foto (igual en modo oscuro) */
@@ -87,7 +87,7 @@
     --fondo: #111315;
     --crema: var(--fondo);
     --tinta: #eef0f2;
-    --tinta-suave: #a2a8ae;
+    --tinta-suave: #858b91;
     --linea: #2b2f33;
     --papel: #1b1d1f;
     --acento: #eef0f2;
@@ -103,7 +103,7 @@
   --fondo: #111315;
   --crema: var(--fondo);
   --tinta: #eef0f2;
-  --tinta-suave: #a2a8ae;
+  --tinta-suave: #858b91;
   --linea: #2b2f33;
   --papel: #1b1d1f;
   --acento: #eef0f2;
@@ -594,19 +594,19 @@ img { max-width: 100%; }
   }
   .hero .declaracion { grid-column: 1 / -1; grid-row: 2; margin: 0; }
   .hero-titulo .boton { grid-column: 1; grid-row: 3; align-self: start; margin-top: 20px; padding: 11px 22px; }   /* mismo tamaño que el «Reserva» de la barra */
-  /* Lema y datos en fila, al fondo, empezando a la misma altura (la de «Primera Visita») */
+  /* Lema y datos en fila, al fondo, alineados por abajo (con «90 € · 60 min») */
   .hero-pie {
     display: grid;
     grid-column: 1 / -1;
     grid-row: 3;
     align-self: end;
     grid-template-columns: 1fr auto;
-    align-items: start;
+    align-items: end;                    /* el lema termina a la altura del último precio */
     column-gap: clamp(32px, 4vw, 64px);
   }
   .hero-lema { max-width: 34ch; }        /* caja algo más ancha */
   .hero-arriba { grid-column: 1; grid-row: 1; }
-  .hero-abajo  { grid-column: 2; grid-row: 1; align-self: start; }
+  .hero-abajo  { grid-column: 2; grid-row: 1; }
 }
 
 /* Los textos pequeños del banner: mayúsculas en gris, como «Primera visita» */
