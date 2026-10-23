@@ -768,15 +768,21 @@ img { max-width: 100%; }
 @media (max-width: 760px) {
   .seguimiento { max-width: none; margin-top: 24px; }
 }
-/* Ordenador: el texto empieza en el margen de la página (como el título)
-   y termina justo en la línea central, donde se juntan las dos fotos.
-   padding-right: 50% = la mitad del ancho de la sección */
+/* Ordenador: maquetada exactamente igual que la cita entre comillas
+   (.frase-banda): mismo aire arriba y abajo, caja de 54ch centrada,
+   texto centrado y mismo tamaño y espaciado de letra */
 @media (min-width: 761px) {
-  .seguimiento-caja {
-    padding-left: max(var(--margen), calc((100% - var(--ancho-max)) / 2 + var(--margen)));
-    padding-right: 50%;
+  .resultados { padding-bottom: 0; }     /* el aire de abajo lo pone ahora la caja, como en la cita */
+  .seguimiento-caja { padding: clamp(56px, 7vw, 112px) var(--margen); }
+  .seguimiento {
+    max-width: 54ch;
+    margin: 0 auto;
+    text-align: center;
+    font-size: var(--display-pequena);
+    letter-spacing: 0.1em;
+    line-height: 1.3;
+    text-wrap: wrap;                     /* la cita en ordenador tampoco lo usa */
   }
-  .seguimiento { max-width: none; }
 }
 .resultados-pendiente { height: 100%; display: grid; place-content: center; text-align: center; background: var(--linea); color: var(--tinta-suave); }
 .resultados-par figure:has(.resultados-pendiente) figcaption { color: var(--tinta); }
