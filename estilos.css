@@ -1171,14 +1171,10 @@ button.boton { border: 0; cursor: pointer; }   /* un <button> con aspecto de bot
 @keyframes subir { from { transform: translateY(var(--recorrido-aparecer)); } to { transform: none; } }
 
 /* =========================================================
-   SCROLL POR BLOQUES (solo ordenador)
-   El navegador para el scroll al principio de cada bloque: acelera,
-   frena y se detiene en el siguiente. scroll-padding-top (en html)
-   deja el hueco de la cabecera fija. En móvil el scroll es libre.
+   CITAS A PANTALLA ENTERA (solo ordenador)
+   El scroll es libre, sin paradas; el movimiento suave lo da desplazamiento.js
    ========================================================= */
 @media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
-  html { scroll-snap-type: y mandatory; }
-  .hero, .frase-banda, .seccion, .manifiesto { scroll-snap-align: start; }
   /* La cita ocupa una pantalla entera, centrada en vertical: así llega sola,
      con su propia transición, y la sección siguiente no entra a la vez */
   .frase-banda {
@@ -1186,10 +1182,7 @@ button.boton { border: 0; cursor: pointer; }   /* un <button> con aspecto de bot
     display: grid;
     align-content: center;
   }
-  .pie { scroll-snap-align: end; }          /* el último tope: el final de la página */
 }
-/* Con desplazamiento.js activo (rueda del ratón con resistencia), el encaje lo hace el script */
-html.scroll-resistencia { scroll-snap-type: none; }
 
 /* =========================================================
    MÓVIL: AJUSTES EDITORIALES

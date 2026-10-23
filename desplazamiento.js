@@ -1,93 +1,48 @@
 /*
-  SCROLL CON RESISTENCIA (solo ordenador)
-  ---------------------------------------
-  Con la rueda del ratón o el trackpad, la página no se mueve libremente:
-  cada gesto lleva al bloque siguiente (o al anterior) con una curva que
-  arranca despacio, acelera y frena justo antes de llegar (referencia: Yurbban Passage).
-  Mientras se mueve, la rueda no hace nada más: por mucho que la gires, no se salta bloques.
-  Los puntos de parada están elegidos (ver «encuadres» más abajo): no avanza una distancia fija.
+  SCROLL SUAVE CON PESO (solo ordenador)
+  --------------------------------------
+  La rueda del ratón o el trackpad no mueven la página de golpe: marcan adónde
+  quieres llegar y la página va hacia allí como si tuviera peso (referencia: Yurbban Passage).
+  - Arranca despacio, acelera y frena muy poco a poco, con un frenado largo.
+  - No hay paradas fijas: se detiene donde lo lleve tu gesto.
+  Funciona como un muelle: la página «tira» hacia el destino y un rozamiento la frena.
   El teclado, la barra de scroll y los enlaces siguen funcionando como siempre.
   Red de seguridad: en móvil, en pantallas de menos de 900 px o con «reducir movimiento»
-  no hace nada y se queda el encaje del CSS (scroll-snap).
+  no hace nada y el scroll es el normal del navegador.
 */
 (function () {
   // Ajustes: cámbialos para probar otros movimientos
-  var DURACION = 1100;   // milisegundos que tarda en ir de un bloque a otro
-  var SILENCIO = 160;    // ms sin mover la rueda para aceptar un gesto nuevo (se come la inercia del trackpad)
-  var UMBRAL = 8;        // giros mínimos de rueda que cuentan como gesto (ignora roces)
+  var RIGIDEZ = 14;     // fuerza con la que tira hacia el destino (más baja: arranque más lento y frenado más largo)
+  var DISTANCIA = 1;    // cuánto recorre cada giro de rueda (1 = lo normal del navegador; 0.8 = menos)
 
   var ordenador = window.matchMedia('(min-width: 900px) and (pointer: fine) and (prefers-reduced-motion: no-preference)');
   var raiz = document.documentElement;
-  var moviendo = false;
-  var ultimoGiro = 0;
-  var ultimoValor = 0;     // tamaño del último giro de rueda
-  var esperando = false;   // tras moverse, espera a que la rueda pare del todo
+  var destino = window.scrollY;   // adónde vamos
+  var posicion = window.scrollY;  // dónde estamos (con decimales)
+  var velocidad = 0;
+  var enMarcha = false;
+  var ultimoTiempo = 0;
+  var ultimaY = -1;               // la última posición que pusimos nosotros
 
-  // Curva: lenta al empezar, rápida en medio y lenta al final (easeInOutCubic)
-  function curva(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+  function maximo() { return raiz.scrollHeight - window.innerHeight; }
 
-  // Alto de la cabecera (lo mismo que scroll-padding-top en estilos.css)
-  function altoCabecera() { return parseFloat(getComputedStyle(raiz).scrollPaddingTop) || 0; }
-
-  // Los «encuadres» (como keyframes de vídeo): posiciones donde un bloque queda bien
-  // colocado en la pantalla. Cada gesto lleva al encuadre siguiente o al anterior.
-  // - Principio de la página (el hero).
-  // - Cada bloque, con su contenido (sin el aire de arriba y abajo) centrado en el
-  //   hueco visible bajo la cabecera.
-  // - Si el contenido no cabe en pantalla: dos encuadres, uno con su parte de arriba
-  //   y otro con su parte de abajo.
-  // - Final de la página (newsletter, firma y pie).
-  var BLOQUES = '.frase-banda, .seccion, .manifiesto';
-  var AIRE = 40;   // si un bloque no cabe: aire entre la cabecera (o el borde de abajo) y el contenido
-
-  function encuadres() {
-    var y = window.scrollY, hueco = altoCabecera();
-    var visible = window.innerHeight - hueco;
-    var lista = [0];
-    document.querySelectorAll(BLOQUES).forEach(function (el) {
-      var r = el.getBoundingClientRect(), estilo = getComputedStyle(el);
-      var arriba = r.top + y + parseFloat(estilo.paddingTop);
-      var alto = r.height - parseFloat(estilo.paddingTop) - parseFloat(estilo.paddingBottom);
-      // Si casi cabe (le sobra menos de un cuarto de pantalla), mejor centrado que dos paradas seguidas
-      if (alto <= visible - 2 * AIRE + visible * 0.25) {
-        lista.push(arriba + alto / 2 - visible / 2 - hueco);   // centrado
-      } else {
-        lista.push(arriba - hueco - AIRE);                      // su parte de arriba
-        lista.push(arriba + alto + AIRE - window.innerHeight);  // su parte de abajo
-      }
-    });
-    var maximo = raiz.scrollHeight - window.innerHeight;
-    lista.push(maximo);
-    lista = lista
-      .map(function (t) { return Math.round(Math.min(maximo, Math.max(0, t))); })
-      .sort(function (a, b) { return a - b; });
-    // Paradas demasiado juntas (menos de un 20 % de pantalla): se queda la de más abajo
-    return lista.filter(function (t, i) { return i === lista.length - 1 || lista[i + 1] - t >= window.innerHeight * 0.2; });
-  }
-
-  // El encuadre siguiente (o el anterior) desde la posición actual
-  function destino(abajo) {
-    var y = window.scrollY, lista = encuadres();
-    if (abajo) {
-      var siguiente = lista.filter(function (t) { return t > y + 4; })[0];
-      return siguiente === undefined ? y : siguiente;
+  // Cada fotograma: muelle con el rozamiento justo para no pasarse ni rebotar
+  // (en física, «amortiguamiento crítico»). Parte de velocidad 0, así que arranca suave
+  function fotograma(ahora) {
+    var dt = Math.min(0.05, (ahora - ultimoTiempo) / 1000);   // segundos desde el fotograma anterior
+    ultimoTiempo = ahora;
+    var aceleracion = RIGIDEZ * (destino - posicion) - 2 * Math.sqrt(RIGIDEZ) * velocidad;
+    velocidad += aceleracion * dt;
+    posicion += velocidad * dt;
+    // Parado del todo: casi en el destino y casi sin velocidad
+    if (Math.abs(destino - posicion) < 0.5 && Math.abs(velocidad) < 5) {
+      posicion = destino;
+      velocidad = 0;
+      enMarcha = false;
     }
-    var anterior = lista.filter(function (t) { return t < y - 4; }).pop();
-    return anterior === undefined ? 0 : anterior;
-  }
-
-  function irA(final) {
-    var inicio = window.scrollY, recorrido = final - inicio, t0 = null;
-    if (Math.abs(recorrido) < 1) return;
-    moviendo = true;
-    function paso(ahora) {
-      if (t0 === null) t0 = ahora;
-      var t = Math.min(1, (ahora - t0) / DURACION);
-      window.scrollTo(0, inicio + recorrido * curva(t));
-      if (t < 1) requestAnimationFrame(paso);
-      else { moviendo = false; esperando = true; }
-    }
-    requestAnimationFrame(paso);
+    ultimaY = Math.round(posicion);
+    window.scrollTo(0, ultimaY);
+    if (enMarcha) requestAnimationFrame(fotograma);
   }
 
   window.addEventListener('wheel', function (e) {
@@ -95,24 +50,22 @@
     if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;         // gesto horizontal: carruseles
     if (e.target.closest && e.target.closest('.submenu')) return;
     e.preventDefault();                                          // a partir de aquí, mandamos nosotros
-    var ahora = performance.now();
-    var giro = Math.abs(e.deltaY);
-    var quieto = ahora - ultimoGiro > SILENCIO;
-    var crece = giro > ultimoValor * 1.3 && giro >= UMBRAL;      // la rueda acelera: es un gesto nuevo
-    var rueda = giro >= 50 && giro === ultimoValor;              // ratón con «clics»: cada clic igual que el anterior
-    ultimoGiro = ahora;
-    ultimoValor = giro;
-    if (moviendo) return;
-    // Después de moverse, la inercia del trackpad sigue mandando giros cada vez más
-    // pequeños: se ignoran. Un gesto nuevo (pausa, giro que crece o clic de rueda) sí cuenta
-    if (esperando && !quieto && !crece && !rueda) return;
-    esperando = false;
-    if (giro < UMBRAL) return;
-    irA(destino(e.deltaY > 0));
+    // deltaMode 1: la rueda cuenta en líneas (Firefox); las pasamos a píxeles
+    var giro = e.deltaY * (e.deltaMode === 1 ? 16 : 1) * DISTANCIA;
+    if (!enMarcha) { posicion = window.scrollY; destino = posicion; velocidad = 0; }
+    destino = Math.max(0, Math.min(maximo(), destino + giro));
+    if (!enMarcha) {
+      enMarcha = true;
+      ultimoTiempo = performance.now();
+      requestAnimationFrame(fotograma);
+    }
   }, { passive: false });
 
-  // Con el script activo, el encaje del CSS se apaga para que no se peleen
-  function aplicar() { raiz.classList.toggle('scroll-resistencia', ordenador.matches); }
-  aplicar();
-  if (ordenador.addEventListener) ordenador.addEventListener('change', aplicar);
+  // Si te mueves de otra forma (teclado, barra, enlace), paramos y seguimos desde ahí
+  window.addEventListener('scroll', function () {
+    if (enMarcha && Math.abs(window.scrollY - ultimaY) > 2) {
+      enMarcha = false;
+      velocidad = 0;
+    }
+  }, { passive: true });
 })();
