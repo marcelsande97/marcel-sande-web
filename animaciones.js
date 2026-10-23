@@ -13,8 +13,8 @@
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   // Los bloques que se vigilan y, dentro de ellos, los elementos que se animan
-  var grupos = '.frase-banda, .seccion, .manifiesto, .firma, .pie';
-  var elementos = '.frase-banda .declaracion, .seccion h2, .antetitulo, .acordeon details, .nota, .manifiesto-bloque > *, .cartel, .manifiesto-frase, .precio, .aviso-reserva, .resultados-par, .firma, .pie-columnas';   // el pie entero: la línea de arriba y el texto aparecen a la vez
+  var grupos = '.frase-banda, .seccion, .manifiesto, .newsletter, .firma, .pie';
+  var elementos = '.frase-banda .declaracion, .seccion h2, .antetitulo, .acordeon details, .manifiesto-bloque > *, .cartel, .manifiesto-frase, .precio, .aviso-reserva, .resultados-par, .newsletter, .firma, .pie-columnas, .pie-legal';   // el pie entero: la línea de arriba y el texto aparecen a la vez
   var altoPantalla = window.innerHeight;
 
   // Solo escondemos los bloques que empiezan por debajo de la pantalla al cargar.
