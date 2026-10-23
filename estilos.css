@@ -1100,7 +1100,8 @@ button.boton { border: 0; cursor: pointer; }   /* un <button> con aspecto de bot
   .pie-pastillas { grid-column: 1 / -1; order: 1; }
   /* La newsletter del pie, debajo de las pastillas y alineada a la izquierda.
      La de arriba se esconde pero mantiene su espacio en blanco */
-  .pie-newsletter { display: flex; grid-column: 1 / -1; order: 2; margin: 0; }
+  .pie-newsletter { display: flex; grid-column: 1 / -1; order: 2; margin: 64px 0 0; }   /* bastante aire tras las pastillas */
+  .pie-columnas { padding-bottom: 20px; }   /* la newsletter, cerca del copyright */
   .newsletter { visibility: hidden; }
   /* Copyright en dos líneas */
   .pie-legal-linea { display: block; }
@@ -1238,7 +1239,7 @@ button.boton { border: 0; cursor: pointer; }   /* un <button> con aspecto de bot
   .manifiesto { padding-bottom: var(--aire-bloques); }
   /* Mucho aire tras «Cómo empezar» y antes de la firma (el doble que antes) */
   #reservar { padding-bottom: 84px; }
-  .newsletter { margin-top: 84px; padding-bottom: calc(84px - var(--hueco-firma)); }
+  .newsletter { margin-top: 56px; padding-bottom: calc(56px - var(--hueco-firma)); }   /* hueco en blanco entre «Cómo empezar» y la firma, algo más corto */
   .firma { margin-top: 84px; }
   /* El mismo aire antes de Antes de venir, de Resultados y de Cómo empezar:
      --aire-bloques al final de la sección anterior + 56 px al principio de la siguiente */
