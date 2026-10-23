@@ -1188,6 +1188,8 @@ button.boton { border: 0; cursor: pointer; }   /* un <button> con aspecto de bot
   }
   .pie { scroll-snap-align: end; }          /* el último tope: el final de la página */
 }
+/* Con desplazamiento.js activo (rueda del ratón con resistencia), el encaje lo hace el script */
+html.scroll-resistencia { scroll-snap-type: none; }
 
 /* =========================================================
    MÓVIL: AJUSTES EDITORIALES
