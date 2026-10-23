@@ -776,6 +776,11 @@ img { max-width: 100%; }
    ========================================================= */
 .newsletter {
   margin-top: var(--aire-antes-firma);
+  /* Mismo aire por debajo que por arriba: este relleno + el margen de la firma
+     igualan el relleno de «Cómo empezar» + el margen de arriba.
+     Se resta el hueco que la firma deja encima para el acento de la É (0,25 em de su tamaño) */
+  --hueco-firma: calc(0.25 * (min(100vw, var(--ancho-max)) - 2 * var(--margen)) / 15.04);
+  padding-bottom: calc(var(--aire-antes-firma) - var(--hueco-firma));
   font-family: var(--fuente-display);
   font-size: var(--display-pequena);
   font-weight: 500;
@@ -798,12 +803,12 @@ img { max-width: 100%; }
   color: var(--tinta);
   background: transparent;
   border: 0;
-  border-bottom: 1px solid var(--tinta-suave);   /* la línea gris */
+  border-bottom: 1px solid var(--linea);   /* la línea gris: la misma que hay bajo la firma */
   border-radius: 0;
   padding: 0 0 6px;
   text-align: left;                     /* «Tu correo» alineado a la izquierda */
 }
-.newsletter-form input::placeholder { color: var(--tinta-suave); text-transform: uppercase; opacity: 1; }
+.newsletter-form input::placeholder { color: var(--linea);   /* mismo gris que la línea */ text-transform: uppercase; opacity: 1; }
 /* «Newsletter»: parece texto, pero es el botón. Al pasar el ratón,
    aparece la mano y se aclara un poco hacia el gris */
 .newsletter-form button {
@@ -1136,7 +1141,7 @@ button.boton { border: 0; cursor: pointer; }   /* un <button> con aspecto de bot
   .manifiesto { padding-bottom: var(--aire-bloques); }
   /* Mucho aire tras «Cómo empezar» y antes de la firma (el doble que antes) */
   #reservar { padding-bottom: 84px; }
-  .newsletter { margin-top: 84px; }
+  .newsletter { margin-top: 84px; padding-bottom: calc(84px - var(--hueco-firma)); }
   .firma { margin-top: 84px; }
   /* El mismo aire antes de Antes de venir, de Resultados y de Cómo empezar:
      --aire-bloques al final de la sección anterior + 56 px al principio de la siguiente */
