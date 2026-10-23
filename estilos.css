@@ -68,7 +68,7 @@
   --velo-movil: 0.1;          /* en móvil no hay hover: velo fijo para poder leer el texto blanco */
   --fuente-display: "Ridley Grotesk", "Hanken Grotesk", Arial, sans-serif; /* titulares: mayúsculas espaciadas */
   --ancho-max: 1600px;        /* ancho máximo del contenido (más ancho: todo más cerca de los bordes) */
-  --alto-cabecera: 52px;      /* alto de la franja superior fija (48 px en móvil) */
+  --alto-cabecera: 72px;      /* alto de la franja superior fija en ordenador (48 px en móvil) */
   --alinear-reserva: 0.14;    /* móvil: baja el botón «Reserva» hasta el alto de las mayúsculas del título (en em) */
   --reserva-opacidad-foto: 45%; /* móvil: cuánto negro conserva el botón anclado al pasar sobre una foto */
   --hueco-reserva-fija: 8px;  /* móvil: distancia entre la barra superior y el botón «Reserva» anclado */
@@ -206,6 +206,11 @@ img { max-width: 100%; }
   top: env(safe-area-inset-top, 0px);
   background: var(--cabecera);
   z-index: 5;
+}
+/* Ordenador: línea negra finísima en el borde inferior de la barra.
+   Es una sombra sin desenfoque (no un borde) para no sumar alto a la barra */
+@media (min-width: 981px) {
+  .cabecera { box-shadow: 0 1px 0 var(--tinta); }
 }
 .cabecera .contenedor {
   display: flex;                 /* pone los elementos en fila */
@@ -1212,7 +1217,7 @@ button.boton { border: 0; cursor: pointer; }   /* un <button> con aspecto de bot
     color: var(--pastilla-texto);
     box-shadow: none;
   }
-  /* Barra superior más baja en móvil (en ordenador sigue a 64 px).
+  /* Barra superior más baja en móvil (en ordenador sigue a 72 px).
      Todo lo que depende de su alto (botón anclado, scroll a anclas) se ajusta solo */
   :root { --alto-cabecera: 48px; }
   /* Sin el botón negro «Reserva» de la cabecera: ya está el del hero */
