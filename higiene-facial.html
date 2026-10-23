@@ -60,6 +60,10 @@
     </div>
   </header>
 
+  <!-- Solo en móvil: copia del botón «Reserva» del hero que se queda anclada arriba
+       cuando el original llega al borde de la pantalla (ver el script del final) -->
+  <a class="boton reserva-fija" href="#reservar">Reserva</a>
+
   <main>
 
     <!-- ===================== HERO ===================== -->
@@ -385,6 +389,65 @@
       boton.addEventListener('click', function () { poner(boton.getAttribute('aria-expanded') !== 'true'); });
       menu.addEventListener('click', function (e) { if (e.target.closest('a')) poner(false); });   // al elegir una opción se cierra
       document.addEventListener('keydown', function (e) { if (e.key === 'Escape') poner(false); });
+    })();
+
+    // Solo en móvil: la cabecera sigue al dedo. Al bajar se va escondiendo hacia arriba
+    // y al subir vuelve a entrar, píxel a píxel (efecto arrastre).
+    // Además, el botón «Reserva» del hero sube con la página y, al llegar arriba,
+    // se queda anclado (.reserva-fija). Al volver a subir, la cabecera entra por encima y lo tapa
+    (function () {
+      var movil = window.matchMedia('(max-width: 760px)');
+      var cabecera = document.querySelector('.cabecera');
+      var menuBoton = document.querySelector('.menu-boton');
+      var original = document.querySelector('.hero-titulo .boton');
+      var fija = document.querySelector('.reserva-fija');
+      var anterior = window.scrollY;
+      var escondido = 0;            // cuántos píxeles de cabecera hay escondidos
+      var pendiente = false;
+      var reloj;
+
+      function mover(px) {
+        escondido = px;
+        cabecera.style.transform = px ? 'translateY(' + -px + 'px)' : '';
+      }
+
+      function actualizar() {
+        pendiente = false;
+        var y = Math.max(0, window.scrollY);
+        if (!movil.matches) { mover(0); anclar(false); anterior = y; return; }
+        var alto = cabecera.offsetHeight;
+        cabecera.classList.remove('cabecera-ajuste');
+        if (menuBoton.getAttribute('aria-expanded') === 'true') {
+          mover(0);                                             // con el menú abierto, siempre visible
+        } else {
+          // suma lo que has bajado (o resta lo que has subido), entre 0 y el alto de la barra;
+          // arriba del todo nunca se esconde más de lo que has bajado
+          mover(Math.min(Math.max(escondido + y - anterior, 0), alto, y));
+        }
+        anterior = y;
+        // ¿El botón del hero ya ha llegado a la altura del botón anclado?
+        anclar(original.getBoundingClientRect().top <= fija.getBoundingClientRect().top);
+        // Al soltar a medias, la cabecera termina de entrar o de salir
+        clearTimeout(reloj);
+        reloj = setTimeout(function () {
+          if (escondido > 0 && escondido < alto) {
+            cabecera.classList.add('cabecera-ajuste');
+            mover(escondido > alto / 2 ? alto : 0);
+          }
+        }, 150);
+      }
+
+      // Cambia entre el botón del hero y el anclado: nunca se ven los dos a la vez
+      function anclar(si) {
+        fija.classList.toggle('anclada', si);
+        original.style.visibility = si ? 'hidden' : '';
+      }
+
+      window.addEventListener('scroll', function () {
+        if (!pendiente) { pendiente = true; requestAnimationFrame(actualizar); }
+      }, { passive: true });
+      movil.addEventListener('change', actualizar);
+      actualizar();
     })();
   </script>
 </body>

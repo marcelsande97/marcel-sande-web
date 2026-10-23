@@ -69,6 +69,7 @@
   --fuente-display: "Ridley Grotesk", "Hanken Grotesk", Arial, sans-serif; /* titulares: mayúsculas espaciadas */
   --ancho-max: 1600px;        /* ancho máximo del contenido (más ancho: todo más cerca de los bordes) */
   --alto-cabecera: 64px;      /* alto de la franja superior fija */
+  --hueco-reserva-fija: 12px; /* móvil: distancia del botón «Reserva» anclado al borde de arriba */
   --margen: clamp(16px, 2.5vw, 40px); /* margen lateral que crece con la pantalla (estrecho: contenido cerca del borde) */
 
   color-scheme: light;
@@ -283,6 +284,27 @@ img { max-width: 100%; }
   padding: 11px 22px;
   background: var(--tinta);
   color: var(--fondo);
+}
+
+/* Botón «Reserva» anclado arriba (solo móvil, lo activa el script del final del HTML):
+   pastilla blanca sólida con contorno negro. Va por debajo de la cabecera (z-index 4 < 5),
+   así que cuando la cabecera vuelve a entrar lo tapa */
+.reserva-fija { display: none; }
+@media (max-width: 760px) {
+  .reserva-fija {
+    display: inline-block;
+    position: fixed;
+    top: calc(env(safe-area-inset-top, 0px) + var(--hueco-reserva-fija));
+    left: var(--margen);
+    z-index: 4;
+    background: var(--fondo);
+    color: var(--tinta);
+    box-shadow: inset 0 0 0 1.5px currentColor;   /* contorno, como el botón del hero */
+    visibility: hidden;                  /* escondido (y fuera del tabulador) hasta anclarse */
+  }
+  .reserva-fija.anclada { visibility: visible; }
+  /* Cuando sueltas con la cabecera a medias, termina de entrar o salir con suavidad */
+  .cabecera.cabecera-ajuste { transition: transform 0.25s ease-out; }
 }
 
 /* Por debajo de 980 px el menú completo no cabe: logo, «Reserva» y las tres rayas.
