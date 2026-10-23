@@ -519,7 +519,7 @@ img { max-width: 100%; }
 @media (min-width: 1100px) {
   .hero-texto {
     display: grid;
-    grid-template-rows: auto 1fr auto auto;   /* arriba · hueco · datos · botón */
+    grid-template-rows: auto 1fr auto;
     column-gap: clamp(32px, 4vw, 64px);
   }
   /* Primera columna de ancho fijo: así el título y el botón no se mueven
@@ -529,12 +529,9 @@ img { max-width: 100%; }
   .hero-texto { grid-template-columns: 1fr auto; }
   .hero-titulo { display: contents; }    /* sus hijos (título y botón) se colocan sueltos en la rejilla */
   .hero-arriba { grid-column: 2; grid-row: 1; }
-  /* Prueba: los datos van en la columna 1, justo encima del botón «Reserva» */
-  .hero-abajo  { grid-column: 1; grid-row: 3; align-self: end; margin-bottom: 24px; }
-  /* Donde estaban los datos: «Solo disponible con cita previa», alineado con el borde inferior de la foto */
-  .hero-texto .hero-aviso { display: block; grid-column: 2; grid-row: 3 / 5; align-self: end; margin: 0; }
+  .hero-abajo  { grid-column: 2; grid-row: 3; align-self: end; }
   .hero .declaracion { grid-column: 1; grid-row: 1; }
-  .hero-titulo .boton { grid-column: 1; grid-row: 4; justify-self: start; align-self: end; }
+  .hero-titulo .boton { grid-column: 1; grid-row: 3; justify-self: start; align-self: end; }
   .hero .declaracion {
     max-width: none;
     white-space: nowrap;                 /* en una sola línea */
@@ -544,9 +541,6 @@ img { max-width: 100%; }
   }
   .hero-lema { max-width: 26ch; }
 }
-
-/* «Solo disponible con cita previa»: solo en ordenador grande (ver arriba) */
-.hero-aviso { display: none; }
 
 /* Los textos pequeños del banner: mayúsculas en gris, como «Primera visita» */
 .hero-margen { color: var(--tinta-suave); font-size: var(--texto); letter-spacing: 0.08em; }
@@ -605,7 +599,7 @@ img { max-width: 100%; }
 }
 .datos div { margin: 0; }
 /* Etiquetas de los datos: gris, tal cual se escriben (mayúscula inicial en cada palabra) */
-.datos dt, .hero-aviso { color: var(--tinta-suave); font-size: var(--texto); text-transform: none; letter-spacing: -0.01em; font-weight: 400; }
+.datos dt { color: var(--tinta-suave); font-size: var(--texto); text-transform: none; letter-spacing: -0.01em; font-weight: 400; }
 /* El dato en sí, más grande y en Ridley; la etiqueta de encima sigue pequeña */
 /* Las cifras: en Hanken Grotesk (la letra del texto), sin mayúsculas forzadas */
 .datos dd {
@@ -1162,7 +1156,7 @@ button.boton { border: 0; cursor: pointer; }   /* un <button> con aspecto de bot
   /* Ojo: .hero-titulo no se puede animar en ordenador (es display: contents),
      y en móvil tampoco .hero-arriba: animamos lo que llevan dentro.
      «backwards» = solo aplica el estado inicial; al terminar, el hover del botón sigue funcionando */
-  .hero-imagen, .hero-arriba > *, .hero-abajo, .hero-aviso, .hero-titulo > * {
+  .hero-imagen, .hero-arriba > *, .hero-abajo, .hero-titulo > * {
     /* dos animaciones a la vez, como en el resto de la página: fundido lento + subida */
     animation: fundir var(--tiempo-texto) ease-in-out 0.15s backwards,
                subir var(--tiempo-aparecer) var(--curva-aparecer) 0.15s backwards;
