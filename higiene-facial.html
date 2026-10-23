@@ -101,7 +101,12 @@
         </div>
         <div class="hero-imagen">
           <!-- alt: describe la foto para quien no la ve (lectores de pantalla, Google) -->
-          <img src="img/higiene-facial.webp" alt="Bodegón: un frasco de aceite sobre una pastilla de jabón y una piedra envuelta en red" width="1080" height="1350">
+          <!-- <picture>: en ordenador grande usa la versión ampliada (más fondo alrededor);
+               en el resto, la foto normal -->
+          <picture>
+            <source media="(min-width: 1100px)" srcset="img/higiene-facial-ancha.webp" width="1640" height="1640">
+            <img src="img/higiene-facial.webp" alt="Bodegón: un frasco de aceite sobre una pastilla de jabón y una piedra envuelta en red" width="1080" height="1350">
+          </picture>
         </div>
       </div>
     </section>
