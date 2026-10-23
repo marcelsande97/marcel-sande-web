@@ -541,14 +541,36 @@ img { max-width: 100%; }
   }
   .hero-lema { max-width: 26ch; }
 }
-/* Prueba (ordenador grande): el título baja hasta la mitad de la foto y el lema
-   empieza a su misma altura. Filas: hueco · título · hueco igual (con el botón y los datos al fondo).
-   El lema ocupa las filas 2 y 3 para no estirar la fila del título */
+/* Prueba (ordenador grande): foto a sangre en la mitad derecha de la pantalla,
+   del centro hasta el borde y de la cabecera hasta abajo.
+   Mitad izquierda, en tres filas: hueco · título · hueco igual, así el título queda
+   a media altura de la foto. En la fila de abajo: el botón pegado bajo el título y,
+   al fondo (alineados con el borde inferior de la foto), el lema y a su derecha los datos */
 @media (min-width: 1100px) {
-  .hero-texto { grid-template-rows: 1fr auto 1fr; }
-  .hero .declaracion { grid-row: 2; margin: 0; }
-  .hero-arriba { grid-row: 2 / 4; align-self: start; }
-  .hero-abajo, .hero-titulo .boton { grid-row: 3; }
+  .hero { padding-bottom: 0; }
+  .hero-banda {
+    grid-template-columns: 1fr 1fr;      /* dos mitades exactas */
+    min-height: calc(100svh - var(--alto-cabecera));
+  }
+  .hero-imagen { padding: 0; position: relative; }
+  /* La foto llena su mitad y se recorta lo justo (object-fit: cover), sin deformarse */
+  .hero-imagen img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .hero-texto {
+    grid-template-rows: 1fr auto 1fr;
+    grid-template-columns: 1fr auto;     /* lema a la izquierda, datos a la derecha */
+    row-gap: 0;                          /* sin hueco extra entre filas: el botón va pegado al título */
+    padding-right: clamp(40px, 4vw, 64px);
+  }
+  .hero .declaracion { grid-column: 1 / -1; grid-row: 2; margin: 0; }
+  .hero-titulo .boton { grid-column: 1; grid-row: 3; align-self: start; margin-top: 20px; }
+  .hero-arriba { grid-column: 1; grid-row: 3; align-self: end; }
+  .hero-abajo  { grid-column: 2; grid-row: 3; align-self: end; }
 }
 
 /* Los textos pequeños del banner: mayúsculas en gris, como «Primera visita» */
