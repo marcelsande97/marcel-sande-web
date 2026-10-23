@@ -16,10 +16,12 @@
   <!-- Lo que aparece en Google bajo el título -->
   <meta name="description" content="Higiene facial sin pasos de relleno: cada paso tiene una función justificada. Facialista en Barcelona.">
 
-  <!-- Tipografía desde Google Fonts. Instrument Sans es una grotesca limpia -->
+  <!-- Tipografías:
+       Ridley Grotesk (archivo propio, en estilos.css) para titulares y logo, en mayúsculas espaciadas,
+       y Hanken Grotesk (Google Fonts) para todo lo demás -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wdth,wght@0,75..100,400..700;1,75..100,400..700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500&display=swap" rel="stylesheet">
 
   <!-- Estilos compartidos por todas las páginas -->
   <link rel="stylesheet" href="estilos.css">
@@ -31,16 +33,29 @@
   <header class="cabecera">
     <div class="contenedor">
       <!-- Cuando tengas logo, cambia este texto por <img src="logo.svg" alt="Marcel Sandé"> -->
-      <a class="logo" href="#">Marcel Sandé</a>
+      <a class="logo" href="#"><span class="logo-nombre">Marcel Sandé</span> <span aria-hidden="true">·</span> Facials</a>
       <nav aria-label="Principal">
-        <ul class="menu">
-          <li><a href="#">Tratamientos</a></li>
-          <li><a href="#">Facialismo</a></li>
-          <li><a href="#">Sobre mí</a></li>
+        <ul class="menu" id="menu-principal">
+          <!-- «Tratamientos» abre un desplegable al pasar el ratón (o al llegar con el teclado) -->
+          <li class="con-submenu">
+            <a href="#" aria-haspopup="true">Tratamientos</a>
+            <ul class="submenu">
+              <li><a href="higiene-facial.html">Higiene facial</a></li>
+              <li><a href="#">Microneedling</a></li>
+              <li><a href="#">Peeling</a></li>
+              <li><a href="#">Evento</a></li>
+            </ul>
+          </li>
+          <li><a href="#">Manifiesto</a></li>
+          <li><a href="#">Equipo</a></li>
           <li><a href="#">Contacto</a></li>
-          <!-- Aquí irá el enlace real a tu motor de reservas -->
-          <li><a class="boton" href="#reservar">Reservar</a></li>
         </ul>
+        <!-- Aquí irá el enlace real a tu motor de reservas -->
+        <a class="boton contraste" href="#reservar">Reserva</a>
+        <!-- Botón de las tres rayas: solo se ve por debajo de 980 px y abre el menú -->
+        <button class="menu-boton" type="button" aria-expanded="false" aria-controls="menu-principal" aria-label="Menú">
+          <span></span><span></span><span></span>
+        </button>
       </nav>
     </div>
   </header>
@@ -48,30 +63,60 @@
   <main>
 
     <!-- ===================== HERO ===================== -->
-    <section class="hero contenedor">
-      <h1>Higiene facial</h1>
-      <p class="declaracion">Cada paso tiene una función justificada. Lo que no suma resultados, no entra.</p>
-      <a class="boton" href="#reservar">Reservar primera visita</a>
+    <section class="hero">
+      <!-- Díptico a todo el ancho: foto a sangre a la izquierda, texto a la derecha -->
+      <div class="hero-banda">
+        <div class="hero-texto">
+          <!-- Fila de arriba del bloque: textos pequeños en los márgenes -->
+          <div class="hero-margen hero-arriba">
+            <p class="hero-lema">Tratamiento diseñado para eliminar de forma eficaz y respetuosa las impurezas acumuladas en la piel, mejorando su aspecto y su salud.</p>
+          </div>
+          <div class="hero-titulo">
+            <h1 class="declaracion">higiene <em>facial</em></h1>
+            <a class="boton" href="#reservar">Reserva</a>
+          </div>
+          <!-- Fila de abajo del bloque: los datos de la visita, uno encima del otro.
+               <dl> es una lista de definiciones: término (dt) + valor (dd) -->
+          <div class="hero-abajo">
+            <dl class="datos">
+              <div><dt>Primera Visita<br><span class="abre">(</span>incl. valoración y plan personalizado<span class="cierra">)</span></dt><dd>135 € · 90 min</dd></div>
+              <div><dt>Siguientes Visitas</dt><dd>90 € · 60 min</dd></div>
+            </dl>
+          </div>
+        </div>
+        <div class="hero-imagen">
+          <!-- alt: describe la foto para quien no la ve (lectores de pantalla, Google) -->
+          <img src="img/higiene-facial.webp" alt="Bodegón: un frasco de aceite sobre una pastilla de jabón y una piedra envuelta en red" width="1080" height="1350">
+        </div>
+      </div>
+    </section>
 
-      <!-- <dl> es una lista de definiciones: término (dt) + valor (dd) -->
-      <dl class="datos">
-        <div><dt>Primera visita</dt><dd>135 € · 90 min</dd></div>
-        <div><dt>Siguientes visitas</dt><dd>90 € · 60 min</dd></div>
-        <div><dt>Recomendada</dt><dd>De 2 a 4 veces al año</dd></div>
-      </dl>
+    <!-- ===================== FRASE CENTRADA (prueba) ===================== -->
+    <!-- Cita entre comillas, centrada en la página y con el texto centrado -->
+    <section class="frase-banda" aria-label="Por qué este tratamiento">
+      <p class="declaracion">«La higiene facial ha sido siempre un tratamiento esencial en cualquier centro de estética. Pero mientras el conocimiento de la piel ha avanzado mucho, este facial se sigue realizando de manera desactualizada.»</p>
     </section>
 
     <!-- ===================== PASOS ===================== -->
     <section class="seccion contenedor" aria-labelledby="titulo-pasos">
+      <p class="antetitulo">H.F.</p>   <!-- micro título encima del título de sección -->
       <h2 id="titulo-pasos">Qué hacemos y por qué</h2>
       <div class="acordeon pasos">
         <details>
           <summary><span class="paso-titulo"><span class="num">1</span>Limpieza adaptada</span></summary>
-          <div class="respuesta"><p>¿Doble limpieza? ¿Limpiador con exfoliantes químicos? Cada piel necesita la suya para que el resto del tratamiento funcione mejor.</p></div>
+          <div class="respuesta">
+            <p>La limpieza es uno de los pasos más importantes del cuidado de la piel, y también uno de los menos comprendidos. Trabajamos siempre con fórmulas suaves y de pH fisiológico, para no arrastrar los factores de hidratación que tu piel necesita.</p>
+            <p>Según tu tipo de piel, elegimos los productos exactos: unas pieles necesitan doble limpieza y otras, un limpiador con exfoliantes químicos. Por eso no usamos el mismo limpiador para todo el mundo.</p>
+          </div>
         </details>
         <details>
           <summary><span class="paso-titulo"><span class="num">2</span>Desincrustación</span></summary>
-          <div class="respuesta"><p>En lugar de vapor, un ablandador de sebo líquido en las zonas congestionadas, para que las extracciones sean más fáciles y más cómodas.</p></div>
+          <div class="respuesta">
+            <p>Con el tiempo hemos aprendido que el vapor puede perjudicar la piel, incluso en aplicaciones cortas: por su temperatura alta, puede enrojecerla y deshidratarla.</p>
+            <p>Hoy tenemos alternativas igual de eficaces que lo sustituyen por completo: un ablandador de sebo líquido en las zonas congestionadas, para que las extracciones sean más fáciles y más cómodas.</p>
+            <!-- Nota aparte: en gris y con asterisco, como en las tarifas -->
+            <p class="nota-paso">* Si al valorar tu piel vemos que no necesita extracciones, cambiamos este paso por una mascarilla purificante.</p>
+          </div>
         </details>
         <details>
           <summary><span class="paso-titulo"><span class="num">3</span>Espátula ultrasónica</span></summary>
@@ -89,25 +134,55 @@
           <summary><span class="paso-titulo"><span class="num">6</span>Sellado y protección</span></summary>
           <div class="respuesta"><p>Una crema elegida para tu tipo de piel, bálsamo labial y protector solar si la cita es de día.</p></div>
         </details>
+        <details>
+          <summary><span class="paso-titulo"><span class="num">7</span>Masaje</span></summary>
+          <div class="respuesta"><p>A lo largo del tratamiento hay momentos dedicados a la relajación y al masaje, para completar tu experiencia en cabina.</p></div>
+        </details>
+        <details>
+          <summary><span class="paso-titulo"><span class="num">8</span>Valoración en vivo</span></summary>
+          <div class="respuesta">
+            <p>Durante todo el tratamiento, y sobre todo en la primera sesión, observamos en qué estado está tu piel: cómo reacciona a cada producto, a cada paso, al tacto y al masaje. Eso nos dice mucho más que una foto.</p>
+            <p>Por eso en la primera visita reducimos los pasos a lo esencial: si tu piel llega sensibilizada, no la sobrecargamos.</p>
+          </div>
+        </details>
       </div>
-      <p class="nota">A lo largo del tratamiento hay momentos dedicados a la relajación y al masaje, para completar tu experiencia en cabina.</p>
     </section>
 
     <!-- ===================== LO QUE NO HACEMOS ===================== -->
-    <section class="seccion contenedor" aria-labelledby="titulo-no">
-      <h2 id="titulo-no">Lo que <span class="acento">no</span> hacemos</h2>
-      <p>No acumulamos pasos que comprometan la integridad de tu piel, como el vapor, la microdermabrasión, las toallas muy calientes o las extracciones forzadas. No usamos aparatos ni productos sin una función clara y no te prometemos otra cara en una hora. Una limpieza bien hecha se nota al momento, pero se sostiene con una rutina personalizada.</p>
+    <!-- Manifiesto: tres columnas. A la izquierda «Lo que no hacemos» con el párrafo,
+         y el botón, en el centro la foto pequeña y a la derecha la frase en mayúsculas.
+         Las tres columnas quedan centradas en vertical respecto a la foto -->
+    <section class="manifiesto contenedor" aria-labelledby="titulo-no">
+      <div class="manifiesto-fila">
+        <!-- Izquierda: título, párrafo y botón. En ordenador, el párrafo y el botón
+             se colocan encima de la foto (ver .manifiesto-bloque en estilos.css) -->
+        <div class="manifiesto-bloque">
+          <h2 id="titulo-no" class="manifiesto-titulo">Lo que no hacemos</h2>
+          <p class="manifiesto-texto">No acumulamos pasos que comprometan la integridad de tu piel, como el vapor, la exfoliación excesiva, las toallas muy calientes o las extracciones forzadas. No usamos aparatos ni productos sin una eficacia clara. Y no te prometemos otra cara en una hora.</p>
+          <!-- Enlace a # hasta que exista la página del manifiesto -->
+          <a class="boton contorno" href="#">Manifiesto</a>
+        </div>
+        <div class="cartel">
+          <img src="img/manifiesto.webp" alt="Primer plano de un ojo cerrado y la piel de alrededor, con pecas, a la luz del sol" width="1200" height="1500" loading="lazy">
+        </div>
+        <!-- Derecha: la frase en mayúsculas, del mismo tamaño que el título -->
+        <p class="manifiesto-titulo manifiesto-frase">Una limpieza bien hecha se nota al momento, pero se sostiene con una rutina personalizada.</p>
+      </div>
     </section>
 
     <!-- ===================== DESPLEGABLES ===================== -->
+    <!-- El <div> exterior hace el fundido de crema a blanco detrás de esta sección -->
+    <div class="fundido">
     <section class="seccion contenedor" aria-labelledby="titulo-detalles">
+      <p class="antetitulo">H.F.</p>
       <h2 id="titulo-detalles">Antes de venir</h2>
       <div class="acordeon">
 
         <details>
           <summary>Para quién es</summary>
           <div class="respuesta">
-            <p>Para cualquier tipo de piel, especialmente si tienes puntos negros, comedones, filamentos sebáceos o textura irregular.</p>
+            <p><strong>Clientes nuevos:</strong> el tratamiento está indicado para todo tipo de pieles. Está pensado como una primera toma de contacto suave con tu piel, para valorar su estado actual.</p>
+            <p><strong>Clientes recurrentes:</strong> tiene más sentido si tu piel tiende a congestionarse, con puntos negros, comedones, filamentos sebáceos o textura irregular.</p>
           </div>
         </details>
 
@@ -122,7 +197,9 @@
         <details>
           <summary>Cada cuánto</summary>
           <div class="respuesta">
-            <p>Si tu piel no tiende a congestionarse y mantienes una buena rutina en casa, con 2 a 4 limpiezas al año suele ser suficiente. Si acumulas puntos negros o comedones con facilidad, en tu plan te propondremos una frecuencia mayor.</p>
+            <p>Si tu piel no tiende a congestionarse y mantienes una buena rutina en casa, con 2 limpiezas al año puede ser suficiente.</p>
+            <p>Si vienes a cabina por otros tratamientos, cada uno empieza con una limpieza que prepara la piel. En tu primera higiene facial valoramos qué te preocupa y qué tratamientos encajan mejor con tu piel. <a href="#">Ver tratamientos</a></p>
+            <p>Si acumulas puntos negros o comedones con facilidad, en tu plan te propondremos una frecuencia mayor.</p>
           </div>
         </details>
 
@@ -137,7 +214,6 @@
               <li>En las últimas 4 semanas te has hecho un peeling químico, láser, IPL, microneedling, radiofrecuencia, hilos tensores o cirugía en la cara.</li>
               <li>Te han infiltrado neuromoduladores o rellenos hace menos de 2 semanas.</li>
               <li>Tienes fiebre o te encuentras mal.</li>
-              <li>Tienes alergia a algún ingrediente del protocolo (si la necesitas, te pasamos la lista completa).</li>
               <li>Estás en tratamiento oncológico y no tienes el visto bueno de tu médico.</li>
             </ul>
           </div>
@@ -148,13 +224,8 @@
           <div class="respuesta">
             <ul>
               <li>Embarazo, marcapasos u otro dispositivo implantado, implantes metálicos en la cara o epilepsia: sin espátula ultrasónica.</li>
-              <li>Anticoagulantes: extracciones mínimas.</li>
-              <li>Diabetes o tendencia a cicatrices queloides: extracciones mínimas y sin lanceta.</li>
-              <li>Rosácea o piel muy reactiva, sin brote: sin ablandador y sin espátula.</li>
-              <li>Retinoides o exfoliantes ácidos en casa: te pediremos que los dejes unos días antes.</li>
-              <li>Urticaria por frío o síndrome de Raynaud: sin frío.</li>
-              <li>Herpes labial recurrente: evitamos la zona de los labios.</li>
-              <li>Alergia a la aspirina: sin ácido salicílico.</li>
+              <li>Alergia a algún ingrediente activo: retiramos ese producto.</li>
+              <li>Zona propensa al herpes: la evitamos.</li>
               <li>Reacción a los perfumes: sin productos con fragancia.</li>
             </ul>
           </div>
@@ -163,15 +234,15 @@
         <details>
           <summary>Lo que usamos</summary>
           <div class="respuesta">
-            <p>Priorizamos fórmulas con ingredientes y porcentajes declarados, de marcas como Geek &amp; Gorgeous o Transparent Lab. Si quieres saber qué usamos en cada paso, te lo contamos.</p>
-            <p>Algunos productos llevan fragancia: si tu piel reacciona a los perfumes, avísanos y adaptamos el protocolo.</p>
+            <p>Priorizamos fórmulas con ingredientes y porcentajes declarados. Adaptamos cada producto a tu piel y al estado en que llega ese día, así que no siempre usamos lo mismo.</p>
+            <p>Pregúntanos lo que quieras: te explicamos encantados qué usamos, tanto las fórmulas como los aparatos. Nos gusta contarte qué función cumple cada paso y cada producto, y en qué se basa.</p>
           </div>
         </details>
 
         <details>
           <summary>Cuándo te derivamos</summary>
           <div class="respuesta">
-            <p>Si vemos algo que necesita la valoración de un dermatólogo (una mancha nueva o que cambia, un acné muy inflamado que pueda necesitar tratamiento médico), te lo decimos y lo dejamos por escrito.</p>
+            <p>Si vemos algo que necesita la valoración de un dermatólogo o de otro profesional de la salud, te lo decimos y lo dejamos por escrito.</p>
             <p>No diagnosticamos: cuidamos la piel desde la estética.</p>
           </div>
         </details>
@@ -179,39 +250,70 @@
         <details>
           <summary>Reserva y cancelación</summary>
           <div class="respuesta">
-            <p>Reservas con un pago de 20 € que se descuenta del precio final. Si cancelas con menos de 24 horas de antelación o no vienes, se pierde.</p>
+            <p>Para reservar, realizarás un pago de 20 € que se descuenta del precio final.</p>
+            <p>Si no puedes venir, avísanos con al menos 24 horas de antelación. Si el aviso no llega a tiempo, esos 20 € cubren el hueco que habíamos guardado solo para ti y que ya no podemos ofrecer a otra persona.</p>
           </div>
         </details>
 
       </div>
     </section>
+    </div>
+
+    <!-- ===================== RESULTADOS (prueba) ===================== -->
+    <!-- Antes y después a todo el ancho, una foto pegada a la otra.
+         IMPORTANTE: tienen que ser fotos reales de la misma clienta, con su permiso por escrito.
+         La de «después» actual es de referencia y el «antes» está pendiente -->
+    <section class="seccion resultados" aria-labelledby="titulo-resultados">
+      <!-- La sección va a todo el ancho: el micro título y el título llevan los márgenes en esta caja -->
+      <div class="contenedor">
+        <p class="antetitulo">H.F.</p>
+        <h2 id="titulo-resultados">Resultados</h2>
+      </div>
+      <div class="resultados-par">
+        <figure>
+          <div class="resultados-pendiente"><p>Foto real del antes<br><span class="abre">(</span>pendiente<span class="cierra">)</span></p></div>
+          <figcaption>Antes</figcaption>
+        </figure>
+        <figure>
+          <img src="img/resultados-despues.webp" alt="Después: primer plano de la mejilla y el ojo cerrado de un chico, con la piel hidratada" width="564" height="705" loading="lazy">
+          <figcaption>Después</figcaption>
+        </figure>
+      </div>
+    </section>
 
     <!-- ===================== PRECIOS ===================== -->
     <section class="seccion contenedor" id="reservar" aria-labelledby="titulo-precios">
+      <p class="antetitulo">H.F.</p>
       <h2 id="titulo-precios">Cómo empezar</h2>
-      <div class="precios">
+      <!-- En móvil esta fila se desliza en horizontal. tabindex="0" permite moverla también con el teclado -->
+      <div class="precios" role="region" aria-label="Opciones y precios" tabindex="0">
 
         <article class="precio destacado">
           <h3>Starter Pack</h3>
+          <p class="duracion">Cliente nuevo · 90 min</p>
           <p class="cifra">135 €</p>
-          <p class="duracion">Primera visita · 90 min</p>
-          <p>La única forma de empezar. Una conversación a fondo sobre tu piel y tu rutina (trae tus productos o fotos de ellos), ficha, fotos de seguimiento, la higiene facial y un documento con tu nueva rutina y tu plan en cabina.</p>
-          <p>En esta primera sesión las extracciones duran como máximo 10 minutos. Si tu piel necesita más, lo planificamos en otra cita.</p>
-          <a class="boton" href="#">Reservar Starter Pack</a>
+          <p>La única forma de empezar. Una conversación a fondo sobre tu piel y tu rutina <span class="abre">(</span>trae tus productos o fotos de ellos<span class="cierra">)</span>, te abrimos ficha y hacemos fotos de tu estado actual para el seguimiento. Realizamos la higiene facial y preparamos un documento digital con tu nueva rutina, plan de cabina e información personalizada.</p>
+          <!-- Nota aparte: en gris y con asterisco -->
+          <p class="nota-tarifa">* En esta primera sesión las extracciones duran como máximo 10 minutos. Si tu piel necesita más, lo planificamos en otra cita.</p>
+          <a class="boton contraste" href="#">Reservar Starter Pack</a>
         </article>
 
         <article class="precio">
           <h3>Higiene facial</h3>
+          <p class="duracion">Ya eres cliente · 60 min</p>
           <p class="cifra">90 €</p>
-          <p class="duracion">Siguientes visitas · 60 min</p>
-          <p>Con un repaso de cómo ha evolucionado tu piel desde la última visita y ajustes en tu rutina si hacen falta.</p>
+          <p>Pensada sobre todo para pieles con congestión, mucha actividad sebácea o textura irregular. Valoramos la evolución desde la última visita, tratamos la piel y ajustamos tu rutina si hace falta.</p>
+          <a class="boton contorno" href="#">Reservar</a>
         </article>
 
         <article class="precio">
           <h3>Consulta online</h3>
-          <p class="cifra">65 €</p>
           <p class="duracion">Videollamada</p>
-          <p>Revisamos tu rutina y montamos un plan. Si en las 8 semanas siguientes reservas tu primera higiene facial, te cuesta 70 €: el total queda igual que el Starter Pack.</p>
+          <p class="cifra">65 €</p>
+          <p>Una videollamada en la que, como en el Starter Pack, nos cuentas tu estilo de vida y tus hábitos, y revisamos a fondo tu rutina actual. Ajustamos lo que haga falta y creamos una rutina nueva basada en tus objetivos.</p>
+          <p>Si en las 8 semanas siguientes reservas tu primera higiene facial, te cuesta 70 €: el total queda igual que el Starter Pack.</p>
+          <p class="nota-tarifa">* Siempre recomendamos al menos una visita en persona: ver la piel en vivo y hacerle fotos nos permite un análisis más completo.</p>
+          <a class="boton contorno" href="#">Reservar</a>
         </article>
 
       </div>
@@ -220,16 +322,37 @@
 
   </main>
 
+  <!-- ===================== NEWSLETTER ===================== -->
+  <!-- Línea negra arriba, título a la izquierda y el formulario.
+       action="#" hasta que exista el servicio de newsletter -->
+  <section class="newsletter contenedor" aria-labelledby="titulo-newsletter">
+    <h2 id="titulo-newsletter">Newsletter</h2>
+    <p>Novedades y consejos para tu piel. Pocos correos y sin relleno.</p>
+    <form class="newsletter-form" action="#" method="post">
+      <!-- La etiqueta no se ve, pero los lectores de pantalla la leen -->
+      <label class="solo-lectores" for="email-newsletter">Tu correo electrónico</label>
+      <input id="email-newsletter" type="email" name="email" placeholder="Tu correo electrónico" autocomplete="email" required>
+      <button class="boton contraste" type="submit">Suscribirme</button>
+    </form>
+    <p class="newsletter-nota">Puedes darte de baja cuando quieras. Más información en <a href="#">Privacidad</a>.</p>
+  </section>
+
+  <!-- Firma grande: el nombre de la marca ocupa todo el ancho de la página -->
+  <p class="firma contenedor" aria-hidden="true">Marcel Sandé · Facials</p>
+
   <!-- ===================== PIE ===================== -->
   <footer class="pie contenedor">
-    <p class="cierre"><a class="boton" href="#">Reservar primera visita</a></p>
     <div class="pie-columnas">
       <div>
-        <p>Eixample, Barcelona</p>
+        <!-- Dirección de ejemplo: cambiar por la real -->
+        <p>C/ Mallorca, 214</p>
+        <p>08008 Barcelona</p>
         <p>Solo con cita previa</p>
       </div>
       <div>
         <p><a href="#">Instagram</a></p>
+        <p><a href="#">TikTok</a></p>
+        <p><a href="#">LinkedIn</a></p>
         <p><a href="#">Contacto</a></p>
       </div>
       <div>
@@ -238,7 +361,27 @@
         <p><a href="#">Cookies</a></p>
       </div>
     </div>
+    <!-- Derechos de autor: abajo del todo, a la izquierda -->
+    <p class="pie-legal">© 2026 Marcel Sandé. Todos los derechos reservados.</p>
   </footer>
 
+  <!-- Animaciones de aparición al hacer scroll (ver animaciones.js) -->
+  <script src="animaciones.js" defer></script>
+
+  <script>
+    // Menú del móvil: el botón de las tres rayas abre y cierra la lista.
+    // aria-expanded le dice al lector de pantalla si está abierto
+    (function () {
+      var boton = document.querySelector('.menu-boton');
+      var menu = document.getElementById('menu-principal');
+      function poner(abierto) {
+        boton.setAttribute('aria-expanded', abierto);
+        menu.classList.toggle('abierto', abierto);
+      }
+      boton.addEventListener('click', function () { poner(boton.getAttribute('aria-expanded') !== 'true'); });
+      menu.addEventListener('click', function (e) { if (e.target.closest('a')) poner(false); });   // al elegir una opción se cierra
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') poner(false); });
+    })();
+  </script>
 </body>
 </html>

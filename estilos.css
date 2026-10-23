@@ -4,22 +4,73 @@
    Si cambias algo aquí, cambia en toda la web.
    ========================================================= */
 
+/* Ridley Grotesk (fuente de pago, archivo propio en /fuentes).
+   La carpeta no se sube a GitHub: hay que copiarla al servidor con la web.
+   Si falta, se usa Hanken Grotesk */
+@font-face {
+  font-family: "Ridley Grotesk";
+  src: url("fuentes/ridley-grotesk-medium.ttf") format("truetype");
+  font-weight: 500;
+  font-display: swap;
+}
+
 /* =========================================================
    1. VARIABLES (TOKENS)
    Aquí defines los colores y medidas UNA vez y los reutilizas.
    Si cambias --acento, cambia en toda la web.
    ========================================================= */
 :root {
-  --fondo: #ffffff;
-  --tinta: #000000;           /* texto principal */
-  --tinta-suave: #5c5c66;     /* texto secundario */
-  --linea: #d9d9de;           /* separadores */
-  --acento: #2a35ff;          /* ultramar: SOLO para lo que se puede pulsar */
+  --curva-aparecer: cubic-bezier(0.25, 0.6, 0.3, 1);  /* curva de las apariciones: arranque suave y frenada larga */
+  --tiempo-aparecer: 1.6s;                             /* duración de las apariciones */
+  --recorrido-aparecer: 60px;                          /* cuánto suben los bloques al aparecer */
+  --tiempo-imagen: 3.2s;                               /* las fotos se funden mucho más despacio */
+  --tiempo-texto: 2.4s;                                /* fundido del texto: lento y uniforme, de 0 a 100 % */
+  --fondo: #ffffff;           /* blanco en toda la web */
+  --crema: var(--fondo);      /* las bandas usan el mismo color */
+  --tinta: #111315;           /* casi negro */
+  --tinta-suave: #5b6168;     /* texto secundario */
+  --linea: #dfe2e5;           /* separadores */
+  --papel: #f4f2ee;           /* beige grisáceo muy sutil (páginas del manifiesto en móvil) */
+  --papel-sobre-foto: #f4f2ee;/* el mismo beige para el texto encima de la foto (igual en modo oscuro) */
+  --titulo-seccion: clamp(20px, 2vw, 28px);   /* títulos de sección (y la cita en móvil) */
+  --acento: #111315;          /* negro: lo que se puede pulsar y algún detalle */
   --acento-texto: #ffffff;    /* texto encima del acento */
+  --cabecera: var(--fondo);   /* barra superior: el mismo color de fondo */
+  --pastilla: #111315;        /* botones destacados: negros */
+  --pastilla-texto: #ffffff;  /* texto sobre el negro */
+  --hero-tinta: #111315;      /* texto del hero: el mismo casi negro del resto */
 
-  --fuente: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
-  --ancho-max: 1280px;        /* ancho máximo del contenido */
-  --margen: clamp(20px, 5vw, 64px); /* margen lateral que crece con la pantalla */
+  --fuente: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif; /* texto corrido: la misma que las etiquetas */
+  --fuente-titulos: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif; /* titulares, menú, botones y etiquetas */
+  /* JERARQUÍA TIPOGRÁFICA: solo estos tamaños en toda la web
+     Hanken Grotesk:
+       --texto     todo el texto en minúsculas (párrafos, lema, desplegables, duraciones, notas)
+       --etiqueta  todo lo que va en mayúsculas pequeñas (menú, botones, desplegables, tarifas, pie)
+       --cifra     precios (hero y tarifas)
+     Ridley Grotesk (siempre en mayúsculas):
+       --display-pequena  logo, cita, «Lo que no hacemos» y su frase
+       títulos de sección, título del hero y firma: en sus reglas */
+  --texto: 14px;              /* interlineado 1,4 y letras -0,01em (en body) */
+  --etiqueta: 12px;           /* letras separadas 0,1em */
+  --cifra: clamp(24px, 2.4vw, 32px);
+  --display-pequena: clamp(14px, 1.15vw, 16px);   /* letras 0,1em, interlineado 1,3 */
+  --sobre-foto: #ffffff;      /* texto y botón encima de la foto del manifiesto (igual en modo oscuro) */
+  --sobre-foto-tinta: #111315;/* letra del botón cuando se rellena de blanco */
+  --velo-reposo: 0;           /* oscurecido de la foto del manifiesto sin pasar el ratón (0 = nada) */
+  --velo-hover: 0.55;         /* oscurecido al pasar el ratón */
+  --aire-bloques: 160px;      /* móvil: aire al final de los grandes bloques (+56 px de la sección siguiente = 216 px) */
+  --velo-hero-movil: 0;       /* oscurecido de la foto del hero en móvil (0 = la foto tal cual) */
+  --aire-foto-movil: 48px;    /* móvil: espacio en blanco entre la cabecera y el título del hero */
+  --aire-seccion: clamp(56px, 8vw, 136px);        /* aire arriba y abajo de cada bloque (en móvil se queda en 56 px) */
+  --aire-tras-manifiesto: clamp(56px, 10vw, 176px);/* ordenador: aire extra al final del manifiesto */
+  --aire-antes-firma: clamp(48px, 12vw, 216px);  /* ordenador: aire entre «Cómo empezar» y la firma grande */
+  --aire-tras-resultados: clamp(56px, 14vw, 240px);/* ordenador: aire extra al final de Resultados */
+  --aire-junto-foto: 24px;    /* móvil: espacio encima y debajo de la foto del hero (igual en los dos lados) */
+  --velo-movil: 0.1;          /* en móvil no hay hover: velo fijo para poder leer el texto blanco */
+  --fuente-display: "Ridley Grotesk", "Hanken Grotesk", Arial, sans-serif; /* titulares: mayúsculas espaciadas */
+  --ancho-max: 1600px;        /* ancho máximo del contenido (más ancho: todo más cerca de los bordes) */
+  --alto-cabecera: 64px;      /* alto de la franja superior fija */
+  --margen: clamp(16px, 2.5vw, 40px); /* margen lateral que crece con la pantalla (estrecho: contenido cerca del borde) */
 
   color-scheme: light;
   box-sizing: border-box;
@@ -31,22 +82,34 @@
 /* Modo oscuro: mismos nombres, otros valores */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --fondo: #0a0a12;
-    --tinta: #f2f2f5;
-    --tinta-suave: #a3a3b0;
-    --linea: #2c2c38;
-    --acento: #7c84ff;
-    --acento-texto: #0a0a12;
+    --fondo: #111315;
+    --crema: var(--fondo);
+    --tinta: #eef0f2;
+    --tinta-suave: #a2a8ae;
+    --linea: #2b2f33;
+    --papel: #1b1d1f;
+    --acento: #eef0f2;
+    --acento-texto: #111315;
+    --cabecera: var(--fondo);
+    --pastilla: #eef0f2;
+    --pastilla-texto: #111315;
+    --hero-tinta: #eef0f2;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --fondo: #0a0a12;
-  --tinta: #f2f2f5;
-  --tinta-suave: #a3a3b0;
-  --linea: #2c2c38;
-  --acento: #7c84ff;
-  --acento-texto: #0a0a12;
+  --fondo: #111315;
+  --crema: var(--fondo);
+  --tinta: #eef0f2;
+  --tinta-suave: #a2a8ae;
+  --linea: #2b2f33;
+  --papel: #1b1d1f;
+  --acento: #eef0f2;
+  --acento-texto: #111315;
+  --cabecera: var(--fondo);
+  --pastilla: #eef0f2;
+  --pastilla-texto: #111315;
+  --hero-tinta: #eef0f2;
   color-scheme: dark;
 }
 
@@ -55,17 +118,21 @@
    ========================================================= */
 *, *::before, *::after { box-sizing: inherit; }
 
-html { scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 90px); }
+html { scroll-padding-top: calc(env(safe-area-inset-top, 0px) + var(--alto-cabecera)); }
 
 body {
   margin: 0;
   background: var(--fondo);
   color: var(--tinta);
   font-family: var(--fuente);
-  font-size: 18px;
-  line-height: 1.55;
+  font-size: var(--texto);              /* un solo tamaño para todo el texto pequeño */
+  line-height: 1.4;
+  letter-spacing: -0.01em;               /* letras un pelín más juntas */
   -webkit-font-smoothing: antialiased;
 }
+/* Sin palabras sueltas en la última línea de ningún texto (el navegador
+   reparte las palabras entre las líneas para evitarlo) */
+p, li, dd, h2, h3 { text-wrap: pretty; }
 
 /* Tapa la zona de la barra de estado con el color del header */
 body::before {
@@ -73,7 +140,7 @@ body::before {
   position: fixed;
   inset: 0 0 auto;
   height: env(safe-area-inset-top, 0px);
-  background: var(--fondo);
+  background: var(--cabecera);
   z-index: 10;
 }
 
@@ -94,6 +161,18 @@ img { max-width: 100%; }
   outline-offset: 3px;
 }
 
+/* Estilo "etiqueta": letra de titulares, pequeña, en mayúsculas y con las
+   letras separadas. Lo comparten menú, botones, títulos de desplegables y
+   textos pequeños. Todos al mismo tamaño: --etiqueta */
+.boton, .pastilla, .menu a, .hero-margen, .datos dt, .pie-columnas,
+.acordeon summary, .precio h3 {
+  font-size: var(--etiqueta);
+  font-family: var(--fuente-titulos);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
 /* =========================================================
    3. BOTÓN
    Una sola clase para todos los botones de reserva.
@@ -103,21 +182,27 @@ img { max-width: 100%; }
   background: var(--acento);
   color: var(--acento-texto);
   text-decoration: none;
-  font-size: 17px;
-  font-weight: 500;
   padding: 16px 30px;
   border-radius: 999px;      /* 999px = pastilla redonda */
   transition: transform 0.15s ease;
 }
 .boton:hover { transform: translateY(-2px); }
 
+/* Variante con borde: interior transparente, letra y borde del color del texto.
+   El borde se dibuja con box-shadow para que el botón no cambie de tamaño */
+.hero .boton {
+  background: transparent;
+  color: var(--hero-tinta);
+  box-shadow: inset 0 0 0 1.5px currentColor;
+}
+
 /* =========================================================
    4. CABECERA (se queda fija arriba al hacer scroll)
    ========================================================= */
 .cabecera {
-  position: sticky;
+  position: sticky;                      /* se queda fija arriba al hacer scroll */
   top: env(safe-area-inset-top, 0px);
-  background: var(--fondo);
+  background: var(--cabecera);
   z-index: 5;
 }
 .cabecera .contenedor {
@@ -125,78 +210,363 @@ img { max-width: 100%; }
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  height: 84px;
+  height: var(--alto-cabecera);
 }
+/* Logo: «Marcel Sandé Facials» en Ridley, mayúsculas espaciadas */
 .logo {
-  font-size: 24px;
+  font-family: var(--fuente-display);
+  font-size: var(--display-pequena);
   font-weight: 500;
-  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;               /* un pelín menos que el resto de Ridley pequeña */
+  line-height: 1.3;
   text-decoration: none;
+  white-space: nowrap;
 }
+/* Ridley solo tiene un grosor: un contorno finísimo del color del texto
+   hace «Marcel Sandé» un poco más negrita que «Facials» */
+.logo-nombre { -webkit-text-stroke: 0.4px currentColor; }
 .menu {
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 40px;
   list-style: none;
   margin: 0;
   padding: 0;
 }
-.menu a { text-decoration: none; font-size: 16px; }
+.menu a { text-decoration: none; }
+/* El menú y el botón «Reserva» van en fila dentro del <nav> */
+.cabecera nav { display: flex; align-items: center; gap: 40px; }
+/* Botón de las tres rayas: escondido en ordenador */
+.menu-boton { display: none; }
 .menu a:hover { text-decoration: underline; text-underline-offset: 4px; }
-.cabecera .boton { padding: 11px 22px; font-size: 16px; }
 
-/* En móvil escondemos el menú y dejamos logo + reservar */
+/* Desplegable de «Tratamientos»: está oculto y aparece al pasar el ratón
+   por encima (:hover) o al llegar con el teclado (:focus-within) */
+.con-submenu { position: relative; }
+.submenu {
+  position: absolute;
+  top: 100%;                       /* justo debajo de «Tratamientos» */
+  left: -20px;                     /* alinea el texto de las opciones con el del menú */
+  min-width: 220px;
+  margin: 0;
+  padding: 18px 0 8px;             /* el aire de arriba hace de «puente» para no perder el hover */
+  list-style: none;
+  background: var(--fondo);
+  /* Oculto: transparente y un poco más arriba; así puede bajar con animación */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+}
+.con-submenu:hover .submenu,
+.con-submenu:focus-within .submenu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+/* Cada opción: fondo blanco que se vuelve negro (con letra blanca) al señalarla */
+.submenu a {
+  display: block;
+  padding: 12px 20px;
+  white-space: nowrap;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+.submenu a:hover,
+.submenu a:focus-visible {
+  background: var(--tinta);
+  color: var(--fondo);
+  text-decoration: none;
+}
+/* Botón del menú: negro (el color del texto) con letra crema (el color del fondo).
+   En modo oscuro se invierte solo: crema con letra oscura */
+.cabecera .boton {
+  padding: 11px 22px;
+  background: var(--tinta);
+  color: var(--fondo);
+}
+
+/* Por debajo de 980 px el menú completo no cabe: logo, «Reserva» y las tres rayas.
+   El menú se abre como un panel debajo de la barra */
+@media (max-width: 980px) {
+  .cabecera nav { gap: 8px; }
+  .menu-boton {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 36px;
+    height: 36px;
+    padding: 0 7px;
+    margin-right: -7px;            /* las rayas quedan alineadas con el margen */
+    background: none;
+    border: 0;
+    color: var(--tinta);
+    cursor: pointer;
+  }
+  .menu-boton span { display: block; height: 1.5px; background: currentColor; transition: transform 0.2s ease, opacity 0.2s ease; }
+  /* Abierto: las tres rayas se convierten en una × */
+  .menu-boton[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .menu-boton[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .menu-boton[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+  /* El panel: escondido hasta que se pulsa el botón */
+  .menu {
+    display: none;
+    position: fixed;
+    top: var(--alto-cabecera);
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 8px var(--margen) 32px;
+    background: var(--fondo);
+    border-bottom: 1px solid var(--linea);
+  }
+  .menu.abierto { display: flex; }
+  .menu > li > a { display: block; padding: 16px 0; }
+  /* Las opciones de Tratamientos, siempre visibles y un poco metidas hacia dentro */
+  .submenu { position: static; opacity: 1; visibility: visible; transform: none; min-width: 0; padding: 0 0 8px 16px; background: none; }
+  .submenu a { padding: 10px 0; }
+  .submenu a:hover, .submenu a:focus-visible { background: none; color: inherit; text-decoration: underline; }
+}
+
 @media (max-width: 760px) {
-  .menu li:not(:last-child) { display: none; }
+  .cabecera .boton { padding: 10px 16px; }
+}
+/* Móviles estrechos: menos aire entre logo y botón para que quepan sin salirse */
+@media (max-width: 400px) {
+  .cabecera .contenedor { gap: 8px; }
+  .cabecera .boton { padding: 10px 12px; }
+  .cabecera nav { gap: 6px; }
+  .menu-boton { width: 30px; padding: 0 6px; margin-right: -6px; }
+  .logo { font-size: 13px; }       /* 1 px menos: logo, «Reserva» y las rayas caben en 360 px */
 }
 
 /* =========================================================
    5. CABECERA DEL TRATAMIENTO (hero)
    ========================================================= */
-.hero { padding-top: clamp(48px, 9vw, 120px); padding-bottom: 72px; }
+.hero { padding-bottom: 48px; }
+/* El hero ocupa como mínimo toda la pantalla (en todos los tamaños): así la cita
+   queda por debajo al abrir la página y aparece con la animación al hacer scroll */
+.hero { min-height: calc(100svh - var(--alto-cabecera)); }
 
-.hero h1 {
-  font-size: 18px;
-  font-weight: 500;
-  margin: 0 0 28px;
-  color: var(--tinta-suave);
+/* Díptico a todo el ancho: foto a sangre en la mitad izquierda | texto a la derecha */
+.hero-banda {
+  background: var(--crema);
+  display: grid;
+  /* Dos mitades iguales: foto pequeña a la izquierda, texto a la derecha */
+  grid-template-columns: 1fr 1fr;
+  /* Sin altura mínima: la altura la marca la foto, y el texto se reparte
+     entre su borde de arriba y el de abajo */
+  --aire: 48px;                          /* margen arriba y abajo, igual en foto y texto */
 }
 
+/* Columna de texto. space-between reparte: fila de arriba, frase en medio, fila de abajo */
+.hero-texto {
+  color: var(--hero-tinta);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 48px;
+  padding-top: var(--aire);
+  padding-bottom: var(--aire);
+  padding-left: 0;                       /* el texto empieza justo en la mitad de la página */
+  /* En pantallas muy anchas, alinea el borde derecho con el resto de la página */
+  padding-right: max(var(--margen), calc((100vw - var(--ancho-max)) / 2 + var(--margen)));
+}
+
+/* Columna de la foto: la foto la llena entera, hasta el borde de la pantalla.
+   position: relative + absolute en la foto = la foto ocupa el hueco
+   pero no decide la altura de la banda (la decide el texto).
+   "order: -1" la pone a la izquierda (y arriba en móvil) sin tocar el HTML */
+/* Columna de la foto: la foto es pequeña y "flota" sobre el beige,
+   alineada con el margen izquierdo de la página y centrada en vertical.
+   "order: -1" la pone a la izquierda (y arriba en móvil) sin tocar el HTML */
+.hero-imagen {
+  margin: 0;
+  order: -1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;           /* alineada a la izquierda, con el logo */
+  padding: var(--aire) 0 var(--aire) max(var(--margen), calc((100vw - var(--ancho-max)) / 2 + var(--margen)));
+}
+.hero-imagen img {
+  width: clamp(280px, 34vw, 520px);      /* como mucho 520 px de ancho */
+  height: auto;                          /* con su proporción: sin recortes */
+  display: block;
+}
+
+/* Filas pequeñas de arriba y abajo del bloque */
+.hero-margen {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 4px 24px;
+}
+.hero-margen > * { margin: 0; }
+
+/* En móvil: una columna. La foto arriba, grande y centrada, con el mismo
+   margen a cada lado; el texto debajo, con su tamaño cómodo */
+@media (max-width: 760px) {
+  /* display: contents deja sueltas las piezas del texto (título, lema, botón y datos)
+     para colocarlas en la rejilla del hero: el título ENCIMA de la foto (misma celda),
+     y debajo, el lema y el botón centrados y los datos a la izquierda */
+  /* padding-top: aire en blanco bajo la cabecera, antes del hero */
+  .hero-banda { grid-template-columns: 1fr; min-height: 0; padding-top: var(--aire-foto-movil); }
+  .hero-texto, .hero-arriba, .hero-titulo { display: contents; }
+  .hero-imagen { grid-row: 1; grid-column: 1; padding: 0; justify-content: center; position: relative; }   /* foto de borde a borde */
+  .hero-imagen img { width: 100%; }
+  /* Velo suave para que el título blanco se lea sobre el fondo claro de la foto */
+  .hero-imagen::after { content: ""; position: absolute; inset: 0; background: #000; opacity: var(--velo-hero-movil); }
+  /* Título en blanco, centrado en la foto y de margen a margen (como la firma del pie):
+     mide 9,75 veces su tamaño de letra, así que el tamaño sale del ancho de pantalla */
+  .hero .declaracion {
+    grid-row: 1; grid-column: 1; align-self: center; justify-self: center; z-index: 1;
+    margin: 0; max-width: none; white-space: nowrap; color: var(--sobre-foto);
+    font-size: calc((100vw - 2 * var(--margen)) / 9.8);
+  }
+  .hero-lema { grid-row: 2; justify-self: center; text-align: center; margin: 32px var(--margen) 0; }
+  .hero-titulo .boton { grid-row: 3; justify-self: center; margin: 24px 0 0; }
+  .hero-abajo { grid-row: 4; margin: 56px var(--margen) 0; }   /* datos a la izquierda, con aire tras el botón */
+}
+
+/* De 761 px para arriba se cambian de lugar: el texto (título y botón) a la
+   izquierda, alineado con el logo, y la foto a la derecha, alineada con el
+   borde derecho de la página */
+@media (min-width: 761px) {
+  /* La columna de la foto mide lo que la foto; el texto ocupa el resto.
+     Así el lema y los precios quedan cerca de la foto, lejos del título */
+  .hero-banda { grid-template-columns: 1fr auto; }
+  .hero-imagen {
+    order: 1;
+    justify-content: flex-end;
+    padding: var(--aire) max(var(--margen), calc((100vw - var(--ancho-max)) / 2 + var(--margen))) var(--aire) 0;
+  }
+  .hero-texto {
+    padding-left: max(var(--margen), calc((100vw - var(--ancho-max)) / 2 + var(--margen)));
+    padding-right: clamp(40px, 5vw, 80px);   /* aire entre el lema/precios y la foto */
+  }
+}
+
+
+/* El título de la página va pequeño, en la fila de arriba del bloque */
+/* La frase pequeña de arriba: en mayúsculas como las etiquetas,
+   en una caja estrecha para que no se estire en una sola línea */
+.hero-lema { max-width: 34ch; }
+/* Solo en ordenador grande: dos columnas dentro del texto.
+   Columna cercana a la foto: la frase pequeña arriba y «Facialismo Funcional» abajo.
+   Columna lejana: «Higiene / Facial» arriba y el botón abajo.
+   Lo de arriba se alinea con el borde superior de la foto y lo de abajo con el inferior.
+   Por debajo de 1100 px no caben dos columnas: el texto va apilado */
+@media (min-width: 1100px) {
+  .hero-texto {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    column-gap: clamp(32px, 4vw, 64px);
+  }
+  /* Primera columna de ancho fijo: así el título y el botón no se mueven
+     aunque la frase se desplace hacia la foto */
+  /* Columna 1 (pegada al margen izquierdo): título arriba y botón abajo.
+     Columna 2 (junto a la foto): el lema arriba y los datos abajo */
+  .hero-texto { grid-template-columns: 1fr auto; }
+  .hero-titulo { display: contents; }    /* sus hijos (título y botón) se colocan sueltos en la rejilla */
+  .hero-arriba { grid-column: 2; grid-row: 1; }
+  .hero-abajo  { grid-column: 2; grid-row: 3; align-self: end; }
+  .hero .declaracion { grid-column: 1; grid-row: 1; }
+  .hero-titulo .boton { grid-column: 1; grid-row: 3; justify-self: start; align-self: end; }
+  .hero .declaracion {
+    max-width: none;
+    white-space: nowrap;                 /* en una sola línea */
+    font-size: clamp(30px, 3.2vw, 60px); /* pequeño lo justo para caber en una línea junto al lema */
+    line-height: 0.95;                   /* líneas más juntas (solo ordenador) */
+    margin: -0.12em 0 0;                 /* sube el texto para que la letra toque el borde de la foto */
+  }
+  .hero-lema { max-width: 26ch; }
+}
+
+/* Los textos pequeños del banner: mayúsculas en gris, como «Primera visita» */
+.hero-margen { color: var(--tinta-suave); font-size: var(--texto); letter-spacing: 0.08em; }
+/* El lema va como texto normal: negro y en minúsculas, igual que el de los pasos */
+.hero-margen .hero-lema { color: var(--tinta); text-transform: none; letter-spacing: -0.01em; font-weight: 400; font-family: var(--fuente); }
+
 /* La frase grande */
+/* Precios con la letra de titulares */
+.precio .cifra {
+  font-family: var(--fuente-titulos);
+}
+/* Frases protagonistas (banner y manifiesto) y títulos de sección:
+   Ridley en mayúsculas con las letras espaciadas */
+.declaracion, .seccion h2 {
+  font-family: var(--fuente-display);
+  font-weight: 500;
+  text-transform: uppercase;
+}
+/* Frase entre comillas tras el hero: centrada en la página y con el texto
+   centrado. Más pequeña que el título del hero, pero protagonista */
+.frase-banda { padding: clamp(56px, 7vw, 112px) var(--margen); }
+/* En móvil, el doble de margen a los lados: la cita no toca los bordes.
+   Mismo tamaño de letra (sin jerarquía nueva); sale alguna línea más.
+   text-wrap: pretty evita que la última línea quede con una sola palabra */
+@media (max-width: 760px) {
+  .frase-banda { padding-left: calc(var(--margen) * 2); padding-right: calc(var(--margen) * 2); padding-top: 98px; padding-bottom: 86px; }   /* 144 px de aire arriba (desde los precios) y abajo (hasta el título siguiente) */
+  .frase-banda .declaracion { text-wrap: pretty; }
+}
+.frase-banda .declaracion {
+  max-width: 54ch;                       /* caja algo más estrecha */
+  margin: 0 auto;                        /* auto a los lados = centrada en la página */
+  text-align: center;
+  font-size: var(--display-pequena);     /* igual que «Lo que no hacemos» */
+  letter-spacing: 0.1em;
+  line-height: 1.3;
+}
+
+/* Ridley no tiene cursiva: las palabras marcadas con <em> se quedan rectas */
+.declaracion em { font-style: normal; }
+
 .declaracion {
-  font-size: clamp(30px, 4.4vw, 58px);   /* clamp(mínimo, ideal, máximo) */
-  line-height: 1.12;
-  font-weight: 400;
-  letter-spacing: -0.02em;
-  max-width: 22ch;                       /* ch = ancho de un carácter */
-  margin: 0 0 44px;
+  font-size: clamp(30px, 4vw, 52px);     /* el nombre del tratamiento */
+  line-height: 1.1;
+  letter-spacing: 0.08em;
+  max-width: 19ch;                       /* ch = ancho de un carácter: caja estrecha */
+  margin: 0 0 32px;
   text-wrap: balance;
 }
 
 /* Datos rápidos: precio y duración */
+/* Datos de la visita: uno encima del otro, al pie de la columna del texto */
 .datos {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px 56px;
-  margin: 56px 0 0;
-  padding-top: 24px;
-  border-top: 1px solid var(--linea);
+  display: grid;
+  gap: 20px;
+  margin: 0;
 }
 .datos div { margin: 0; }
-.datos dt { color: var(--tinta-suave); font-size: 15px; }
-.datos dd { margin: 2px 0 0; font-size: 20px; }
+/* Etiquetas de los datos: gris, tal cual se escriben (mayúscula inicial en cada palabra) */
+.datos dt { color: var(--tinta-suave); font-size: var(--texto); text-transform: none; letter-spacing: -0.01em; font-weight: 400; }
+/* El dato en sí, más grande y en Ridley; la etiqueta de encima sigue pequeña */
+/* Las cifras: en Hanken Grotesk (la letra del texto), sin mayúsculas forzadas */
+.datos dd {
+  margin: 6px 0 0;
+  font-family: var(--fuente);
+  font-weight: 500;
+  font-size: var(--cifra);               /* el mismo tamaño que los precios de las tarifas */
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
 
 /* =========================================================
    6. SECCIONES GENERALES
    ========================================================= */
-.seccion { padding-top: 72px; padding-bottom: 72px; }
+.seccion { padding-top: var(--aire-seccion); padding-bottom: var(--aire-seccion); }  /* aire entre bloques */
 .seccion h2 {
-  font-size: clamp(26px, 2.6vw, 34px);
-  font-weight: 400;
-  letter-spacing: -0.015em;
+  font-size: var(--titulo-seccion);
+  letter-spacing: 0.1em;
   margin: 0 0 40px;
 }
 .seccion > p { max-width: 60ch; margin: 0; }
+/* Micro título encima de un título de sección: como «Siguientes Visitas» (gris, tamaño del texto) */
+.antetitulo { margin: 0; line-height: 1.2; color: var(--tinta-suave); }   /* pegado al título, igual en todas las secciones */
 
 /* Pasos: usan los mismos desplegables de más abajo,
    con el número dentro de un círculo para marcar el orden */
@@ -205,22 +575,55 @@ img { max-width: 100%; }
   flex: none;
   display: inline-grid;
   place-items: center;     /* centra el número dentro del círculo */
-  width: 34px;
-  height: 34px;
+  width: 28px;
+  height: 28px;
   border: 1px solid currentColor;
   border-radius: 50%;      /* 50% = círculo */
-  font-size: 15px;
+  font-size: var(--etiqueta);
   font-variant-numeric: tabular-nums;
 }
-.pasos .respuesta { padding-left: 54px; }  /* alinea el texto con el título, no con el círculo */
+.pasos .respuesta { padding-left: 48px; }  /* alinea el texto con el título, no con el círculo */
 
-.seccion > p.nota {
-  margin: 48px 0 0;
-  color: var(--tinta-suave);
+
+/* Banda crema a todo el ancho (el contenido va dentro, en .contenedor) */
+.banda-crema { background: var(--crema); }
+
+/* Fundido de crema a blanco detrás de la sección siguiente.
+   Muchos pasos intermedios (color-mix mezcla los dos colores en %)
+   para que el cambio sea muy suave y no se note dónde termina */
+.fundido {
+  background: linear-gradient(to bottom,
+    var(--crema) 0%,
+    color-mix(in srgb, var(--crema) 85%, var(--fondo)) 18%,
+    color-mix(in srgb, var(--crema) 60%, var(--fondo)) 38%,
+    color-mix(in srgb, var(--crema) 35%, var(--fondo)) 58%,
+    color-mix(in srgb, var(--crema) 15%, var(--fondo)) 78%,
+    var(--fondo) 100%);                  /* llega a blanco justo al final de la sección */
 }
 
-/* La palabra "no" del título en color de acento */
-.acento { color: var(--acento); }
+/* Manifiesto: la fila de tres columnas (más abajo) */
+.manifiesto {
+  padding-top: var(--aire-seccion);
+  padding-bottom: var(--aire-tras-manifiesto);   /* más aire que el resto antes de «Antes de venir» */
+}
+@media (max-width: 899px) {
+  /* móvil: 144 px de aire hasta «Antes de venir» (86 px + 56 px de la sección siguiente) */
+  .manifiesto { padding-bottom: 86px; }
+
+}
+
+/* Botón en pastilla: negro con texto blanco, sin borde */
+.pastilla {
+  display: inline-block;
+  background: var(--pastilla);
+  color: var(--pastilla-texto);
+  text-decoration: none;
+  padding: 16px 28px;
+  border-radius: 999px;
+  white-space: nowrap;
+  transition: transform 0.15s ease;
+}
+.pastilla:hover { transform: translateY(-2px); }
 
 /* =========================================================
    7. DESPLEGABLES (acordeón)
@@ -232,14 +635,15 @@ img { max-width: 100%; }
   column-gap: 48px;
   align-items: start;
 }
-@media (min-width: 860px) {
-  .acordeon { grid-template-columns: 1fr 1fr; }   /* dos columnas en ordenador */
-}
 .acordeon details { border-top: 1px solid var(--linea); }
-.acordeon details:last-child,
-.acordeon details:nth-last-child(2) { border-bottom: 1px solid var(--linea); }
-@media (max-width: 859px) {
-  .acordeon details:nth-last-child(2) { border-bottom: 0; }
+.acordeon details:last-child { border-bottom: 1px solid var(--linea); }
+/* Ordenador: dos columnas, ordenadas POR COLUMNAS (como en móvil):
+   1-4 a la izquierda y 5-8 a la derecha. grid-auto-flow: column llena primero
+   la columna de arriba abajo; grid-template-rows dice cuántas filas tiene */
+@media (min-width: 860px) {
+  .acordeon { grid-template-columns: 1fr 1fr; grid-auto-flow: column; grid-template-rows: repeat(4, auto); }
+  /* línea de cierre al final de la columna izquierda (8 desplegables: 4 por columna) */
+  .acordeon details:nth-child(4) { border-bottom: 1px solid var(--linea); }
 }
 
 .acordeon summary {
@@ -249,8 +653,7 @@ img { max-width: 100%; }
   justify-content: space-between;
   align-items: center;
   gap: 16px;
-  padding: 26px 4px;
-  font-size: 20px;
+  padding: 24px 4px;
 }
 .acordeon summary::-webkit-details-marker { display: none; }
 
@@ -271,6 +674,9 @@ img { max-width: 100%; }
 .respuesta p { margin: 0 0 14px; }
 .respuesta ul { margin: 0; padding-left: 1.1em; }
 .respuesta li { margin-bottom: 8px; }
+.respuesta .nota-paso { color: var(--tinta-suave); }   /* nota aparte: en gris, con asterisco (como en las tarifas) */
+.respuesta strong { font-weight: 500; }                 /* «Clientes nuevos:», «Clientes recurrentes:» */
+.respuesta a { text-underline-offset: 0.2em; }          /* «Ver tratamientos»: subrayado, algo separado de la letra */
 
 /* =========================================================
    8. PRECIOS
@@ -280,18 +686,276 @@ img { max-width: 100%; }
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 48px;
 }
-.precio { border-top: 1px solid var(--linea); padding-top: 20px; }
+/* Cada tarjeta es una columna: el botón se va abajo del todo (margin-top: auto),
+   así los tres botones quedan a la misma altura */
+.precio { border-top: 1px solid var(--linea); padding-top: 20px; display: flex; flex-direction: column; align-items: flex-start; }
+.precio p:last-of-type { margin-bottom: 24px; }
 .precio.destacado { border-top: 3px solid var(--acento); }
-.precio h3 { font-size: 21px; font-weight: 500; margin: 0; }
-.precio .cifra {
-  font-size: 48px;
-  letter-spacing: -0.03em;
-  margin: 24px 0 12px;
-  line-height: 1;
+.precio h3 {                           /* nombre de la tarifa: igual que «Lo que no hacemos» */
+  margin: 0;
+  font-family: var(--fuente-display);
+  font-size: var(--display-pequena);
+  letter-spacing: 0.1em;
+  line-height: 1.3;
 }
-.precio .duracion { color: var(--tinta-suave); margin: 0 0 32px; }
+.precio .cifra {
+  font-size: var(--cifra);               /* el mismo tamaño que los precios del hero */
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  margin: 0 0 28px;                      /* va después de la duración: aire antes del texto */
+  line-height: 1.1;
+}
+.precio .duracion { color: var(--tinta-suave); margin: 4px 0 20px; }   /* justo debajo del nombre; algo más de aire hasta el precio */
 .precio p { margin: 0 0 16px; }
-.precio .boton { margin-top: 24px; }
+.precio .nota-tarifa { color: var(--tinta-suave); }   /* nota aparte de la tarifa: en gris, con asterisco */
+.precio .boton { margin-top: auto; }
+/* Botón con contorno: interior transparente, borde y texto negros.
+   Para las opciones secundarias; el Starter Pack lleva el botón negro */
+.boton.contorno { background: transparent; color: var(--tinta); box-shadow: inset 0 0 0 1.5px currentColor; }
+
+/* Signos de interrogación y paréntesis: un poco de aire con la palabra (la letra los pega mucho) */
+.abre { margin-right: 0.14em; }
+.cierra { margin-left: 0.08em; }
+
+/* Resultados: dos fotos a todo el ancho de la pantalla, pegadas (sin hueco) */
+.resultados { padding-bottom: var(--aire-tras-resultados); }   /* aire bajo las fotos (+ el de arriba de «Cómo empezar») */
+.resultados-par { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+.resultados-par figure { position: relative; margin: 0; aspect-ratio: 4 / 5; overflow: hidden; }
+@media (min-width: 761px) { .resultados-par figure { aspect-ratio: 1 / 1; } }   /* ordenador: más bajas, tipo banner */
+.resultados-par img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* «Antes» / «Después»: etiqueta en blanco abajo a la izquierda de cada foto */
+.resultados-par figcaption {
+  position: absolute;
+  left: var(--margen);
+  bottom: 16px;
+  color: var(--sobre-foto);
+  font-family: var(--fuente-titulos);
+  font-size: var(--etiqueta);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+/* Hueco del «antes» mientras no haya foto real (temporal) */
+/* Móvil: las dos fotos como el slider del manifiesto: a sangre, cada una al 86 %
+   del ancho (asoma el «después») y se desliza en horizontal */
+@media (max-width: 760px) {
+  .resultados-par {
+    grid-template-columns: repeat(2, 86vw);
+    overflow-x: auto;                    /* scroll horizontal */
+    scroll-snap-type: x mandatory;       /* cada foto encaja al soltar */
+    scrollbar-width: none;               /* sin barra de scroll visible */
+  }
+  .resultados-par::-webkit-scrollbar { display: none; }
+  .resultados-par figure:first-child { scroll-snap-align: start; }
+  .resultados-par figure:last-child { scroll-snap-align: end; }
+}
+.resultados-pendiente { height: 100%; display: grid; place-content: center; text-align: center; background: var(--linea); color: var(--tinta-suave); }
+.resultados-par figure:has(.resultados-pendiente) figcaption { color: var(--tinta); }
+
+/* Firma grande antes del pie: el tamaño se calcula para que el texto
+   llene justo el ancho entre márgenes (15,04 = ancho del texto medido en «em») */
+.firma {
+  margin: var(--aire-seccion) auto 0;
+  font-family: var(--fuente-display);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  overflow: hidden;
+  line-height: 1;
+  padding-top: 0.25em;                   /* deja sitio al acento de la É (si no, se corta) */
+  font-size: calc((min(100vw, var(--ancho-max)) - 2 * var(--margen)) / 15.04);
+  padding-bottom: 24px;
+}
+
+/* =========================================================
+   NEWSLETTER (antes de la firma)
+   Línea negra, título a la izquierda y el formulario en una fila
+   ========================================================= */
+.newsletter { margin-top: var(--aire-antes-firma); }
+.newsletter h2 {                       /* igual que los nombres de tarifa */
+  margin: 0 0 12px;
+  padding-top: 20px;
+  border-top: 1px solid var(--tinta);  /* la línea negra */
+  font-family: var(--fuente-display);
+  font-size: var(--display-pequena);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  line-height: 1.3;
+}
+.newsletter p { margin: 0 0 24px; }
+/* Campo y botón en fila; en pantallas estrechas el botón baja si no cabe */
+.newsletter-form { display: flex; flex-wrap: wrap; gap: 12px; max-width: 520px; }
+.newsletter-form input {
+  flex: 1 1 220px;
+  font: inherit;
+  color: var(--tinta);
+  background: transparent;
+  padding: 14px 22px;
+  border: 1.5px solid var(--tinta);    /* contorno como los botones secundarios */
+  border-radius: 999px;                /* pastilla */
+}
+.newsletter-form input::placeholder { color: var(--tinta-suave); }
+button.boton { border: 0; cursor: pointer; }   /* un <button> con aspecto de botón pastilla */
+.newsletter .newsletter-nota { margin: 16px 0 0; color: var(--tinta-suave); }
+/* Texto solo para lectores de pantalla: no se ve, pero se lee */
+.solo-lectores {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Botón destacado: negro con texto blanco (menú y Starter Pack) */
+.boton.contraste, .cabecera .boton.contraste { background: var(--pastilla); color: var(--pastilla-texto); }
+
+/* =========================================================
+   MANIFIESTO: «Lo que no / hacemos» | foto pequeña | párrafo
+   ========================================================= */
+.manifiesto-fila {
+  display: grid;
+  grid-template-columns: 1fr;            /* móvil: uno debajo de otro */
+  justify-items: center;
+  gap: 56px;                             /* móvil: aire alrededor de la foto */
+  text-align: center;                    /* cada texto centrado en su propio eje */
+}
+.manifiesto-titulo {
+  margin: 0;
+  font-family: var(--fuente-display);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  line-height: 1.3;
+  font-size: var(--display-pequena);     /* igual que el logo y la cita */
+}
+/* Bloque de la izquierda: título y párrafo, con aire entre ellos */
+.manifiesto-bloque { display: grid; gap: 28px; justify-items: center; }
+.manifiesto-bloque .boton { margin-top: 4px; }  /* botón «Manifiesto»: con contorno (ver .boton.contorno) */
+.manifiesto-texto { margin: 0; max-width: 34ch; }
+.manifiesto-frase { max-width: 30ch; }
+.cartel {
+  width: min(100%, 380px);               /* foto pequeña */
+  aspect-ratio: 3 / 4;                   /* algo más baja que antes (2/3): recorta un poco arriba y abajo */
+  overflow: hidden;
+}
+.cartel img { width: 100%; height: 100%; object-fit: cover; display: block; }
+/* Texto encima de la foto (móvil y ordenador). Va después de las reglas
+   generales del manifiesto para poder cambiarlas.
+   El bloque de la izquierda «desaparece» como caja (display: contents) y sus
+   piezas se colocan sueltas en la rejilla, en la misma celda que la foto */
+.manifiesto-bloque { display: contents; }
+.cartel { position: relative; }
+.manifiesto-texto,
+.manifiesto-bloque .boton { z-index: 1; color: var(--sobre-foto); }
+.manifiesto-texto { max-width: 324px; }                      /* centrado en la foto */
+.manifiesto-bloque .boton { align-self: end; margin: 0 0 32px; }   /* cerca del borde inferior */
+
+/* El velo: una capa negra encima de la foto (::after) */
+.cartel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #000;
+  opacity: var(--velo-reposo);
+  transition: opacity 0.5s ease;
+}
+
+/* Botón «Manifiesto» sobre la foto: hueco con contorno blanco; al pasar el ratón, blanco sólido */
+.manifiesto-bloque .boton.contorno { box-shadow: inset 0 0 0 1.5px var(--sobre-foto); }
+.manifiesto-bloque .boton.contorno:hover,
+.manifiesto-bloque .boton.contorno:focus-visible {
+  background: var(--sobre-foto);
+  color: var(--sobre-foto-tinta);
+  box-shadow: inset 0 0 0 1.5px var(--sobre-foto);
+}
+.manifiesto-bloque .boton:focus-visible { outline-color: var(--sobre-foto); }
+
+/* Móvil: el tríptico del ordenador como tres «páginas» que se deslizan en horizontal
+   (como las tarifas): 1) «LO QUE NO HACEMOS», 2) la foto con el párrafo y el botón
+   encima, 3) la frase. Cada página mide el 86 % de la pantalla: asoma la siguiente */
+@media (max-width: 899px) {
+  .manifiesto-fila {
+    grid-template-columns: repeat(3, min(86vw, 380px));
+    gap: 0;                              /* las tres páginas pegadas */
+    align-items: stretch;
+    overflow-x: auto;                    /* scroll horizontal */
+    scroll-snap-type: x mandatory;       /* cada página encaja al soltar */
+    margin: 0 calc(var(--margen) * -1);  /* a sangre: de borde a borde de la pantalla */
+    padding: 0;
+    scrollbar-width: none;               /* sin barra de scroll visible */
+  }
+  .manifiesto-fila::-webkit-scrollbar { display: none; }
+  /* Páginas 1 y 3: el texto centrado sobre un fondo beige muy sutil, a la altura de la foto */
+  .manifiesto-bloque .manifiesto-titulo,
+  .manifiesto-frase {
+    grid-row: 1;
+    align-self: stretch;
+    justify-self: stretch;               /* la página ocupa toda su columna */
+    display: grid;
+    place-content: center;
+    padding: 24px;
+    background: var(--papel);
+    max-width: none;
+  }
+  .manifiesto-bloque .manifiesto-titulo { grid-column: 1; }
+  .manifiesto-frase { grid-column: 3; }
+  /* Página 1: el botón «Manifiesto» abajo, con el contorno negro normal (está sobre el beige) */
+  .manifiesto-bloque .boton { grid-column: 1; grid-row: 1; justify-self: center; z-index: 1; }
+  .manifiesto-bloque .boton.contorno { color: var(--tinta); box-shadow: inset 0 0 0 1.5px var(--tinta); }
+  .manifiesto-bloque .boton.contorno:hover,
+  .manifiesto-bloque .boton.contorno:focus-visible { background: var(--pastilla); color: var(--pastilla-texto); box-shadow: inset 0 0 0 1.5px var(--pastilla); }
+  .manifiesto-bloque .boton:focus-visible { outline-color: var(--acento); }
+  /* Página 2: la foto con el párrafo encima (misma celda) */
+  .cartel, .manifiesto-texto { grid-column: 2; grid-row: 1; }
+  .cartel { width: 100%; }
+  .manifiesto-texto { align-self: end; justify-self: center; max-width: calc(68% - 24px); margin: 0 0 24px; padding: 0; text-align: center; color: var(--papel-sobre-foto); line-height: 1.3; letter-spacing: 0.01em; }   /* algo más junto en vertical y un pelín más abierto */   /* abajo y centrado en la foto, con el mismo ancho de caja */
+  .manifiesto-bloque .manifiesto-titulo, .cartel { scroll-snap-align: start; }   /* cada página encaja alineada con el margen */
+  .manifiesto-frase { scroll-snap-align: end; }
+  .cartel::after { opacity: var(--velo-movil); }
+}
+
+/* Ordenador: el título a la izquierda, a media altura de la foto;
+   el párrafo y el botón encima de la foto; la frase a la derecha */
+@media (min-width: 900px) {
+  .manifiesto-fila { grid-template-columns: minmax(0, 1fr) min(520px, 38vw) minmax(0, 1fr); align-items: center; gap: clamp(32px, 4vw, 64px); }
+  .manifiesto-titulo { grid-column: 1; grid-row: 1; }
+  .cartel            { grid-column: 2; grid-row: 1; width: 100%; }   /* la foto, más grande: llena su columna */
+  .manifiesto-frase  { grid-column: 3; grid-row: 1; }
+  .manifiesto-texto,
+  .manifiesto-bloque .boton { grid-column: 2; grid-row: 1; }
+  /* el velo se oscurece al pasar el ratón por la foto, el texto o el botón, o al llegar con el teclado */
+  .manifiesto-fila:has(.cartel:hover, .manifiesto-texto:hover, .boton:hover, .boton:focus-visible) .cartel::after {
+    opacity: var(--velo-hover);
+  }
+}
+
+
+
+/* Solo en móvil: las tres opciones en fila, una al lado de la otra.
+   Se deslizan con el dedo y cada tarjeta "encaja" al soltar (scroll-snap).
+   Cada una mide el 78 % del ancho para que asome la siguiente */
+@media (max-width: 760px) {
+  .precios {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;                    /* scroll horizontal */
+    scroll-snap-type: x mandatory;       /* encaje al soltar */
+    /* La fila llega hasta el borde de la pantalla, pero la primera
+       tarjeta sigue alineada con el resto del texto */
+    margin-left: calc(var(--margen) * -1);
+    margin-right: calc(var(--margen) * -1);
+    padding: 0 var(--margen) 16px;
+    scroll-padding-left: var(--margen);
+    scrollbar-width: none;             /* sin la barra de scroll de abajo */
+  }
+  .precios::-webkit-scrollbar { display: none; }
+  .precio {
+    flex: 0 0 78%;
+    scroll-snap-align: start;
+  }
+}
 .seccion > p.aviso-reserva {
   margin: 56px 0 0;
   color: var(--tinta-suave);
@@ -300,18 +964,154 @@ img { max-width: 100%; }
 /* =========================================================
    9. PIE
    ========================================================= */
-.pie { padding-top: 120px; padding-bottom: 48px; }
-.pie .cierre { margin: 0 0 96px; }
+/* Pie discreto: una línea fina y los datos básicos, sin más espacio en blanco */
 .pie-columnas {
+  border-top: 1px solid var(--linea);
+  padding-top: 24px;
+  padding-bottom: 96px;                  /* bastante aire hasta el copyright */
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));   /* en móvil caben dos columnas */
   gap: 32px;
-  font-size: 15px;
   color: var(--tinta-suave);
 }
 .pie-columnas p { margin: 0 0 4px; }
 .pie-columnas a { text-decoration: none; }
 .pie-columnas a:hover { text-decoration: underline; }
+/* Copyright: abajo del todo, a la izquierda, en gris */
+.pie-legal { margin: 0; padding-bottom: 16px; color: var(--tinta-suave); }
+/* Móvil: las tres columnas en fila, como en ordenador; cada dato en una sola línea */
+@media (max-width: 760px) {
+  /* letras algo menos separadas (0,05em) para que las tres columnas quepan en 360 px */
+  .pie-columnas { grid-template-columns: repeat(3, auto); justify-content: space-between; column-gap: 12px; letter-spacing: 0.05em; }
+  .pie-columnas p { white-space: nowrap; }
+}
+
+/* =========================================================
+   HOVER DE LOS BOTONES CON CONTORNO
+   Al pasar el ratón (o al llegar con el teclado) se rellenan de negro con letra blanca
+   ========================================================= */
+.hero .boton, .boton.contorno {
+  transition: transform 0.15s ease, background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+.hero .boton:hover, .hero .boton:focus-visible,
+.boton.contorno:hover, .boton.contorno:focus-visible {
+  background: var(--pastilla);
+  color: var(--pastilla-texto);
+  box-shadow: inset 0 0 0 1.5px var(--pastilla);
+}
+
+/* =========================================================
+   APARICIÓN AL HACER SCROLL
+   animaciones.js pone la clase .aparece a los bloques que están por debajo
+   de la pantalla, y .visible cuando asoman. Sin JavaScript no se esconde nada.
+   ========================================================= */
+.aparece {
+  opacity: 0;
+  transform: translateY(var(--recorrido-aparecer));
+}
+.aparece.visible {
+  opacity: 1;
+  transform: none;
+  /* El movimiento va con su curva (rápido al principio, frena al final).
+     La opacidad va aparte, más lenta y con ease-in-out (arranca y acaba suave):
+     con la curva del movimiento el texto llegaba casi al 100 % en medio segundo
+     y no se notaba el fundido */
+  transition: opacity var(--tiempo-texto) ease-in-out, transform var(--tiempo-aparecer) var(--curva-aparecer);
+}
+
+/* Las fotos: suben igual que el resto, pero la opacidad cambia mucho más despacio */
+.cartel.aparece.visible {
+  transition: opacity var(--tiempo-imagen) ease-in-out, transform var(--tiempo-aparecer) var(--curva-aparecer);
+}
+
+/* =========================================================
+   ENTRADA AL ABRIR LA PÁGINA
+   Esta va con reloj (no con scroll): la cabecera se funde y el hero
+   sube y aparece entero a la vez
+   ========================================================= */
+@media (prefers-reduced-motion: no-preference) {
+  .cabecera { animation: fundir var(--tiempo-aparecer) ease-out backwards; }
+  /* todo el hero entra a la vez y con el mismo movimiento que el resto de la página */
+  /* Ojo: .hero-titulo no se puede animar en ordenador (es display: contents),
+     y en móvil tampoco .hero-arriba: animamos lo que llevan dentro.
+     «backwards» = solo aplica el estado inicial; al terminar, el hover del botón sigue funcionando */
+  .hero-imagen, .hero-arriba > *, .hero-abajo, .hero-titulo > * {
+    /* dos animaciones a la vez, como en el resto de la página: fundido lento + subida */
+    animation: fundir var(--tiempo-texto) ease-in-out 0.15s backwards,
+               subir var(--tiempo-aparecer) var(--curva-aparecer) 0.15s backwards;
+  }
+  /* la foto del hero: dos animaciones a la vez, fundido lento + subida normal */
+  .hero-imagen {
+    animation: fundir var(--tiempo-imagen) ease-in-out 0.15s backwards,
+               subir var(--tiempo-aparecer) var(--curva-aparecer) 0.15s backwards;
+  }
+}
+@keyframes fundir { from { opacity: 0; } to { opacity: 1; } }
+@keyframes subir { from { transform: translateY(var(--recorrido-aparecer)); } to { transform: none; } }
+
+/* =========================================================
+   SCROLL POR BLOQUES (solo ordenador)
+   El navegador para el scroll al principio de cada bloque: acelera,
+   frena y se detiene en el siguiente. scroll-padding-top (en html)
+   deja el hueco de la cabecera fija. En móvil el scroll es libre.
+   ========================================================= */
+@media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
+  html { scroll-snap-type: y mandatory; }
+  .hero, .frase-banda, .seccion, .manifiesto { scroll-snap-align: start; }
+  /* La cita ocupa una pantalla entera, centrada en vertical: así llega sola,
+     con su propia transición, y la sección siguiente no entra a la vez */
+  .frase-banda {
+    min-height: calc(100svh - var(--alto-cabecera));
+    display: grid;
+    align-content: center;
+  }
+  .pie { scroll-snap-align: end; }          /* el último tope: el final de la página */
+}
+
+/* =========================================================
+   MÓVIL: AJUSTES EDITORIALES
+   Van al final para poder cambiar las reglas generales de más arriba
+   ========================================================= */
+@media (max-width: 760px) {
+  /* Hero en una columna, en este orden: título, botón, lema, foto y precios */
+  /* minmax(0, …): la columna nunca se ensancha más que la pantalla, aunque el título sea largo */
+  .hero-banda { grid-template-columns: minmax(0, 1fr); }
+  .hero .declaracion { grid-row: 1; grid-column: 1; justify-self: start; margin: 0 var(--margen); color: var(--tinta); }
+  /* Título en dos líneas: «facial» (dentro de <em>) pasa a su propia línea */
+  .hero .declaracion em { display: block; }
+  /* Botón: a la izquierda (con el título) y muy cerca de él */
+  .hero-titulo .boton { grid-row: 2; grid-column: 1; justify-self: start; align-self: auto; margin: 12px 0 0 var(--margen); }
+  /* Sin el botón negro «Reserva» de la cabecera: ya está el del hero */
+  .cabecera .boton.contraste { display: none; }
+  /* Lema: bajo el botón, alineado a la izquierda; la caja llega hasta el 80 % del ancho.
+     Por debajo, el mismo aire estrecho que hay bajo la foto */
+  .hero-lema {
+    grid-row: 3; grid-column: 1; justify-self: start; text-align: left;
+    max-width: calc(80vw - var(--margen)); margin: 56px 0 var(--aire-junto-foto) var(--margen);
+  }
+  .hero-imagen { grid-row: 4; grid-column: 1; }
+  .hero-abajo { grid-row: 5; grid-column: 1; margin-top: var(--aire-junto-foto); }   /* poco aire entre la foto y los precios */
+  .hero { padding-bottom: 80px; }       /* aire entre los precios y la cita (unos 88 px) */
+  /* Precio y duración del hero, más grandes (el tamaño máximo de --cifra) */
+  .datos dd { font-size: 32px; }
+  /* La cita a sangre (de margen a margen), alineada a la izquierda y al tamaño de los títulos de sección */
+  /* El mismo aire arriba (desde los precios) que abajo (hasta «Qué hacemos y por qué»):
+     216 px, medido. Arriba: 80 px del hero + 76 de aquí + interlineado; abajo: --aire-bloques + 56 de la sección */
+  .frase-banda { padding: 76px var(--margen) var(--aire-bloques); }
+  .frase-banda .declaracion { max-width: none; margin: 0; text-align: left; font-size: var(--titulo-seccion); }
+  /* «Antes de venir», más abajo: --aire-bloques + 56 px de la sección */
+  .manifiesto { padding-bottom: var(--aire-bloques); }
+  /* Mucho aire tras «Cómo empezar» y antes de la firma (el doble que antes) */
+  #reservar { padding-bottom: 84px; }
+  .newsletter { margin-top: 84px; }
+  .firma { margin-top: 84px; }
+  /* El mismo aire antes de Antes de venir, de Resultados y de Cómo empezar:
+     --aire-bloques al final de la sección anterior + 56 px al principio de la siguiente */
+  .fundido > .seccion { padding-bottom: var(--aire-bloques); }
+  .resultados { padding-bottom: var(--aire-bloques); }
+  /* Aire entre los botones de las tarifas y «Todas las citas…» (más los 16 px de la fila) */
+  .seccion > p.aviso-reserva { margin-top: 40px; }
+}
 
 /* Si la persona tiene desactivadas las animaciones en su sistema, las respetamos */
 @media (prefers-reduced-motion: reduce) {
