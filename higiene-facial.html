@@ -16,12 +16,9 @@
   <!-- Lo que aparece en Google bajo el título -->
   <meta name="description" content="Higiene básica sin pasos de relleno: cada paso tiene una función justificada. Facialista en Barcelona.">
 
-  <!-- Tipografías:
-       Ridley Grotesk (archivo propio, en estilos.css) para titulares y logo, en mayúsculas espaciadas,
-       y Hanken Grotesk (Google Fonts) para todo lo demás -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500&display=swap" rel="stylesheet">
+  <!-- Tipografías (archivos propios en fuentes/, declarados en estilos.css):
+       Ridley Grotesk para el logo y los titulares, en mayúsculas espaciadas,
+       y Garamond Premier Pro Display para todo lo demás -->
 
   <!-- Estilos compartidos por todas las páginas -->
   <link rel="stylesheet" href="estilos.css">
@@ -32,8 +29,9 @@
   <!-- ===================== CABECERA ===================== -->
   <header class="cabecera">
     <div class="contenedor">
-      <!-- Cuando tengas logo, cambia este texto por <img src="logo.svg" alt="Marcel Sandé"> -->
-      <a class="logo" href="#"><span class="logo-nombre">Marcel Sandé</span> <span aria-hidden="true">·</span> Facials</a>
+      <!-- Logo «CABINA» en Ridley, centrado en la barra. La B va aparte para
+           dibujarla igual de ancha arriba que abajo (ver .logo-b en estilos.css) -->
+      <a class="logo" href="#" aria-label="Cabina">Ca<span class="logo-b">b</span>ina</a>
       <nav aria-label="Principal">
         <ul class="menu" id="menu-principal">
           <!-- «Tratamientos» abre un desplegable al pasar el ratón (o al llegar con el teclado) -->
@@ -49,7 +47,7 @@
           </li>
           <li><a href="#">Manifiesto</a></li>
           <li><a href="#">Equipo</a></li>
-          <li><a href="#">Contacto</a></li>
+          <li class="menu-derecha"><a href="#">Contacto</a></li>   <!-- desde aquí, a la derecha del logo -->
           <!-- Idioma: ESP es el actual; al pasar el ratón se despliegan los otros dos.
                En el menú del móvil se ven los tres en fila, abajo del todo.
                Enlaces a # hasta que existan las versiones en inglés y catalán -->

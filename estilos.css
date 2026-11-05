@@ -4,13 +4,23 @@
    Si cambias algo aquí, cambia en toda la web.
    ========================================================= */
 
-/* Ridley Grotesk (fuente de pago, archivo propio en /fuentes).
-   La carpeta no se sube a GitHub: hay que copiarla al servidor con la web.
-   Si falta, se usa Hanken Grotesk */
+/* Fuentes de pago, archivos propios en /fuentes.
+   La carpeta no se sube a GitHub: hay que copiarla al servidor con la web
+   (y tener licencia web de las dos).
+   Ridley Grotesk: logo y titulares. Si falta, se usa Helvetica/Arial */
 @font-face {
   font-family: "Ridley Grotesk";
   src: url("fuentes/ridley-grotesk-medium.ttf") format("truetype");
   font-weight: 500;
+  font-display: swap;
+}
+/* Garamond Premier Pro Display: todo lo demás (menú, botones, texto, precios).
+   Solo tiene un grosor (normal): el navegador lo usa también donde pedimos 500.
+   Si falta, se usa EB Garamond / Georgia */
+@font-face {
+  font-family: "Garamond Premier Pro Display";
+  src: url("fuentes/garamond-premier-pro-display.otf") format("opentype");
+  font-weight: 400;
   font-display: swap;
 }
 
@@ -35,23 +45,25 @@
   --titulo-seccion: clamp(20px, 2vw, 28px);   /* títulos de sección (y la cita en móvil) */
   --acento: #111315;          /* negro: lo que se puede pulsar y algún detalle */
   --acento-texto: #ffffff;    /* texto encima del acento */
-  --cabecera: var(--fondo);   /* barra superior: el mismo color de fondo */
+  --beige: #f5f1ee;           /* beige cálido muy claro: barra superior y primer bloque (hero) */
+  --cabecera: var(--beige);   /* barra superior: beige, igual que el hero (sin línea entre los dos) */
+  --logo: clamp(18px, 1.5vw, 22px);   /* «CABINA» en el centro de la barra */
   --pastilla: #111315;        /* botones destacados: negros */
   --pastilla-texto: #ffffff;  /* texto sobre el negro */
   --hero-tinta: #111315;      /* texto del hero: el mismo casi negro del resto */
 
-  --fuente: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif; /* texto corrido: la misma que las etiquetas */
-  --fuente-titulos: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif; /* titulares, menú, botones y etiquetas */
+  --fuente: "Garamond Premier Pro Display", "EB Garamond", Garamond, Georgia, serif; /* texto corrido: la misma que las etiquetas */
+  --fuente-titulos: "Garamond Premier Pro Display", "EB Garamond", Garamond, Georgia, serif; /* menú, botones y etiquetas */
   /* JERARQUÍA TIPOGRÁFICA: solo estos tamaños en toda la web
-     Hanken Grotesk:
+     Garamond Premier Pro Display:
        --texto     todo el texto en minúsculas (párrafos, lema, desplegables, duraciones, notas)
        --etiqueta  todo lo que va en mayúsculas pequeñas (menú, botones, desplegables, tarifas, pie)
        --cifra     precios (hero y tarifas)
      Ridley Grotesk (siempre en mayúsculas):
        --display-pequena  logo, cita, «Lo que no hacemos» y su frase
        títulos de sección, título del hero y firma: en sus reglas */
-  --texto: 14px;              /* interlineado 1,4 y letras -0,01em (en body) */
-  --etiqueta: 12px;           /* letras separadas 0,1em */
+  --texto: 16px;              /* interlineado 1,4 y letras -0,01em (en body). 16 px: Garamond se ve más pequeña que Hanken */
+  --etiqueta: 13px;           /* letras separadas 0,1em */
   --cifra: clamp(24px, 2.4vw, 32px);
   --display-pequena: clamp(14px, 1.15vw, 16px);   /* letras 0,1em, interlineado 1,3 */
   --sobre-foto: #ffffff;      /* texto y botón encima de la foto del manifiesto (igual en modo oscuro) */
@@ -66,7 +78,7 @@
   --aire-antes-firma: clamp(48px, 12vw, 216px);  /* ordenador: aire entre «Cómo empezar» y la firma grande */
   --aire-junto-foto: 24px;    /* móvil: espacio encima y debajo de la foto del hero (igual en los dos lados) */
   --velo-movil: 0.1;          /* en móvil no hay hover: velo fijo para poder leer el texto blanco */
-  --fuente-display: "Ridley Grotesk", "Hanken Grotesk", Arial, sans-serif; /* titulares: mayúsculas espaciadas */
+  --fuente-display: "Ridley Grotesk", "Helvetica Neue", Arial, sans-serif; /* titulares: mayúsculas espaciadas */
   --ancho-max: 1600px;        /* ancho máximo del contenido (más ancho: todo más cerca de los bordes) */
   --alto-cabecera: 72px;      /* alto de la franja superior fija en ordenador (48 px en móvil) */
   --alinear-reserva: 0.14;    /* móvil: baja el botón «Reserva» hasta el alto de las mayúsculas del título (en em) */
@@ -92,7 +104,8 @@
     --papel: #1b1d1f;
     --acento: #eef0f2;
     --acento-texto: #111315;
-    --cabecera: var(--fondo);
+    --beige: #1d1b19;
+    --cabecera: var(--beige);
     --pastilla: #eef0f2;
     --pastilla-texto: #111315;
     --hero-tinta: #eef0f2;
@@ -108,7 +121,8 @@
   --papel: #1b1d1f;
   --acento: #eef0f2;
   --acento-texto: #111315;
-  --cabecera: var(--fondo);
+  --beige: #1d1b19;
+  --cabecera: var(--beige);
   --pastilla: #eef0f2;
   --pastilla-texto: #111315;
   --hero-tinta: #eef0f2;
@@ -207,42 +221,55 @@ img { max-width: 100%; }
   background: var(--cabecera);
   z-index: 5;
 }
-/* Ordenador: línea negra finísima (medio píxel en pantallas retina) en el borde
-   inferior de la barra. Va dentro de la cabecera, así que se esconde con ella al bajar */
-@media (min-width: 981px) {
-  .cabecera::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 1px;
-    background: var(--tinta);
-    transform: scaleY(0.5);              /* la mitad de fina */
-    transform-origin: bottom;
-  }
-}
 .cabecera .contenedor {
+  position: relative;            /* el logo se coloca en el centro exacto de esta caja */
   display: flex;                 /* pone los elementos en fila */
   align-items: center;
   justify-content: space-between;
   gap: 24px;
   height: var(--alto-cabecera);
 }
-/* Logo: «Marcel Sandé Facials» en Ridley, mayúsculas espaciadas */
+/* Logo: «CABINA» en Ridley, en el centro de la barra, mayúsculas muy espaciadas */
 .logo {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);     /* centrado exacto, en ordenador y en móvil */
   font-family: var(--fuente-display);
-  font-size: var(--display-pequena);
+  font-size: var(--logo);
   font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.08em;               /* un pelín menos que el resto de Ridley pequeña */
-  line-height: 1.3;
+  letter-spacing: 0.22em;
+  margin-right: -0.22em;                /* el espaciado deja aire tras la última A: lo quitamos para centrarlo de verdad */
+  line-height: 1;                       /* la «B» de abajo se mide en em desde arriba de la línea */
   text-decoration: none;
   white-space: nowrap;
+  /* Ridley solo tiene un grosor: un contorno finísimo del color del texto la engorda un poco */
+  -webkit-text-stroke: 0.6px currentColor;
 }
-/* Ridley solo tiene un grosor: un contorno finísimo del color del texto
-   hace «Marcel Sandé» un poco más negrita que «Facials» */
-.logo-nombre { -webkit-text-stroke: 0.4px currentColor; }
+/* La «B» de Ridley tiene la panza de arriba más estrecha que la de abajo.
+   Escondemos la letra real y la dibujamos dos veces con ::before y ::after:
+   - ::before: la mitad de abajo, tal cual.
+   - ::after: la misma mitad de abajo, volteada en vertical, que hace de mitad de arriba.
+   El corte va a 0,465em: el centro exacto de la altura de la B (de 0,115 a 0,815em),
+   que cae en medio del trazo horizontal, así que la unión no se ve */
+.logo-b { display: inline-block; position: relative; color: transparent;   /* inline-block: su caja mide justo 1em, como la línea */
+          -webkit-text-stroke-color: transparent; }
+.logo-b::before,
+.logo-b::after {
+  content: "B";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--tinta);
+  -webkit-text-stroke-color: var(--tinta);
+  clip-path: inset(0.465em 0 0 0);      /* solo la mitad de abajo */
+}
+.logo-b::after {
+  clip-path: inset(0.455em 0 0 0);      /* un pelín más: las dos mitades se solapan dentro del trazo central */
+  transform: scaleY(-1);                /* volteada: pasa a ser la mitad de arriba */
+  transform-origin: 50% 0.465em;
+}
 .menu {
   display: flex;
   align-items: center;
@@ -252,8 +279,12 @@ img { max-width: 100%; }
   padding: 0;
 }
 .menu a { text-decoration: none; }
-/* El menú y el botón «Reserva» van en fila dentro del <nav> */
-.cabecera nav { display: flex; align-items: center; gap: 40px; }
+/* El menú y el botón «Reserva» van en fila dentro del <nav>, que ocupa toda la barra.
+   A la izquierda: Tratamientos, Manifiesto y Equipo. En el centro, el logo.
+   A la derecha: Contacto, idioma y «Reserva» (empujados por .menu-derecha) */
+.cabecera nav { flex: 1; display: flex; align-items: center; gap: 40px; }
+.cabecera nav .menu { flex: 1; }
+.menu-derecha { margin-left: auto; }
 /* Botón de las tres rayas: escondido en ordenador */
 .menu-boton { display: none; }
 .menu a:hover { text-decoration: underline; text-underline-offset: 4px; }
@@ -270,8 +301,8 @@ img { max-width: 100%; }
   padding: 18px 0 0;               /* el aire de arriba hace de «puente» para no perder el hover;
                                       abajo nada: termina justo donde acaba la última opción */
   list-style: none;
-  background: var(--fondo);
-  z-index: 1;                      /* por encima de la línea de la barra */
+  background: var(--cabecera);     /* el mismo beige de la barra */
+  z-index: 1;
   /* Oculto: transparente y un poco más arriba; así puede bajar con animación */
   opacity: 0;
   visibility: hidden;
@@ -351,7 +382,9 @@ img { max-width: 100%; }
     width: 36px;
     height: 36px;
     padding: 0 7px;
-    margin-right: -7px;            /* las rayas quedan alineadas con el margen */
+    order: -1;                     /* las tres rayas, a la izquierda del todo */
+    margin-left: -7px;             /* las rayas quedan alineadas con el margen */
+    margin-right: auto;            /* y empujan «Reserva» a la derecha */
     background: none;
     border: 0;
     color: var(--tinta);
@@ -374,10 +407,11 @@ img { max-width: 100%; }
     align-items: stretch;
     gap: 0;
     padding: 8px var(--margen) 32px;
-    background: var(--fondo);
+    background: var(--cabecera);
     border-bottom: 1px solid var(--linea);
   }
   .menu.abierto { display: flex; }
+  .menu-derecha { margin-left: 0; }   /* en el panel, todo en una columna */
   .menu > li > a { display: block; padding: 16px 0; }
   /* Las opciones de Tratamientos, siempre visibles y un poco metidas hacia dentro */
   .submenu { position: static; opacity: 1; visibility: visible; transform: none; min-width: 0; padding: 0 0 8px 16px; background: none; }
@@ -413,21 +447,19 @@ img { max-width: 100%; }
   .cabecera .contenedor { gap: 8px; }
   .cabecera .boton { padding: 10px 12px; }
   .cabecera nav { gap: 6px; }
-  .menu-boton { width: 30px; padding: 0 6px; margin-right: -6px; }
-  .logo { font-size: 13px; }       /* 1 px menos: logo, «Reserva» y las rayas caben en 360 px */
+  .menu-boton { width: 30px; padding: 0 6px; margin-left: -6px; }
 }
 
 /* =========================================================
    5. CABECERA DEL TRATAMIENTO (hero)
    ========================================================= */
-.hero { padding-bottom: 48px; }
+.hero { padding-bottom: 48px; background: var(--beige); }   /* primer bloque: beige, como la barra */
 /* El hero ocupa como mínimo toda la pantalla (en todos los tamaños): así la cita
    queda por debajo al abrir la página y aparece con la animación al hacer scroll */
 .hero { min-height: calc(100svh - var(--alto-cabecera)); }
 
 /* Díptico a todo el ancho: foto a sangre en la mitad izquierda | texto a la derecha */
 .hero-banda {
-  background: var(--crema);
   display: grid;
   /* Dos mitades iguales: foto pequeña a la izquierda, texto a la derecha */
   grid-template-columns: 1fr 1fr;
@@ -814,7 +846,9 @@ img { max-width: 100%; }
 .respuesta ul { margin: 0; padding-left: 1.1em; }
 .respuesta li { margin-bottom: 8px; }
 .respuesta .nota-paso { color: var(--tinta-suave); }   /* nota aparte: en gris, con asterisco (como en las tarifas) */
-.respuesta strong { font-weight: 500; }                 /* «Clientes nuevos:», «Clientes recurrentes:» */
+/* «Clientes nuevos:», «Primera visita…»: Garamond no tiene negrita, así que
+   la imitamos con un contorno finísimo (el navegador la «inventaría» peor) */
+strong { font-weight: inherit; -webkit-text-stroke: 0.3px currentColor; }
 .respuesta a { text-underline-offset: 0.2em; }          /* «Ver tratamientos»: subrayado, algo separado de la letra */
 
 /* =========================================================
