@@ -331,7 +331,7 @@ html[data-barra="vino"] .cabecera { --tinta: var(--vino-texto); --tinta-suave: c
   white-space: nowrap;
 }
 /* Descripción: Grotesque al tamaño del texto, justo debajo, en una caja ancha */
-.hero-lema { max-width: 50ch; margin: var(--espacio-xs) auto 0; line-height: 1.3; }   /* pegada al título */
+.hero-lema { max-width: 50ch; margin: 12px auto 0; line-height: 1.3; }   /* 12 px bajo el título: entre --espacio-xs (8) y --espacio-s (16) */
 /* Ordenador: las líneas las marcan los <br class="salto"> del HTML, sin caja que las corte */
 @media (min-width: 761px) { .hero-lema { max-width: none; text-wrap: nowrap; } }
 @media (max-width: 760px) { .hero-lema .salto { display: none; } }
