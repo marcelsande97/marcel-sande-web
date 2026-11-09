@@ -49,8 +49,8 @@
   --linea: #2a2c2f;           /* separadores: gris muy oscuro */
   --papel: #141414;           /* negro un pelín más claro (páginas del manifiesto en móvil) */
   --papel-sobre-foto: #f4f2ee;/* el mismo beige para el texto encima de la foto (igual en modo oscuro) */
-  --titulo-seccion: clamp(22px, 2vw, 28px);   /* TODOS los títulos en Jubilee: 28 px en pantallas grandes (≥ 1400 px),
-                                                 baja hasta 22 px en móvil. Casi el doble que el texto (15) */
+  --titulo-seccion: clamp(20px, 1.8vw, 25px);  /* TODOS los títulos en Jubilee: 25 px en pantallas grandes (≥ 1390 px),
+                                                 baja hasta 20 px en móvil. Casi el doble que el texto (14) */
   --acento: #ffffff;          /* blanco: lo que se puede pulsar y algún detalle */
   --acento-texto: #000000;    /* texto encima del acento */
   --cabecera: var(--fondo);   /* barra superior: toma el color del bloque que tiene debajo (ver «data-barra» más abajo) */
@@ -77,10 +77,10 @@
   --espacio-m: 24px;
   --espacio-l: 40px;
   --espacio-xl: 56px;
-  --texto: 15px;              /* todo el texto en Grotesque. Interlineado 1,4 y letras -0,01em (en body) */
-  --etiqueta: 12px;           /* letras separadas 0,1em */
-  --cifra: clamp(24px, 2.4vw, 32px);
-  --display-pequena: clamp(14px, 1.15vw, 16px);   /* letras 0,1em, interlineado 1,3 */
+  --texto: 14px;              /* todo el texto en Grotesque. Interlineado 1,4 y letras -0,01em (en body) */
+  --etiqueta: 11px;           /* letras separadas 0,1em */
+  --cifra: clamp(22px, 2.2vw, 28px);
+  --display-pequena: clamp(13px, 1.05vw, 15px);   /* letras 0,1em, interlineado 1,3 */
   --sobre-foto: #ffffff;      /* texto y botón encima de la foto del manifiesto (igual en modo oscuro) */
   --sobre-foto-tinta: #111315;/* letra del botón cuando se rellena de blanco */
   --velo-reposo: 0;           /* oscurecido de la foto del manifiesto sin pasar el ratón (0 = nada) */
@@ -220,9 +220,9 @@ img { max-width: 100%; }
   align-items: center;
   height: var(--alto-cabecera);
 }
-/* Ordenador: «Menú» y «Reserva» bastante metidos hacia dentro (un 11 % del ancho), como en la referencia */
+/* Ordenador: «Menú» y «Reserva» algo metidos hacia dentro (un 6 % del ancho) */
 @media (min-width: 761px) {
-  .cabecera .contenedor { padding-left: 11vw; padding-right: 11vw; max-width: none; }
+  .cabecera .contenedor { padding-left: 6vw; padding-right: 6vw; max-width: none; }
 }
 /* Logo: «CABINA» en Jubilee, al tamaño de los títulos */
 .logo {
