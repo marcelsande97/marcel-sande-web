@@ -7,16 +7,22 @@
 /* Fuentes de pago, archivos propios en /fuentes.
    La carpeta no se sube a GitHub: hay que copiarla al servidor con la web
    (y tener licencia web de las dos).
-   Ridley Grotesk: logo «CABINA» y titulares grandes (hero, secciones, firma).
-   Si falta, se usa Helvetica/Arial */
+   Ridley Grotesk: solo el logo «CABINA». Si falta, se usa Helvetica/Arial */
 @font-face {
   font-family: "Ridley Grotesk";
   src: url("fuentes/ridley-grotesk-medium.ttf") format("truetype");
   font-weight: 500;
   font-display: swap;
 }
-/* Grotesque MT Std (versión normal, la fina): todo el texto que no es un titular en Ridley
-   (párrafos, menú, botones, etiquetas, precios, titulares pequeños).
+/* OT Jubilee Ruby Medium: todos los títulos y botones, siempre en MAYÚSCULAS
+   (hero, secciones, manifiesto, tarifas, desplegables, menú, botones, newsletter y firma) */
+@font-face {
+  font-family: "OT Jubilee Ruby";
+  src: url("fuentes/ot-jubilee-ruby-medium.otf") format("opentype");
+  font-weight: 500;
+  font-display: swap;
+}
+/* Grotesque MT Std (versión normal, la fina): el texto (párrafos, notas, precios, pie).
    Solo cargamos este grosor: donde se pide 500, el navegador usa este mismo */
 @font-face {
   font-family: "Grotesque MT";
@@ -85,8 +91,8 @@
   --aire-antes-firma: clamp(48px, 12vw, 216px);  /* ordenador: aire entre «Cómo empezar» y la firma grande */
   --aire-junto-foto: 24px;    /* móvil: espacio encima y debajo de la foto del hero (igual en los dos lados) */
   --velo-movil: 0.1;          /* en móvil no hay hover: velo fijo para poder leer el texto blanco */
-  --fuente-display: var(--fuente);   /* titulares pequeños (manifiesto, tarifas, newsletter…): también Grotesque */
-  --fuente-ridley: "Ridley Grotesk", "Helvetica Neue", Arial, sans-serif;   /* logo y titulares grandes (hero, secciones, firma) */
+  --fuente-display: "OT Jubilee Ruby", "Helvetica Neue", Arial, sans-serif;   /* títulos y botones, en mayúsculas */
+  --fuente-ridley: "Ridley Grotesk", "Helvetica Neue", Arial, sans-serif;   /* solo el logo */
   --ancho-max: 1600px;        /* ancho máximo del contenido (más ancho: todo más cerca de los bordes) */
   --alto-cabecera: 72px;      /* alto de la franja superior fija en ordenador (48 px en móvil) */
   --reserva-opacidad-foto: 45%; /* móvil: cuánto negro conserva el botón anclado al pasar sobre una foto */
@@ -182,12 +188,16 @@ img { max-width: 100%; }
   outline-offset: 3px;
 }
 
-/* JERARQUÍA DE TEXTO (Grotesque; los titulares grandes van en Ridley):
-   1. Frases en mayúsculas (--display-pequena): manifiesto, seguimiento, tarifas, newsletter
-   2. Cifras (--cifra): precios y duraciones
-   3. Texto (--texto, minúsculas): párrafos, descripción, etiquetas de datos, notas y botones
-   4. Etiquetas (--etiqueta, MAYÚSCULAS espaciadas): menú de la cabecera, títulos de
-      desplegables, números de los pasos, «Antes/Después» y pie */
+/* JERARQUÍA DE TEXTO
+   Jubilee, siempre en MAYÚSCULAS espaciadas (títulos y botones):
+     a. Títulos (--titulo-seccion): título del hero y títulos de sección
+     b. Frases (--display-pequena): manifiesto, seguimiento, nombres de tarifa, newsletter
+     c. Etiquetas (--etiqueta): menú de la cabecera, botones y títulos de desplegables
+     (y la firma gigante del pie)
+   Grotesque:
+     1. Cifras (--cifra): precios
+     2. Texto (--texto, minúsculas): párrafos, descripción y notas
+     3. Etiquetas (--etiqueta, mayúsculas): números de los pasos, «Antes/Después» y pie */
 .menu a, .pie-columnas, .acordeon summary, .resultados-par figcaption {
   font-size: var(--etiqueta);
   font-family: var(--fuente-titulos);
@@ -195,24 +205,25 @@ img { max-width: 100%; }
   text-transform: uppercase;
   letter-spacing: 0.1em;
 }
+/* Los que son títulos (menú y desplegables), en Jubilee */
+.menu a, .acordeon summary { font-family: var(--fuente-display); }
 
 /* =========================================================
    3. BOTÓN
    Una sola clase para todos los botones de reserva.
    ========================================================= */
-/* Todos los botones iguales: texto en minúsculas (con la primera en mayúscula, como
-   se escribe en el HTML), al tamaño del texto. Un solo tamaño de pastilla en ordenador;
-   en móvil, los del hero y el pie van más pequeños */
+/* Todos los botones iguales: Jubilee en mayúsculas pequeñas espaciadas.
+   Un solo tamaño de pastilla en ordenador; en móvil, los del hero y el pie van más pequeños */
 .boton {
   display: inline-block;
   background: var(--acento);
   color: var(--acento-texto);
   text-decoration: none;
-  font-family: var(--fuente-titulos);
-  font-size: var(--texto);
-  font-weight: 400;
-  letter-spacing: 0.01em;
-  text-transform: none;                 /* aunque esté dentro de algo en mayúsculas (el pie) */
+  font-family: var(--fuente-display);
+  font-size: var(--etiqueta);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   line-height: 1.2;
   padding: 12px 24px;
   border-radius: 999px;      /* 999px = pastilla redonda */
@@ -488,8 +499,6 @@ html[data-barra="vino"] .cabecera { color: var(--tinta); }   /* el menú y el lo
 .hero-lema { max-width: 34ch; margin: var(--espacio-m) 0 0; }
 /* Botón «Reserva» debajo de la descripción (mismo tamaño que el de la barra) */
 .hero-texto .boton { margin-top: var(--espacio-l); }
-/* Duraciones debajo del botón */
-.hero .datos { margin-top: var(--espacio-xl); gap: var(--espacio-m); justify-items: center; }
 /* Foto: en móvil, de borde a borde con su proporción */
 .hero-imagen { margin: 0; }
 .hero-imagen img { display: block; width: 100%; height: auto; }
@@ -517,7 +526,7 @@ html[data-barra="vino"] .cabecera { color: var(--tinta); }   /* el menú y el lo
   font-family: var(--fuente-display);
 }
 /* Los titulares grandes, en Ridley: título del hero y títulos de sección */
-.hero .declaracion, .seccion h2 { font-family: var(--fuente-ridley); }
+.hero .declaracion, .seccion h2 { font-family: var(--fuente-display); }
 .declaracion, .seccion h2 {
   font-weight: 500;
   text-transform: uppercase;
@@ -551,29 +560,6 @@ html[data-barra="vino"] .cabecera { color: var(--tinta); }   /* el menú y el lo
   max-width: 19ch;                       /* ch = ancho de un carácter: caja estrecha */
   margin: 0 0 32px;
   text-wrap: balance;
-}
-
-/* Datos rápidos: precio y duración */
-/* Datos de la visita: uno encima del otro, al pie de la columna del texto */
-.datos {
-  display: grid;
-  gap: 20px;
-  margin: 0;
-}
-.datos div { margin: 0; }
-/* Etiquetas de los datos: gris, tal cual se escriben (mayúscula inicial en cada palabra) */
-.datos dt { color: var(--tinta-suave); font-size: var(--texto); text-transform: none; letter-spacing: -0.01em; font-weight: 400; }
-/* En el hero, las etiquetas («Primera Visita»…) van en negro, no en gris */
-.hero .datos dt { color: var(--tinta); }
-/* El dato en sí, más grande y en Ridley; la etiqueta de encima sigue pequeña */
-/* Las cifras: en Grotesque (la letra del texto), sin mayúsculas forzadas */
-.datos dd {
-  margin: 6px 0 0;
-  font-family: var(--fuente);
-  font-weight: 500;
-  font-size: var(--cifra);               /* el mismo tamaño que los precios de las tarifas */
-  letter-spacing: -0.02em;
-  line-height: 1.1;
 }
 
 /* =========================================================
@@ -777,13 +763,13 @@ strong { font-weight: 500; }                 /* «Clientes nuevos:», «Primera 
 
 /* Firma grande antes del pie: «CABINA» pegada al margen izquierdo y «FACIALS» al derecho,
    con un gran hueco en medio. --firma-ancho es el ancho total en «em» que queremos ocupar:
-   las dos palabras miden 9,21em en Ridley (4,40 + 4,81, medido); con 11,5 el hueco es un 20 % del ancho */
+   las dos palabras miden 7,34em en Jubilee (3,59 + 3,74, medido); con 9,2 el hueco es un 20 % del ancho */
 .firma {
-  --firma-ancho: 11.5;
+  --firma-ancho: 9.2;
   display: flex;
   justify-content: space-between;
   margin: var(--aire-seccion) auto 0;
-  font-family: var(--fuente-ridley);
+  font-family: var(--fuente-display);
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -1030,7 +1016,7 @@ button.boton { border: 0; cursor: pointer; }   /* un <button> con aspecto de bot
    la firma escala con el ancho, así que el % vale para cualquier pantalla).
    Las dos primeras columnas se reparten lo de antes de la F; las otras dos, lo de después */
 .pie-columnas {
-  --pie-f: calc(100% - 100% * 4.805 / 11.5);   /* donde empieza «FACIALS»: mide 4,805em de los 11,5 */
+  --pie-f: calc(100% - 100% * 3.742 / 9.2);   /* donde empieza «FACIALS»: mide 3,742em de los 9,2 */
   padding-bottom: 96px;                  /* bastante aire hasta el copyright */
   display: grid;
   grid-template-columns: calc(var(--pie-f) / 2) calc(var(--pie-f) / 2) 1fr 1fr;
@@ -1166,10 +1152,6 @@ button.boton { border: 0; cursor: pointer; }   /* un <button> con aspecto de bot
   :root { --alto-cabecera: 48px; }
   /* Sin el botón negro «Reserva» de la cabecera: ya está el del hero */
   .cabecera .boton.contraste { display: none; }
-  /* Duraciones: pequeñas y juntas */
-  .datos { gap: 8px; }
-  .datos dd { margin-top: 2px; font-size: var(--cifra); letter-spacing: -0.02em; line-height: 1.1; }   /* precio y minutos: igual que las cifras de «Cómo empezar» */
-  .hero .datos { gap: var(--espacio-s); }
   /* La cita a sangre (de margen a margen), alineada a la izquierda y al tamaño de los títulos de sección.
      Arriba, pegada a la foto (--aire-junto-foto); abajo, --aire-bloques + 56 de la sección siguiente */
   .frase-banda { padding: var(--aire-junto-foto) var(--margen) var(--aire-bloques); }
