@@ -15,12 +15,13 @@
   font-weight: 500;
   font-display: swap;
 }
-/* OT Jubilee Ruby Medium: titulares pequeños (manifiesto, frase del seguimiento,
-   tarifas y newsletter). Si falta, se usa Helvetica/Arial */
+/* Grotesque MT Std (versión normal, la fina): todo el texto que no es un titular en Ridley
+   (párrafos, menú, botones, etiquetas, precios, titulares pequeños).
+   Solo cargamos este grosor: donde se pide 500, el navegador usa este mismo */
 @font-face {
-  font-family: "OT Jubilee Ruby";
-  src: url("fuentes/ot-jubilee-ruby-medium.otf") format("opentype");
-  font-weight: 500;
+  font-family: "Grotesque MT";
+  src: url("fuentes/grotesque-mt-std.otf") format("opentype");
+  font-weight: 400;
   font-display: swap;
 }
 
@@ -42,7 +43,7 @@
   --linea: #dfe2e5;           /* separadores */
   --papel: #f4f2ee;           /* beige grisáceo muy sutil (páginas del manifiesto en móvil) */
   --papel-sobre-foto: #f4f2ee;/* el mismo beige para el texto encima de la foto (igual en modo oscuro) */
-  --titulo-seccion: clamp(20px, 2vw, 28px);   /* títulos de sección (y la cita en móvil) */
+  --titulo-seccion: clamp(18px, 1.7vw, 24px);   /* títulos de sección (y la cita en móvil) */
   --acento: #111315;          /* negro: lo que se puede pulsar y algún detalle */
   --acento-texto: #ffffff;    /* texto encima del acento */
   --beige: #f5f1ee;           /* beige cálido muy claro: barra superior y primer bloque (hero) */
@@ -54,10 +55,10 @@
   --pastilla-texto: #ffffff;  /* texto sobre el negro */
   --hero-tinta: #111315;      /* texto del hero: el mismo casi negro del resto */
 
-  --fuente: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif; /* texto corrido: la misma que las etiquetas */
-  --fuente-titulos: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif; /* menú, botones y etiquetas */
+  --fuente: "Grotesque MT", "Helvetica Neue", Arial, sans-serif; /* texto corrido: la misma que las etiquetas */
+  --fuente-titulos: "Grotesque MT", "Helvetica Neue", Arial, sans-serif; /* menú, botones y etiquetas */
   /* JERARQUÍA TIPOGRÁFICA: solo estos tamaños en toda la web
-     Hanken Grotesk:
+     Grotesque MT:
        --texto     todo el texto en minúsculas (párrafos, lema, desplegables, duraciones, notas)
        --etiqueta  todo lo que va en mayúsculas pequeñas (menú, botones, desplegables, tarifas, pie)
        --cifra     precios (hero y tarifas)
@@ -78,7 +79,7 @@
   --aire-antes-firma: clamp(48px, 12vw, 216px);  /* ordenador: aire entre «Cómo empezar» y la firma grande */
   --aire-junto-foto: 24px;    /* móvil: espacio encima y debajo de la foto del hero (igual en los dos lados) */
   --velo-movil: 0.1;          /* en móvil no hay hover: velo fijo para poder leer el texto blanco */
-  --fuente-display: "OT Jubilee Ruby", "Helvetica Neue", Arial, sans-serif; /* titulares: mayúsculas espaciadas */
+  --fuente-display: var(--fuente);   /* titulares pequeños (manifiesto, tarifas, newsletter…): también Grotesque */
   --fuente-ridley: "Ridley Grotesk", "Helvetica Neue", Arial, sans-serif;   /* logo y titulares grandes (hero, secciones, firma) */
   --ancho-max: 1600px;        /* ancho máximo del contenido (más ancho: todo más cerca de los bordes) */
   --alto-cabecera: 72px;      /* alto de la franja superior fija en ordenador (48 px en móvil) */
@@ -252,8 +253,6 @@ img { max-width: 100%; }
   padding: 0;
 }
 .menu a { text-decoration: none; }
-/* PRUEBA: las opciones del menú (no el logo ni «Reserva») en OT Jubilee. Para volver a Hanken, borra esta línea */
-.menu a { font-family: var(--fuente-display); }
 /* El menú y el botón «Reserva» van en fila dentro del <nav>, que ocupa toda la barra.
    A la izquierda: Tratamientos, Manifiesto y Equipo. En el centro, el logo.
    A la derecha: Contacto, idioma y «Reserva» (empujados por .menu-derecha) */
@@ -553,7 +552,7 @@ html[data-barra="vino"] .cabecera { color: var(--tinta); }   /* el menú y el lo
 /* En el hero, las etiquetas («Primera Visita»…) van en negro, no en gris */
 .hero .datos dt { color: var(--tinta); }
 /* El dato en sí, más grande y en Ridley; la etiqueta de encima sigue pequeña */
-/* Las cifras: en Hanken Grotesk (la letra del texto), sin mayúsculas forzadas */
+/* Las cifras: en Grotesque (la letra del texto), sin mayúsculas forzadas */
 .datos dd {
   margin: 6px 0 0;
   font-family: var(--fuente);
@@ -983,7 +982,7 @@ button.boton { border: 0; cursor: pointer; }   /* un <button> con aspecto de bot
   .manifiesto-frase  { grid-column: 3; grid-row: 1; justify-self: center; margin-left: calc(-1 * var(--hueco)); margin-right: calc(-1 * var(--lado)); }
   /* Caja de cuatro líneas; balance reparte las líneas
      a partes iguales (sin palabras sueltas). En el HTML, «una&nbsp;rutina» y «sola&nbsp;sesión» nunca se separan */
-  .manifiesto-titulo { max-width: 24ch; text-wrap: balance; }   /* vale para las dos frases (la de la derecha también lleva esta clase) */
+  .manifiesto-titulo { max-width: 30ch; text-wrap: balance; }   /* vale para las dos frases (la de la derecha también lleva esta clase) */
   .manifiesto-bloque .boton { grid-column: 2; grid-row: 1; }
   /* el velo se oscurece al pasar el ratón por la foto, el texto o el botón, o al llegar con el teclado */
   .manifiesto-fila:has(.cartel:hover, .boton:hover, .boton:focus-visible) .cartel::after {
@@ -1193,12 +1192,8 @@ button.boton { border: 0; cursor: pointer; }   /* un <button> con aspecto de bot
   * { transition: none !important; }
 }
 
-/* Hero (va al final del archivo para ganar a las reglas de arriba):
-   - botón en OT Jubilee
-   - descripción y cifras en Ridley, en minúsculas (tal cual se escriben, sin pasar a mayúsculas);
-     la descripción con un 2 % de espaciado entre letras
-   - las etiquetas de las duraciones siguen en Hanken */
-.hero .boton { font-family: var(--fuente-display); }
-.hero .hero-lema, .hero .datos dd { font-family: var(--fuente-ridley); font-weight: 500; text-transform: none; }
-.hero .hero-lema { letter-spacing: 0.02em; max-width: 30ch; }   /* Ridley es más ancha: caja algo más estrecha */
-.hero .datos dd { letter-spacing: 0; }
+/* Menú de la cabecera y botones: en minúsculas, tal cual se escriben en el HTML
+   (con la primera letra en mayúscula). Al tamaño del texto, porque en minúsculas
+   la etiqueta de 12 px se quedaba demasiado pequeña. Va al final para ganar a la regla
+   de las etiquetas (mayúsculas espaciadas) */
+.boton, .menu a { text-transform: none; letter-spacing: 0.01em; font-size: var(--texto); }
