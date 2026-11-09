@@ -318,7 +318,7 @@ html[data-barra="vino"] .cabecera { --tinta: var(--vino-texto); --tinta-suave: c
   background: var(--fondo);
   color: var(--hero-tinta);
   min-height: calc(100svh - var(--alto-cabecera));
-  padding: clamp(64px, 16vh, 180px) var(--margen) var(--espacio-xl);
+  padding: clamp(40px, 10vh, 120px) var(--margen) var(--espacio-xl);   /* el texto, algo por encima del tercio de arriba */
   text-align: center;
 }
 /* Título: Jubilee, al tamaño de todos los títulos, en una línea */
@@ -332,6 +332,9 @@ html[data-barra="vino"] .cabecera { --tinta: var(--vino-texto); --tinta-suave: c
 }
 /* Descripción: Grotesque al tamaño del texto, justo debajo, en una caja ancha */
 .hero-lema { max-width: 50ch; margin: var(--espacio-s) auto 0; line-height: 1.3; }
+/* Ordenador: las líneas las marcan los <br class="salto"> del HTML, sin caja que las corte */
+@media (min-width: 761px) { .hero-lema { max-width: none; text-wrap: nowrap; } }
+@media (max-width: 760px) { .hero-lema .salto { display: none; } }
 
 /* La frase grande */
 /* Precios con la letra de titulares */
