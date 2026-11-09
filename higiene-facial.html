@@ -7,7 +7,7 @@
   2. <body>: el contenido visible, ordenado de arriba abajo.
   Los estilos (CSS) están en estilos.css, compartido por todas las páginas. Cambia cosas y recarga para ver qué pasa.
 -->
-<html lang="es">
+<html lang="es" data-barra="beige">   <!-- data-barra: color de la barra, lo cambia el script según el bloque -->
 <head>
   <meta charset="utf-8">
   <!-- Hace que la web se adapte al ancho del móvil -->
@@ -33,9 +33,8 @@
   <!-- ===================== CABECERA ===================== -->
   <header class="cabecera">
     <div class="contenedor">
-      <!-- Logo «CABINA» en Ridley, centrado en la barra. La B va aparte para
-           dibujarla igual de ancha arriba que abajo (ver .logo-b en estilos.css) -->
-      <a class="logo" href="#" aria-label="Cabina">Ca<span class="logo-b">b</span>ina</a>
+      <!-- Logo «CABINA» en Ridley, centrado en la barra -->
+      <a class="logo" href="#">Cabina</a>
       <nav aria-label="Principal">
         <ul class="menu" id="menu-principal">
           <!-- «Tratamientos» abre un desplegable al pasar el ratón (o al llegar con el teclado) -->
@@ -80,7 +79,7 @@
   <main>
 
     <!-- ===================== HERO ===================== -->
-    <section class="hero">
+    <section class="hero" data-cabecera="beige">   <!-- data-cabecera: la barra se pone beige sobre este bloque -->
       <!-- Díptico a todo el ancho: foto a sangre a la izquierda, texto a la derecha -->
       <div class="hero-banda">
         <div class="hero-texto">
@@ -112,13 +111,9 @@
       </div>
     </section>
 
-    <!-- ===================== FRASE CENTRADA (prueba) ===================== -->
-    <!-- Cita entre comillas, centrada en la página y con el texto centrado -->
-    <section class="frase-banda" aria-label="Nuestra forma de trabajar">
-      <p class="declaracion">«Trabajamos desde el rigor científico. Detrás de cada paso hay una razón: elegimos las técnicas, la aparatología y los activos con mayor eficacia y seguridad demostradas.»</p>
-    </section>
-
     <!-- ===================== PASOS ===================== -->
+    <!-- El <div> exterior pinta el fondo vino a todo el ancho (la sección tiene ancho máximo) -->
+    <div class="bloque-vino" data-cabecera="vino">
     <section class="seccion contenedor" aria-labelledby="titulo-pasos">
       <p class="antetitulo">H.B.</p>   <!-- micro título encima del título de sección -->
       <h2 id="titulo-pasos">Paso a paso</h2>
@@ -169,6 +164,7 @@
         </details>
       </div>
     </section>
+    </div>
 
     <!-- ===================== LO QUE NO HACEMOS ===================== -->
     <!-- Manifiesto: tres columnas. A la izquierda «Lo que no hacemos» con el párrafo,
@@ -444,43 +440,39 @@
       document.addEventListener('keydown', function (e) { if (e.key === 'Escape') poner(false); });
     })();
 
-    // La cabecera sigue al scroll (móvil y ordenador): al bajar se va escondiendo hacia
-    // arriba y al subir vuelve a entrar, píxel a píxel (efecto arrastre).
-    // El botón «Reserva» anclado (.reserva-fija) nunca se esconde:
+    // La cabecera está siempre fija arriba y toma el color del bloque que tiene debajo
+    // (data-cabecera en cada bloque → data-barra en <html>; los colores, en estilos.css).
+    // El botón «Reserva» anclado (.reserva-fija):
     // - En móvil, el botón del título sube con la página y, al llegar justo debajo
     //   de la barra, se cambia por el anclado. Vuelve a su sitio al subir hasta el título.
-    // - En ordenador, el anclado ocupa desde el principio el sitio del «Reserva» de la barra,
-    //   así que cuando la barra se va, el botón se queda quieto donde estaba
+    // - En ordenador, el anclado ocupa el sitio del «Reserva» de la barra
     (function () {
       var movil = window.matchMedia('(max-width: 760px)');
       var cabecera = document.querySelector('.cabecera');
-      var menuBoton = document.querySelector('.menu-boton');
       var original = document.querySelector('.hero-titulo .boton');
       var botonCabecera = document.querySelector('.cabecera .boton.contraste');
       var fija = document.querySelector('.reserva-fija');
-      var anterior = window.scrollY;
-      var escondido = 0;            // cuántos píxeles de cabecera hay escondidos
       var pendiente = false;
-      var reloj;
 
-      function mover(px) {
-        escondido = px;
-        cabecera.style.transform = px ? 'translateY(' + -px + 'px)' : '';
+      // ¿Qué bloque empieza justo debajo de la barra? Se mira el primer píxel bajo su borde,
+      // en el lado izquierdo (los bloques de color van a todo el ancho), saltándose el botón
+      function colorBarra() {
+        var y = cabecera.getBoundingClientRect().bottom + 1;
+        var puntos = document.elementsFromPoint(2, y);
+        var color = '';
+        for (var i = 0; i < puntos.length; i++) {
+          if (puntos[i].closest('.cabecera, .reserva-fija')) continue;
+          var bloque = puntos[i].closest('[data-cabecera]');
+          color = bloque ? bloque.getAttribute('data-cabecera') : '';
+          break;
+        }
+        if (color) document.documentElement.setAttribute('data-barra', color);
+        else document.documentElement.removeAttribute('data-barra');   // bloque blanco
       }
 
       function actualizar() {
         pendiente = false;
-        var y = Math.max(0, window.scrollY);
-        var alto = cabecera.offsetHeight;
-        cabecera.classList.remove('cabecera-ajuste');
-        if (menuBoton.getAttribute('aria-expanded') === 'true') {
-          mover(0);                                             // con el menú abierto, siempre visible
-        } else {
-          // suma lo que has bajado (o resta lo que has subido), entre 0 y el alto de la barra;
-          // arriba del todo nunca se esconde más de lo que has bajado
-          mover(Math.min(Math.max(escondido + y - anterior, 0), alto, y));
-        }
-        anterior = y;
+        colorBarra();
         if (movil.matches) {
           fija.style.top = fija.style.right = '';               // en móvil lo coloca el CSS
           botonCabecera.style.visibility = '';
@@ -488,20 +480,12 @@
           anclar(original.getBoundingClientRect().top <= fija.getBoundingClientRect().top, original);
         } else {
           original.style.visibility = '';
-          // Justo encima del «Reserva» de la barra (sumando lo que la barra está escondida)
+          // Justo encima del «Reserva» de la barra
           var r = botonCabecera.getBoundingClientRect();
-          fija.style.top = (r.top + escondido) + 'px';
+          fija.style.top = r.top + 'px';
           fija.style.right = (document.documentElement.clientWidth - r.right) + 'px';
           anclar(true, botonCabecera);
         }
-        // Al soltar a medias, la cabecera termina de entrar o de salir
-        clearTimeout(reloj);
-        reloj = setTimeout(function () {
-          if (escondido > 0 && escondido < alto) {
-            cabecera.classList.add('cabecera-ajuste');
-            mover(escondido > alto / 2 ? alto : 0);
-          }
-        }, 150);
       }
 
       // Cambia entre el botón de origen y el anclado: nunca se ven los dos a la vez

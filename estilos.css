@@ -7,15 +7,16 @@
 /* Fuentes de pago, archivos propios en /fuentes.
    La carpeta no se sube a GitHub: hay que copiarla al servidor con la web
    (y tener licencia web de las dos).
-   Ridley Grotesk: solo el logo «CABINA». Si falta, se usa Helvetica/Arial */
+   Ridley Grotesk: logo «CABINA» y titulares grandes (hero, secciones, firma).
+   Si falta, se usa Helvetica/Arial */
 @font-face {
   font-family: "Ridley Grotesk";
   src: url("fuentes/ridley-grotesk-medium.ttf") format("truetype");
   font-weight: 500;
   font-display: swap;
 }
-/* OT Jubilee Ruby Medium: titulares (título del hero, títulos de sección, cita,
-   manifiesto, tarifas, newsletter y firma). Si falta, se usa Helvetica/Arial */
+/* OT Jubilee Ruby Medium: titulares pequeños (manifiesto, frase del seguimiento,
+   tarifas y newsletter). Si falta, se usa Helvetica/Arial */
 @font-face {
   font-family: "OT Jubilee Ruby";
   src: url("fuentes/ot-jubilee-ruby-medium.otf") format("opentype");
@@ -45,7 +46,9 @@
   --acento: #111315;          /* negro: lo que se puede pulsar y algún detalle */
   --acento-texto: #ffffff;    /* texto encima del acento */
   --beige: #f5f1ee;           /* beige cálido muy claro: barra superior y primer bloque (hero) */
-  --cabecera: var(--beige);   /* barra superior: beige, igual que el hero (sin línea entre los dos) */
+  --cabecera: var(--fondo);   /* barra superior: toma el color del bloque que tiene debajo (ver «data-barra» más abajo) */
+  --vino: #8b3a2f;            /* entre vino tinto y teja: fondo de «Paso a paso» (igual en modo oscuro) */
+  --vino-texto: #f5f1ee;      /* el beige de la barra, para el texto sobre el vino (contraste 7:1) */
   --logo: clamp(18px, 1.5vw, 22px);   /* «CABINA» en el centro de la barra */
   --pastilla: #111315;        /* botones destacados: negros */
   --pastilla-texto: #ffffff;  /* texto sobre el negro */
@@ -78,7 +81,7 @@
   --aire-junto-foto: 24px;    /* móvil: espacio encima y debajo de la foto del hero (igual en los dos lados) */
   --velo-movil: 0.1;          /* en móvil no hay hover: velo fijo para poder leer el texto blanco */
   --fuente-display: "OT Jubilee Ruby", "Helvetica Neue", Arial, sans-serif; /* titulares: mayúsculas espaciadas */
-  --fuente-logo: "Ridley Grotesk", "Helvetica Neue", Arial, sans-serif;     /* solo el logo (la «B» está medida en Ridley) */
+  --fuente-ridley: "Ridley Grotesk", "Helvetica Neue", Arial, sans-serif;   /* logo y titulares grandes (hero, secciones, firma) */
   --ancho-max: 1600px;        /* ancho máximo del contenido (más ancho: todo más cerca de los bordes) */
   --alto-cabecera: 72px;      /* alto de la franja superior fija en ordenador (48 px en móvil) */
   --alinear-reserva: 0.14;    /* móvil: baja el botón «Reserva» hasta el alto de las mayúsculas del título (en em) */
@@ -105,7 +108,6 @@
     --acento: #eef0f2;
     --acento-texto: #111315;
     --beige: #1d1b19;
-    --cabecera: var(--beige);
     --pastilla: #eef0f2;
     --pastilla-texto: #111315;
     --hero-tinta: #eef0f2;
@@ -122,7 +124,6 @@
   --acento: #eef0f2;
   --acento-texto: #111315;
   --beige: #1d1b19;
-  --cabecera: var(--beige);
   --pastilla: #eef0f2;
   --pastilla-texto: #111315;
   --hero-tinta: #eef0f2;
@@ -235,40 +236,15 @@ img { max-width: 100%; }
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);     /* centrado exacto, en ordenador y en móvil */
-  font-family: var(--fuente-logo);
+  font-family: var(--fuente-ridley);
   font-size: var(--logo);
   font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.22em;
-  margin-right: -0.22em;                /* el espaciado deja aire tras la última A: lo quitamos para centrarlo de verdad */
-  line-height: 1;                       /* la «B» de abajo se mide en em desde arriba de la línea */
+  letter-spacing: 0.13em;               /* espaciado 13 (13 % del tamaño de letra, como en Figma) */
+  margin-right: -0.13em;                /* el espaciado deja aire tras la última A: lo quitamos para centrarlo de verdad */
+  line-height: 1;
   text-decoration: none;
   white-space: nowrap;
-  /* Ridley solo tiene un grosor: un contorno finísimo del color del texto la engorda un poco */
-  -webkit-text-stroke: 0.6px currentColor;
-}
-/* La «B» de Ridley tiene la panza de arriba más estrecha que la de abajo.
-   Escondemos la letra real y la dibujamos dos veces con ::before y ::after:
-   - ::before: la mitad de abajo, tal cual.
-   - ::after: la misma mitad de abajo, volteada en vertical, que hace de mitad de arriba.
-   El corte va a 0,465em: el centro exacto de la altura de la B (de 0,115 a 0,815em),
-   que cae en medio del trazo horizontal, así que la unión no se ve */
-.logo-b { display: inline-block; position: relative; color: transparent;   /* inline-block: su caja mide justo 1em, como la línea */
-          -webkit-text-stroke-color: transparent; }
-.logo-b::before,
-.logo-b::after {
-  content: "B";
-  position: absolute;
-  left: 0;
-  top: 0;
-  color: var(--tinta);
-  -webkit-text-stroke-color: var(--tinta);
-  clip-path: inset(0.465em 0 0 0);      /* solo la mitad de abajo */
-}
-.logo-b::after {
-  clip-path: inset(0.455em 0 0 0);      /* un pelín más: las dos mitades se solapan dentro del trazo central */
-  transform: scaleY(-1);                /* volteada: pasa a ser la mitad de arriba */
-  transform-origin: 50% 0.465em;
 }
 .menu {
   display: flex;
@@ -360,8 +336,25 @@ img { max-width: 100%; }
   -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
 }
-/* Cuando sueltas con la cabecera a medias, termina de entrar o salir con suavidad */
-.cabecera.cabecera-ajuste { transition: transform 0.25s ease-out; }
+/* La barra cambia de color con suavidad al pasar de un bloque a otro */
+.cabecera, .cabecera .boton, .reserva-fija:not(.sobre-foto), .submenu { transition: background-color 0.4s ease, color 0.4s ease; }
+.menu > li > a, .logo { transition: color 0.4s ease; }
+
+/* COLOR DE LA BARRA SEGÚN EL BLOQUE
+   Cada bloque con color propio lleva data-cabecera="beige" o "vino" en el HTML.
+   El script del final mira qué bloque hay debajo de la barra y lo copia en
+   <html data-barra="…">. Sin atributo (bloques blancos), la barra es blanca */
+html[data-barra="beige"] { --cabecera: var(--beige); }
+html[data-barra="vino"]  { --cabecera: var(--vino); }
+/* Sobre el vino, la barra y su botón cambian de tinta: letra beige y «Reserva» beige con letra vino */
+html[data-barra="vino"] .cabecera,
+html[data-barra="vino"] .reserva-fija {
+  --tinta: var(--vino-texto);
+  --fondo: var(--vino);
+  --pastilla: var(--vino-texto);
+  --pastilla-texto: var(--vino);
+}
+html[data-barra="vino"] .cabecera { color: var(--tinta); }   /* el menú y el logo heredan esta letra */
 @media (max-width: 760px) {
   .reserva-fija {
     top: calc(env(safe-area-inset-top, 0px) + var(--alto-cabecera) + var(--hueco-reserva-fija));
@@ -669,6 +662,10 @@ img { max-width: 100%; }
    Ridley en mayúsculas con las letras espaciadas */
 .declaracion, .seccion h2 {
   font-family: var(--fuente-display);
+}
+/* Los titulares grandes, en Ridley: título del hero y títulos de sección */
+.hero .declaracion, .seccion h2 { font-family: var(--fuente-ridley); }
+.declaracion, .seccion h2 {
   font-weight: 500;
   text-transform: uppercase;
 }
@@ -736,6 +733,17 @@ img { max-width: 100%; }
   margin: 0 0 40px;
 }
 .seccion > p { max-width: 60ch; margin: 0; }
+/* «Paso a paso»: bloque a todo el ancho en color vino, con la letra en el beige de la barra.
+   Redefinimos aquí los colores: todo lo de dentro (líneas, números, +, gris) se adapta solo */
+.bloque-vino {
+  --tinta: var(--vino-texto);
+  --tinta-suave: color-mix(in srgb, var(--vino-texto) 72%, var(--vino));
+  --linea: color-mix(in srgb, var(--vino-texto) 28%, var(--vino));
+  --fondo: var(--vino);
+  --acento: var(--vino-texto);
+  background: var(--vino);
+  color: var(--tinta);
+}
 /* Micro título encima de un título de sección: como «Siguientes Visitas» (gris, tamaño del texto) */
 .antetitulo { margin: 0; line-height: 1.2; color: var(--tinta-suave); }   /* pegado al título, igual en todas las secciones */
 
@@ -931,10 +939,10 @@ strong { font-weight: 500; }                 /* «Clientes nuevos:», «Primera 
 .resultados-par figure:has(.resultados-pendiente) figcaption { color: var(--tinta); }
 
 /* Firma grande antes del pie: el tamaño se calcula para que el texto
-   llene justo el ancho entre márgenes (11,6 = ancho del texto en OT Jubilee, medido en «em») */
+   llene justo el ancho entre márgenes (15,04 = ancho del texto en Ridley, medido en «em») */
 .firma {
   margin: var(--aire-seccion) auto 0;
-  font-family: var(--fuente-display);
+  font-family: var(--fuente-ridley);
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -942,7 +950,7 @@ strong { font-weight: 500; }                 /* «Clientes nuevos:», «Primera 
   overflow: hidden;
   line-height: 1;
   padding-top: 0.25em;                   /* deja sitio al acento de la É (si no, se corta) */
-  font-size: calc((min(100vw, var(--ancho-max)) - 2 * var(--margen)) / 11.6);
+  font-size: calc((min(100vw, var(--ancho-max)) - 2 * var(--margen)) / 15.04);
   padding-bottom: 24px;
 }
 
@@ -957,7 +965,7 @@ strong { font-weight: 500; }                 /* «Clientes nuevos:», «Primera 
   /* Mismo aire por debajo que por arriba: este relleno + el margen de la firma
      igualan el relleno de «Cómo empezar» + el margen de arriba.
      Se resta el hueco que la firma deja encima para el acento de la É (0,25 em de su tamaño) */
-  --hueco-firma: calc(0.25 * (min(100vw, var(--ancho-max)) - 2 * var(--margen)) / 11.6);
+  --hueco-firma: calc(0.25 * (min(100vw, var(--ancho-max)) - 2 * var(--margen)) / 15.04);
   padding-bottom: calc(var(--aire-antes-firma) - var(--hueco-firma));
   font-family: var(--fuente-display);
   font-size: var(--display-pequena);
@@ -1182,7 +1190,7 @@ button.boton { border: 0; cursor: pointer; }   /* un <button> con aspecto de bot
    la firma escala con el ancho, así que el % vale para cualquier pantalla).
    Las dos primeras columnas se reparten lo de antes de la F; las otras dos, lo de después */
 .pie-columnas {
-  --pie-f: 67.62%;
+  --pie-f: 68.42%;
   padding-bottom: 96px;                  /* bastante aire hasta el copyright */
   display: grid;
   grid-template-columns: calc(var(--pie-f) / 2) calc(var(--pie-f) / 2) 1fr 1fr;
