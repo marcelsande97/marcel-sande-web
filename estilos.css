@@ -1381,3 +1381,5 @@ button.boton { border: 0; cursor: pointer; }   /* un <button> con aspecto de bot
    lema, «Primera Visita» / «Siguientes Visitas», las cifras y el botón «Reserva».
    Va al final del archivo para ganar a las reglas de arriba. Para volver a Hanken, borra esta regla */
 .hero .hero-lema, .hero .datos dt, .hero .datos dd, .hero .boton { font-family: var(--fuente-display); }
+/* Textos pequeños del hero en Jubilee (lema y «Primera Visita» / «Siguientes Visitas»): letras más abiertas */
+.hero .hero-lema, .hero .datos dt { letter-spacing: 0.04em; }
