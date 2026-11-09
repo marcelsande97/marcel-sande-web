@@ -7,7 +7,7 @@
   2. <body>: el contenido visible, ordenado de arriba abajo.
   Los estilos (CSS) están en estilos.css, compartido por todas las páginas. Cambia cosas y recarga para ver qué pasa.
 -->
-<html lang="es" data-barra="beige">   <!-- data-barra: color de la barra, lo cambia el script según el bloque -->
+<html lang="es">   <!-- el script le pone data-barra="vino" cuando la barra pasa por «Paso a paso» -->
 <head>
   <meta charset="utf-8">
   <!-- Hace que la web se adapte al ancho del móvil -->
@@ -75,13 +75,12 @@
   <main>
 
     <!-- ===================== HERO ===================== -->
-    <section class="hero" data-cabecera="beige">   <!-- data-cabecera: la barra se pone beige sobre este bloque -->
+    <section class="hero">
       <!-- Díptico a todo el ancho: texto a la izquierda, foto a sangre a la derecha.
            El texto va centrado en su mitad, en este orden: título, descripción y botón -->
       <div class="hero-banda">
         <div class="hero-texto">
-          <!-- «básica» va dentro de <em> para pasar a su propia línea (ver .hero .declaracion em) -->
-          <h1 class="declaracion">Higiene <em>básica</em></h1>
+          <h1 class="declaracion">Higiene básica</h1>
           <p class="hero-lema">Tratamiento diseñado para eliminar de forma eficaz y respetuosa las impurezas acumuladas en la piel, mejorando su aspecto y su salud.</p>
           <a class="boton" href="#reservar">Reserva</a>
         </div>
