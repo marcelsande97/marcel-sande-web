@@ -80,29 +80,19 @@
 
     <!-- ===================== HERO ===================== -->
     <section class="hero" data-cabecera="beige">   <!-- data-cabecera: la barra se pone beige sobre este bloque -->
-      <!-- Díptico a todo el ancho: foto a sangre a la izquierda, texto a la derecha -->
+      <!-- Díptico a todo el ancho: texto a la izquierda, foto a sangre a la derecha.
+           El texto va centrado en su mitad, en este orden: título, descripción, botón y duraciones -->
       <div class="hero-banda">
         <div class="hero-texto">
-          <div class="hero-titulo">
-            <h1 class="declaracion">higiene <em>básica</em></h1>
-            <a class="boton" href="#reservar">Reserva</a>
-          </div>
-          <!-- Pie del bloque: el lema y los datos de la visita. En ordenador grande van
-               en fila y empiezan a la misma altura; en el resto, la caja no cuenta
-               (display: contents) y cada pieza se coloca por su cuenta -->
-          <div class="hero-pie">
-            <div class="hero-margen hero-arriba">
-              <p class="hero-lema">Tratamiento diseñado para eliminar de forma eficaz y respetuosa las impurezas acumuladas en la piel, mejorando su aspecto y su salud.</p>
-            </div>
-            <!-- Los datos de la visita, uno encima del otro.
-                 <dl> es una lista de definiciones: término (dt) + valor (dd) -->
-            <div class="hero-abajo">
-              <dl class="datos">
-                <div><dt>Primera Visita — Starter Pack<br><span class="abre">(</span>incl. valoración y plan personalizado<span class="cierra">)</span></dt><dd>90 min</dd></div>
-                <div><dt>Siguientes Visitas</dt><dd>60 min</dd></div>
-              </dl>
-            </div>
-          </div>
+          <!-- «básica» va dentro de <em> para pasar a su propia línea (ver .hero .declaracion em) -->
+          <h1 class="declaracion">Higiene <em>básica</em></h1>
+          <p class="hero-lema">Tratamiento diseñado para eliminar de forma eficaz y respetuosa las impurezas acumuladas en la piel, mejorando su aspecto y su salud.</p>
+          <a class="boton" href="#reservar">Reserva</a>
+          <!-- Las duraciones. <dl> es una lista de definiciones: término (dt) + valor (dd) -->
+          <dl class="datos">
+            <div><dt>Primera Visita — Starter Pack<br><span class="abre">(</span>incl. valoración y plan personalizado<span class="cierra">)</span></dt><dd>90 min</dd></div>
+            <div><dt>Siguientes Visitas</dt><dd>60 min</dd></div>
+          </dl>
         </div>
         <div class="hero-imagen">
           <!-- alt: describe la foto para quien no la ve (lectores de pantalla, Google) -->
@@ -449,7 +439,7 @@
     (function () {
       var movil = window.matchMedia('(max-width: 760px)');
       var cabecera = document.querySelector('.cabecera');
-      var original = document.querySelector('.hero-titulo .boton');
+      var original = document.querySelector('.hero-texto .boton');
       var botonCabecera = document.querySelector('.cabecera .boton.contraste');
       var fija = document.querySelector('.reserva-fija');
       var pendiente = false;

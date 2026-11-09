@@ -73,8 +73,6 @@
   --velo-reposo: 0;           /* oscurecido de la foto del manifiesto sin pasar el ratón (0 = nada) */
   --velo-hover: 0.55;         /* oscurecido al pasar el ratón */
   --aire-bloques: 160px;      /* móvil: aire al final de los grandes bloques (+56 px de la sección siguiente = 216 px) */
-  --velo-hero-movil: 0;       /* oscurecido de la foto del hero en móvil (0 = la foto tal cual) */
-  --aire-foto-movil: 48px;    /* móvil: espacio en blanco entre la cabecera y el título del hero */
   --aire-seccion: clamp(56px, 8vw, 136px);        /* aire arriba y abajo de cada bloque (en móvil se queda en 56 px) */
   --aire-tras-manifiesto: clamp(56px, 10vw, 176px);/* ordenador: aire extra al final del manifiesto */
   --aire-antes-firma: clamp(48px, 12vw, 216px);  /* ordenador: aire entre «Cómo empezar» y la firma grande */
@@ -84,7 +82,6 @@
   --fuente-ridley: "Ridley Grotesk", "Helvetica Neue", Arial, sans-serif;   /* logo y titulares grandes (hero, secciones, firma) */
   --ancho-max: 1600px;        /* ancho máximo del contenido (más ancho: todo más cerca de los bordes) */
   --alto-cabecera: 72px;      /* alto de la franja superior fija en ordenador (48 px en móvil) */
-  --alinear-reserva: 0.14;    /* móvil: baja el botón «Reserva» hasta el alto de las mayúsculas del título (en em) */
   --reserva-opacidad-foto: 45%; /* móvil: cuánto negro conserva el botón anclado al pasar sobre una foto */
   --hueco-reserva-fija: 8px;  /* móvil: distancia entre la barra superior y el botón «Reserva» anclado */
   --margen: clamp(16px, 2.5vw, 40px); /* margen lateral que crece con la pantalla (estrecho: contenido cerca del borde) */
@@ -181,7 +178,7 @@ img { max-width: 100%; }
 /* Estilo "etiqueta": letra de titulares, pequeña, en mayúsculas y con las
    letras separadas. Lo comparten menú, botones, títulos de desplegables y
    textos pequeños. Todos al mismo tamaño: --etiqueta */
-.boton, .pastilla, .menu a, .hero-margen, .datos dt, .pie-columnas,
+.boton, .pastilla, .menu a, .datos dt, .pie-columnas,
 .acordeon summary, .precio h3 {
   font-size: var(--etiqueta);
   font-family: var(--fuente-titulos);
@@ -448,213 +445,54 @@ html[data-barra="vino"] .cabecera { color: var(--tinta); }   /* el menú y el lo
 /* =========================================================
    5. CABECERA DEL TRATAMIENTO (hero)
    ========================================================= */
-.hero { padding-bottom: 48px; background: var(--beige); }   /* primer bloque: beige, como la barra */
-/* El hero ocupa como mínimo toda la pantalla (en todos los tamaños): así la cita
-   queda por debajo al abrir la página y aparece con la animación al hacer scroll */
-.hero { min-height: calc(100svh - var(--alto-cabecera)); }
+/* Primer bloque en beige, como la barra. En ordenador mide al menos una pantalla */
+.hero { background: var(--beige); }
 
-/* Díptico a todo el ancho: foto a sangre en la mitad izquierda | texto a la derecha */
-.hero-banda {
-  display: grid;
-  /* Dos mitades iguales: foto pequeña a la izquierda, texto a la derecha */
-  grid-template-columns: 1fr 1fr;
-  /* Sin altura mínima: la altura la marca la foto, y el texto se reparte
-     entre su borde de arriba y el de abajo */
-  --aire: 48px;                          /* margen arriba y abajo, igual en foto y texto */
-}
+/* Díptico: texto | foto. En móvil, una columna (texto arriba, foto debajo) */
+.hero-banda { display: grid; grid-template-columns: minmax(0, 1fr); }
 
-/* Columna de texto. space-between reparte: fila de arriba, frase en medio, fila de abajo */
+/* Columna del texto: todo apilado y centrado (en horizontal y en vertical), en este orden:
+   título, descripción, botón y duraciones */
 .hero-texto {
   color: var(--hero-tinta);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 48px;
-  padding-top: var(--aire);
-  padding-bottom: var(--aire);
-  padding-left: 0;                       /* el texto empieza justo en la mitad de la página */
-  /* En pantallas muy anchas, alinea el borde derecho con el resto de la página */
-  padding-right: max(var(--margen), calc((100vw - var(--ancho-max)) / 2 + var(--margen)));
-}
-
-/* Columna de la foto: la foto la llena entera, hasta el borde de la pantalla.
-   position: relative + absolute en la foto = la foto ocupa el hueco
-   pero no decide la altura de la banda (la decide el texto).
-   "order: -1" la pone a la izquierda (y arriba en móvil) sin tocar el HTML */
-/* Columna de la foto: la foto es pequeña y "flota" sobre el beige,
-   alineada con el margen izquierdo de la página y centrada en vertical.
-   "order: -1" la pone a la izquierda (y arriba en móvil) sin tocar el HTML */
-.hero-imagen {
-  margin: 0;
-  order: -1;
-  display: flex;
   align-items: center;
-  justify-content: flex-start;           /* alineada a la izquierda, con el logo */
-  padding: var(--aire) 0 var(--aire) max(var(--margen), calc((100vw - var(--ancho-max)) / 2 + var(--margen)));
+  justify-content: center;
+  text-align: center;
+  padding: 56px var(--margen);
 }
-.hero-imagen img {
-  width: clamp(280px, 34vw, 520px);      /* como mucho 520 px de ancho */
-  height: auto;                          /* con su proporción: sin recortes */
-  display: block;
+/* Título: mismo tamaño y espaciado que los títulos de sección («Paso a paso»), en dos líneas */
+.hero .declaracion {
+  font-size: var(--titulo-seccion);
+  letter-spacing: 0.1em;
+  line-height: 1.2;
+  max-width: none;
+  margin: 0;
 }
+.hero .declaracion em { display: block; }   /* «básica» en su propia línea */
+/* Descripción justo debajo del título, en una caja estrecha */
+.hero-lema { max-width: 34ch; margin: 24px 0 0; }
+/* Botón «Reserva» debajo de la descripción (mismo tamaño que el de la barra) */
+.hero-texto .boton { margin-top: 32px; padding: 11px 22px; }
+/* Duraciones debajo del botón */
+.hero .datos { margin-top: 48px; justify-items: center; }
+/* Foto: en móvil, de borde a borde con su proporción */
+.hero-imagen { margin: 0; }
+.hero-imagen img { display: block; width: 100%; height: auto; }
 
-/* Caja del lema y los datos: no cuenta salvo en ordenador grande (ver más abajo) */
-.hero-pie { display: contents; }
-/* Pantallas medianas: el texto va en columna y el lema arriba del todo, como siempre */
-@media (min-width: 761px) and (max-width: 1099px) {
-  .hero-arriba { order: -1; }
-}
-
-/* Filas pequeñas de arriba y abajo del bloque */
-.hero-margen {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 4px 24px;
-}
-.hero-margen > * { margin: 0; }
-
-/* En móvil: una columna. La foto arriba, grande y centrada, con el mismo
-   margen a cada lado; el texto debajo, con su tamaño cómodo */
-@media (max-width: 760px) {
-  /* display: contents deja sueltas las piezas del texto (título, lema, botón y datos)
-     para colocarlas en la rejilla del hero: el título ENCIMA de la foto (misma celda),
-     y debajo, el lema y el botón centrados y los datos a la izquierda */
-  /* padding-top: aire en blanco bajo la cabecera, antes del hero */
-  .hero-banda { grid-template-columns: 1fr; min-height: 0; padding-top: var(--aire-foto-movil); }
-  .hero-texto, .hero-arriba, .hero-titulo { display: contents; }
-  .hero-imagen { grid-row: 1; grid-column: 1; padding: 0; justify-content: center; position: relative; }   /* foto de borde a borde */
-  .hero-imagen img { width: 100%; }
-  /* Velo suave para que el título blanco se lea sobre el fondo claro de la foto */
-  .hero-imagen::after { content: ""; position: absolute; inset: 0; background: #000; opacity: var(--velo-hero-movil); }
-  /* Título en blanco, centrado en la foto y de margen a margen (como la firma del pie):
-     mide 9,75 veces su tamaño de letra, así que el tamaño sale del ancho de pantalla */
-  .hero .declaracion {
-    grid-row: 1; grid-column: 1; align-self: center; justify-self: center; z-index: 1;
-    margin: 0; max-width: none; white-space: nowrap; color: var(--sobre-foto);
-    font-size: calc((100vw - 2 * var(--margen)) / 9.8);
-  }
-  .hero-lema { grid-row: 2; justify-self: center; text-align: center; margin: 32px var(--margen) 0; }
-  .hero-titulo .boton { grid-row: 3; justify-self: center; margin: 24px 0 0; }
-  .hero-abajo { grid-row: 4; margin: 56px var(--margen) 0; }   /* datos a la izquierda, con aire tras el botón */
-}
-
-/* De 761 px para arriba se cambian de lugar: el texto (título y botón) a la
-   izquierda, alineado con el logo, y la foto a la derecha, alineada con el
-   borde derecho de la página */
+/* Ordenador: dos mitades exactas. Texto centrado en la izquierda; la foto llena
+   la derecha hasta el borde de la pantalla y se recorta lo justo (object-fit: cover) */
 @media (min-width: 761px) {
-  /* La columna de la foto mide lo que la foto; el texto ocupa el resto.
-     Así el lema y los precios quedan cerca de la foto, lejos del título */
-  .hero-banda { grid-template-columns: 1fr auto; }
-  .hero-imagen {
-    order: 1;
-    justify-content: flex-end;
-    padding: var(--aire) max(var(--margen), calc((100vw - var(--ancho-max)) / 2 + var(--margen))) var(--aire) 0;
-  }
-  .hero-texto {
-    padding-left: max(var(--margen), calc((100vw - var(--ancho-max)) / 2 + var(--margen)));
-    padding-right: clamp(40px, 5vw, 80px);   /* aire entre el lema/precios y la foto */
-  }
-}
-
-
-/* El título de la página va pequeño, en la fila de arriba del bloque */
-/* La frase pequeña de arriba: en mayúsculas como las etiquetas,
-   en una caja estrecha para que no se estire en una sola línea */
-.hero-lema { max-width: 34ch; }
-/* Solo en ordenador grande: dos columnas dentro del texto.
-   Columna cercana a la foto: la frase pequeña arriba y «Facialismo Funcional» abajo.
-   Columna lejana: «Higiene / Facial» arriba y el botón abajo.
-   Lo de arriba se alinea con el borde superior de la foto y lo de abajo con el inferior.
-   Por debajo de 1100 px no caben dos columnas: el texto va apilado */
-@media (min-width: 1100px) {
-  .hero-texto {
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-    column-gap: clamp(32px, 4vw, 64px);
-  }
-  /* Primera columna de ancho fijo: así el título y el botón no se mueven
-     aunque la frase se desplace hacia la foto */
-  /* Columna 1 (pegada al margen izquierdo): título arriba y botón abajo.
-     Columna 2 (junto a la foto): el lema arriba y los datos abajo */
-  .hero-texto { grid-template-columns: 1fr auto; }
-  .hero-titulo { display: contents; }    /* sus hijos (título y botón) se colocan sueltos en la rejilla */
-  .hero-arriba { grid-column: 2; grid-row: 1; }
-  .hero-abajo  { grid-column: 2; grid-row: 3; align-self: end; }
-  .hero .declaracion { grid-column: 1; grid-row: 1; }
-  .hero-titulo .boton { grid-column: 1; grid-row: 3; justify-self: start; align-self: end; }
-  .hero .declaracion {
-    max-width: none;
-    white-space: nowrap;                 /* en una sola línea */
-    font-size: clamp(30px, 3.2vw, 60px); /* pequeño lo justo para caber en una línea junto al lema */
-    line-height: 0.95;                   /* líneas más juntas (solo ordenador) */
-    margin: -0.12em 0 0;                 /* sube el texto para que la letra toque el borde de la foto */
-  }
-  .hero-lema { max-width: 26ch; }
-}
-/* Prueba (ordenador grande): foto a sangre en la mitad derecha de la pantalla,
-   del centro hasta el borde y de la cabecera hasta abajo.
-   Mitad izquierda, en tres filas: hueco · título · hueco igual, así el título queda
-   a media altura de la foto. En la fila de abajo: el botón pegado bajo el título y,
-   al fondo (alineados con el borde inferior de la foto), el lema y a su derecha los datos */
-@media (min-width: 1100px) {
-  .hero { padding-bottom: 0; --foto-extra: 48px; }   /* cuánto baja la foto por debajo de la pantalla */
   .hero-banda {
-    grid-template-columns: 1fr 1fr;      /* dos mitades exactas */
-    min-height: calc(100svh - var(--alto-cabecera) + var(--foto-extra));   /* la foto baja un poco más que la pantalla */
+    grid-template-columns: 1fr 1fr;
+    min-height: calc(100svh - var(--alto-cabecera));
   }
-  .hero-imagen { padding: 0; position: relative; }
-  /* La foto llena su mitad y se recorta lo justo (object-fit: cover), sin deformarse */
-  .hero-imagen img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  .hero-texto {
-    /* Dos mitades iguales: la raya entre ellas cae justo a media altura de la foto */
-    grid-template-rows: 1fr 1fr;
-    grid-template-columns: 1fr auto;     /* lema a la izquierda, datos a la derecha */
-    row-gap: 0;
-    padding-right: clamp(40px, 4vw, 64px);
-    /* lema y datos a 28 px del borde de la pantalla (la foto sigue un poco más abajo).
-       Arriba el mismo margen, para que la mitad del texto coincida con la de la foto */
-    padding-top: calc(28px + var(--foto-extra));
-    padding-bottom: calc(28px + var(--foto-extra));
-  }
-  /* Título y botón juntos en la mitad de arriba, apoyados en la mitad de la foto */
-  .hero-titulo {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 20px;                           /* botón pegado bajo el título */
-    grid-column: 1 / -1;
-    grid-row: 1;
-    align-self: end;
-  }
-  .hero .declaracion { margin: 0; }
-  .hero-titulo .boton { margin: 0; padding: 11px 22px; align-self: flex-start; }   /* a la izquierda; mismo tamaño que el «Reserva» de la barra */
-  /* Lema y datos en fila, al fondo, alineados por abajo (con «90 € · 60 min») */
-  .hero-pie {
-    display: grid;
-    grid-column: 1 / -1;
-    grid-row: 2;
-    align-self: end;
-    grid-template-columns: 1fr auto;
-    align-items: end;                    /* el lema termina a la altura del último precio */
-    column-gap: clamp(32px, 4vw, 64px);
-  }
-  .hero-lema { max-width: 34ch; }        /* caja algo más ancha */
-  .hero-arriba { grid-column: 1; grid-row: 1; }
-  .hero-abajo  { grid-column: 2; grid-row: 1; }
+  .hero-imagen { position: relative; }
+  .hero-imagen img { position: absolute; inset: 0; height: 100%; object-fit: cover; }
 }
 
-/* Los textos pequeños del banner: mayúsculas en gris, como «Primera visita» */
-.hero-margen { color: var(--tinta-suave); font-size: var(--texto); letter-spacing: 0.08em; }
-/* El lema va como texto normal: negro y en minúsculas, igual que el de los pasos */
-.hero-margen .hero-lema { color: var(--tinta); text-transform: none; letter-spacing: -0.01em; font-weight: 400; font-family: var(--fuente); }
-
+/* En el hero, las etiquetas de las duraciones van en negro, no en gris */
 /* La frase grande */
 /* Precios con la letra de titulares */
 .precio .cifra {
@@ -713,7 +551,7 @@ html[data-barra="vino"] .cabecera { color: var(--tinta); }   /* el menú y el lo
 /* Etiquetas de los datos: gris, tal cual se escriben (mayúscula inicial en cada palabra) */
 .datos dt { color: var(--tinta-suave); font-size: var(--texto); text-transform: none; letter-spacing: -0.01em; font-weight: 400; }
 /* En el hero, las etiquetas («Primera Visita»…) van en negro, no en gris */
-.hero .datos dt, .hero .hero-margen { color: var(--tinta); }
+.hero .datos dt { color: var(--tinta); }
 /* El dato en sí, más grande y en Ridley; la etiqueta de encima sigue pequeña */
 /* Las cifras: en Hanken Grotesk (la letra del texto), sin mayúsculas forzadas */
 .datos dd {
@@ -1282,10 +1120,8 @@ button.boton { border: 0; cursor: pointer; }   /* un <button> con aspecto de bot
 @media (prefers-reduced-motion: no-preference) {
   .cabecera { animation: fundir var(--tiempo-aparecer) ease-out backwards; }
   /* todo el hero entra a la vez y con el mismo movimiento que el resto de la página */
-  /* Ojo: .hero-titulo no se puede animar en ordenador (es display: contents),
-     y en móvil tampoco .hero-arriba: animamos lo que llevan dentro.
-     «backwards» = solo aplica el estado inicial; al terminar, el hover del botón sigue funcionando */
-  .hero-imagen, .hero-arriba > *, .hero-abajo, .hero-titulo > * {
+  /* «backwards» = solo aplica el estado inicial; al terminar, el hover del botón sigue funcionando */
+  .hero-imagen, .hero-texto > * {
     /* dos animaciones a la vez, como en el resto de la página: fundido lento + subida */
     animation: fundir var(--tiempo-texto) ease-in-out 0.15s backwards,
                subir var(--tiempo-aparecer) var(--curva-aparecer) 0.15s backwards;
@@ -1318,20 +1154,9 @@ button.boton { border: 0; cursor: pointer; }   /* un <button> con aspecto de bot
    Van al final para poder cambiar las reglas generales de más arriba
    ========================================================= */
 @media (max-width: 760px) {
-  /* Hero en una columna, en este orden: título (con «Reserva» a su derecha),
-     datos de la visita, lema, foto y, pegada a la foto, la cita */
-  /* minmax(0, …): la columna nunca se ensancha más que la pantalla, aunque el título sea largo */
-  .hero-banda { grid-template-columns: minmax(0, 1fr); }
-  .hero .declaracion { grid-row: 1; grid-column: 1; justify-self: start; margin: 0 var(--margen); color: var(--tinta); }
-  /* Título en dos líneas: «básica» (dentro de <em>) pasa a su propia línea */
-  .hero .declaracion em { display: block; }
-  /* Botón «Reserva»: en la misma fila que el título, en el margen derecho y alineado con
-     el borde de arriba de las letras de «HIGIENE» (0,1em: lo que el interlineado y la
-     propia letra dejan encima de las mayúsculas). Pequeño y negro, como su copia anclada */
-  .hero-titulo .boton { grid-row: 1; grid-column: 1; justify-self: end; align-self: start; margin: 0 var(--margen) 0 0; }
-  .hero-titulo .boton { margin-top: calc((100vw - 2 * var(--margen)) / 9.8 * var(--alinear-reserva)); }
-  .hero-titulo .boton, .reserva-fija {
-    padding: 8px 14px;                   /* más pequeño que el resto de botones */
+  /* Botón «Reserva» del hero: pequeño y negro, igual que su copia anclada bajo la barra */
+  .hero-texto .boton, .reserva-fija {
+    padding: 8px 14px;
     background: var(--pastilla);
     color: var(--pastilla-texto);
     box-shadow: none;
@@ -1341,20 +1166,11 @@ button.boton { border: 0; cursor: pointer; }   /* un <button> con aspecto de bot
   :root { --alto-cabecera: 48px; }
   /* Sin el botón negro «Reserva» de la cabecera: ya está el del hero */
   .cabecera .boton.contraste { display: none; }
-  /* Datos de la visita: justo debajo del título, pequeños y juntos */
-  .hero-abajo { grid-row: 2; grid-column: 1; margin: 16px var(--margen) 0; }
+  /* Duraciones: pequeñas y juntas */
   .datos { gap: 8px; }
   .datos dt { font-size: var(--etiqueta); }
   .datos dd { margin-top: 2px; font-size: var(--cifra); letter-spacing: -0.02em; line-height: 1.1; }   /* precio y minutos: igual que las cifras de «Cómo empezar» */
-  /* Lema: tras un espacio en blanco, alineado a la izquierda; la caja llega hasta el 80 % del ancho.
-     Por debajo, el mismo aire estrecho que hay bajo la foto */
-  .hero-lema {
-    grid-row: 3; grid-column: 1; justify-self: start; text-align: left;
-    max-width: calc(80vw - var(--margen)); margin: 56px 0 var(--aire-junto-foto) var(--margen);
-  }
-  .hero-imagen { grid-row: 4; grid-column: 1; }
-  /* El hero termina en la foto: sin aire debajo ni alto mínimo, para que la cita vaya pegada */
-  .hero { padding-bottom: 0; min-height: 0; }
+  .hero .datos { gap: 16px; }
   /* La cita a sangre (de margen a margen), alineada a la izquierda y al tamaño de los títulos de sección.
      Arriba, pegada a la foto (--aire-junto-foto); abajo, --aire-bloques + 56 de la sección siguiente */
   .frase-banda { padding: var(--aire-junto-foto) var(--margen) var(--aire-bloques); }
@@ -1377,9 +1193,6 @@ button.boton { border: 0; cursor: pointer; }   /* un <button> con aspecto de bot
   * { transition: none !important; }
 }
 
-/* PRUEBA: todo el hero (primer bloque) en OT Jubilee, salvo el título, que sigue en Ridley:
-   lema, «Primera Visita» / «Siguientes Visitas», las cifras y el botón «Reserva».
-   Va al final del archivo para ganar a las reglas de arriba. Para volver a Hanken, borra esta regla */
-.hero .hero-lema, .hero .datos dt, .hero .datos dd, .hero .boton { font-family: var(--fuente-display); }
-/* Textos pequeños del hero en Jubilee (lema y «Primera Visita» / «Siguientes Visitas»): letras más abiertas */
-.hero .hero-lema, .hero .datos dt { letter-spacing: 0.04em; }
+/* Hero: botón y cifras grandes en OT Jubilee; los textos pequeños siguen en Hanken.
+   Va al final del archivo para ganar a las reglas de arriba */
+.hero .datos dd, .hero .boton { font-family: var(--fuente-display); }
