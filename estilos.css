@@ -65,6 +65,12 @@
      Ridley Grotesk (siempre en mayúsculas):
        --display-pequena  logo, cita, «Lo que no hacemos» y su frase
        títulos de sección, título del hero y firma: en sus reglas */
+  /* ESCALA DE ESPACIOS (solo estos valores dentro de los bloques) */
+  --espacio-xs: 8px;
+  --espacio-s: 16px;
+  --espacio-m: 24px;
+  --espacio-l: 40px;
+  --espacio-xl: 56px;
   --texto: 14px;              /* interlineado 1,4 y letras -0,01em (en body) */
   --etiqueta: 12px;           /* letras separadas 0,1em */
   --cifra: clamp(24px, 2.4vw, 32px);
@@ -176,11 +182,13 @@ img { max-width: 100%; }
   outline-offset: 3px;
 }
 
-/* Estilo "etiqueta": letra de titulares, pequeña, en mayúsculas y con las
-   letras separadas. Lo comparten menú, botones, títulos de desplegables y
-   textos pequeños. Todos al mismo tamaño: --etiqueta */
-.boton, .pastilla, .menu a, .datos dt, .pie-columnas,
-.acordeon summary, .precio h3 {
+/* JERARQUÍA DE TEXTO (Grotesque; los titulares grandes van en Ridley):
+   1. Frases en mayúsculas (--display-pequena): manifiesto, seguimiento, tarifas, newsletter
+   2. Cifras (--cifra): precios y duraciones
+   3. Texto (--texto, minúsculas): párrafos, descripción, etiquetas de datos, notas y botones
+   4. Etiquetas (--etiqueta, MAYÚSCULAS espaciadas): menú de la cabecera, títulos de
+      desplegables, números de los pasos, «Antes/Después» y pie */
+.menu a, .pie-columnas, .acordeon summary, .resultados-par figcaption {
   font-size: var(--etiqueta);
   font-family: var(--fuente-titulos);
   font-weight: 500;
@@ -192,12 +200,21 @@ img { max-width: 100%; }
    3. BOTÓN
    Una sola clase para todos los botones de reserva.
    ========================================================= */
+/* Todos los botones iguales: texto en minúsculas (con la primera en mayúscula, como
+   se escribe en el HTML), al tamaño del texto. Un solo tamaño de pastilla en ordenador;
+   en móvil, los del hero y el pie van más pequeños */
 .boton {
   display: inline-block;
   background: var(--acento);
   color: var(--acento-texto);
   text-decoration: none;
-  padding: 16px 30px;
+  font-family: var(--fuente-titulos);
+  font-size: var(--texto);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  text-transform: none;                 /* aunque esté dentro de algo en mayúsculas (el pie) */
+  line-height: 1.2;
+  padding: 12px 24px;
   border-radius: 999px;      /* 999px = pastilla redonda */
   transition: transform 0.15s ease;
 }
@@ -317,7 +334,6 @@ img { max-width: 100%; }
    - Ordenador: se pone justo encima del «Reserva» de la barra, que se esconde, y se queda
      quieto aunque la barra se vaya. Por encima de la cabecera (z-index 6 > 5).
    - Móvil: copia del botón pequeño negro del título, justo debajo de la barra, a la derecha */
-.cabecera .boton, .reserva-fija { padding: 11px 22px; }
 .reserva-fija {
   position: fixed;
   z-index: 6;
@@ -431,12 +447,10 @@ html[data-barra="vino"] .cabecera { color: var(--tinta); }   /* el menú y el lo
 }
 
 @media (max-width: 760px) {
-  .cabecera .boton, .reserva-fija { padding: 10px 16px; }
 }
 /* Móviles estrechos: menos aire entre logo y botón para que quepan sin salirse */
 @media (max-width: 400px) {
   .cabecera .contenedor { gap: 8px; }
-  .cabecera .boton { padding: 10px 12px; }
   .cabecera nav { gap: 6px; }
   .menu-boton { width: 30px; padding: 0 6px; margin-left: -6px; }
 }
@@ -471,11 +485,11 @@ html[data-barra="vino"] .cabecera { color: var(--tinta); }   /* el menú y el lo
 }
 .hero .declaracion em { display: block; }   /* «básica» en su propia línea */
 /* Descripción justo debajo del título, en una caja estrecha */
-.hero-lema { max-width: 34ch; margin: 24px 0 0; }
+.hero-lema { max-width: 34ch; margin: var(--espacio-m) 0 0; }
 /* Botón «Reserva» debajo de la descripción (mismo tamaño que el de la barra) */
-.hero-texto .boton { margin-top: 32px; padding: 11px 22px; }
+.hero-texto .boton { margin-top: var(--espacio-l); }
 /* Duraciones debajo del botón */
-.hero .datos { margin-top: 48px; justify-items: center; }
+.hero .datos { margin-top: var(--espacio-xl); gap: var(--espacio-m); justify-items: center; }
 /* Foto: en móvil, de borde a borde con su proporción */
 .hero-imagen { margin: 0; }
 .hero-imagen img { display: block; width: 100%; height: auto; }
@@ -569,7 +583,7 @@ html[data-barra="vino"] .cabecera { color: var(--tinta); }   /* el menú y el lo
 .seccion h2 {
   font-size: var(--titulo-seccion);
   letter-spacing: 0.1em;
-  margin: 0 0 40px;
+  margin: 0 0 var(--espacio-l);
 }
 .seccion > p { max-width: 60ch; margin: 0; }
 /* «Paso a paso»: bloque a todo el ancho en color vino, con la letra en el beige de la barra.
@@ -629,19 +643,6 @@ html[data-barra="vino"] .cabecera { color: var(--tinta); }   /* el menú y el lo
   .manifiesto { padding-bottom: 86px; }
 
 }
-
-/* Botón en pastilla: negro con texto blanco, sin borde */
-.pastilla {
-  display: inline-block;
-  background: var(--pastilla);
-  color: var(--pastilla-texto);
-  text-decoration: none;
-  padding: 16px 28px;
-  border-radius: 999px;
-  white-space: nowrap;
-  transition: transform 0.15s ease;
-}
-.pastilla:hover { transform: translateY(-2px); }
 
 /* =========================================================
    7. DESPLEGABLES (acordeón)
@@ -706,11 +707,13 @@ strong { font-weight: 500; }                 /* «Clientes nuevos:», «Primera 
 }
 /* Cada tarjeta es una columna: el botón se va abajo del todo (margin-top: auto),
    así los tres botones quedan a la misma altura */
-.precio { border-top: 1px solid var(--linea); padding-top: 20px; display: flex; flex-direction: column; align-items: flex-start; }
-.precio p:last-of-type { margin-bottom: 24px; }
+.precio { border-top: 1px solid var(--linea); padding-top: var(--espacio-m); display: flex; flex-direction: column; align-items: flex-start; }
+.precio p:last-of-type { margin-bottom: var(--espacio-m); }
 .precio.destacado { border-top: 3px solid var(--acento); }
 .precio h3 {                           /* nombre de la tarifa: igual que «Lo que no hacemos» */
   margin: 0;
+  font-weight: 500;
+  text-transform: uppercase;
   font-family: var(--fuente-display);
   font-size: var(--display-pequena);
   letter-spacing: 0.1em;
@@ -720,11 +723,11 @@ strong { font-weight: 500; }                 /* «Clientes nuevos:», «Primera 
   font-size: var(--cifra);               /* el mismo tamaño que los precios del hero */
   font-weight: 500;
   letter-spacing: -0.02em;
-  margin: 0 0 28px;                      /* va después de la duración: aire antes del texto */
+  margin: 0 0 var(--espacio-m);          /* va después de la duración: aire antes del texto */
   line-height: 1.1;
 }
-.precio .duracion { color: var(--tinta-suave); margin: 4px 0 20px; }   /* justo debajo del nombre; algo más de aire hasta el precio */
-.precio p { margin: 0 0 16px; }
+.precio .duracion { color: var(--tinta-suave); margin: var(--espacio-xs) 0 var(--espacio-s); }   /* justo debajo del nombre; algo más de aire hasta el precio */
+.precio p { margin: 0 0 var(--espacio-s); }
 .precio .nota-tarifa { color: var(--tinta-suave); }   /* nota aparte de la tarifa: en gris, con asterisco */
 .precio .boton { margin-top: auto; }
 /* Botón con contorno: interior transparente, borde y texto negros.
@@ -747,11 +750,6 @@ strong { font-weight: 500; }                 /* «Clientes nuevos:», «Primera 
   left: var(--margen);
   bottom: 16px;
   color: var(--sobre-foto);
-  font-family: var(--fuente-titulos);
-  font-size: var(--etiqueta);
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
 }
 /* Hueco del «antes» mientras no haya foto real (temporal) */
 /* Móvil: las dos fotos como el slider del manifiesto: a sangre, cada una al 86 %
@@ -777,9 +775,13 @@ strong { font-weight: 500; }                 /* «Clientes nuevos:», «Primera 
 .resultados-pendiente { height: 100%; display: grid; place-content: center; text-align: center; background: var(--linea); color: var(--tinta-suave); }
 .resultados-par figure:has(.resultados-pendiente) figcaption { color: var(--tinta); }
 
-/* Firma grande antes del pie: el tamaño se calcula para que el texto
-   llene justo el ancho entre márgenes (15,04 = ancho del texto en Ridley, medido en «em») */
+/* Firma grande antes del pie: «CABINA» pegada al margen izquierdo y «FACIALS» al derecho,
+   con un gran hueco en medio. --firma-ancho es el ancho total en «em» que queremos ocupar:
+   las dos palabras miden 9,21em en Ridley (4,40 + 4,81, medido); con 11,5 el hueco es un 20 % del ancho */
 .firma {
+  --firma-ancho: 11.5;
+  display: flex;
+  justify-content: space-between;
   margin: var(--aire-seccion) auto 0;
   font-family: var(--fuente-ridley);
   font-weight: 500;
@@ -788,10 +790,10 @@ strong { font-weight: 500; }                 /* «Clientes nuevos:», «Primera 
   white-space: nowrap;
   overflow: hidden;
   line-height: 1;
-  padding-top: 0.25em;                   /* deja sitio al acento de la É (si no, se corta) */
-  font-size: calc((min(100vw, var(--ancho-max)) - 2 * var(--margen)) / 15.04);
-  padding-bottom: 24px;
+  font-size: calc((min(100vw, var(--ancho-max)) - 2 * var(--margen)) / var(--firma-ancho));
+  padding-bottom: var(--espacio-m);
 }
+.firma span:last-child { margin-right: -0.04em; }   /* quita el espaciado tras la última S: queda a ras del margen */
 
 /* =========================================================
    NEWSLETTER (antes de la firma)
@@ -804,8 +806,7 @@ strong { font-weight: 500; }                 /* «Clientes nuevos:», «Primera 
   /* Mismo aire por debajo que por arriba: este relleno + el margen de la firma
      igualan el relleno de «Cómo empezar» + el margen de arriba.
      Se resta el hueco que la firma deja encima para el acento de la É (0,25 em de su tamaño) */
-  --hueco-firma: calc(0.25 * (min(100vw, var(--ancho-max)) - 2 * var(--margen)) / 15.04);
-  padding-bottom: calc(var(--aire-antes-firma) - var(--hueco-firma));
+  padding-bottom: var(--aire-antes-firma);
   font-family: var(--fuente-display);
   font-size: var(--display-pequena);
   font-weight: 500;
@@ -1029,7 +1030,7 @@ button.boton { border: 0; cursor: pointer; }   /* un <button> con aspecto de bot
    la firma escala con el ancho, así que el % vale para cualquier pantalla).
    Las dos primeras columnas se reparten lo de antes de la F; las otras dos, lo de después */
 .pie-columnas {
-  --pie-f: 68.42%;
+  --pie-f: calc(100% - 100% * 4.805 / 11.5);   /* donde empieza «FACIALS»: mide 4,805em de los 11,5 */
   padding-bottom: 96px;                  /* bastante aire hasta el copyright */
   display: grid;
   grid-template-columns: calc(var(--pie-f) / 2) calc(var(--pie-f) / 2) 1fr 1fr;
@@ -1053,7 +1054,7 @@ button.boton { border: 0; cursor: pointer; }   /* un <button> con aspecto de bot
   line-height: 1.3;
 }
 .pie-pastillas { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 12px; }
-.pie-pastillas .boton { padding: 8px 14px; background: var(--fondo); color: var(--tinta-suave); }   /* gris, como el resto del pie */
+.pie-pastillas .boton { padding: 8px 16px; background: var(--fondo); color: var(--tinta-suave); }   /* gris, como el resto del pie */
 .pie-columnas .pie-pastillas a:hover { text-decoration: none; }
 /* Copyright: abajo del todo, a la izquierda, en gris */
 .pie-legal { margin: 0; padding-bottom: 16px; color: var(--tinta-suave); }
@@ -1155,7 +1156,7 @@ button.boton { border: 0; cursor: pointer; }   /* un <button> con aspecto de bot
 @media (max-width: 760px) {
   /* Botón «Reserva» del hero: pequeño y negro, igual que su copia anclada bajo la barra */
   .hero-texto .boton, .reserva-fija {
-    padding: 8px 14px;
+    padding: 10px 18px;                  /* pastilla pequeña de móvil */
     background: var(--pastilla);
     color: var(--pastilla-texto);
     box-shadow: none;
@@ -1167,9 +1168,8 @@ button.boton { border: 0; cursor: pointer; }   /* un <button> con aspecto de bot
   .cabecera .boton.contraste { display: none; }
   /* Duraciones: pequeñas y juntas */
   .datos { gap: 8px; }
-  .datos dt { font-size: var(--etiqueta); }
   .datos dd { margin-top: 2px; font-size: var(--cifra); letter-spacing: -0.02em; line-height: 1.1; }   /* precio y minutos: igual que las cifras de «Cómo empezar» */
-  .hero .datos { gap: 16px; }
+  .hero .datos { gap: var(--espacio-s); }
   /* La cita a sangre (de margen a margen), alineada a la izquierda y al tamaño de los títulos de sección.
      Arriba, pegada a la foto (--aire-junto-foto); abajo, --aire-bloques + 56 de la sección siguiente */
   .frase-banda { padding: var(--aire-junto-foto) var(--margen) var(--aire-bloques); }
@@ -1178,7 +1178,7 @@ button.boton { border: 0; cursor: pointer; }   /* un <button> con aspecto de bot
   .manifiesto { padding-bottom: var(--aire-bloques); }
   /* Mucho aire tras «Cómo empezar» y antes de la firma (el doble que antes) */
   #reservar { padding-bottom: 84px; }
-  .newsletter { margin-top: 56px; padding-bottom: calc(56px - var(--hueco-firma)); }   /* hueco en blanco entre «Cómo empezar» y la firma, algo más corto */
+  .newsletter { margin-top: 56px; padding-bottom: var(--espacio-xl); }   /* hueco en blanco entre «Cómo empezar» y la firma, algo más corto */
   .firma { margin-top: 84px; }
   /* El mismo aire antes de Antes de venir, de Resultados y de Cómo empezar:
      --aire-bloques al final de la sección anterior + 56 px al principio de la siguiente */
@@ -1191,9 +1191,3 @@ button.boton { border: 0; cursor: pointer; }   /* un <button> con aspecto de bot
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; }
 }
-
-/* Menú de la cabecera y botones: en minúsculas, tal cual se escriben en el HTML
-   (con la primera letra en mayúscula). Al tamaño del texto, porque en minúsculas
-   la etiqueta de 12 px se quedaba demasiado pequeña. Va al final para ganar a la regla
-   de las etiquetas (mayúsculas espaciadas) */
-.boton, .menu a { text-transform: none; letter-spacing: 0.01em; font-size: var(--texto); }
