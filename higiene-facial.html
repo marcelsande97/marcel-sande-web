@@ -60,7 +60,7 @@
         </ul>
         <!-- Aquí irá el enlace real a tu motor de reservas -->
         <a class="boton contraste" href="#reservar">Reserva</a>
-        <!-- Botón de las tres rayas: solo se ve por debajo de 980 px y abre el menú -->
+        <!-- Botón de las tres rayas: solo se ve por debajo de 1150 px y abre el menú -->
         <button class="menu-boton" type="button" aria-expanded="false" aria-controls="menu-principal" aria-label="Menú">
           <span></span><span></span><span></span>
         </button>
@@ -397,7 +397,7 @@
       boton.addEventListener('click', function () { poner(boton.getAttribute('aria-expanded') !== 'true'); });
       // «Tratamientos» en el menú del móvil: abre y cierra su lista (empieza cerrada).
       // En ordenador sigue siendo el desplegable que se abre al pasar el ratón
-      var panel = window.matchMedia('(max-width: 980px)');
+      var panel = window.matchMedia('(max-width: 1150px)');
       var tratamientos = menu.querySelector('.tratamientos');
       var tratamientosEnlace = tratamientos.querySelector('a');
       function desplegar(si) {

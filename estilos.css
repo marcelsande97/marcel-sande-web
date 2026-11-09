@@ -49,13 +49,14 @@
   --linea: #2a2c2f;           /* separadores: gris muy oscuro */
   --papel: #141414;           /* negro un pelín más claro (páginas del manifiesto en móvil) */
   --papel-sobre-foto: #f4f2ee;/* el mismo beige para el texto encima de la foto (igual en modo oscuro) */
-  --titulo-seccion: clamp(18px, 1.7vw, 24px);   /* títulos de sección (y la cita en móvil) */
+  --titulo-seccion: clamp(28px, 2.8vw, 40px);   /* TODOS los títulos en Jubilee: 40 px en pantallas grandes (≥ 1430 px);
+                                                   en pantallas más pequeñas baja con el ancho, hasta 28 px, para que quepan */
   --acento: #ffffff;          /* blanco: lo que se puede pulsar y algún detalle */
   --acento-texto: #000000;    /* texto encima del acento */
   --cabecera: var(--fondo);   /* barra superior: toma el color del bloque que tiene debajo (ver «data-barra» más abajo) */
   --vino: #8b3a2f;            /* entre vino tinto y teja: fondo de «Paso a paso» (igual en modo oscuro) */
   --vino-texto: #f5f1ee;      /* beige claro para el texto sobre el vino (contraste 7:1) */
-  --logo: clamp(18px, 1.5vw, 22px);   /* «CABINA» en el centro de la barra */
+  --logo: var(--titulo-seccion);      /* «CABINA»: el mismo tamaño que los títulos */
   --pastilla: #ffffff;        /* botones destacados: blancos */
   --pastilla-texto: #000000;  /* texto sobre el blanco */
   --hero-tinta: #ffffff;      /* texto del hero: el mismo blanco del resto */
@@ -76,8 +77,8 @@
   --espacio-m: 24px;
   --espacio-l: 40px;
   --espacio-xl: 56px;
-  --texto: 14px;              /* interlineado 1,4 y letras -0,01em (en body) */
-  --texto-grande: clamp(26px, 3vw, 44px);   /* la descripción del hero: más grande que su título */
+  --texto: 23px;              /* todo el texto pequeño en Grotesque. Interlineado 1,4 y letras -0,01em (en body) */
+  --texto-grande: clamp(32px, 4.4vw, 64px); /* la descripción del hero: siempre más grande que su título (40) */
   --etiqueta: 12px;           /* letras separadas 0,1em */
   --cifra: clamp(24px, 2.4vw, 32px);
   --display-pequena: clamp(14px, 1.15vw, 16px);   /* letras 0,1em, interlineado 1,3 */
@@ -158,8 +159,9 @@ img { max-width: 100%; }
 
 /* JERARQUÍA DE TEXTO
    Jubilee, siempre en MAYÚSCULAS espaciadas (títulos y botones):
-     a. Títulos (--titulo-seccion): título del hero y títulos de sección
-     b. Frases (--display-pequena): manifiesto, seguimiento, nombres de tarifa, newsletter
+     a. Títulos (--titulo-seccion, 40 px): logo, título del hero, títulos de sección,
+        frases del manifiesto y del seguimiento y nombres de tarifa
+     b. Newsletter (--display-pequena)
      c. Etiquetas (--etiqueta): menú de la cabecera, botones y títulos de desplegables
      (y la firma gigante del pie)
    Grotesque:
@@ -357,9 +359,9 @@ html[data-barra="vino"] .cabecera { color: var(--tinta); }   /* el menú y el lo
   }
 }
 
-/* Por debajo de 980 px el menú completo no cabe: logo, «Reserva» y las tres rayas.
-   El menú se abre como un panel debajo de la barra */
-@media (max-width: 980px) {
+/* Por debajo de 1150 px el menú completo no cabe (el menú va a 23 px y el logo a 40):
+   logo, «Reserva» y las tres rayas. El menú se abre como un panel debajo de la barra */
+@media (max-width: 1150px) {
   .cabecera nav { gap: 8px; }
   .menu-boton {
     display: flex;
@@ -466,7 +468,7 @@ html[data-barra="vino"] .cabecera { color: var(--tinta); }   /* el menú y el lo
 .hero .declaracion { white-space: nowrap; }   /* «HIGIENE BÁSICA» en una sola línea */
 /* Descripción: la protagonista del bloque, mucho más grande que el título */
 .hero-lema {
-  max-width: 20ch;
+  max-width: 18ch;
   margin: var(--espacio-m) 0 0;
   font-size: var(--texto-grande);
   line-height: 1.15;
@@ -520,9 +522,9 @@ html[data-barra="vino"] .cabecera { color: var(--tinta); }   /* el menú y el lo
   max-width: 54ch;                       /* caja algo más estrecha */
   margin: 0 auto;                        /* auto a los lados = centrada en la página */
   text-align: center;
-  font-size: var(--display-pequena);     /* igual que «Lo que no hacemos» */
+  font-size: var(--titulo-seccion);      /* un título más */
   letter-spacing: 0.1em;
-  line-height: 1.3;
+  line-height: 1.15;
 }
 
 /* Ridley no tiene cursiva: las palabras marcadas con <em> se quedan rectas */
@@ -676,9 +678,9 @@ strong { font-weight: 500; }                 /* «Clientes nuevos:», «Primera 
   font-weight: 500;
   text-transform: uppercase;
   font-family: var(--fuente-display);
-  font-size: var(--display-pequena);
+  font-size: var(--titulo-seccion);      /* un título más */
   letter-spacing: 0.1em;
-  line-height: 1.3;
+  line-height: 1.15;
 }
 .precio .cifra {
   font-size: var(--cifra);               /* el mismo tamaño que los precios del hero */
@@ -844,8 +846,8 @@ button.boton { border: 0; cursor: pointer; }   /* un <button> con aspecto de bot
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  line-height: 1.3;
-  font-size: var(--display-pequena);     /* igual que el logo y la cita */
+  line-height: 1.15;
+  font-size: var(--titulo-seccion);      /* un título más */
 }
 /* Bloque de la izquierda: título y párrafo, con aire entre ellos */
 .manifiesto-bloque { display: grid; gap: 28px; justify-items: center; }
@@ -935,7 +937,7 @@ button.boton { border: 0; cursor: pointer; }   /* un <button> con aspecto de bot
     --hueco: clamp(32px, 4vw, 64px);     /* separación entre columnas */
     /* distancia del borde de la pantalla al contenido (el margen de .contenedor) */
     --lado: max(var(--margen), calc((100vw - var(--ancho-max)) / 2 + var(--margen)));
-    grid-template-columns: minmax(0, 1fr) min(520px, 38vw) minmax(0, 1fr); align-items: center; gap: var(--hueco);
+    grid-template-columns: minmax(0, 1fr) min(480px, 30vw) minmax(0, 1fr); align-items: center; gap: var(--hueco);   /* foto algo más estrecha: las frases son grandes */
   }
   /* Título y frase centrados en el blanco que hay entre el borde de la pantalla y la foto.
      Los márgenes negativos amplían su hueco hasta el borde y hasta la foto, y justify-self: center los centra ahí */
@@ -944,7 +946,7 @@ button.boton { border: 0; cursor: pointer; }   /* un <button> con aspecto de bot
   .manifiesto-frase  { grid-column: 3; grid-row: 1; justify-self: center; margin-left: calc(-1 * var(--hueco)); margin-right: calc(-1 * var(--lado)); }
   /* Caja de cuatro líneas; balance reparte las líneas
      a partes iguales (sin palabras sueltas). En el HTML, «una&nbsp;rutina» y «sola&nbsp;sesión» nunca se separan */
-  .manifiesto-titulo { max-width: 30ch; text-wrap: balance; }   /* vale para las dos frases (la de la derecha también lleva esta clase) */
+  .manifiesto-titulo { max-width: 11.5em; text-wrap: balance; }   /* vale para las dos frases (la de la derecha también lleva esta clase) */
   .manifiesto-bloque .boton { grid-column: 2; grid-row: 1; }
   /* el velo se oscurece al pasar el ratón por la foto, el texto o el botón, o al llegar con el teclado */
   .manifiesto-fila:has(.cartel:hover, .boton:hover, .boton:focus-visible) .cartel::after {
