@@ -78,7 +78,6 @@
   --espacio-l: 40px;
   --espacio-xl: 56px;
   --texto: 23px;              /* todo el texto pequeño en Grotesque. Interlineado 1,4 y letras -0,01em (en body) */
-  --texto-grande: clamp(32px, 4.4vw, 64px); /* la descripción del hero: siempre más grande que su título (40) */
   --etiqueta: 12px;           /* letras separadas 0,1em */
   --cifra: clamp(24px, 2.4vw, 32px);
   --display-pequena: clamp(14px, 1.15vw, 16px);   /* letras 0,1em, interlineado 1,3 */
@@ -95,9 +94,7 @@
   --fuente-display: "OT Jubilee Ruby", "Helvetica Neue", Arial, sans-serif;   /* títulos y botones, en mayúsculas */
   --fuente-ridley: "Ridley Grotesk", "Helvetica Neue", Arial, sans-serif;   /* solo el logo */
   --ancho-max: 1600px;        /* ancho máximo del contenido (más ancho: todo más cerca de los bordes) */
-  --alto-cabecera: 72px;      /* alto de la franja superior fija en ordenador (48 px en móvil) */
-  --reserva-opacidad-foto: 45%; /* móvil: cuánto negro conserva el botón anclado al pasar sobre una foto */
-  --hueco-reserva-fija: 8px;  /* móvil: distancia entre la barra superior y el botón «Reserva» anclado */
+  --alto-cabecera: 96px;      /* alto de la franja superior fija en ordenador (48 px en móvil) */
   --margen: clamp(16px, 2.5vw, 40px); /* margen lateral que crece con la pantalla (estrecho: contenido cerca del borde) */
 
   color-scheme: dark;         /* la web es oscura siempre: controles del navegador en oscuro */
@@ -168,7 +165,7 @@ img { max-width: 100%; }
      1. Cifras (--cifra): precios
      2. Texto (--texto, minúsculas): párrafos, descripción y notas
      3. Etiquetas (--etiqueta, mayúsculas): números de los pasos, «Antes/Después» y pie */
-.menu a, .pie-columnas, .acordeon summary, .resultados-par figcaption {
+.pie-columnas, .acordeon summary, .resultados-par figcaption {
   font-size: var(--etiqueta);
   font-family: var(--fuente-titulos);
   font-weight: 500;
@@ -177,8 +174,7 @@ img { max-width: 100%; }
 }
 /* Títulos de los desplegables, en Jubilee */
 .acordeon summary { font-family: var(--fuente-display); }
-/* Menú de la cabecera: Grotesque en minúsculas (tal cual en el HTML, con la primera en mayúscula) */
-.menu a { font-size: var(--texto); font-weight: 400; text-transform: none; letter-spacing: 0.01em; }
+/* La cabecera («Menú», «Reserva» y el panel): Grotesque al tamaño del texto, tal cual en el HTML */
 
 /* =========================================================
    3. BOTÓN
@@ -205,11 +201,6 @@ img { max-width: 100%; }
 
 /* Variante con borde: interior transparente, letra y borde del color del texto.
    El borde se dibuja con box-shadow para que el botón no cambie de tamaño */
-.hero .boton {
-  background: transparent;
-  color: var(--hero-tinta);
-  box-shadow: inset 0 0 0 1.5px currentColor;
-}
 
 /* =========================================================
    4. CABECERA (se queda fija arriba al hacer scroll)
@@ -218,280 +209,130 @@ img { max-width: 100%; }
   position: sticky;                      /* se queda fija arriba al hacer scroll */
   top: env(safe-area-inset-top, 0px);
   background: var(--cabecera);
+  color: var(--tinta);
   z-index: 5;
 }
+/* Tres piezas en una fila: «Menú» a la izquierda, «CABINA» en el centro y «Reserva»
+   a la derecha. Las columnas de los lados miden lo mismo (1fr): el logo queda en el centro exacto */
 .cabecera .contenedor {
-  position: relative;            /* el logo se coloca en el centro exacto de esta caja */
-  display: flex;                 /* pone los elementos en fila */
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
-  gap: 24px;
   height: var(--alto-cabecera);
 }
-/* Logo: «CABINA» en Ridley, en el centro de la barra, mayúsculas muy espaciadas */
+/* Ordenador: «Menú» y «Reserva» bastante metidos hacia dentro (un 11 % del ancho), como en la referencia */
+@media (min-width: 761px) {
+  .cabecera .contenedor { padding-left: 11vw; padding-right: 11vw; max-width: none; }
+}
+/* Logo: «CABINA» en Jubilee, al tamaño de los títulos */
 .logo {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);     /* centrado exacto, en ordenador y en móvil */
+  justify-self: center;
   font-family: var(--fuente-display);
   font-size: var(--logo);
   font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.13em;               /* espaciado 13 (13 % del tamaño de letra, como en Figma) */
+  letter-spacing: 0.13em;
   margin-right: -0.13em;                /* el espaciado deja aire tras la última A: lo quitamos para centrarlo de verdad */
   line-height: 1;
   text-decoration: none;
   white-space: nowrap;
 }
-.menu {
-  display: flex;
-  align-items: center;
-  gap: 40px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.menu a { text-decoration: none; }
-/* El menú y el botón «Reserva» van en fila dentro del <nav>, que ocupa toda la barra.
-   A la izquierda: Tratamientos, Manifiesto y Equipo. En el centro, el logo.
-   A la derecha: Contacto, idioma y «Reserva» (empujados por .menu-derecha) */
-.cabecera nav { flex: 1; display: flex; align-items: center; gap: 40px; }
-.cabecera nav .menu { flex: 1; }
-.menu-derecha { margin-left: auto; }
-/* Botón de las tres rayas: escondido en ordenador */
-.menu-boton { display: none; }
-.menu a:hover { text-decoration: underline; text-underline-offset: 4px; }
-
-/* Desplegable de «Tratamientos»: está oculto y aparece al pasar el ratón
-   por encima (:hover) o al llegar con el teclado (:focus-within) */
-.con-submenu { position: relative; }
-.submenu {
-  position: absolute;
-  top: 100%;                       /* justo debajo de «Tratamientos» */
-  left: -20px;                     /* alinea el texto de las opciones con el del menú */
-  min-width: 220px;
-  margin: 0;
-  padding: 18px 0 0;               /* el aire de arriba hace de «puente» para no perder el hover;
-                                      abajo nada: termina justo donde acaba la última opción */
-  list-style: none;
-  background: var(--cabecera);     /* el mismo color de la barra */
-  z-index: 1;
-  /* Oculto: transparente y un poco más arriba; así puede bajar con animación */
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-8px);
-  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
-}
-.con-submenu:hover .submenu,
-.con-submenu:focus-within .submenu {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
-/* Cada opción: fondo blanco que se vuelve negro (con letra blanca) al señalarla */
-.submenu a {
-  display: block;
-  padding: 12px 20px;
-  white-space: nowrap;
-  transition: background-color 0.15s ease, color 0.15s ease;
-}
-.submenu a:hover,
-.submenu a:focus-visible {
-  background: var(--tinta);
-  color: var(--fondo);
+/* «Menú» y «Reserva»: texto normal en Grotesque, sin pastilla */
+.menu-boton, .reserva-enlace {
+  font: inherit;                         /* la letra y el tamaño del texto (--texto) */
+  color: inherit;
   text-decoration: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
 }
-/* Desplegable del idioma: estrecho, solo caben ENG y CAT.
-   ESP siempre subrayado, para que se entienda que ahí se cambia el idioma */
-.idioma .submenu { min-width: 0; }
-.idioma > a { text-decoration: underline; text-underline-offset: 4px; }
-/* Botón del menú: negro (el color del texto) con letra crema (el color del fondo).
-   En modo oscuro se invierte solo: crema con letra oscura */
-.cabecera .boton {
-  background: var(--tinta);
-  color: var(--fondo);
-}
+.menu-boton { justify-self: start; grid-column: 1; grid-row: 1; }
+.reserva-enlace { justify-self: end; }
+.menu-boton:hover, .reserva-enlace:hover { text-decoration: underline; text-underline-offset: 4px; }
+/* «Menú» cambia a «Cerrar» cuando el panel está abierto */
+.menu-boton .menu-cerrar,
+.menu-boton[aria-expanded="true"] .menu-abrir { display: none; }
+.menu-boton[aria-expanded="true"] .menu-cerrar { display: inline; }
+/* El <nav> no ocupa sitio en la fila: solo contiene el panel, que se coloca fijo bajo la barra */
+.cabecera nav { position: absolute; }
 
-/* Botón «Reserva» anclado (lo activa el script del final del HTML; sin JS no se ve).
-   - Ordenador: se pone justo encima del «Reserva» de la barra, que se esconde, y se queda
-     quieto aunque la barra se vaya. Por encima de la cabecera (z-index 6 > 5).
-   - Móvil: copia del botón pequeño negro del título, justo debajo de la barra, a la derecha */
-.reserva-fija {
+/* PANEL DEL MENÚ: escondido hasta que se pulsa «Menú». Ocupa todo el ancho bajo la barra */
+.menu {
+  display: none;
   position: fixed;
-  z-index: 6;
-  background: var(--pastilla);
-  color: var(--pastilla-texto);
-  visibility: hidden;                    /* escondido (y fuera del tabulador) hasta anclarse */
-  transition: background-color 0.3s ease;
+  top: var(--alto-cabecera);
+  left: 0;
+  right: 0;
+  flex-direction: column;
+  list-style: none;
+  margin: 0;
+  padding: var(--espacio-xs) var(--margen) var(--espacio-l);
+  background: var(--cabecera);
+  border-bottom: 1px solid var(--linea);
 }
-.reserva-fija.anclada { visibility: visible; }
-/* Sobre una foto o un carrusel (lo detecta el script): negro translúcido y lo de detrás
-   desenfocado, como un cristal esmerilado. Sobre blanco sigue negro sólido */
-.reserva-fija.sobre-foto {
-  background: color-mix(in srgb, var(--pastilla) var(--reserva-opacidad-foto), transparent);
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
+.menu.abierto { display: flex; }
+.menu a { text-decoration: none; }
+.menu a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.menu > li > a { display: block; padding: var(--espacio-s) 0; }
+
+/* Opciones de «Tratamientos» e idioma, dentro del panel */
+.submenu { list-style: none; margin: 0; padding: 0 0 var(--espacio-xs) var(--espacio-s); }
+.submenu a { display: block; padding: 10px 0; }
+/* «Tratamientos»: con un + a la derecha que se convierte en × al abrir. Su lista empieza cerrada */
+.menu .tratamientos > a { display: flex; justify-content: space-between; align-items: center; text-decoration: none; }   /* sin subrayado: es un interruptor, no un enlace */
+.tratamientos > a::after {
+  content: "";
+  width: 12px;
+  height: 12px;
+  background:
+    linear-gradient(currentColor, currentColor) center / 100% 1.5px no-repeat,
+    linear-gradient(currentColor, currentColor) center / 1.5px 100% no-repeat;
+  transition: transform 0.2s ease;
 }
+.tratamientos.desplegado > a::after { transform: rotate(45deg); }
+.tratamientos .submenu { display: none; }
+.tratamientos.desplegado .submenu { display: block; }
+/* Idioma, abajo del todo: ESP · ENG · CAT en una fila. ESP subrayado; los otros en gris */
+.idioma { display: flex; gap: var(--espacio-m); margin-top: var(--espacio-m); }
+.idioma > a { text-decoration: underline; text-underline-offset: 4px; }
+.idioma .submenu { display: flex; gap: var(--espacio-m); padding: 0; }
+.idioma .submenu a { padding: var(--espacio-s) 0; color: var(--tinta-suave); }
+
 /* La barra cambia de color con suavidad al pasar de un bloque a otro */
-.cabecera, .cabecera .boton, .reserva-fija:not(.sobre-foto), .submenu { transition: background-color 0.4s ease, color 0.4s ease; }
-.menu > li > a, .logo { transition: color 0.4s ease; }
+.cabecera, .menu { transition: background-color 0.4s ease, color 0.4s ease; }
 
 /* COLOR DE LA BARRA SEGÚN EL BLOQUE
    Cada bloque con color propio lleva data-cabecera="vino" en el HTML.
    El script del final mira qué bloque hay debajo de la barra y lo copia en
    <html data-barra="…">. Sin atributo (bloques negros), la barra es negra */
-html[data-barra="vino"]  { --cabecera: var(--vino); }
-/* Sobre el vino, la barra y su botón cambian de tinta: letra beige y «Reserva» beige con letra vino */
-html[data-barra="vino"] .cabecera,
-html[data-barra="vino"] .reserva-fija {
-  --tinta: var(--vino-texto);
-  --fondo: var(--vino);
-  --pastilla: var(--vino-texto);
-  --pastilla-texto: var(--vino);
-}
-html[data-barra="vino"] .cabecera { color: var(--tinta); }   /* el menú y el logo heredan esta letra */
-@media (max-width: 760px) {
-  .reserva-fija {
-    top: calc(env(safe-area-inset-top, 0px) + var(--alto-cabecera) + var(--hueco-reserva-fija));
-    right: var(--margen);
-    z-index: 4;                          /* por debajo de la cabecera: el panel del menú lo tapa */
-  }
-}
-
-/* Por debajo de 1150 px el menú completo no cabe (el menú va a 23 px y el logo a 40):
-   logo, «Reserva» y las tres rayas. El menú se abre como un panel debajo de la barra */
-@media (max-width: 1150px) {
-  .cabecera nav { gap: 8px; }
-  .menu-boton {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 5px;
-    width: 36px;
-    height: 36px;
-    padding: 0 7px;
-    order: -1;                     /* las tres rayas, a la izquierda del todo */
-    margin-left: -7px;             /* las rayas quedan alineadas con el margen */
-    margin-right: auto;            /* y empujan «Reserva» a la derecha */
-    background: none;
-    border: 0;
-    color: var(--tinta);
-    cursor: pointer;
-  }
-  .menu-boton span { display: block; height: 1.5px; background: currentColor; transition: transform 0.2s ease, opacity 0.2s ease; }
-  /* Abierto: las tres rayas se convierten en una × */
-  .menu-boton[aria-expanded="true"] span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
-  .menu-boton[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
-  .menu-boton[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-
-  /* El panel: escondido hasta que se pulsa el botón */
-  .menu {
-    display: none;
-    position: fixed;
-    top: var(--alto-cabecera);
-    left: 0;
-    right: 0;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0;
-    padding: 8px var(--margen) 32px;
-    background: var(--cabecera);
-    border-bottom: 1px solid var(--linea);
-  }
-  .menu.abierto { display: flex; }
-  .menu-derecha { margin-left: 0; }   /* en el panel, todo en una columna */
-  .menu > li > a { display: block; padding: 16px 0; }
-  /* Las opciones de Tratamientos, siempre visibles y un poco metidas hacia dentro */
-  .submenu { position: static; opacity: 1; visibility: visible; transform: none; min-width: 0; padding: 0 0 8px 16px; background: none; }
-  .submenu a { padding: 10px 0; }
-  .submenu a:hover, .submenu a:focus-visible { background: none; color: inherit; text-decoration: underline; }
-  /* «Tratamientos»: con un + a la derecha que se convierte en × al abrir (como los desplegables
-     de la página). Su lista empieza cerrada */
-  .menu .tratamientos > a { display: flex; justify-content: space-between; align-items: center; text-decoration: none; }   /* sin subrayado: es un interruptor, no un enlace */
-  .tratamientos > a::after {
-    content: "";
-    width: 12px;
-    height: 12px;
-    background:
-      linear-gradient(currentColor, currentColor) center / 100% 1.5px no-repeat,
-      linear-gradient(currentColor, currentColor) center / 1.5px 100% no-repeat;
-    transition: transform 0.2s ease;
-  }
-  .tratamientos.desplegado > a::after { transform: rotate(45deg); }
-  .tratamientos .submenu { display: none; }
-  .tratamientos.desplegado .submenu { display: block; }
-  /* Idioma, abajo del todo: ESP · ENG · CAT en una fila, fácil de tocar con el dedo.
-     Más aire encima que entre las demás opciones. El actual (ESP) en negro y subrayado; los otros en gris */
-  .idioma { display: flex; gap: 24px; margin-top: 24px; }
-  .idioma .submenu { display: flex; gap: 24px; padding: 0; }
-  .idioma .submenu a { padding: 16px 0; color: var(--tinta-suave); }
-}
-
-@media (max-width: 760px) {
-}
-/* Móviles estrechos: menos aire entre logo y botón para que quepan sin salirse */
-@media (max-width: 400px) {
-  .cabecera .contenedor { gap: 8px; }
-  .cabecera nav { gap: 6px; }
-  .menu-boton { width: 30px; padding: 0 6px; margin-left: -6px; }
-}
+html[data-barra="vino"] { --cabecera: var(--vino); }
+html[data-barra="vino"] .cabecera { --tinta: var(--vino-texto); --tinta-suave: color-mix(in srgb, var(--vino-texto) 72%, var(--vino)); color: var(--tinta); }
 
 /* =========================================================
    5. CABECERA DEL TRATAMIENTO (hero)
    ========================================================= */
-/* Primer bloque: negro, como el resto. En ordenador mide al menos una pantalla */
-.hero { background: var(--fondo); }
-
-/* Díptico: texto | foto. En móvil, una columna (texto arriba, foto debajo) */
-.hero-banda { display: grid; grid-template-columns: minmax(0, 1fr); }
-
-/* Columna del texto: todo apilado y centrado (en horizontal y en vertical), en este orden:
-   título, descripción, botón y duraciones */
-.hero-texto {
+/* Primer bloque: solo el título y la descripción, centrados, con mucho negro alrededor.
+   Mide una pantalla; el texto va en el tercio de arriba */
+.hero {
+  background: var(--fondo);
   color: var(--hero-tinta);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  min-height: calc(100svh - var(--alto-cabecera));
+  padding: clamp(64px, 16vh, 180px) var(--margen) var(--espacio-xl);
   text-align: center;
-  padding: 56px var(--margen);
 }
-/* Título: mismo tamaño y espaciado que los títulos de sección («Paso a paso»), en dos líneas */
+/* Título: Jubilee, al tamaño de todos los títulos, en una línea */
 .hero .declaracion {
   font-size: var(--titulo-seccion);
   letter-spacing: 0.1em;
   line-height: 1.2;
   max-width: none;
   margin: 0;
+  white-space: nowrap;
 }
-.hero .declaracion { white-space: nowrap; }   /* «HIGIENE BÁSICA» en una sola línea */
-/* Descripción: la protagonista del bloque, mucho más grande que el título */
-.hero-lema {
-  max-width: 18ch;
-  margin: var(--espacio-m) 0 0;
-  font-size: var(--texto-grande);
-  line-height: 1.15;
-  letter-spacing: -0.01em;
-}
-/* Botón «Reserva» debajo de la descripción (mismo tamaño que el de la barra) */
-.hero-texto .boton { margin-top: var(--espacio-l); }
-/* Foto: en móvil, de borde a borde con su proporción */
-.hero-imagen { margin: 0; }
-.hero-imagen img { display: block; width: 100%; height: auto; }
+/* Descripción: Grotesque al tamaño del texto, justo debajo, en una caja ancha */
+.hero-lema { max-width: 50ch; margin: var(--espacio-s) auto 0; line-height: 1.3; }
 
-/* Ordenador: dos mitades exactas. Texto centrado en la izquierda; la foto llena
-   la derecha hasta el borde de la pantalla y se recorta lo justo (object-fit: cover) */
-@media (min-width: 761px) {
-  .hero-banda {
-    grid-template-columns: 1fr 1fr;
-    min-height: calc(100svh - var(--alto-cabecera));
-  }
-  .hero-imagen { position: relative; }
-  .hero-imagen img { position: absolute; inset: 0; height: 100%; object-fit: cover; }
-}
-
-/* En el hero, las etiquetas de las duraciones van en negro, no en gris */
 /* La frase grande */
 /* Precios con la letra de titulares */
 .precio .cifra {
@@ -828,7 +669,7 @@ button.boton { border: 0; cursor: pointer; }   /* un <button> con aspecto de bot
 }
 
 /* Botón destacado: negro con texto blanco (menú y Starter Pack) */
-.boton.contraste, .cabecera .boton.contraste { background: var(--pastilla); color: var(--pastilla-texto); }
+.boton.contraste { background: var(--pastilla); color: var(--pastilla-texto); }
 
 /* =========================================================
    MANIFIESTO: «Lo que no / hacemos» | foto pequeña | párrafo
@@ -1041,10 +882,9 @@ button.boton { border: 0; cursor: pointer; }   /* un <button> con aspecto de bot
    HOVER DE LOS BOTONES CON CONTORNO
    Al pasar el ratón (o al llegar con el teclado) se rellenan de negro con letra blanca
    ========================================================= */
-.hero .boton, .boton.contorno {
+.boton.contorno {
   transition: transform 0.15s ease, background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
-.hero .boton:hover, .hero .boton:focus-visible,
 .boton.contorno:hover, .boton.contorno:focus-visible {
   background: var(--pastilla);
   color: var(--pastilla-texto);
@@ -1084,14 +924,9 @@ button.boton { border: 0; cursor: pointer; }   /* un <button> con aspecto de bot
   .cabecera { animation: fundir var(--tiempo-aparecer) ease-out backwards; }
   /* todo el hero entra a la vez y con el mismo movimiento que el resto de la página */
   /* «backwards» = solo aplica el estado inicial; al terminar, el hover del botón sigue funcionando */
-  .hero-imagen, .hero-texto > * {
+  .hero > * {
     /* dos animaciones a la vez, como en el resto de la página: fundido lento + subida */
     animation: fundir var(--tiempo-texto) ease-in-out 0.15s backwards,
-               subir var(--tiempo-aparecer) var(--curva-aparecer) 0.15s backwards;
-  }
-  /* la foto del hero: dos animaciones a la vez, fundido lento + subida normal */
-  .hero-imagen {
-    animation: fundir var(--tiempo-imagen) ease-in-out 0.15s backwards,
                subir var(--tiempo-aparecer) var(--curva-aparecer) 0.15s backwards;
   }
 }
@@ -1117,18 +952,8 @@ button.boton { border: 0; cursor: pointer; }   /* un <button> con aspecto de bot
    Van al final para poder cambiar las reglas generales de más arriba
    ========================================================= */
 @media (max-width: 760px) {
-  /* Botón «Reserva» del hero: pequeño y negro, igual que su copia anclada bajo la barra */
-  .hero-texto .boton, .reserva-fija {
-    padding: 10px 18px;                  /* pastilla pequeña de móvil */
-    background: var(--pastilla);
-    color: var(--pastilla-texto);
-    box-shadow: none;
-  }
-  /* Barra superior más baja en móvil (en ordenador sigue a 72 px).
-     Todo lo que depende de su alto (botón anclado, scroll a anclas) se ajusta solo */
-  :root { --alto-cabecera: 48px; }
-  /* Sin el botón negro «Reserva» de la cabecera: ya está el del hero */
-  .cabecera .boton.contraste { display: none; }
+  /* Barra superior más baja en móvil (en ordenador, 96 px) */
+  :root { --alto-cabecera: 64px; }
   /* La cita a sangre (de margen a margen), alineada a la izquierda y al tamaño de los títulos de sección.
      Arriba, pegada a la foto (--aire-junto-foto); abajo, --aire-bloques + 56 de la sección siguiente */
   .frase-banda { padding: var(--aire-junto-foto) var(--margen) var(--aire-bloques); }

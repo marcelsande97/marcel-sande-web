@@ -29,14 +29,17 @@
   <!-- ===================== CABECERA ===================== -->
   <header class="cabecera">
     <div class="contenedor">
-      <!-- Logo «CABINA» en Ridley, centrado en la barra -->
+      <!-- «Menú» abre el panel con todas las opciones (ver el script del final) -->
+      <button class="menu-boton" type="button" aria-expanded="false" aria-controls="menu-principal">
+        <span class="menu-abrir">Menú</span><span class="menu-cerrar">Cerrar</span>
+      </button>
+      <!-- Logo «CABINA» en Jubilee, centrado en la barra -->
       <a class="logo" href="#">Cabina</a>
       <nav aria-label="Principal">
         <ul class="menu" id="menu-principal">
-          <!-- «Tratamientos» abre un desplegable al pasar el ratón (o al llegar con el teclado) -->
-          <!-- En el menú del móvil, «Tratamientos» abre y cierra su lista con un + (ver el script del final) -->
-          <li class="con-submenu tratamientos">
-            <a href="#" aria-haspopup="true">Tratamientos</a>
+          <!-- «Tratamientos» abre y cierra su lista con un + (ver el script del final) -->
+          <li class="tratamientos">
+            <a href="#">Tratamientos</a>
             <ul class="submenu">
               <li><a href="higiene-facial.html">Higiene básica</a></li>
               <li><a href="#">Microneedling</a></li>
@@ -46,49 +49,29 @@
           </li>
           <li><a href="#">Manifiesto</a></li>
           <li><a href="#">Equipo</a></li>
-          <li class="menu-derecha"><a href="#">Contacto</a></li>   <!-- desde aquí, a la derecha del logo -->
-          <!-- Idioma: ESP es el actual; al pasar el ratón se despliegan los otros dos.
-               En el menú del móvil se ven los tres en fila, abajo del todo.
-               Enlaces a # hasta que existan las versiones en inglés y catalán -->
-          <li class="con-submenu idioma">
-            <a href="#" aria-haspopup="true" aria-current="page"><span class="solo-lectores">Idioma: </span>ESP</a>
+          <li><a href="#">Contacto</a></li>
+          <!-- Idioma: ESP es el actual. Enlaces a # hasta que existan las versiones en inglés y catalán -->
+          <li class="idioma">
+            <a href="#" aria-current="page"><span class="solo-lectores">Idioma: </span>ESP</a>
             <ul class="submenu">
               <li><a href="#" hreflang="en" lang="en">ENG</a></li>
               <li><a href="#" hreflang="ca" lang="ca">CAT</a></li>
             </ul>
           </li>
         </ul>
-        <!-- Aquí irá el enlace real a tu motor de reservas -->
-        <a class="boton contraste" href="#reservar">Reserva</a>
-        <!-- Botón de las tres rayas: solo se ve por debajo de 1150 px y abre el menú -->
-        <button class="menu-boton" type="button" aria-expanded="false" aria-controls="menu-principal" aria-label="Menú">
-          <span></span><span></span><span></span>
-        </button>
       </nav>
+      <!-- Aquí irá el enlace real a tu motor de reservas -->
+      <a class="reserva-enlace" href="#reservar">Reserva</a>
     </div>
   </header>
-
-  <!-- Solo en móvil: copia del botón «Reserva» del título que se queda anclada
-       justo debajo de la barra superior cuando el original llega allí (ver el script del final) -->
-  <a class="boton reserva-fija" href="#reservar">Reserva</a>
 
   <main>
 
     <!-- ===================== HERO ===================== -->
     <section class="hero">
-      <!-- Díptico a todo el ancho: texto a la izquierda, foto a sangre a la derecha.
-           El texto va centrado en su mitad, en este orden: título, descripción y botón -->
-      <div class="hero-banda">
-        <div class="hero-texto">
-          <h1 class="declaracion">Higiene básica</h1>
-          <p class="hero-lema">Tratamiento diseñado para eliminar de forma eficaz y respetuosa las impurezas acumuladas en la piel, mejorando su aspecto y su salud.</p>
-          <a class="boton" href="#reservar">Reserva</a>
-        </div>
-        <div class="hero-imagen">
-          <!-- alt: describe la foto para quien no la ve (lectores de pantalla, Google) -->
-          <img src="img/higiene-facial.webp" alt="Bodegón: un frasco de aceite sobre una pastilla de jabón y una piedra envuelta en red" width="1080" height="1350">
-        </div>
-      </div>
+      <!-- Solo el título y la descripción, centrados -->
+      <h1 class="declaracion">Higiene básica</h1>
+      <p class="hero-lema">Tratamiento diseñado para eliminar de forma eficaz y respetuosa las impurezas acumuladas en la piel, mejorando su aspecto y su salud.</p>
     </section>
 
     <!-- ===================== PASOS ===================== -->
@@ -384,7 +367,7 @@
   <script src="desplazamiento.js" defer></script>
 
   <script>
-    // Menú del móvil: el botón de las tres rayas abre y cierra la lista.
+    // «Menú» abre y cierra el panel con todas las opciones.
     // aria-expanded le dice al lector de pantalla si está abierto
     (function () {
       var boton = document.querySelector('.menu-boton');
@@ -395,22 +378,18 @@
         if (!abierto) desplegar(false);           // al cerrar, Tratamientos vuelve a cerrarse
       }
       boton.addEventListener('click', function () { poner(boton.getAttribute('aria-expanded') !== 'true'); });
-      // «Tratamientos» en el menú del móvil: abre y cierra su lista (empieza cerrada).
-      // En ordenador sigue siendo el desplegable que se abre al pasar el ratón
-      var panel = window.matchMedia('(max-width: 1150px)');
+      // «Tratamientos» abre y cierra su lista (empieza cerrada)
       var tratamientos = menu.querySelector('.tratamientos');
       var tratamientosEnlace = tratamientos.querySelector('a');
       function desplegar(si) {
         tratamientos.classList.toggle('desplegado', si);
-        if (panel.matches) tratamientosEnlace.setAttribute('aria-expanded', si);
-        else tratamientosEnlace.removeAttribute('aria-expanded');
+        tratamientosEnlace.setAttribute('aria-expanded', si);
       }
       desplegar(false);
-      panel.addEventListener('change', function () { desplegar(false); });
       menu.addEventListener('click', function (e) {
         var enlace = e.target.closest('a');
         if (!enlace) return;
-        if (enlace === tratamientosEnlace && panel.matches) {
+        if (enlace === tratamientosEnlace) {
           e.preventDefault();                                   // no navega: solo abre o cierra la lista
           desplegar(!tratamientos.classList.contains('desplegado'));
           return;
@@ -421,75 +400,33 @@
     })();
 
     // La cabecera está siempre fija arriba y toma el color del bloque que tiene debajo
-    // (data-cabecera en cada bloque → data-barra en <html>; los colores, en estilos.css).
-    // El botón «Reserva» anclado (.reserva-fija):
-    // - En móvil, el botón del título sube con la página y, al llegar justo debajo
-    //   de la barra, se cambia por el anclado. Vuelve a su sitio al subir hasta el título.
-    // - En ordenador, el anclado ocupa el sitio del «Reserva» de la barra
+    // (data-cabecera en cada bloque → data-barra en <html>; los colores, en estilos.css)
     (function () {
-      var movil = window.matchMedia('(max-width: 760px)');
       var cabecera = document.querySelector('.cabecera');
-      var original = document.querySelector('.hero-texto .boton');
-      var botonCabecera = document.querySelector('.cabecera .boton.contraste');
-      var fija = document.querySelector('.reserva-fija');
       var pendiente = false;
 
       // ¿Qué bloque empieza justo debajo de la barra? Se mira el primer píxel bajo su borde,
-      // en el lado izquierdo (los bloques de color van a todo el ancho), saltándose el botón
+      // en el lado izquierdo (los bloques de color van a todo el ancho)
       function colorBarra() {
+        pendiente = false;
         var y = cabecera.getBoundingClientRect().bottom + 1;
         var puntos = document.elementsFromPoint(2, y);
         var color = '';
         for (var i = 0; i < puntos.length; i++) {
-          if (puntos[i].closest('.cabecera, .reserva-fija')) continue;
+          if (puntos[i].closest('.cabecera')) continue;
           var bloque = puntos[i].closest('[data-cabecera]');
           color = bloque ? bloque.getAttribute('data-cabecera') : '';
           break;
         }
         if (color) document.documentElement.setAttribute('data-barra', color);
-        else document.documentElement.removeAttribute('data-barra');   // bloque blanco
-      }
-
-      function actualizar() {
-        pendiente = false;
-        colorBarra();
-        if (movil.matches) {
-          fija.style.top = fija.style.right = '';               // en móvil lo coloca el CSS
-          botonCabecera.style.visibility = '';
-          // ¿El botón del título ya ha llegado a la altura del botón anclado?
-          anclar(original.getBoundingClientRect().top <= fija.getBoundingClientRect().top, original);
-        } else {
-          original.style.visibility = '';
-          // Justo encima del «Reserva» de la barra
-          var r = botonCabecera.getBoundingClientRect();
-          fija.style.top = r.top + 'px';
-          fija.style.right = (document.documentElement.clientWidth - r.right) + 'px';
-          anclar(true, botonCabecera);
-        }
-      }
-
-      // Cambia entre el botón de origen y el anclado: nunca se ven los dos a la vez
-      function anclar(si, origen) {
-        fija.classList.toggle('anclada', si);
-        origen.style.visibility = si ? 'hidden' : '';
-        // ¿Está el botón sobre una foto o un carrusel (manifiesto o Resultados), sea foto
-        // o color sólido? Entonces se vuelve translúcido. En ordenador el carrusel del
-        // manifiesto tiene zonas blancas, así que ahí se miran solo las fotos y el hueco gris del «antes»
-        var zonas = movil.matches ? '.hero-imagen, .manifiesto-fila, .resultados-par' : 'img, .resultados-pendiente';
-        var r = fija.getBoundingClientRect();
-        var puntos = si ? document.elementsFromPoint(r.left + r.width / 2, r.top + r.height / 2) : [];
-        // Si la barra está detrás del botón (ordenador, al subir), siempre sólido
-        var sobreBarra = puntos.some(function (el) { return el.closest('.cabecera'); });
-        var debajo = !sobreBarra && puntos.some(function (el) { return el.closest(zonas); });
-        fija.classList.toggle('sobre-foto', !!debajo);
+        else document.documentElement.removeAttribute('data-barra');   // bloque negro
       }
 
       window.addEventListener('scroll', function () {
-        if (!pendiente) { pendiente = true; requestAnimationFrame(actualizar); }
+        if (!pendiente) { pendiente = true; requestAnimationFrame(colorBarra); }
       }, { passive: true });
-      movil.addEventListener('change', actualizar);
-      window.addEventListener('resize', actualizar);
-      actualizar();
+      window.addEventListener('resize', colorBarra);
+      colorBarra();
     })();
   </script>
 </body>
