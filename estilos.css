@@ -255,6 +255,8 @@ img { max-width: 100%; }
   padding: 0;
 }
 .menu a { text-decoration: none; }
+/* PRUEBA: las opciones del menú (no el logo ni «Reserva») en OT Jubilee. Para volver a Hanken, borra esta línea */
+.menu a { font-family: var(--fuente-display); }
 /* El menú y el botón «Reserva» van en fila dentro del <nav>, que ocupa toda la barra.
    A la izquierda: Tratamientos, Manifiesto y Equipo. En el centro, el logo.
    A la derecha: Contacto, idioma y «Reserva» (empujados por .menu-derecha) */
