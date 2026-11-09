@@ -1193,6 +1193,12 @@ button.boton { border: 0; cursor: pointer; }   /* un <button> con aspecto de bot
   * { transition: none !important; }
 }
 
-/* Hero: botón y cifras grandes en OT Jubilee; los textos pequeños siguen en Hanken.
-   Va al final del archivo para ganar a las reglas de arriba */
-.hero .datos dd, .hero .boton { font-family: var(--fuente-display); }
+/* Hero (va al final del archivo para ganar a las reglas de arriba):
+   - botón en OT Jubilee
+   - descripción y cifras en Ridley, en minúsculas (tal cual se escriben, sin pasar a mayúsculas);
+     la descripción con un 2 % de espaciado entre letras
+   - las etiquetas de las duraciones siguen en Hanken */
+.hero .boton { font-family: var(--fuente-display); }
+.hero .hero-lema, .hero .datos dd { font-family: var(--fuente-ridley); font-weight: 500; text-transform: none; }
+.hero .hero-lema { letter-spacing: 0.02em; max-width: 30ch; }   /* Ridley es más ancha: caja algo más estrecha */
+.hero .datos dd { letter-spacing: 0; }
